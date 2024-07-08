@@ -1,7 +1,12 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "anchors": [
-    { "icon": "question", "name": "Help Center", "url": "https://dub.co/help" },
+    {
+      "icon": "circle-info",
+      "iconType": "sharp-solid",
+      "name": "Help Center",
+      "url": "https://dub.co/help"
+    },
     {
       "icon": "github",
       "name": "GitHub",
@@ -18,7 +23,7 @@
     "primary": "#9563FF"
   },
   "favicon": "/logos/favicon.png",
-  "feedback": { "thumbsRating": true },
+  "feedback": { "thumbsRating": true, "suggestEdit": true, "raiseIssue": true },
   "footerSocials": {
     "github": "https://github.com/dubinc/dub",
     "linkedin": "https://www.linkedin.com/company/dubinc",
@@ -133,7 +138,7 @@
         "api-reference/endpoint/track-customer"
       ]
     },
-    { "group": "SDKs", "pages": ["sdks/overview"] },
+    { "group": "SDKs", "pages": ["sdks/overview", "sdks/js-client/overview"] },
     {
       "group": "TypeScript",
       "pages": [
