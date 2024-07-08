@@ -192,7 +192,7 @@
       ]
     }
   ],
-  "openapi": "/openapi-with-code-samples.json",
+  "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
     { "destination": "/integrations", "source": "/integrations/:path*" },

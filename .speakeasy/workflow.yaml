@@ -1,16 +1,16 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    merge-code-samples-into-spec:
-        inputs:
-            - location: registry.speakeasyapi.dev/dub/dub/my-first-source
-        overlays:
-            - location: registry.speakeasyapi.dev/dub/dub/code-samples-typescript-my-first-target:main
-            - location: registry.speakeasyapi.dev/dub/dub/code-samples-go-my-first-target:main
-            - location: registry.speakeasyapi.dev/dub/dub/code-samples-ruby-my-first-target:main
-            - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
-            - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
-        output: ./openapi-with-code-samples.json
-        registry:
-            location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
+  merge-code-samples-into-spec:
+    inputs:
+      - location: registry.speakeasyapi.dev/dub/dub/my-first-source
+    overlays:
+      - location: registry.speakeasyapi.dev/dub/dub/code-samples-typescript-my-first-target:main
+      - location: registry.speakeasyapi.dev/dub/dub/code-samples-go-my-first-target:main
+      - location: registry.speakeasyapi.dev/dub/dub/code-samples-ruby-my-first-target:main
+      - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
+      - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
+    output: ./openapi-with-code-samples.yaml
+    registry:
+      location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
 targets: {}
