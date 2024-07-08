@@ -23,7 +23,7 @@
     "primary": "#9563FF"
   },
   "favicon": "/logos/favicon.png",
-  "feedback": { "thumbsRating": true, "suggestEdit": true, "raiseIssue": true },
+  "feedback": { "thumbsRating": true, "suggestEdit": true },
   "footerSocials": {
     "github": "https://github.com/dubinc/dub",
     "linkedin": "https://www.linkedin.com/company/dubinc",
