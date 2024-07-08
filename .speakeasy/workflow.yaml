@@ -1,4 +1,5 @@
 workflowVersion: 1.0.0
+speakeasyVersion: latest
 sources:
     merge-code-samples-into-spec:
         inputs:
@@ -10,4 +11,6 @@ sources:
             - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
             - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
         output: ./openapi-with-code-samples.json
+        registry:
+            location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
 targets: {}

@@ -1,0 +1,27 @@
+speakeasyVersion: 1.329.1
+sources:
+    merge-code-samples-into-spec:
+        sourceNamespace: merge-code-samples-into-spec
+        sourceRevisionDigest: sha256:c0c3f78b64df18de222748c640b53b75c947e6db66dc52f5bb073b42506e3e38
+        sourceBlobDigest: sha256:a4777ed8db7e8c00fb3783f02e5d8db57f4ca77d8c197ddbb4be54edc4241ee8
+        tags:
+            - latest
+            - main
+targets: {}
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        merge-code-samples-into-spec:
+            inputs:
+                - location: registry.speakeasyapi.dev/dub/dub/my-first-source
+            overlays:
+                - location: registry.speakeasyapi.dev/dub/dub/code-samples-typescript-my-first-target:main
+                - location: registry.speakeasyapi.dev/dub/dub/code-samples-go-my-first-target:main
+                - location: registry.speakeasyapi.dev/dub/dub/code-samples-ruby-my-first-target:main
+                - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
+                - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
+            output: ./openapi-with-code-samples.json
+            registry:
+                location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
+    targets: {}
