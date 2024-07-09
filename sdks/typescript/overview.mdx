@@ -41,18 +41,6 @@ The SDK constructor accepts an options object with the following properties:
   dashboard](https://app.dub.co/settings/tokens).
 </ParamField>
 
-<ParamField body="workspaceId" type="string">
-  The [unique ID of the
-  workspace](https://dub.co/help/article/how-to-get-workspace-id) you want to
-  interact with. Learn how to get your Workspace ID on Dub. Deprecated in favor
-  of [workspace API keys](/api-reference/tokens).
-</ParamField>
-
-<ParamField body="projectSlug" type="string">
-  The slug of the project you want to interact with. `projectSlug` is
-  deprecated, use `workspaceId` instead.
-</ParamField>
-
 ## Usage
 
 ```typescript
@@ -60,7 +48,6 @@ import { Dub } from "dub";
 
 const dub = new Dub({
   token: "DUB_API_KEY",
-  workspaceId: "ws_clugls3...",
 });
 
 await dub.links.create({
