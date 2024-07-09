@@ -45,19 +45,12 @@ d = dub.Dub(
 Let's create a short link using the [Dub Python SDK](https://d.to/python).
 
 ```python app.py
-@app.route('/create-link')
-def hello():
-  res = None
+def create_link():
+  res = d.links.create(request={
+    "url": "https://google.com",
+  })
 
-  try:
-    res = d.links.create(request=operations.CreateLinkRequestBody(
-      url='https://google.com',
-    ))
-  except Exception as e:
-    return str(e)
-
-  if res.link_schema is not None:
-    return res.link_schema.short_link
+  return res.short_link
 ```
 
 <Accordion title="Full list of available attributes for the Link model">
@@ -69,20 +62,13 @@ def hello():
 Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
 
 ```python app.py
-@app.route('/create-link')
-def hello():
-  res = None
+def create_link(request):
+  res = d.links.create(request={
+    "url": "https://google.com",
+    "external_id": "12345",
+  })
 
-  try:
-    res = d.links.create(request=operations.CreateLinkRequestBody(
-      url='https://google.com',
-      external_id='12345',
-    ))
-  except Exception as e:
-    return str(e)
-
-  if res.link_schema is not None:
-    return res.link_schema.short_link
+  return res.short_link
 ```
 
 ## 4. Upsert link
@@ -90,19 +76,12 @@ def hello():
 Dub Python SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
 
 ```python app.py
-@app.route('/upsert-link')
-def upsert():
-  res = None
+def upsert_link(request):
+  res = d.links.upsert(request={
+    "url": "https://google.com",
+  })
 
-  try:
-    res = d.links.upsert(request=operations.UpsertLinkRequestBody(
-      url='https://google.com',
-    ))
-  except Exception as e:
-    return str(e)
-
-  if res.link_schema is not None:
-    return res.link_schema.short_link
+  return res.short_link
 ```
 
 ## 5. Update link
@@ -115,19 +94,21 @@ You can do that in two ways:
 - Using the link's `externalId` in your own database (prefixed with `ext_`).
 
 ```python app.py
-@app.route('/update-link')
-def update():
-  res = None
+# Update a link by its linkId
+def update_link(request):
+  res = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body={
+    "url": "https://google.uk",
+  })
 
-  try:
-    res = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body=operations.UpdateLinkRequestBody(
-      url='https://google.uk',
-    ))
-  except Exception as e:
-    return str(e)
+  return res.short_link
 
-  if res.link_schema is not None:
-    return res.link_schema.short_link
+# Update a link by its externalId
+def update_link(request):
+  res = d.links.update(external_id="ext_12345", request_body={
+    "url": "https://google.uk",
+  })
+
+  return res.short_link
 ```
 
 ## 6. Retrieve analytics for link
@@ -135,33 +116,29 @@ def update():
 Dub allows you to retrieve analytics for a link using the Dub Python SDK.
 
 ```python app.py
-@app.route('/analytics')
-def analytics():
-  res = None
+# Retrieve the timeseries analytics for the last 7 days for a link
+def analytics(request):
+  res = d.analytics.retrieve(request={
+    "link_id": "clx1gvi9o0005hf5momm6f7hj",
+    "interval": "7d",
+    "group_by": "timeseries",
+  })
 
-  try:
-    # Retrieve the timeseries analytics for the last 7 days for a link
-    res = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-      link_id='clx1gvi9o0005hf5momm6f7hj',
-      interval='7d',
-      group_by='timeseries',
-    ))
-  except Exception as e:
-    return str(e)
-
-  if res.one_of is not None:
-    return res.one_of
+  return str(res)
 ```
 
 Simliarly, you can retrieve analytics for a link using the `externalId` field.
 
-```python app.py
+```python views.py
 # Retrieve the timeseries analytics for the last 7 days for a link
-result = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-  external_id='ext_12345',
-  interval='7d',
-  group_by='timeseries',
-))
+def analytics(request):
+  res = d.analytics.retrieve(request={
+    "external_id": "ext_12345",
+    "interval": "7d",
+    "group_by": "timeseries",
+  })
+
+  return str(res)
 ```
 
 ## 7. Examples
