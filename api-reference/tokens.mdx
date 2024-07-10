@@ -31,6 +31,12 @@ Depending on your use case, you might want to use one of these 3 options to limi
 
 On Dub, you can create API keys that are associated with a "Machine user". This is particularly helpful when you don't want to associate the API key with a particular user in your workspace, to avoid security risks in involving turnover or changes in project ownership.
 
+<Warning>
+  Machine users are available exclusively to workspace owners. If you are not
+  the owner of the workspace, this option will be disabled when creating an API
+  key.
+</Warning>
+
 <Frame>
   <img
     src="/images/api-machine-users.png"
