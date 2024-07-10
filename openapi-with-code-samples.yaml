@@ -11,7 +11,7 @@ info:
         name: "AGPL-3.0 license"
         url: "https://github.com/dubinc/dub/blob/main/LICENSE.md"
 servers:
-    - url: "http://api.localhost:8888"
+    - url: "https://api.dub.co"
       description: "Production API"
 paths:
     "/links":
