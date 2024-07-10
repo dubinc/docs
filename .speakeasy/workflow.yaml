@@ -10,6 +10,7 @@ sources:
       - location: registry.speakeasyapi.dev/dub/dub/code-samples-ruby-my-first-target:main
       - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
       - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
+      - fallbackCodeSamplesLanguage: java
     output: ./openapi-with-code-samples.yaml
     registry:
       location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
