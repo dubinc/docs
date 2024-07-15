@@ -1,9 +1,9 @@
-speakeasyVersion: 1.330.0
+speakeasyVersion: 1.335.0
 sources:
     merge-code-samples-into-spec:
         sourceNamespace: merge-code-samples-into-spec
-        sourceRevisionDigest: sha256:aa6aa5cbf8f92ab5f44038328df8a5bc99bd8f154ef0013359bafe6ca117da05
-        sourceBlobDigest: sha256:900419eb9931eb3c23036b67d5cad08b3f76483bcdb5916f48ca69657ee373cd
+        sourceRevisionDigest: sha256:cee4f6609a43b1beeb21f16e31abb503e7ce8622c0d9c995cec83e354c979aa1
+        sourceBlobDigest: sha256:08eeb9e22e7983813742b6d000420b39e0cf40c0cb6cc73839f076671ade3faa
         tags:
             - latest
             - main
@@ -21,6 +21,7 @@ workflow:
                 - location: registry.speakeasyapi.dev/dub/dub/code-samples-ruby-my-first-target:main
                 - location: registry.speakeasyapi.dev/dub/dub/code-samples-php-my-first-target:main
                 - location: registry.speakeasyapi.dev/dub/dub/code-samples-python-my-first-target:main
+                - fallbackCodeSamplesLanguage: java
             output: ./openapi-with-code-samples.yaml
             registry:
                 location: registry.speakeasyapi.dev/dub/dub/merge-code-samples-into-spec
