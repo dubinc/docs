@@ -3122,9 +3122,11 @@ components:
                     type: "string"
                     nullable: true
                     description: "The invite code of the workspace."
-                "betaTester":
-                    type: "boolean"
-                    description: "Whether the workspace is enrolled in the beta testing program."
+                "flags":
+                    type: "object"
+                    additionalProperties:
+                        type: "boolean"
+                    description: "The feature flags of the workspace, indicating which features are enabled."
             required:
                 - "id"
                 - "name"
