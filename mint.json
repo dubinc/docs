@@ -39,7 +39,7 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "data-model", "oauth"]
+      "pages": ["introduction", "data-model", "examples"]
     },
     {
       "group": "Quickstart",
@@ -72,7 +72,10 @@
         }
       ]
     },
-    { "group": "Resources", "pages": ["integrations", "examples"] },
+    {
+      "group": "Integrations",
+      "pages": ["integrations", "integrations/create-integration"]
+    },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
       "group": "API Reference",
