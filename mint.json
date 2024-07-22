@@ -37,7 +37,10 @@
   },
   "name": "Dub.co Docs",
   "navigation": [
-    { "group": "Getting Started", "pages": ["introduction", "data-model"] },
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "data-model", "oauth"]
+    },
     {
       "group": "Quickstart",
       "pages": [
