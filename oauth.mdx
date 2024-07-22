@@ -8,13 +8,6 @@ Dub supports OAuth 2.0 authentication, which is recommended if you build integra
 
 We recommend you use a OAuth client library to integrate the OAuth flow. You can find recommended libraries in a variety of programming languages [here](https://oauth.net/code/).
 
-Most of the OAuth client libraries will handle the following steps for you:
-
-- Redirecting users to the OAuth provider's authorization page
-- Handling the callback from the OAuth provider
-- Exchanging the authorization code for an access token
-- Refreshing the access token
-
 ## Set up OAuth 2.0
 
 Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
@@ -49,6 +42,15 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     ```
     GET https://app.dub.co/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=SOME_SCOPE&state=SOME_STATE
     ```
+
+    <Frame>
+      <img
+        src="/images/oauth-consent.png"
+        alt="OAuth consent screen"
+        width="1468"
+        height="249"
+      />
+    </Frame>
 
   </Step>
 
@@ -166,18 +168,18 @@ You can request access to specific scopes when redirecting users to the Dub OAut
 
 Dub supports the following scopes for OAuth 2.0:
 
-| Scope        | Description |
-| ------------ | ----------- |
-| `workspaces.read` | Read access to workspaces. |
-| `workspaces.write` | Write access to workspaces. |
-| `links.read` | Read access to links. |
-| `links.write` | Write access to links. |
-| `tags.read` | Read access to tags. |
-| `tags.write` | Write access to tags. |
-| `analytics.read` | Read access to analytics. |
-| `domains.read` | Read access to domains. |
-| `domains.write` | Write access to domains. |
-| `user.read` | Read access to user information. This scope is included by default. |
+| Scope              | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| `workspaces.read`  | Read access to workspaces.                                          |
+| `workspaces.write` | Write access to workspaces.                                         |
+| `links.read`       | Read access to links.                                               |
+| `links.write`      | Write access to links.                                              |
+| `tags.read`        | Read access to tags.                                                |
+| `tags.write`       | Write access to tags.                                               |
+| `analytics.read`   | Read access to analytics.                                           |
+| `domains.read`     | Read access to domains.                                             |
+| `domains.write`    | Write access to domains.                                            |
+| `user.read`        | Read access to user information. This scope is included by default. |
 
 <CardGroup cols={2}>
   <Card
