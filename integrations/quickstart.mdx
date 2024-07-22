@@ -4,11 +4,13 @@ description: "Learn how to set up Dub OAuth applications to authenticate users w
 icon: plug
 ---
 
-Dub supports OAuth 2.0 authentication, which is recommended if you build integrations extending Dub's functionality.
+## Integrating via OAuth 2.0 (recommended)
+
+Dub supports OAuth 2.0 authentication, which is **recommended** if you build integrations extending Dub's functionality.
 
 We recommend you use a OAuth client library to integrate the OAuth flow. You can find recommended libraries in a variety of programming languages [here](https://oauth.net/code/).
 
-## Set up OAuth 2.0
+### Set up OAuth 2.0
 
 Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
 
@@ -162,7 +164,7 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
   </Step>
 </Steps>
 
-## Scopes
+### Scopes
 
 You can request access to specific scopes when redirecting users to the Dub OAuth authorization URL. Scopes are permissions that the user needs to grant to your application.
 
@@ -181,6 +183,8 @@ Dub supports the following scopes for OAuth 2.0:
 | `domains.write`    | Write access to domains.                                            |
 | `user.read`        | Read access to user information. This scope is included by default. |
 
+### Examples
+
 <CardGroup cols={2}>
   <Card
     title="OAuth 2.0 Example"
@@ -190,3 +194,9 @@ Dub supports the following scopes for OAuth 2.0:
     See the full example on GitHub.
   </Card>
 </CardGroup>
+
+## Integrating via API keys (not recommended)
+
+Dub also supports API key authentication; however, it is **not recommended** for building integrations. It should only be used for internal integrations or personal projects that do not require user consent.
+
+Learn more about [API Keys](/api-reference/tokens).
