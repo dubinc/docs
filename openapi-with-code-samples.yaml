@@ -341,6 +341,9 @@ paths:
               - type: "string"
                 enum:
                   - "tagId"
+              - type: "string"
+                enum:
+                  - "userId"
             description: "The field to group the links by."
       responses:
         "200":
