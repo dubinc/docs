@@ -18,7 +18,7 @@ import LinkArguments from "/snippets/link-arguments.mdx";
 Let's create a short link using the [Dub TypeScript SDK](/sdks/typescript/overview).
 
 ```typescript index.ts
-app.get("/create-link", async (req: Request, res: Response) => {
+app.post("/create-link", async (req: Request, res: Response) => {
   try {
     const result = await dub.links.create({
       url: "https://www.google.com",
@@ -40,7 +40,7 @@ app.get("/create-link", async (req: Request, res: Response) => {
 Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
 
 ```typescript index.ts
-app.get("/create-link", async (req: Request, res: Response) => {
+app.post("/create-link", async (req: Request, res: Response) => {
   try {
     const result = await dub.links.create({
       url: "https://www.google.com",
@@ -59,7 +59,7 @@ app.get("/create-link", async (req: Request, res: Response) => {
 Dub TypeScript SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
 
 ```typescript index.ts
-app.get("/upsert-link", async (req: Request, res: Response) => {
+app.post("/upsert-link", async (req: Request, res: Response) => {
   try {
     // Update the link if same URL already exists or create a new link
     const result = await dub.links.upsert({
@@ -83,7 +83,7 @@ You can do that in two ways:
 - Using the link's `externalId` in your own database (prefixed with `ext_`).
 
 ```typescript index.ts
-app.get("/update-link", async (req: Request, res: Response) => {
+app.post("/update-link", async (req: Request, res: Response) => {
   try {
     // Update a link by its linkId
     const { shortLink } = await dub.links.update("clv3o9p9q000au1h0mc7r6l63", {

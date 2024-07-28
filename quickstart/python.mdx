@@ -45,11 +45,11 @@ d = dub.Dub(
 Let's create a short link using the [Dub Python SDK](https://d.to/python).
 
 ```python index.py
-result = d.links.create(request=operations.CreateLinkRequestBody(
-  url='https://google.com',
-))
+res = d.links.create(request={
+  "url": "https://google.com",
+})
 
-print(result.link_schema.short_link)
+print(res.short_link)
 ```
 
 <Accordion title="Full list of available attributes for the Link model">
@@ -61,12 +61,12 @@ print(result.link_schema.short_link)
 Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
 
 ```python index.py
-result = d.links.create(request=operations.CreateLinkRequestBody(
-  url='https://google.com',
-  external_id='12345',
-))
+res = d.links.create(request={
+  "url": "https://google.com",
+  "external_id": "12345",
+})
 
-print(result.link_schema.short_link)
+print(res.short_link)
 ```
 
 ## 4. Upsert link
@@ -74,11 +74,11 @@ print(result.link_schema.short_link)
 Dub Python SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
 
 ```python index.py
-result = d.links.upsert(request=operations.UpsertLinkRequestBody(
-  url='https://google.com',
-))
+res = d.links.upsert(request={
+  "url": "https://google.com",
+})
 
-print(result.link_schema.short_link)
+print(res.short_link)
 ```
 
 ## 5. Update link
@@ -92,16 +92,18 @@ You can do that in two ways:
 
 ```python index.py
 # Update a link by its linkId
-result = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body=operations.UpdateLinkRequestBody(
-  url='https://google.uk',
-))
+res = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body={
+  "url": "https://google.uk",
+})
+
+print(res.short_link)
 
 # Update a link by its externalId
-result = d.links.update(external_id="ext_12345", request_body=operations.UpdateLinkRequestBody(
-  url='https://google.uk',
-))
+res = d.links.update(external_id="ext_12345", request_body={
+  "url": "https://google.uk",
+})
 
-print(result.link_schema.short_link)
+print(res.short_link)
 ```
 
 ## 6. Retrieve analytics for link
@@ -110,24 +112,26 @@ Dub allows you to retrieve analytics for a link using the Dub Python SDK.
 
 ```python index.py
 # Retrieve the timeseries analytics for the last 7 days for a link
-result = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-  link_id='clx1gvi9o0005hf5momm6f7hj',
-  interval='7d',
-  group_by='timeseries',
-))
+res = d.analytics.retrieve(request={
+  "link_id": "clx1gvi9o0005hf5momm6f7hj",
+  "interval": "7d",
+  "group_by": "timeseries",
+})
 
-print(result)
+print(res)
 ```
 
 Simliarly, you can retrieve analytics for a link using the `externalId` field.
 
 ```python index.py
 # Retrieve the timeseries analytics for the last 7 days for a link
-result = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-  external_id='ext_12345',
-  interval='7d',
-  group_by='timeseries',
-))
+res = d.analytics.retrieve(request={
+  "external_id": "ext_12345",
+  "interval": "7d",
+  "group_by": "timeseries",
+})
+
+print(res)
 ```
 
 ## 7. Examples

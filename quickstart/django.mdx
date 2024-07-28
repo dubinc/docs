@@ -47,12 +47,12 @@ Let's create a short link using the [Dub Python SDK](https://d.to/python).
 
 ```python views.py
 def create_link(request):
-  res = d.links.create(request=operations.CreateLinkRequestBody(
-    url='https://google.com',
-  ))
+  res = d.links.create(request={
+    "url": "https://google.com",
+  })
 
   return JsonResponse({
-    'short_link': res.link_schema.short_link
+    "short_link": res.short_link
   })
 ```
 
@@ -66,13 +66,13 @@ Optionally, you can also pass an `externalId` field which is a unique identifier
 
 ```python views.py
 def create_link(request):
-  res = d.links.create(request=operations.CreateLinkRequestBody(
-    url='https://google.com',
-    external_id='12345',
-  ))
+  res = d.links.create(request={
+    "url": "https://google.com",
+    "external_id": "12345",
+  })
 
   return JsonResponse({
-    'short_link': res.link_schema.short_link
+    "short_link": res.short_link
   })
 ```
 
@@ -82,12 +82,12 @@ Dub Python SDK provides a method to create or update a link so you don't have to
 
 ```python views.py
 def upsert_link(request):
-  res = d.links.upsert(request=operations.UpsertLinkRequestBody(
-    url='https://google.com',
-  ))
+  res = d.links.upsert(request={
+    "url": "https://google.com",
+  })
 
   return JsonResponse({
-    'short_link': res.link_schema.short_link
+    "short_link": res.short_link
   })
 ```
 
@@ -103,22 +103,22 @@ You can do that in two ways:
 ```python views.py
 # Update a link by its linkId
 def update_link(request):
-  res = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body=operations.UpdateLinkRequestBody(
-    url='https://google.uk',
-  ))
+  res = d.links.update(link_id="clx1gvi9o0005hf5momm6f7hj", request_body={
+    "url": "https://google.uk",
+  })
 
   return JsonResponse({
-    'short_link': res.link_schema.short_link
+    "short_link": res.short_link
   })
 
 # Update a link by its externalId
-def update_link_external(request):
-  res = d.links.update(external_id="ext_12345", request_body=operations.UpdateLinkRequestBody(
-    url='https://google.uk',
-  ))
+def update_link(request):
+  res = d.links.update(external_id="ext_12345", request_body={
+    "url": "https://google.uk",
+  })
 
   return JsonResponse({
-    'short_link': res.link_schema.short_link
+    "short_link": res.short_link
   })
 ```
 
@@ -129,11 +129,11 @@ Dub allows you to retrieve analytics for a link using the Dub Python SDK.
 ```python views.py
 # Retrieve the timeseries analytics for the last 7 days for a link
 def analytics(request):
-  res = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-    link_id='clx1gvi9o0005hf5momm6f7hj',
-    interval='7d',
-    group_by='timeseries',
-  ))
+  res = d.analytics.retrieve(request={
+    "link_id": "clx1gvi9o0005hf5momm6f7hj",
+    "interval": "7d",
+    "group_by": "timeseries",
+  })
 
   return JsonResponse(res)
 ```
@@ -143,11 +143,11 @@ Simliarly, you can retrieve analytics for a link using the `externalId` field.
 ```python views.py
 # Retrieve the timeseries analytics for the last 7 days for a link
 def analytics(request):
-  res = d.analytics.retrieve(request=operations.RetrieveAnalyticsRequest(
-    external_id='ext_12345',
-    interval='7d',
-    group_by='timeseries',
-  ))
+  res = d.analytics.retrieve(request={
+    "external_id": "ext_12345",
+    "interval": "7d",
+    "group_by": "timeseries",
+  })
 
   return JsonResponse(res)
 ```

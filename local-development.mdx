@@ -22,7 +22,6 @@ Here's the monorepo structure:
 
 ```
 apps
-├── docs
 ├── web
 packages
 ├── tailwind-config
@@ -35,7 +34,6 @@ packages
 The `apps` directory contains the code for:
 
 - `web`: The entirety of Dub's application ([app.dub.co](https://app.dub.co)) + our link redirect infrastructure.
-- `docs`: Dub's documentation site ([dub.co/docs](https://dub.co/docs)) – including this page you're on right now!
 
 The `packages` directory contains the code for:
 
@@ -98,16 +96,6 @@ First, clone the [Dub.co repo](https://d.to/github) into a public GitHub reposit
 
     ```bash Terminal
     pnpm i
-    ```
-
-  </Step>
-
-  <Step title="Optional: Install Mintlify">
-
-    If you're planning to make changes to [Dub.co's Docs](/docs), you'll need to install the [Mintlify CLI](https://mintlify.com/docs/development) to build the documentation site.
-
-    ```bash Terminal
-    pnpm install -g mintlify
     ```
 
   </Step>
