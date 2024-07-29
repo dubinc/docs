@@ -74,7 +74,11 @@
     },
     {
       "group": "Integrations",
-      "pages": ["integrations", "integrations/quickstart"]
+      "pages": [
+        "integrations",
+        "integrations/quickstart",
+        "integrations/zapier"
+      ]
     },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
