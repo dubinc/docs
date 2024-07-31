@@ -95,6 +95,14 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     }
     ```
 
+    Dub recommend [PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) flow for native desktop or mobile application or a single-page app (SPA) where the `client_secret` cannot be hidden.
+
+    With PKCE, the `client_secret` is **never sent to the authorization server**, preventing the `client_secret` from being leaked from the client application.
+
+    Instead of using the `client_secret`, you will need to generate a `code_verifier` and `code_challenge` and use them to exchange for an access token.
+
+    For example [Dub Raycast extension](https://github.com/raycast/extensions/tree/main/extensions/dub-link-shortener) uses PKCE to authenticate users.
+
   </Step>
 
   <Step title="Make an API request with the access token">
