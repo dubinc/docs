@@ -95,7 +95,7 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     }
     ```
 
-    Dub recommend [PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) flow for native desktop or mobile application or a single-page app (SPA) where the `client_secret` cannot be hidden.
+    We recommend using the [PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) flow for native desktop or mobile application or a single-page app (SPA) where the `client_secret` cannot be hidden.
 
     With PKCE, the `client_secret` is **never sent to the authorization server**, preventing the `client_secret` from being leaked from the client application.
 
