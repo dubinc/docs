@@ -206,7 +206,6 @@
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
-    { "destination": "/integrations", "source": "/integrations/:path*" },
     { "destination": "/self-hosting", "source": "/self-hosting/guide" },
     {
       "destination": "/api-reference/endpoint/retrieve-a-workspace",
