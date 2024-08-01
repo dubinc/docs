@@ -37,7 +37,10 @@
   },
   "name": "Dub.co Docs",
   "navigation": [
-    { "group": "Getting Started", "pages": ["introduction", "data-model"] },
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "data-model", "examples"]
+    },
     {
       "group": "Quickstart",
       "pages": [
@@ -69,7 +72,10 @@
         }
       ]
     },
-    { "group": "Resources", "pages": ["integrations", "examples"] },
+    {
+      "group": "Integrations",
+      "pages": ["integrations", "integrations/quickstart"]
+    },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
       "group": "API Reference",
