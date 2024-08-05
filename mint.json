@@ -318,5 +318,10 @@
     { "name": "SDKs", "url": "sdks" }
   ],
   "topbarCtaButton": { "name": "Dashboard", "url": "https://app.dub.co" },
-  "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }]
+  "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }],
+  "analytics": {
+    "plausible": {
+      "domain": "dub.co"
+    }
+  }
 }
