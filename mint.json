@@ -320,6 +320,9 @@
   "topbarCtaButton": { "name": "Dashboard", "url": "https://app.dub.co" },
   "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }],
   "analytics": {
+    "fathom": {
+      "siteId": "ORFDPXEC"
+    },
     "plausible": {
       "domain": "dub.co"
     }
