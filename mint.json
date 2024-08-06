@@ -37,7 +37,10 @@
   },
   "name": "Dub.co Docs",
   "navigation": [
-    { "group": "Getting Started", "pages": ["introduction", "data-model"] },
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "data-model", "examples"]
+    },
     {
       "group": "Quickstart",
       "pages": [
@@ -69,7 +72,10 @@
         }
       ]
     },
-    { "group": "Resources", "pages": ["integrations", "examples"] },
+    {
+      "group": "Integrations",
+      "pages": ["integrations", "integrations/quickstart"]
+    },
     {
       "group": "Conversions [BETA]",
       "pages": [
@@ -226,7 +232,6 @@
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
-    { "destination": "/integrations", "source": "/integrations/:path*" },
     { "destination": "/self-hosting", "source": "/self-hosting/guide" },
     {
       "destination": "/api-reference/endpoint/retrieve-a-workspace",
@@ -339,5 +344,13 @@
     { "name": "SDKs", "url": "sdks" }
   ],
   "topbarCtaButton": { "name": "Dashboard", "url": "https://app.dub.co" },
-  "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }]
+  "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }],
+  "analytics": {
+    "fathom": {
+      "siteId": "ORFDPXEC"
+    },
+    "plausible": {
+      "domain": "dub.co"
+    }
+  }
 }
