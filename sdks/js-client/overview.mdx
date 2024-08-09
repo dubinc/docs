@@ -58,7 +58,7 @@ You can pass the following props to the `<Analytics />` component to customize t
 <ParamField
   body="attributionModel"
   type="first-click | last-click"
-  default="first-click"
+  default="last-click"
 >
   The attribution model to use for the analytics event. The following
   attribution models are available:
@@ -84,12 +84,12 @@ import { Analytics as DubAnalytics } from "@dub/analytics";
 />;
 ```
 
-Alternatively, to set a last-click attribution model:
+Alternatively, to set a first-click attribution model:
 
 ```jsx app/layout.tsx
 import { Analytics as DubAnalytics } from "@dub/analytics";
 
-<DubAnalytics attributionModel="last-click" />;
+<DubAnalytics attributionModel="first-click" />;
 ```
 
 ## Examples
