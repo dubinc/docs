@@ -4,22 +4,14 @@ title: "NextAuth.js"
 description: "Learn how to track a lead conversion event with NextAuth.js and the Dub SDK"
 ---
 
-import InstallTypescript from "/snippets/sdk-install-ts.mdx";
-import InstallDubAnalytics from "/snippets/dub-analytics-install.mdx";
+import LeadsIntro from "/snippets/leads-intro.mdx";
+import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
 
-## Prerequisites
+<LeadsIntro />
 
-First, install the [`@dub/analytics` package](/sdks/js-client/overview) to your frontend code.
+In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses NextAuth.js for user authentication.
 
-<Accordion title="Install the Dub Analytics package">
-  <InstallDubAnalytics />
-</Accordion>
-
-Then, add the [Dub TypeScript SDK](/sdks/typescript/overview) to your backend code.
-
-<Accordion title="Install the Dub TypeScript SDK">
-  <InstallTypescript />
-</Accordion>
+<LeadsPrerequisites />
 
 ## Configure NextAuth.js Options
 
@@ -89,3 +81,18 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 ```
+
+## View your conversions
+
+Once you've set this up, all your tracked lead events will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
+
+- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number of leads over time.
+- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
+- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single lead event that occurs across all your links in your workspace.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/events-stream-dashboard-leads.png"
+    alt="The Events Stream dashboard on Dub showing a real-time stream of lead events"
+  />
+</Frame>
