@@ -9,21 +9,28 @@ import InstallDubAnalytics from "/snippets/dub-analytics-install.mdx";
 
 ## Prerequisites
 
-First, install the [Dub TypeScript SDK](/sdks/typescript/overview) to your backend code.
-
-<Accordion title="Install the Dub TypeScript SDK">
-  <InstallTypescript />
-</Accordion>
-
-Then add the [`@dub/analytics` package](/sdks/js-client/overview) to your frontend code.
+First, install the [`@dub/analytics` package](/sdks/js-client/overview) to your frontend code.
 
 <Accordion title="Install the Dub Analytics package">
   <InstallDubAnalytics />
 </Accordion>
 
+Then, add the [Dub TypeScript SDK](/sdks/typescript/overview) to your backend code.
+
+<Accordion title="Install the Dub TypeScript SDK">
+  <InstallTypescript />
+</Accordion>
+
 ## Configure Auth0
 
 Next, configure Auth0 to track a lead conversion event.
+
+Here's how it works in a nutshell:
+
+1. In the sign in `afterCallback` function, check if the user is a new sign up.
+2. If the user is a new sign up, check if the `dclid` cookie is present.
+3. If the `dclid` cookie is present, send a lead event to Dub using `dub.track.lead`
+4. Delete the `dclid` cookie.
 
 ```typescript app/api/auth/[auth0]/route.js
 import { handleAuth, handleCallback, type Session } from "@auth0/nextjs-auth0";
@@ -61,9 +68,13 @@ export default handleAuth({
 });
 ```
 
-Here's how it works in a nutshell:
+Here's the full list of attributes you can pass when sending a lead event:
 
-1. In the sign in `afterCallback` function, check if the user is a new sign up.
-2. If the user is a new sign up, check if the `dclid` cookie is present.
-3. If the `dclid` cookie is present, send a lead event to Dub using `dub.track.lead`
-4. Delete the `dclid` cookie.
+| Property         | Description                                                                                                              | Required |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
+| `clickId`        | The unique `dclid` parameter that the lead conversion event is attributed to.                                            | Yes      |
+| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
+| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
+| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
+| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
+| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |

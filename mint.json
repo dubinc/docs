@@ -85,9 +85,9 @@
           "icon": "crosshairs",
           "pages": [
             "conversions/leads/next-auth",
+            "conversions/leads/auth0",
             "conversions/leads/clerk",
-            "conversions/leads/supabase-auth",
-            "conversions/leads/auth0"
+            "conversions/leads/supabase-auth"
           ]
         },
         {

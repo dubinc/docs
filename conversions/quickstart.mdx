@@ -2,7 +2,7 @@
 title: "Quickstart"
 "og:title": "Dub Conversions Quickstart"
 description: "Learn how to get started with Dub Conversions"
-icon: chart-line
+icon: arrow-progress
 ---
 
 import InstallTypescript from "/snippets/sdk-install-ts.mdx";
@@ -141,14 +141,14 @@ Our most common lead event is `Sign Up`, which happens when a user signs up for 
 
 When sending a lead conversion event, you can include the following properties:
 
-| Property         | Description                                                                   | Required |
-| :--------------- | :---------------------------------------------------------------------------- | :------- |
-| `clickId`        | The unique `dclid` parameter that the lead conversion event is attributed to. | Yes      |
-| `eventName`      | The name of the event. Example: "Sign up".                                    | Yes      |
-| `customerId`     | The unique ID of the customer in your system.                                 | Yes      |
-| `customerEmail`  | The email address of the customer.                                            | No       |
-| `customerName`   | The name of the customer.                                                     | No       |
-| `customerAvatar` | The avatar URL of the customer.                                               | No       |
+| Property         | Description                                                                                                              | Required |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
+| `clickId`        | The unique `dclid` parameter that the lead conversion event is attributed to.                                            | Yes      |
+| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
+| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
+| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
+| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
+| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |
 
 The lead event will serve as the source of truth for the customer's identity and which link they came from. This means that all subsequent actions performed by the customer (e.g. upgrading their plan, purchasing a product) will automatically be attributed to the original link.
 
