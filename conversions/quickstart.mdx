@@ -1,0 +1,250 @@
+---
+title: "Quickstart"
+"og:title": "Dub Conversions Quickstart"
+description: "Learn how to get started with Dub Conversions"
+icon: arrow-progress
+---
+
+import InstallTypescript from "/snippets/sdk-install-ts.mdx";
+import InstallDubAnalytics from "/snippets/dub-analytics-install.mdx";
+
+[Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you to turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
+
+Learn more about [how Dub Conversions works](https://dub.co/help/article/dub-conversions).
+
+In this guide, we'll walk you through the steps to get started with Dub Conversions.
+
+## Step 1: Install the `@dub/analytics` client-side SDK
+
+First, install the [`@dub/analytics` client-side JavaScript SDK](/sdks/js-client/overview).
+
+This package will handle the detection of the `dclid` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-click-event.png"
+    alt="A diagram showing how click events are tracked in the conversion funnel"
+  />
+</Frame>
+
+<InstallDubAnalytics />
+
+Learn more about the full list of attributes you can use with the `@dub/analytics` SDK in the [SDK reference](/sdks/js-client/overview) (cookie options, attribution models, etc).
+
+## Step 2: Install the Dub server-side SDK
+
+Dub Conversions uses [server-side event tracking](https://dub.co/help/article/dub-conversions#how-are-conversions-tracked) to track conversions. To enable this, you'll need to install the Dub server-side SDKs.
+
+Depending on which framework you're using, you can use our [native SDKs](/sdks/overview):
+
+<CardGroup>
+  <Card
+    title="TypeScript"
+    icon="npm"
+    href="/sdks/typescript/overview"
+    horizontal
+  >
+    TypeScript library for the Dub API
+  </Card>
+  <Card
+    title="Go"
+    icon="golang"
+    href="https://dub.co/solutions/go"
+    iconType="brands"
+    horizontal
+  >
+    Go library for the Dub API
+  </Card>
+  <Card
+    title="Python"
+    icon="python"
+    href="https://dub.co/solutions/python"
+    horizontal
+  >
+    Python library for the Dub API
+  </Card>
+  <Card title="Ruby" icon="gem" href="https://dub.co/solutions/ruby" horizontal>
+    Ruby library for the Dub API
+  </Card>
+</CardGroup>
+
+If you're using a framework that isn't listed, you can use the Dub REST API to track events on the server-side:
+
+- [Tracking a lead event](/api-reference/endpoint/track-lead)
+- [Tracking a sale event](/api-reference/endpoint/track-sale)
+
+## Step 3: Start sending events
+
+Now that you've installed the SDKs, you can start sending events to Dub. Since click events are tracked automatically, you'll only need to send events for the following cases:
+
+- [Lead events](#step-3a-sending-lead-events)
+- [Sale events](#step-3b-sending-sale-events)
+
+### Step 3a: Sending Lead Events
+
+The first event you'll want to send is a `lead` event. This happens when a user performs an action that indicates interest in your product or service. This could be anything from:
+
+- Signing up for an account
+- Adding a product to cart
+- Joining a mailing list
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-lead-event.png"
+    alt="A diagram showing how lead events are tracked in the conversion funnel"
+  />
+</Frame>
+
+Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
+
+<CardGroup cols={1}>
+  <Card
+    title="NextAuth.js"
+    icon="shield-halved"
+    iconType="solid"
+    href="/conversions/leads/next-auth"
+    horizontal
+  >
+    Tracking a lead conversion event with NextAuth.js and the Dub SDK
+  </Card>
+  <Card
+    title="Clerk"
+    icon="shield-halved"
+    iconType="solid"
+    href="/conversions/leads/clerk"
+    horizontal
+  >
+    Tracking a lead conversion event with Clerk and the Dub SDK
+  </Card>
+  <Card
+    title="Supabase Auth"
+    icon="shield-halved"
+    iconType="solid"
+    href="/conversions/leads/supabase-auth"
+    horizontal
+  >
+    Tracking a lead conversion event with Supabase Auth and the Dub SDK
+  </Card>
+  <Card
+    title="Auth0"
+    icon="shield-halved"
+    iconType="solid"
+    href="/conversions/leads/auth0"
+    horizontal
+  >
+    Tracking a lead conversion event with Auth0 and the Dub SDK
+  </Card>
+</CardGroup>
+
+When sending a lead conversion event, you can include the following properties:
+
+| Property         | Description                                                                                                              | Required |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
+| `clickId`        | The unique `dclid` parameter that the lead conversion event is attributed to.                                            | Yes      |
+| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
+| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
+| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
+| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
+| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |
+
+The lead event will serve as the source of truth for the customer's identity and which link they came from. This means that all subsequent actions performed by the customer (e.g. upgrading their plan, purchasing a product) will automatically be attributed to the original link.
+
+### Step 3b: Sending Sale Events
+
+The second event you'll want to send is a `sale` event. This happens when a user purchases your product or service. This could be anything from:
+
+- Subscribing to a paid plan
+- Usage expansion (upgrading from one plan to another)
+- Purchasing a product
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-sale-event.png"
+    alt="A diagram showing how sale events are tracked in the conversion funnel"
+  />
+</Frame>
+
+Depending on which payment processor you're using, we offer native integrations for the following:
+
+<CardGroup cols={1}>
+  <Card
+    title="Stripe"
+    icon="stripe"
+    href="/conversions/sales/stripe"
+    horizontal
+  >
+    Tracking a sale conversion event with Stripe and the Dub SDK
+  </Card>
+  <Card
+    title="Shopify"
+    icon="shopify"
+    href="/conversions/sales/shopify"
+    horizontal
+  >
+    Tracking a sale conversion event with Shopify and the Dub SDK
+  </Card>
+</CardGroup>
+
+Alternatively, you can also send sale events manually using [our SDKs](/sdks/overview) or the [`POST /track/sale` API endpoint](/api-reference/endpoint/track-sale).
+
+Here are the properties you can include when sending a sale event:
+
+| Property           | Description                                                 | Required |
+| :----------------- | :---------------------------------------------------------- | :------- |
+| `customerId`       | The unique ID of the customer in your system.               | Yes      |
+| `amount`           | The amount of the sale in cents.                            | Yes      |
+| `paymentProcessor` | The name of the payment processor that processed the sale.  | Yes      |
+| `eventName`        | The name of the event. Defaults to "Purchase".              | No       |
+| `invoiceId`        | The unique ID of the invoice in your system.                | No       |
+| `currency`         | The currency of the sale. Defaults to "usd".                | No       |
+| `metadata`         | An object containing additional information about the sale. | No       |
+
+## Step 4: Enable conversion tracking for your links
+
+Lastly, you'll need enable conversion tracking for your Dub links for to be able to start tracking conversions. You can do this by:
+
+1. Go to your [Dub dashboard](https://app.dub.co)
+2. Click on the short link you want to track conversions for, which will open up the [Link Builder](https://dub.co/help/article/dub-link-builder).
+
+<Frame>
+  <img
+    src="/images/enable-conversion-tracking.png"
+    alt="Enabling conversion tracking for a link"
+  />
+</Frame>
+
+3. Enable **Conversion Tracking** and click **Save changes**
+
+## Step 5: View your conversions
+
+Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
+
+- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
+    alt="Time-series line chart"
+  />
+</Frame>
+
+- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversion-funnel-chart.png"
+    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
+  />
+</Frame>
+
+- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
+    alt="The Events Stream dashboard on Dub"
+  />
+</Frame>

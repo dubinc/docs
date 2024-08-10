@@ -76,6 +76,27 @@
       "group": "Integrations",
       "pages": ["integrations", "integrations/quickstart"]
     },
+    {
+      "group": "Conversions [BETA]",
+      "pages": [
+        "conversions/quickstart",
+        {
+          "group": "Leads",
+          "icon": "crosshairs",
+          "pages": [
+            "conversions/leads/next-auth",
+            "conversions/leads/auth0",
+            "conversions/leads/clerk",
+            "conversions/leads/supabase-auth"
+          ]
+        },
+        {
+          "group": "Sales",
+          "icon": "money-bill",
+          "pages": ["conversions/sales/stripe", "conversions/sales/shopify"]
+        }
+      ]
+    },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
       "group": "API Reference",

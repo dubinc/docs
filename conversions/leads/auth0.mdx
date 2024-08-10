@@ -1,0 +1,87 @@
+---
+title: "Auth0"
+"og:title": "Auth0 Lead Tracking – Dub Conversions"
+description: "Learn how to track a lead conversion event with Auth0 and the Dub SDK"
+---
+
+import LeadsIntro from "/snippets/leads-intro.mdx";
+import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
+
+<LeadsIntro />
+
+In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Auth0 for user authentication.
+
+<LeadsPrerequisites />
+
+## Configure Auth0
+
+Next, configure Auth0 to track a lead conversion event.
+
+Here's how it works in a nutshell:
+
+1. In the sign in `afterCallback` function, check if the user is a new sign up.
+2. If the user is a new sign up, check if the `dclid` cookie is present.
+3. If the `dclid` cookie is present, send a lead event to Dub using `dub.track.lead`
+4. Delete the `dclid` cookie.
+
+```typescript app/api/auth/[auth0]/route.js
+import { handleAuth, handleCallback, type Session } from "@auth0/nextjs-auth0";
+import { cookies } from "next/headers";
+import { dub } from "@/lib/dub";
+
+const afterCallback = async (req: Request, session: Session) => {
+  const userExists = await getUser(session.user.email);
+
+  if (!userExists) {
+    createUser(session.user);
+    // check if dclid cookie is present
+    const clickId = cookies().get("dclid")?.value;
+    if (clickId) {
+      // send lead event to Dub
+      await dub.track.lead({
+        clickId,
+        eventName: "Sign Up",
+        customerId: session.user.id,
+        customerName: session.user.name,
+        customerEmail: session.user.email,
+        customerAvatar: session.user.image,
+      });
+      // delete the dclid cookie
+      cookies().set("dclid", "", {
+        expires: new Date(0),
+      });
+    }
+    return session;
+  }
+};
+
+export default handleAuth({
+  callback: handleCallback({ afterCallback }),
+});
+```
+
+Here's the full list of attributes you can pass when sending a lead event:
+
+| Property         | Description                                                                                                              | Required |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
+| `clickId`        | The unique `dclid` parameter that the lead conversion event is attributed to.                                            | Yes      |
+| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
+| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
+| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
+| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
+| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |
+
+## View your conversions
+
+Once you've set this up, all your tracked lead events will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
+
+- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number of leads over time.
+- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
+- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single lead event that occurs across all your links in your workspace.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/events-stream-dashboard-leads.png"
+    alt="The Events Stream dashboard on Dub showing a real-time stream of lead events"
+  />
+</Frame>
