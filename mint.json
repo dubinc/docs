@@ -84,7 +84,6 @@
           "group": "Leads",
           "icon": "crosshairs",
           "pages": [
-            "conversions/leads/introduction",
             "conversions/leads/next-auth",
             "conversions/leads/clerk",
             "conversions/leads/supabase-auth",
@@ -94,11 +93,7 @@
         {
           "group": "Sales",
           "icon": "money-bill",
-          "pages": [
-            "conversions/sales/introduction",
-            "conversions/sales/stripe",
-            "conversions/sales/shopify"
-          ]
+          "pages": ["conversions/sales/stripe", "conversions/sales/shopify"]
         }
       ]
     },
