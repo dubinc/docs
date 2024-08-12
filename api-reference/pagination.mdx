@@ -1,0 +1,31 @@
+---
+title: "Pagination"
+"og:title": "All endpoints that list resources support pagination."
+description: "Learn how to paginate through resources in the API."
+icon: list-ol
+---
+
+The pagination feature allows you to retrieve a subset of resources from the API. This is useful when you have a large number of resources and you want to retrieve them in smaller chunks.
+
+These list API methods share a common set of parameters that allow you to control the number of items returned and the page number. For example, you can [list links](/api-reference/endpoint/retrieve-a-list-of-links), or [list domains](/api-reference/endpoint/retrieve-a-list-of-domains).
+
+## Parameters
+
+<ParamField body="page" type="string" default="1">
+  The page number to retrieve. By default, the first page is returned.
+</ParamField>
+
+<ParamField body="pageSize" type="string">
+  The number of items to retrieve per page. The default value varies by
+  endpoint. Maximum value is 100.
+</ParamField>
+
+## Example
+
+The following example demonstrates how to retrieve the second page of 10 links:
+
+```bash
+curl --request GET \
+  --url https://api.dub.co/links?page=2&pageSize=10 \
+  --header 'Authorization: Bearer <token>'
+```
