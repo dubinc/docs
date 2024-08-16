@@ -24,8 +24,13 @@ Here's how it works in a nutshell:
 3. If the `dclid` cookie is present, send a lead event to Dub using `dub.track.lead`
 4. Delete the `dclid` cookie.
 
-```typescript app/api/auth/[...nextauth]/options.ts
-import { NextAuthOptions } from "next-auth";
+Under the hood, Dub records the user as a customer and associates them with the click event that they came from. The user's unique ID is now the source of truth for all future events – hence why we don't need the `dclid` cookie anymore.
+
+<CodeGroup>
+
+```typescript App Router
+// app/api/auth/[...nextauth]/options.ts
+import type { NextAuthOptions } from "next-auth";
 import { cookies } from "next/headers";
 import { dub } from "@/lib/dub";
 
@@ -36,11 +41,11 @@ export const authOptions: NextAuthOptions = {
       // if it's a new sign up
       if (message.isNewUser) {
         // check if dclid cookie is present
-        const clickId = cookies().get("dclid")?.value;
-        if (clickId) {
+        const dclid = cookies().get("dclid")?.value;
+        if (dclid) {
           // send lead event to Dub
           await dub.track.lead({
-            clickId,
+            clickId: dclid,
             eventName: "Sign Up",
             customerId: user.id,
             customerName: user.name,
@@ -58,6 +63,39 @@ export const authOptions: NextAuthOptions = {
 };
 ```
 
+```typescript Pages Router
+// pages/api/auth/[...nextauth]/options.ts
+import type { NextApiRequest } from "next";
+import type { NextAuthOptions } from "next-auth";
+import { dub } from "@/lib/dub";
+
+export const getOptions = (req: NextApiRequest): NextAuthOptions => ({
+  ...otherAuthOptions, // your other NextAuth options
+  events: {
+    async signIn(message) {
+      // if it's a new sign up
+      if (message.isNewUser) {
+        // check if dclid cookie is present
+        const { dclid } = req.cookies;
+        if (dclid) {
+          // send lead event to Dub
+          await dub.track.lead({
+            clickId: dclid,
+            eventName: "Sign Up",
+            customerId: user.id,
+            customerName: user.name,
+            customerEmail: user.email,
+            customerAvatar: user.image,
+          });
+        }
+      }
+    },
+  },
+});
+```
+
+</CodeGroup>
+
 Here's the full list of attributes you can pass when sending a lead event:
 
 | Property         | Description                                                                                                              | Required |
@@ -73,7 +111,10 @@ Here's the full list of attributes you can pass when sending a lead event:
 
 Finally, import the `authOptions` variable you created earlier and use `NextAuth` to create a handler for your NextAuth.js routes.
 
-```typescript app/api/auth/[...nextauth]/index.ts
+<CodeGroup>
+
+```typescript App Router
+// app/api/auth/[...nextauth]/index.ts
 import { authOptions } from "./options";
 import NextAuth from "next-auth";
 
@@ -81,6 +122,20 @@ const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 ```
+
+```typescript Pages Router
+// pages/api/auth/[...nextauth]/index.ts
+import type { NextApiRequest, NextApiResponse } from "next";
+import NextAuth from "next-auth";
+import { getOptions } from "./options";
+
+const handler = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, getOptions(req));
+
+export default handler;
+```
+
+</CodeGroup>
 
 ## View your conversions
 
@@ -96,3 +151,15 @@ Once you've set this up, all your tracked lead events will show up on your [Anal
     alt="The Events Stream dashboard on Dub showing a real-time stream of lead events"
   />
 </Frame>
+
+## Example Apps
+
+<CardGroup cols={2}>
+  <Card
+    title="Dub Conversions Demo App"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/conversions"
+  >
+    See the full example on GitHub.
+  </Card>
+</CardGroup>

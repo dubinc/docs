@@ -4,6 +4,133 @@ title: "Stripe"
 description: "Learn how to track a sale conversion event with Stripe"
 ---
 
-<Card title="Coming soon" icon="hourglass" iconType="duotone" color="#ca8b04">
-  We're working on this guide. Check back soon!
-</Card>
+import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
+
+When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
+
+- Subscribing to a paid plan
+- Usage expansion (upgrading from one plan to another)
+- Purchasing a product
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-sale-event.png"
+    alt="A diagram showing how lead events are tracked in the conversion funnel"
+  />
+</Frame>
+
+In this guide, we will be focusing on tracking sale events with Stripe as the payment processor by leveraging Dub's Stripe integration.
+
+<SalesPrerequisites />
+
+## Step 1: Enable the Stripe Integration on Dub
+
+1. Navigate to the [Stripe integration page](https://app.dub.co/integrations/stripe) in your Dub workspace.
+2. Click on the "Enable" button to enable the Stripe integration, which will redirect you to the Stripe App installation flow.
+3. Select the Stripe account to install the app on, and select "Install App".
+4. Once this is done, you will be redirected back to your Dub workspace and you should see that the integration is now installed.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/stripe-integration-dub.png"
+    alt="The Stripe integration page on Dub"
+  />
+</Frame>
+
+Dub's Stripe integration will automatically forward the following events to Dub:
+
+- `customer.created`: When a new customer is created
+- `checkout.session.completed`: When a customer completes a checkout session
+- `invoice.paid`: When an invoice is paid (for tracking recurring subscriptions)
+
+## Step 2: Include your customer's unique user ID in checkout sessions
+
+Then, when you create checkout sessions for your customers, all you need to do is include your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+
+```typescript app/api/upgrade/route.ts
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const priceId = "price_xxxxxxxxx";
+
+const stripeSession = await stripe.checkout.sessions.create({
+  customer_email: user.email,
+  success_url: "https://app.domain.com/success",
+  line_items: [{ price: priceId, quantity: 1 }],
+  mode: "subscription",
+  client_reference_id: user.teamId,
+  metadata: {
+    dubCustomerId: user.id, // the unique user ID of the customer in your database
+  },
+});
+```
+
+So, how does this work?
+
+Remember in the [lead conversion tracking guide](/conversions/leads), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
+
+```typescript
+await dub.track.lead({
+  clickId,
+  eventName: "Sign Up",
+  customerId: user.id,
+  customerName: user.name,
+  customerEmail: user.email,
+  customerAvatar: user.image,
+});
+```
+
+Under the hood, Dub records the user as a customer and associates them with the click event that they came from.
+
+Then, when the user makes a purchase, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
+## Step 3: View conversion results
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow.
+
+We provide 3 different views to help you understand your conversions:
+
+- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
+    alt="Time-series line chart"
+  />
+</Frame>
+
+- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversion-funnel-chart.png"
+    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
+  />
+</Frame>
+
+- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
+    alt="The Events Stream dashboard on Dub"
+  />
+</Frame>
+
+## Example Apps
+
+<CardGroup cols={2}>
+  <Card
+    title="Dub Conversions Demo App"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/conversions"
+  >
+    See the full example on GitHub.
+  </Card>
+</CardGroup>
