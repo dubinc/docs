@@ -7,7 +7,11 @@ icon: list-ol
 
 The pagination feature allows you to retrieve a subset of resources from the API. This is useful when you have a large number of resources and you want to retrieve them in smaller chunks.
 
-These list API methods share a common set of parameters that allow you to control the number of items returned and the page number. For example, you can [list links](/api-reference/endpoint/retrieve-a-list-of-links), or [list domains](/api-reference/endpoint/retrieve-a-list-of-domains).
+These list API methods share a common set of parameters that allow you to control the number of items returned and the page number. For example, you can:
+
+- [retrieve a list of links](/api-reference/endpoint/retrieve-a-list-of-links)
+- [retrieve a list of domains](/api-reference/endpoint/retrieve-a-list-of-domains)
+- [retrieve a list of events](/api-reference/endpoint/retrieve-a-list-of-events)
 
 ## Parameters
 
@@ -61,7 +65,7 @@ req = ::OpenApiSDK::Operations::GetLinksRequest.new(
   page: 1,
   page_size: 10,
 )
-    
+
 res = s.links.list(req)
 ```
 

@@ -104,8 +104,8 @@
         "api-reference/introduction",
         "api-reference/tokens",
         "api-reference/rate-limits",
-        "api-reference/errors",
-        "api-reference/pagination"
+        "api-reference/pagination",
+        "api-reference/errors"
       ]
     },
     {
