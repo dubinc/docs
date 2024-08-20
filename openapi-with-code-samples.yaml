@@ -1481,6 +1481,207 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
+  "/events":
+    get:
+      operationId: "listEvents"
+      x-speakeasy-name-override: "list"
+      summary: "Retrieve a list of events"
+      x-codeSamples: [{"lang": "typescript", "label": "listEvents", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.events.list();\n\n  // Handle the result\n  console.log(result)\n}\n\nrun();"}, {"lang": "go", "label": "listEvents", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n    request := operations.ListEventsRequest{\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n    }\n    ctx := context.Background()\n    res, err := s.Events.List(ctx, request)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "listEvents", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListEventsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n)\n    \nres = s.events.list(req)\n\nif ! res.click_events.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listEvents", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Components;\nuse Dub\\Models\\Operations;\n\n$security = new Components\\Security();\n$security->token = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\ntry {\n    $request = new Operations\\ListEventsRequest(\n        event: Operations\\QueryParamEvent::Composite,\n        domain: 'burly-math.biz',\n        key: '<key>',\n        linkId: '<value>',\n        externalId: '<value>',\n        interval: Operations\\QueryParamInterval::Oney,\n        start: '<value>',\n        end: '<value>',\n        timezone: 'America/New_York',\n        continent: Components\\ContinentCode::As,\n        country: Components\\CountryCode::Cx,\n        city: 'New York',\n        device: 'Desktop',\n        browser: 'Chrome',\n        os: 'Windows',\n        referer: 'google.com',\n        url: 'https://elliptical-auditorium.com',\n        tagId: '<value>',\n        qr: false,\n        root: false,\n        page: 9174.16,\n        limit: 6355.32,\n        order: Operations\\Order::Desc,\n        sortBy: Operations\\SortBy::Amount,\n    );\n    $response = $sdk->events->list($request);\n\n    if ($response->clickEvents !== null) {\n        // handle response\n    }\n} catch (Throwable $e) {\n    // handle exception\n}"}, {lang: python, label: listEvents, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\n\nres = s.events.list(request={\n    \"timezone\": \"America/New_York\",\n    \"city\": \"New York\",\n    \"device\": \"Desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"referer\": \"google.com\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/events\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Retrieve a paginated list of events for the authenticated workspace."
+      tags:
+        - "Events"
+      security:
+        - token: []
+      parameters:
+        - in: "query"
+          name: "event"
+          description: "The type of event to retrieve analytics for. Defaults to 'clicks'."
+          schema:
+            type: "string"
+            enum:
+              - "clicks"
+              - "leads"
+              - "sales"
+              - "composite"
+            default: "clicks"
+            description: "The type of event to retrieve analytics for. Defaults to 'clicks'."
+        - in: "query"
+          name: "domain"
+          description: "The domain to filter analytics for."
+          schema:
+            type: "string"
+            description: "The domain to filter analytics for."
+        - in: "query"
+          name: "key"
+          description: "The short link slug."
+          schema:
+            type: "string"
+            description: "The short link slug."
+        - in: "query"
+          name: "linkId"
+          description: "The unique ID of the short link on Dub."
+          schema:
+            type: "string"
+            description: "The unique ID of the short link on Dub."
+        - in: "query"
+          name: "externalId"
+          description: "This is the ID of the link in the your database. Must be prefixed with 'ext_' when passed as a query parameter."
+          schema:
+            type: "string"
+            description: "This is the ID of the link in the your database. Must be prefixed with 'ext_' when passed as a query parameter."
+        - in: "query"
+          name: "interval"
+          description: "The interval to retrieve analytics for. Takes precedence over start and end. If undefined, defaults to 24h."
+          schema:
+            type: "string"
+            enum:
+              - "24h"
+              - "7d"
+              - "30d"
+              - "90d"
+              - "ytd"
+              - "1y"
+              - "all"
+              - "all_unfiltered"
+            description: "The interval to retrieve analytics for. Takes precedence over start and end. If undefined, defaults to 24h."
+        - in: "query"
+          name: "start"
+          description: "The start date and time when to retrieve analytics from."
+          schema:
+            type: "string"
+            description: "The start date and time when to retrieve analytics from."
+        - in: "query"
+          name: "end"
+          description: "The end date and time when to retrieve analytics from. If not provided, defaults to the current date."
+          schema:
+            type: "string"
+            description: "The end date and time when to retrieve analytics from. If not provided, defaults to the current date."
+        - in: "query"
+          name: "timezone"
+          description: "The IANA time zone code for aligning timeseries granularity (e.g. America/New_York). Defaults to UTC."
+          schema:
+            type: "string"
+            description: "The IANA time zone code for aligning timeseries granularity (e.g. America/New_York). Defaults to UTC."
+            example: "America/New_York"
+            default: "UTC"
+        - in: "query"
+          name: "continent"
+          description: "The continent to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/continentCode"}
+        - in: "query"
+          name: "country"
+          description: "The country to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/countryCode"}
+        - in: "query"
+          name: "city"
+          description: "The city to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The city to retrieve analytics for."
+            example: "New York"
+        - in: "query"
+          name: "device"
+          description: "The device to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The device to retrieve analytics for."
+            example: "Desktop"
+        - in: "query"
+          name: "browser"
+          description: "The browser to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The browser to retrieve analytics for."
+            example: "Chrome"
+        - in: "query"
+          name: "os"
+          description: "The OS to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The OS to retrieve analytics for."
+            example: "Windows"
+        - in: "query"
+          name: "referer"
+          description: "The referer to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The referer to retrieve analytics for."
+            example: "google.com"
+        - in: "query"
+          name: "url"
+          description: "The URL to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The URL to retrieve analytics for."
+        - in: "query"
+          name: "tagId"
+          description: "The tag ID to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The tag ID to retrieve analytics for."
+        - in: "query"
+          name: "qr"
+          description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+          schema:
+            type: "boolean"
+            description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+        - in: "query"
+          name: "root"
+          description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
+          schema:
+            type: "boolean"
+            description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
+        - in: "query"
+          name: "page"
+          schema:
+            type: "number"
+            default: 0
+        - in: "query"
+          name: "limit"
+          schema:
+            type: "number"
+            default: 100
+        - in: "query"
+          name: "order"
+          schema:
+            type: "string"
+            enum:
+              - "asc"
+              - "desc"
+            default: "desc"
+        - in: "query"
+          name: "sortBy"
+          schema:
+            type: "string"
+            enum:
+              - "timestamp"
+              - "amount"
+            default: "timestamp"
+      responses:
+        "200":
+          description: "A list of events"
+          content:
+            "application/json":
+              schema:
+                anyOf:
+                  - type: "array"
+                    items: {"$ref": "#/components/schemas/ClickEvents"}
+                    title: "ClickEvents"
+                  - type: "array"
+                    items: {"$ref": "#/components/schemas/LeadEvents"}
+                    title: "LeadEvents"
+                  - type: "array"
+                    items: {"$ref": "#/components/schemas/SaleEvents"}
+                    title: "SaleEvents"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
   "/workspaces/{idOrSlug}":
     get:
       operationId: "getWorkspace"
@@ -6160,6 +6361,219 @@ components:
         - "url"
         - "sales"
         - "amount"
+    "ClickEvents":
+      type: "object"
+      properties:
+        "timestamp":
+          type: "string"
+        "click_id":
+          type: "string"
+        "link_id":
+          type: "string"
+        "domain":
+          type: "string"
+        "key":
+          type: "string"
+        "url":
+          type: "string"
+        "continent":
+          type: "string"
+          nullable: true
+        "country":
+          type: "string"
+          nullable: true
+        "city":
+          type: "string"
+          nullable: true
+        "device":
+          type: "string"
+          nullable: true
+        "browser":
+          type: "string"
+          nullable: true
+        "os":
+          type: "string"
+          nullable: true
+        "referer":
+          type: "string"
+          nullable: true
+        "ip":
+          type: "string"
+          nullable: true
+        "qr":
+          type: "number"
+          nullable: true
+      required:
+        - "timestamp"
+        - "click_id"
+        - "link_id"
+        - "domain"
+        - "key"
+        - "url"
+        - "continent"
+        - "country"
+        - "city"
+        - "device"
+        - "browser"
+        - "os"
+        - "referer"
+        - "ip"
+        - "qr"
+    "LeadEvents":
+      type: "object"
+      properties:
+        "timestamp":
+          type: "string"
+        "event_id":
+          type: "string"
+        "event_name":
+          type: "string"
+        "customer_name":
+          type: "string"
+        "customer_email":
+          type: "string"
+        "customer_avatar":
+          type: "string"
+        "click_id":
+          type: "string"
+        "link_id":
+          type: "string"
+        "domain":
+          type: "string"
+        "key":
+          type: "string"
+        "url":
+          type: "string"
+        "continent":
+          type: "string"
+          nullable: true
+        "country":
+          type: "string"
+          nullable: true
+        "city":
+          type: "string"
+          nullable: true
+        "device":
+          type: "string"
+          nullable: true
+        "browser":
+          type: "string"
+          nullable: true
+        "os":
+          type: "string"
+          nullable: true
+        "referer":
+          type: "string"
+          nullable: true
+        "qr":
+          type: "number"
+          nullable: true
+        "ip":
+          type: "string"
+          nullable: true
+      required:
+        - "timestamp"
+        - "event_id"
+        - "event_name"
+        - "customer_name"
+        - "customer_email"
+        - "customer_avatar"
+        - "click_id"
+        - "link_id"
+        - "domain"
+        - "key"
+        - "url"
+        - "continent"
+        - "country"
+        - "city"
+        - "device"
+        - "browser"
+        - "os"
+        - "referer"
+        - "qr"
+        - "ip"
+    "SaleEvents":
+      type: "object"
+      properties:
+        "timestamp":
+          type: "string"
+        "event_id":
+          type: "string"
+        "event_name":
+          type: "string"
+        "customer_name":
+          type: "string"
+        "customer_email":
+          type: "string"
+        "customer_avatar":
+          type: "string"
+        "payment_processor":
+          type: "string"
+        "invoice_id":
+          type: "string"
+        "amount":
+          type: "number"
+        "click_id":
+          type: "string"
+        "link_id":
+          type: "string"
+        "domain":
+          type: "string"
+        "key":
+          type: "string"
+        "url":
+          type: "string"
+        "continent":
+          type: "string"
+          nullable: true
+        "country":
+          type: "string"
+          nullable: true
+        "city":
+          type: "string"
+          nullable: true
+        "device":
+          type: "string"
+          nullable: true
+        "browser":
+          type: "string"
+          nullable: true
+        "os":
+          type: "string"
+          nullable: true
+        "referer":
+          type: "string"
+          nullable: true
+        "qr":
+          type: "number"
+          nullable: true
+        "ip":
+          type: "string"
+          nullable: true
+      required:
+        - "timestamp"
+        - "event_id"
+        - "event_name"
+        - "customer_name"
+        - "customer_email"
+        - "customer_avatar"
+        - "payment_processor"
+        - "invoice_id"
+        - "amount"
+        - "click_id"
+        - "link_id"
+        - "domain"
+        - "key"
+        - "url"
+        - "continent"
+        - "country"
+        - "city"
+        - "device"
+        - "browser"
+        - "os"
+        - "referer"
+        - "qr"
+        - "ip"
   responses:
     "400":
       description: "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
