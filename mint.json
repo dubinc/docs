@@ -126,6 +126,10 @@
       "pages": ["api-reference/endpoint/retrieve-analytics"]
     },
     {
+      "group": "Events",
+      "pages": ["api-reference/endpoint/retrieve-a-list-of-events"]
+    },
+    {
       "group": "QR Codes",
       "pages": ["api-reference/endpoint/retrieve-a-qr-code"]
     },
@@ -188,6 +192,11 @@
           "group": "Analytics",
           "icon": "chart-line",
           "pages": ["sdks/typescript/analytics/retrieve"]
+        },
+        {
+          "group": "Events",
+          "icon": "layer-group",
+          "pages": ["sdks/typescript/events/list"]
         },
         {
           "group": "Workspaces",
