@@ -123,18 +123,23 @@
       ]
     },
     {
-      "group": "Analytics",
-      "pages": ["api-reference/endpoint/retrieve-analytics"]
-    },
-    {
       "group": "QR Codes",
       "pages": ["api-reference/endpoint/retrieve-a-qr-code"]
     },
     {
-      "group": "Workspaces",
+      "group": "Analytics",
+      "pages": ["api-reference/endpoint/retrieve-analytics"]
+    },
+    {
+      "group": "Events",
+      "pages": ["api-reference/endpoint/retrieve-a-list-of-events"]
+    },
+    {
+      "group": "Tags",
       "pages": [
-        "api-reference/endpoint/retrieve-a-workspace",
-        "api-reference/endpoint/update-a-workspace"
+        "api-reference/endpoint/create-a-new-tag",
+        "api-reference/endpoint/retrieve-a-list-of-tags",
+        "api-reference/endpoint/update-a-tag"
       ]
     },
     {
@@ -147,11 +152,10 @@
       ]
     },
     {
-      "group": "Tags",
+      "group": "Workspaces",
       "pages": [
-        "api-reference/endpoint/create-a-new-tag",
-        "api-reference/endpoint/retrieve-a-list-of-tags",
-        "api-reference/endpoint/update-a-tag"
+        "api-reference/endpoint/retrieve-a-workspace",
+        "api-reference/endpoint/update-a-workspace"
       ]
     },
     {
@@ -189,6 +193,11 @@
           "group": "Analytics",
           "icon": "chart-line",
           "pages": ["sdks/typescript/analytics/retrieve"]
+        },
+        {
+          "group": "Events",
+          "icon": "layer-group",
+          "pages": ["sdks/typescript/events/list"]
         },
         {
           "group": "Workspaces",
