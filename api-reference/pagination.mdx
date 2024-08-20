@@ -22,10 +22,47 @@ These list API methods share a common set of parameters that allow you to contro
 
 ## Example
 
-The following example demonstrates how to retrieve the second page of 10 links:
+The following example demonstrates how to retrieve the first page of 10 links:
 
-```bash
+<CodeGroup>
+
+```bash cURL
 curl --request GET \
-  --url https://api.dub.co/links?page=2&pageSize=10 \
+  --url https://api.dub.co/links?page=1&pageSize=10 \
   --header 'Authorization: Bearer <token>'
 ```
+
+```typescript TypeScript
+const res = await dub.links.list({
+  page: 1,
+  pageSize: 10,
+});
+```
+
+```python Python
+res = s.links.list(request={
+  "page": 1,
+  "page_size": 10,
+})
+```
+
+```go Go
+request := operations.GetLinksRequest{
+  Page: dubgo.Float64(1),
+  PageSize: dubgo.Float64(10),
+}
+
+ctx := context.Background()
+res, err := s.Links.List(ctx, request)
+```
+
+```ruby Ruby
+req = ::OpenApiSDK::Operations::GetLinksRequest.new(
+  page: 1,
+  page_size: 10,
+)
+    
+res = s.links.list(req)
+```
+
+</CodeGroup>
