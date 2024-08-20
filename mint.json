@@ -195,7 +195,7 @@
         },
         {
           "group": "Events",
-          "icon": "calendar",
+          "icon": "layer-group",
           "pages": ["sdks/typescript/events/list"]
         },
         {
