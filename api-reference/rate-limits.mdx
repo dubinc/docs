@@ -30,3 +30,130 @@ Depending on your Dub.co plan, you can expect the following rate limits:
 | [Pro](https://dub.co/help/article/pro-plan)           | 600 requests per minute                                              |
 | [Business](https://dub.co/help/article/business-plan) | 3,000 requests per minute                                            |
 | [Enterprise](https://dub.co/enterprise)               | Custom – [reach out to sales](https://dub.co/enterprise) for details |
+
+## How to comply with rate limits
+
+Here are some tips on how you can optimize your API setup to comply with our rate limits:
+
+### 1. Bulk link creation
+
+If you need to create a lot of links within a short period of time, try our [bulk link creation endpoint](/api-reference/endpoint/bulk-create-links) instead (create up to 100 links in one API call)
+
+<CodeGroup>
+
+```typescript TypeScript
+await dub.links.createMany([
+  {
+    url: "https://google.com",
+  },
+  {
+    url: "https://twitter.com",
+  },
+  {
+    url: "https://linkedin.com",
+  },
+]);
+```
+
+```python Python
+res = d.links.create_many(request=[
+  {
+    url: "https://google.com",
+  },
+  {
+    url: "https://twitter.com",
+  },
+  {
+    url: "https://linkedin.com",
+  },
+]);
+```
+
+```go Go
+var request []operations.RequestBody =
+  []operations.RequestBody{
+    operations.RequestBody{
+        URL: "https://google.com",
+    },
+    operations.RequestBody{
+      URL: "https://twitter.com",
+    },
+    operations.RequestBody{
+      URL: "https://linkedin.com",
+    },
+  }
+ctx := context.Background()
+res, err := s.Links.CreateMany(ctx, request)
+```
+
+```ruby Ruby
+s.links.create_many(
+  ::OpenApiSDK::Operations::BulkCreateLinksRequest.new(
+    request_body: [
+      ::OpenApiSDK::Operations::RequestBody.new(
+        url: "https://google.com",
+      ),
+      ::OpenApiSDK::Operations::RequestBody.new(
+        url: "https://twitter.com",
+      ),
+      ::OpenApiSDK::Operations::RequestBody.new(
+        url: "https://linkedin.com",
+      ),
+    ]
+  )
+)
+```
+
+</CodeGroup>
+    
+### 2. Fetch workspace-level analytics
+
+If you're using our [Analytics API](/api-reference/endpoint/retrieve-analytics), instead of retrieving the clicks count for every single link, try making a single API call to get workspace-level click analytics instead.
+
+<CodeGroup>
+
+```typescript TypeScript
+await dub.analytics.retrieve({
+  groupBy: "top_links",
+  start: "4 hours ago", // we support natural language for start/end params
+});
+```
+
+```python Python
+res = d.analytics.retrieve(request={
+    "groupBy": "top_links",
+    "start": "4 hours ago", // we support natural language for start/end params
+})
+```
+
+```go Go
+func main() {
+	// Retrieve the timeseries analytics for the last 7 days for a link
+	request := operations.RetrieveAnalyticsRequest{
+        GroupBy: "top_links",
+        Start: "4 hours ago", // we support natural language for start/end params
+	}
+
+	ctx := context.Background()
+	res, err := d.Analytics.Retrieve(ctx, request)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.OneOf != nil {
+		// handle response
+	}
+}
+```
+
+```ruby Ruby
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  group_by: ::OpenApiSDK::Operations::GroupBy::TOP_LINKS,
+  start: "4 hours ago", // we support natural language for start/end params
+)
+
+res = dub.analytics.retrieve(req)
+
+puts res.raw_response.body
+```
+
+</CodeGroup>
