@@ -26,8 +26,13 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
 
 ## Step 1: Enable the Stripe Integration on Dub
 
-1. Navigate to the [Stripe integration page](https://app.dub.co/integrations/stripe) in your Dub workspace.
-2. Click on the "Enable" button to enable the Stripe integration, which will redirect you to the Stripe App installation flow.
+<Steps>
+<Step title="Go to Stripe integration page">
+ Navigate to the [Stripe integration page](https://app.dub.co/integrations/stripe) in your Dub workspace.
+</Step>
+<Step title="Enable the Stripe integration">
+Click on the "Enable" button to enable the Stripe integration, which will redirect you to the Stripe App installation flow.
+</Step>
 
 <Frame>
   <img
@@ -36,7 +41,8 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
   />
 </Frame>
 
-3. Select the Stripe account to install the app on, and select "Install App".
+<Step title="Install the Stripe app">
+Select the Stripe account to install the app on, and select "Install App".
 
 <Frame>
   <img
@@ -44,9 +50,15 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
     alt="The Stripe integration installation flow"
   />
 </Frame>
+</Step>
 
-4. Once this is done, you will be redirected back to your Dub workspace and you should see that the integration is now installed.
-5. Navigate to your [Stripe "Installed Apps" dashboard](https://dashboard.stripe.com/settings/apps/dub.co) and verify that the Dub app is installed. We also recommmend installing the app in test mode to be able to test your end-to-end flow without using real money.
+<Step title="Verify the installation">
+  Once this is done, you will be redirected back to your Dub workspace and you
+  should see that the integration is now installed.
+</Step>
+
+<Step title="Optional: Install the app in Stripe test mode">
+Navigate to your [Stripe "Installed Apps" dashboard](https://dashboard.stripe.com/settings/apps/dub.co) and verify that the Dub app is installed. We also recommmend installing the app in test mode to be able to test your end-to-end flow without using real money.
 
 <Frame>
   <img
@@ -54,16 +66,50 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
     alt="The Stripe integration page on Dub"
   />
 </Frame>
+</Step>
 
+</Steps>
 Dub's Stripe integration will automatically forward the following events to Dub:
 
 - `customer.created`: When a new customer is created
 - `checkout.session.completed`: When a customer completes a checkout session
 - `invoice.paid`: When an invoice is paid (for tracking recurring subscriptions)
 
-## Step 2: Include your customer's unique user ID in checkout sessions
+## Step 2: Associate Stripe customer with your customer ID
 
-Then, when you create checkout sessions for your customers, all you need to do is include your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/quickstart#step-3a-sending-lead-events)).
+
+This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
+
+<Accordion title="How does this work?">
+
+Remember in the [lead conversion tracking guide](/conversions/leads), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
+
+```typescript
+await dub.track.lead({
+  clickId,
+  eventName: "Sign Up",
+  customerId: user.id,
+  customerName: user.name,
+  customerEmail: user.email,
+  customerAvatar: user.image,
+});
+```
+
+Under the hood, Dub records the user as a customer and associates them with the click event that they came from.
+
+Then, when the user makes a purchase, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
+</Accordion>
+
+There are 2 ways to associate the Stripe customer object with the user ID in your database:
+
+1. [Include your customer's unique user ID in checkout sessions](#option-1-include-your-customers-unique-user-id-in-checkout-sessions)
+2. [Pass the user ID and the click event ID in the Stripe customer creation flow](#option-2-pass-the-user-id-and-the-click-event-id-in-the-stripe-customer-creation-flow)
+
+### Option 1: Include your customer's unique user ID in checkout sessions
+
+When you [create checkout sessions](https://docs.stripe.com/api/checkout/sessions/create) for your users, pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
 
 ```typescript app/api/upgrade/route.ts
 import { stripe } from "@/lib/stripe";
@@ -88,30 +134,34 @@ const stripeSession = await stripe.checkout.sessions.create({
 });
 ```
 
-So, how does this work?
+### Option 2: Pass the user ID and the click event ID in the Stripe customer creation flow
 
-Remember in the [lead conversion tracking guide](/conversions/leads), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
+Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dclid`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
 
-```typescript
-await dub.track.lead({
-  clickId,
-  eventName: "Sign Up",
-  customerId: user.id,
-  customerName: user.name,
-  customerEmail: user.email,
-  customerAvatar: user.image,
+```typescript app/api/create-customer/route.ts
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const dclid = req.headers.get("dclid");
+
+await stripe.customers.create({
+  email: user.email,
+  name: user.name,
+  metadata: {
+    dubCustomerId: user.id,
+    dubClickId: dclid,
+  },
 });
 ```
 
-Under the hood, Dub records the user as a customer and associates them with the click event that they came from.
-
-Then, when the user makes a purchase, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
-
 ## Step 3: View conversion results
 
-And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow.
-
-We provide 3 different views to help you understand your conversions:
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
 
 - **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
 
