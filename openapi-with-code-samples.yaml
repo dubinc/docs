@@ -3352,6 +3352,10 @@ components:
           type: "number"
           default: 0
           description: "[BETA]: The number of sales the short links has generated."
+        "saleAmount":
+          type: "number"
+          default: 0
+          description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
         "createdAt":
           type: "string"
           description: "The date and time when the short link was created."
@@ -3400,6 +3404,7 @@ components:
         - "lastClicked"
         - "leads"
         - "sales"
+        - "saleAmount"
         - "createdAt"
         - "updatedAt"
         - "projectId"
@@ -3421,27 +3426,6 @@ components:
           nullable: true
           default:
           description: "The logo of the workspace."
-        "usage":
-          type: "number"
-          description: "The usage of the workspace."
-        "usageLimit":
-          type: "number"
-          description: "The usage limit of the workspace."
-        "linksUsage":
-          type: "number"
-          description: "The links usage of the workspace."
-        "linksLimit":
-          type: "number"
-          description: "The links limit of the workspace."
-        "domainsLimit":
-          type: "number"
-          description: "The domains limit of the workspace."
-        "tagsLimit":
-          type: "number"
-          description: "The tags limit of the workspace."
-        "usersLimit":
-          type: "number"
-          description: "The users limit of the workspace."
         "plan":
           type: "string"
           enum:
@@ -3464,6 +3448,53 @@ components:
           type: "string"
           nullable: true
           description: "[BETA]: The Stripe Connect ID of the workspace."
+        "inviteCode":
+          type: "string"
+          nullable: true
+          description: "The invite code of the workspace."
+        "usage":
+          type: "number"
+          description: "The usage of the workspace."
+        "usageLimit":
+          type: "number"
+          description: "The usage limit of the workspace."
+        "linksUsage":
+          type: "number"
+          description: "The links usage of the workspace."
+        "linksLimit":
+          type: "number"
+          description: "The links limit of the workspace."
+        "salesUsage":
+          type: "number"
+          description: "The dollar amount of tracked revenue in the current billing cycle (in cents)."
+        "salesLimit":
+          type: "number"
+          description: "The limit of tracked revenue in the current billing cycle (in cents)."
+        "domainsLimit":
+          type: "number"
+          description: "The domains limit of the workspace."
+        "tagsLimit":
+          type: "number"
+          description: "The tags limit of the workspace."
+        "usersLimit":
+          type: "number"
+          description: "The users limit of the workspace."
+        "aiUsage":
+          type: "number"
+          description: "The AI usage of the workspace."
+        "aiLimit":
+          type: "number"
+          description: "The AI limit of the workspace."
+        "referralLinkId":
+          type: "string"
+          nullable: true
+          description: "The ID of the referral link of the workspace."
+        "referredSignups":
+          type: "number"
+          description: "The number of signups referred by the workspace."
+        "conversionEnabled":
+          type: "boolean"
+          description: "Whether the workspace has conversion tracking enabled (d.to/conversions)."
         "createdAt":
           type: "string"
           description: "The date and time when the workspace was created."
@@ -3503,10 +3534,6 @@ components:
               - "primary"
               - "verified"
           description: "The domains of the workspace."
-        "inviteCode":
-          type: "string"
-          nullable: true
-          description: "The invite code of the workspace."
         "flags":
           type: "object"
           additionalProperties:
@@ -3517,21 +3544,28 @@ components:
         - "name"
         - "slug"
         - "logo"
-        - "usage"
-        - "usageLimit"
-        - "linksUsage"
-        - "linksLimit"
-        - "domainsLimit"
-        - "tagsLimit"
-        - "usersLimit"
         - "plan"
         - "stripeId"
         - "billingCycleStart"
         - "stripeConnectId"
+        - "inviteCode"
+        - "usage"
+        - "usageLimit"
+        - "linksUsage"
+        - "linksLimit"
+        - "salesUsage"
+        - "salesLimit"
+        - "domainsLimit"
+        - "tagsLimit"
+        - "usersLimit"
+        - "aiUsage"
+        - "aiLimit"
+        - "referralLinkId"
+        - "referredSignups"
+        - "conversionEnabled"
         - "createdAt"
         - "users"
         - "domains"
-        - "inviteCode"
       title: "Workspace"
     "TagSchema":
       type: "object"
