@@ -6,6 +6,8 @@ description: "Learn how to track a lead conversion event with Supabase Auth and 
 
 import LeadsIntro from "/snippets/leads-intro.mdx";
 import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
+import LeadsAttributes from "/snippets/leads-attributes.mdx";
+import LeadsOutro from "/snippets/leads-outro.mdx";
 
 <LeadsIntro />
 
@@ -15,18 +17,134 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 ## Configure Supabase Auth
 
-<Card title="Coming soon" icon="hourglass" iconType="duotone" color="#ca8b04">
-  We're working on this guide. Check back soon!
+Next, configure Supabase Auth to track a lead conversion event in the auth callback function.
+
+Here's how it works in a nutshell:
+
+1. In the `/api/auth/callback` route, check if:
+   - the `dclid` cookie is present.
+   - the user is a new sign up (created in the last 10 minutes).
+2. If the `dclid` cookie is present and the user is a new sign up, send a lead event to Dub using `dub.track.lead`
+3. Delete the `dclid` cookie.
+
+<CodeGroup>
+
+```typescript Next.js App Router
+// app/api/auth/callback/route.ts
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { waitUntil } from "@vercel/functions";
+import { dub } from "@/lib/dub";
+
+export async function GET(request: Request) {
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
+  // if "next" is in param, use it as the redirect URL
+  const next = searchParams.get("next") ?? "/";
+
+  if (code) {
+    const supabase = createClient(cookies());
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) {
+      const { user } = data;
+      const dclid = cookies().get("dclid")?.value;
+      // if the user is created in the last 10 minutes, consider them new
+      const isNewUser =
+        new Date(user.created_at) > new Date(Date.now() - 10 * 60 * 1000);
+      // if the user is new and has a dclid cookie, track the lead
+      if (dclid && isNewUser) {
+        waitUntil(
+          dub.track.lead({
+            clickId: dclid,
+            eventName: "Sign Up",
+            customerId: user.id,
+            customerName: user.user_metadata.name,
+            customerEmail: user.email,
+            customerAvatar: user.user_metadata.avatar_url,
+          })
+        );
+        // delete the clickId cookie
+        cookies().delete("dclid");
+      }
+      return NextResponse.redirect(`${origin}${next}`);
+    }
+  }
+
+  // return the user to an error page with instructions
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
+}
+```
+
+```typescript Next.js Pages Router
+// pages/api/auth/callback.ts
+import { NextApiRequest, NextApiResponse } from "next";
+import { createClient } from "@supabase/supabase-js";
+import { dub } from "@/lib/dub";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { code, next = "/" } = req.query;
+  const origin = `${req.headers["x-forwarded-proto"]}://${req.headers.host}`;
+
+  if (typeof code === "string") {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (!error) {
+      const { user } = data;
+      const { dclid } = req.cookies;
+
+      // if the user is created in the last 10 minutes, consider them new
+      const isNewUser =
+        new Date(user.created_at) > new Date(Date.now() - 10 * 60 * 1000);
+
+      // if the user is new and has a dclid cookie, track the lead
+      if (dclid && isNewUser) {
+        dub.track
+          .lead({
+            clickId: dclid,
+            eventName: "Sign Up",
+            customerId: user.id,
+            customerName: user.user_metadata.name,
+            customerEmail: user.email,
+            customerAvatar: user.user_metadata.avatar_url,
+          })
+          .catch(console.error); // Handle any errors in tracking
+
+        // delete the clickId cookie
+        res.setHeader(
+          "Set-Cookie",
+          `dclid=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+        );
+      }
+
+      return res.redirect(`${origin}${next}`);
+    }
+  }
+
+  // return the user to an error page with instructions
+  return res.redirect(`${origin}/auth/auth-code-error`);
+}
+```
+
+</CodeGroup>
+
+<LeadsAttributes />
+
+<Card
+  title="Supabase Auth + Next.js App Router Example"
+  icon="github"
+  href="https://github.com/steven-tey/extrapolate/blob/main/app/api/auth/callback/route.ts"
+>
+  Check out a real-world example of this in action – Extrapolate uses Supabase
+  Auth and Next.js App Router to track new user sign-ups.
 </Card>
 
-## Example Apps
-
-<CardGroup cols={2}>
-  <Card
-    title="Dub Conversions Demo App"
-    icon="github"
-    href="https://github.com/dubinc/examples/tree/main/conversions"
-  >
-    See the full example on GitHub.
-  </Card>
-</CardGroup>
+<LeadsOutro />
