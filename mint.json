@@ -170,7 +170,24 @@
         "api-reference/endpoint/track-customer"
       ]
     },
-    { "group": "SDKs", "pages": ["sdks/overview", "sdks/js-client/overview"] },
+    { "group": "SDKs", "pages": ["sdks/overview"] },
+    {
+      "group": "Client SDKs",
+      "icon": "js",
+      "pages": [
+        "sdks/client-side/introduction",
+        {
+          "group": "Installation Guides",
+          "icon": "download",
+          "pages": [
+            "sdks/client-side/installation-guides/react",
+            "sdks/client-side/installation-guides/webflow",
+            "sdks/client-side/installation-guides/wordpress",
+            "sdks/client-side/installation-guides/framer"
+          ]
+        }
+      ]
+    },
     {
       "group": "TypeScript",
       "pages": [
@@ -237,6 +254,10 @@
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
+    {
+      "destination": "/sdks/client-side/installation-guides/react",
+      "source": "/sdks/js-client/overview"
+    },
     { "destination": "/self-hosting", "source": "/self-hosting/guide" },
     {
       "destination": "/api-reference/endpoint/retrieve-a-workspace",

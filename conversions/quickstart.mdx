@@ -20,11 +20,11 @@ Learn more about [how Dub Conversions works](https://dub.co/help/article/dub-con
 
 In this guide, we'll walk you through the steps to get started with Dub Conversions.
 
-## Step 1: Install the `@dub/analytics` client-side SDK
+## Step 1: Install the Dub analytics client-side SDK
 
-First, install the [`@dub/analytics` client-side JavaScript SDK](/sdks/js-client/overview).
+First step is to install the [Dub analytics client-side SDK](/sdks/client-side/introduction).
 
-This package will handle the detection of the `dclid` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+This will handle the detection of the `dclid` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
 <Frame>
   <img
@@ -34,9 +34,26 @@ This package will handle the detection of the `dclid` query parameter and storin
   />
 </Frame>
 
-<InstallDubAnalytics />
+Depending on which framework or platform you're using, you can install the script in different ways:
 
-Learn more about the full list of attributes you can use with the `@dub/analytics` SDK in the [SDK reference](/sdks/js-client/overview) (cookie options, attribution models, etc).
+<CardGroup cols={1}>
+  <Card
+    title="React"
+    icon="react"
+    href="/sdks/client-side/installation-guides/react"
+    horizontal
+  >
+    Add Dub Analytics to your React or Next.js app.
+  </Card>
+  <Card
+    title="Website Builder"
+    icon="globe"
+    href="/sdks/client-side/introduction"
+    horizontal
+  >
+    Add Dub Analytics to websites built using Webflow, Wordpress, or Framer.
+  </Card>
+</CardGroup>
 
 ## Step 2: Install the Dub server-side SDK
 
