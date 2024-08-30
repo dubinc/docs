@@ -254,6 +254,10 @@
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
+    {
+      "destination": "/sdks/client-side/introduction",
+      "source": "/sdks/js-client/overview"
+    },
     { "destination": "/self-hosting", "source": "/self-hosting/guide" },
     {
       "destination": "/api-reference/endpoint/retrieve-a-workspace",
