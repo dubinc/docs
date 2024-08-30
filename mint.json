@@ -255,7 +255,7 @@
   "redirects": [
     { "destination": "/sdks/overview", "source": "/sdks" },
     {
-      "destination": "/sdks/client-side/introduction",
+      "destination": "/sdks/client-side/installation-guides/react",
       "source": "/sdks/js-client/overview"
     },
     { "destination": "/self-hosting", "source": "/self-hosting/guide" },
