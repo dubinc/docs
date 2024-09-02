@@ -112,19 +112,16 @@
       "group": "Links",
       "pages": [
         "api-reference/endpoint/create-a-new-link",
-        "api-reference/endpoint/retrieve-a-link",
         "api-reference/endpoint/update-a-link",
         "api-reference/endpoint/upsert-a-link",
         "api-reference/endpoint/delete-a-link",
+        "api-reference/endpoint/retrieve-a-link",
         "api-reference/endpoint/retrieve-a-list-of-links",
         "api-reference/endpoint/retrieve-number-of-links",
         "api-reference/endpoint/bulk-create-links",
-        "api-reference/endpoint/bulk-update-links"
+        "api-reference/endpoint/bulk-update-links",
+        "api-reference/endpoint/bulk-delete-links"
       ]
-    },
-    {
-      "group": "QR Codes",
-      "pages": ["api-reference/endpoint/retrieve-a-qr-code"]
     },
     {
       "group": "Analytics",
@@ -133,6 +130,10 @@
     {
       "group": "Events",
       "pages": ["api-reference/endpoint/retrieve-a-list-of-events"]
+    },
+    {
+      "group": "QR Codes",
+      "pages": ["api-reference/endpoint/retrieve-a-qr-code"]
     },
     {
       "group": "Tags",
