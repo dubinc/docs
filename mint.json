@@ -1,18 +1,5 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "anchors": [
-    {
-      "icon": "circle-info",
-      "iconType": "sharp-solid",
-      "name": "Help Center",
-      "url": "https://dub.co/help"
-    },
-    {
-      "icon": "github",
-      "name": "GitHub",
-      "url": "https://github.com/dubinc/dub"
-    }
-  ],
   "api": { "maintainOrder": true },
   "backgroundImage": "/images/background.png",
   "colors": {
@@ -74,7 +61,11 @@
     },
     {
       "group": "Integrations",
-      "pages": ["integrations", "integrations/quickstart"]
+      "pages": [
+        "integrations",
+        "integrations/quickstart",
+        "integrations/webhooks"
+      ]
     },
     {
       "group": "Conversions [BETA]",
@@ -371,7 +362,13 @@
     { "name": "SDKs", "url": "sdks" }
   ],
   "topbarCtaButton": { "name": "Dashboard", "url": "https://app.dub.co" },
-  "topbarLinks": [{ "name": "Support", "url": "mailto:support@dub.co" }],
+  "topbarLinks": [
+    { "name": "Support", "url": "mailto:support@dub.co" },
+    {
+      "name": "Help Center",
+      "url": "https://dub.co/help"
+    }
+  ],
   "analytics": {
     "fathom": {
       "siteId": "ORFDPXEC"
