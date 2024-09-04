@@ -1,26 +1,43 @@
 ---
 title: "Examples"
-"og:title": "Dub.co API Examples - Build with the Dub.co API"
-description: "Explore ideas and examples of what you can build with the Dub.co API"
+"og:title": "Dub.co API Examples - Build with the Dub API"
+description: "Explore ideas and examples of what you can build with the Dub API"
 icon: github
 ---
 
+## Dub Links
+
+With Dub's [API](/api-reference), you can integrate Dub's link infrastructure into your application. This includes use cases like:
+
+- Programmatically creating short links
+- Using OAuth 2.0 to authenticate with Dub
+
+With Dub's powerful [Analytics API](/api-reference/endpoint/retrieve-analytics), you can access real-time analytics data for your links. This allows you to build user-facing analytics dashboards, a la the ones on [OSS Gallery](https://oss.gallery/projects/dub).
+
 <CardGroup cols={2}>
-  <Card
-    title="OSS Gallery"
-    icon="github"
-    href="https://github.com/dubinc/oss-gallery"
-    color="#333333"
-  >
-    Open-source gallery built with the Dub.co Typescript SDK
-  </Card>
   <Card
     title="Dublet"
     icon="github"
     href="https://github.com/dubinc/dublet"
     color="#333333"
   >
-    Mini link shortener built with the Dub.co Typescript SDK
+    Mini link shortener built with the Dub Typescript SDK
+  </Card>
+  <Card
+    title="OAuth Example App"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/oauth"
+    color="#333333"
+  >
+    Example app that shows how to use OAuth 2.0 to authenticate with Dub
+  </Card>
+  <Card
+    title="OSS Gallery"
+    icon="github"
+    href="https://github.com/dubinc/oss-gallery"
+    color="#333333"
+  >
+    Programmatically create short links on-demand using Dub's TypeScript SDK
   </Card>
   <Card
     title="Ray.so"
@@ -30,5 +47,32 @@ icon: github
   >
     Create code snippets, browse AI prompts, create extension icons and more.
 
+  </Card>
+</CardGroup>
+
+## Dub Conversions
+
+With [Dub Conversions](/conversions/quickstart), you can build white-labeled referral dashboards that live directly in your application (leveraging our [Analytics API](/api-reference/endpoint/retrieve-analytics) as well).
+
+You can also combine Dub Conversions with [Webhooks](/integrations/webhooks) to build custom referral workflows:
+
+- give both the referrer and referee 1 month free of your product
+- send a swag link when a user reaches 5 referrals
+
+<Info>
+  Dub Conversions is currently in closed beta. If you'd like to join the beta,
+  [reach out to us via
+  email](mailto:support@dub.co?subject=I%20want%20to%20join%20the%20Dub%20Conversions%20beta).
+</Info>
+
+<CardGroup cols={2}>
+  <Card
+    title="Dub Conversions Demo App"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/conversions"
+    color="#333333"
+  >
+    Example app that shows how to use Dub Conversions with the Dub Typescript
+    SDK
   </Card>
 </CardGroup>
