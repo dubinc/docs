@@ -1,0 +1,223 @@
+---
+title: "Laravel"
+description: "Learn how to integrate Dub with Laravel."
+---
+
+import Prerequisites from "/snippets/sdk-prerequisites.mdx";
+import LinkArguments from "/snippets/link-arguments.mdx";
+
+<Prerequisites />
+
+## 2. Install and initialize the Dub Laravel SDK
+
+<Steps titleSize="h3">
+
+<Step title="Install">
+
+To install the [Dub Laravel SDK](https://dub.co/solutions/laravel), run the following command:
+
+```bash
+composer require dubinc/dub-php
+```
+
+</Step>
+
+<Step title="Configuration">
+
+Publish the configuration file by running the command:
+
+```bash
+php artisan vendor:publish --provider="Dub\Laravel\DubServiceProvider"
+```
+
+In your `.env` file, add the following configuration:
+
+```bash
+DUB_API_KEY=your_api_key
+```
+
+</Step>
+
+<Step title="Initialize">
+
+The SDK will be automatically initialized with your API key from the `.env` file. If needed, you can manually initialize it in your controller:
+
+```php index.php
+use Dub\Laravel\Dub;
+
+class LinkController extends Controller
+{
+    public function create()
+    {
+        $sdk = new Dub();
+        // Now you can use the SDK instance
+    }
+}
+```
+
+</Step>
+
+</Steps>
+
+## 3. Create link
+
+Let's create a short link using the Dub Laravel SDK.
+
+```php index.php
+use Dub\Models\Operations;
+
+class LinkController extends Controller
+{
+    public function createLink()
+    {
+        $sdk = new Dub();
+        try {
+            $request = new Operations\CreateLinkRequestBody(
+                url: 'https://google.com'
+            );
+            $response = $sdk->links->create($request);
+
+            if ($response->linkSchema !== null) {
+                // handle response
+            }
+        } catch (Throwable $e) {
+            // handle exception
+        }
+    }
+}
+```
+
+<Accordion title="Full list of available attributes for the Link model">
+  <LinkArguments />
+</Accordion>
+
+## 3a. Create link with externalId
+
+Optionally, you can also pass an `externalId` field to associate the link with a unique identifier in your own system.
+
+```php index.php
+use Dub\Models\Operations;
+
+class LinkController extends Controller
+{
+    public function createLinkWithExternalId()
+    {
+        $sdk = new Dub();
+        try {
+            $request = new Operations\CreateLinkRequestBody(
+                url: 'https://google.com',
+                externalId: '12345'
+            );
+            $response = $sdk->links->create($request);
+
+            if ($response->linkSchema !== null) {
+                // handle response
+            }
+        } catch (Throwable $e) {
+            // handle exception
+        }
+    }
+}
+```
+
+## 4. Upsert link
+
+The Dub Laravel SDK provides a method to create or update a link to avoid duplication.
+
+```php index.php
+use Dub\Models\Operations;
+
+class LinkController extends Controller
+{
+    public function upsertLink()
+    {
+        $sdk = new Dub();
+        try {
+            $request = new Operations\UpsertLinkRequestBody(
+                url: 'https://google.com'
+            );
+            $response = $sdk->links->upsert($request);
+
+            if ($response->linkSchema !== null) {
+                // handle response
+            }
+        } catch (Throwable $e) {
+            // handle exception
+        }
+    }
+}
+```
+
+## 5. Update link
+
+To update an existing link using the Dub Laravel SDK, you can either use the link's `linkId` or `externalId`.
+
+```php index.php
+use Dub\Models\Operations;
+
+class LinkController extends Controller
+{
+    public function updateLink()
+    {
+        $sdk = new Dub();
+        try {
+            $request = new Operations\UpdateLinkRequest();
+            $request->linkId = 'cly2p8onm000cym8200nfay7l';
+            $request->requestBody = new Operations\UpdateLinkRequestBody();
+            $request->requestBody->url = 'https://google.us';
+
+            $response = $sdk->links->update($request);
+
+            if ($response->linkSchema !== null) {
+                echo $response->linkSchema->shortLink;
+            }
+        } catch (Throwable $e) {
+            // handle exception
+        }
+    }
+}
+```
+
+## 6. Retrieve analytics for link
+
+You can also retrieve analytics for a link using the Dub Laravel SDK.
+
+```php index.php
+use Dub\Models\Operations;
+
+class LinkController extends Controller
+{
+    public function retrieveAnalytics()
+    {
+        $sdk = new Dub();
+        try {
+            $request = new Operations\RetrieveAnalyticsRequest();
+            $request->linkId = 'clmnr6jcc0005l308q9v56uz1';
+            $request->interval = Operations\Interval::SevenD;
+            $request->groupBy = Operations\GroupBy::Timeseries;
+
+            $response = $sdk->analytics->retrieve($request);
+
+            if ($response->oneOf !== null) {
+                // Handle the response
+                print_r($response->oneOf);
+            }
+        } catch (Throwable $e) {
+            // handle exception
+        }
+    }
+}
+```
+
+## 7. Examples
+
+<CardGroup cols={2}>
+  <Card
+    title="Laravel Example"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/laravel"
+    color="#333333"
+  >
+    See the full example on GitHub.
+  </Card>
+</CardGroup>

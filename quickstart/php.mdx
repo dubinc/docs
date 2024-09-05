@@ -1,0 +1,178 @@
+---
+title: "Introduction"
+description: "Learn how to integrate Dub with PHP."
+---
+
+import Prerequisites from "/snippets/sdk-prerequisites.mdx";
+import LinkArguments from "/snippets/link-arguments.mdx";
+
+<Prerequisites />
+
+## 2. Install and initialize the Dub PHP SDK
+
+<Steps titleSize="h3">
+
+<Step title="Install">
+
+To install the [Dub PHP SDK](https://dub.co/solutions/php), run the following command:
+
+```bash
+composer require dubinc/dub-php
+```
+
+</Step>
+
+<Step title="Initialize">
+
+Initialize the Dub PHP SDK by creating a new instance of the `Dub` class.
+
+```php index.php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Components;
+
+$security = new Components\Security();
+$security->token = 'DUB_API_KEY';
+
+$sdk = Dub\Dub::builder()->setSecurity($security)->build();
+```
+
+</Step>
+
+</Steps>
+
+## 3. Create link
+
+Let's create a short link using the Dub PHP SDK.
+
+```php index.php
+use Dub\Models\Operations;
+
+try {
+    $request = new Operations\CreateLinkRequestBody(
+        url: 'https://google.com',
+    );
+    $response = $sdk->links->create($request);
+
+    if ($response->linkSchema !== null) {
+        // handle response
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+<Accordion title="Full list of available attributes for the Link model">
+  <LinkArguments />
+</Accordion>
+
+## 3a. Create link with externalId
+
+Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
+
+```php index.php
+use Dub\Models\Operations;
+
+try {
+    $request = new Operations\CreateLinkRequestBody(
+        url: 'https://google.com',
+        externalId: '12345',
+    );
+    $response = $sdk->links->create($request);
+
+    if ($response->linkSchema !== null) {
+        // handle response
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+## 4. Upsert link
+
+Dub PHP SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
+
+```php index.php
+use Dub\Models\Operations;
+
+try {
+    $request = new Operations\UpsertLinkRequestBody(
+        url: 'https://google.com',
+    );
+    $response = $sdk->links->upsert($request);
+
+    if ($response->linkSchema !== null) {
+        // handle response
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+## 5. Update link
+
+Let's update an existing link using the Dub PHP SDK.
+
+You can do that in two ways:
+
+- Using the link's `linkId` in Dub's system.
+- Using the link's `externalId` in your own database (prefixed with ext\_).
+
+```php index.php
+use Dub\Models\Operations;
+
+try {
+    $request = new Operations\UpdateLinkRequest();
+    $request->linkId = 'cly2p8onm000cym8200nfay7l';
+    $request->requestBody = new Operations\UpdateLinkRequestBody();
+    $request->requestBody->url = 'https://google.us';
+
+    $response = $sdk->links->update($request);
+
+    if ($response->linkSchema !== null) {
+        echo $response->linkSchema->shortLink;
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+## 6. Retrieve analytics for link
+
+Let's retrieve analytics for a link using the Dub PHP SDK.
+
+```php index.php
+use Dub\Models\Operations;
+
+try {
+    $request = new Operations\RetrieveAnalyticsRequest();
+    $request->linkId = 'clmnr6jcc0005l308q9v56uz1';
+    $request->interval = Operations\Interval::SevenD;
+    $request->groupBy = Operations\GroupBy::Timeseries;
+
+    $response = $sdk->analytics->retrieve($request);
+
+    if ($response->oneOf !== null) {
+        // Handle the response
+        print_r($response->oneOf);
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+## 7. Examples
+
+<CardGroup cols={2}>
+  <Card
+    title="PHP Example"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/php"
+    color="#333333"
+  >
+    See the full example on GitHub.
+  </Card>
+</CardGroup>
