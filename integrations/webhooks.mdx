@@ -561,10 +561,10 @@ To verify, you can use the secret key to generate your own signature for each we
 
 The steps required are:
 
-- Get the raw body of the request.
-- Extract the signature from the `Dub-Signature` header.
-- Calculate the HMAC of the raw body using the `SHA-256` hash function and the secret.
-- Compare the calculated `HMAC` with the one sent in the `Dub-Signature` header. If they match, the webhook is verified.
+1. Get the raw body of the request.
+2. Extract the signature from the `Dub-Signature` header.
+3. Calculate the HMAC of the raw body using the `SHA-256` hash function and the secret.
+4. Compare the calculated `HMAC` with the one sent in the `Dub-Signature` header. If they match, the webhook is verified.
 
 <CodeGroup>
 
