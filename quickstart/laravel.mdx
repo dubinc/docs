@@ -8,13 +8,13 @@ import LinkArguments from "/snippets/link-arguments.mdx";
 
 <Prerequisites />
 
-## 2. Install and initialize the Dub Laravel SDK
+## 2. Install and initialize the Dub PHP SDK
 
 <Steps titleSize="h3">
 
 <Step title="Install">
 
-To install the [Dub Laravel SDK](https://dub.co/solutions/laravel), run the following command:
+To install the [Dub PHP SDK](https://dub.co/solutions/php), run the following command:
 
 ```bash
 composer require dubinc/dub-php
@@ -24,33 +24,65 @@ composer require dubinc/dub-php
 
 <Step title="Configuration">
 
-Publish the configuration file by running the command:
-
-```bash
-php artisan vendor:publish --provider="Dub\Laravel\DubServiceProvider"
-```
-
-In your `.env` file, add the following configuration:
+In your `.env` file, add your Dub API key:
 
 ```bash
 DUB_API_KEY=your_api_key
+```
+
+In your `config/services.php` file, add the following:
+
+```php
+    'dub' => [
+        'api_key' => env('DUB_API_KEY'),
+    ],
 ```
 
 </Step>
 
 <Step title="Initialize">
 
-The SDK will be automatically initialized with your API key from the `.env` file. If needed, you can manually initialize it in your controller:
+You can now create an instance of the `Dub` class and pass in your API key:
+
+```php index.php
+use Dub\Dub;
+use Dub\Components\Security;
+
+$security = new Security();
+$security->token = config('services.dub.api_key');
+
+$sdk = Dub::builder()->setSecurity($security)->build();
+
+// create a link
+$sdk->links->create(...);
+```
+
+</Step>
+
+<Step title="Service Container (Optional)">
+
+If you want to be able to inject the `Dub` class via the service container, add this to the `register` method of your `AppServiceProvider.php`:
+
+```php index.php
+$this->app->bind(Dub::class, function ($app) {
+    $security = new Security();
+    $security->token = $app['config']->get('services.dub.api_key');
+
+    return Dub::builder()->setSecurity($security)->build();
+});
+```
+
+You can then inject the authenticated `Dub` instance throughout your application:
 
 ```php index.php
 use Dub\Laravel\Dub;
 
 class LinkController extends Controller
 {
-    public function create()
+    public function create(Dub $dub)
     {
-        $sdk = new Dub();
         // Now you can use the SDK instance
+        $sdk->links->create(...);
     }
 }
 ```
