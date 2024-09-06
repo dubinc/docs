@@ -57,8 +57,6 @@ def create_link():
   <LinkArguments />
 </Accordion>
 
-## 3a. Create link with `externalId`
-
 Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
 
 ```python app.py
@@ -71,9 +69,11 @@ def create_link(request):
   return res.short_link
 ```
 
+This will let you easily [update the link](#5-update-link) or [retrieve analytics](#6-retrieve-analytics-for-link) for it later on using the `externalId` instead of the Dub `linkId`.
+
 ## 4. Upsert link
 
-Dub Python SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
+Dub Python SDK provides a method to upsert a link – where an existing link is updated if it exists, or a new link is created if it doesn't. so you don't have to worry about checking if the link already exists.
 
 ```python app.py
 def upsert_link(request):
@@ -83,6 +83,8 @@ def upsert_link(request):
 
   return res.short_link
 ```
+
+This way, you won't have to worry about checking if the link already exists when you're creating it.
 
 ## 5. Update link
 

@@ -31,8 +31,6 @@ export default defineEventHandler(async () => {
 });
 ```
 
-## 3a. Create link with `externalId`
-
 Optionally, you can also pass an `externalId` field which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
 
 ```typescript server/api/links.post.ts
@@ -51,9 +49,11 @@ export default defineEventHandler(async () => {
 });
 ```
 
+This will let you easily [update the link](#5-update-link) or [retrieve analytics](#6-retrieve-analytics-for-link) for it later on using the `externalId` instead of the Dub `linkId`.
+
 ## 4. Upsert link
 
-Dub TypeScript SDK provides a method to create or update a link so you don't have to worry about checking if the link already exists.
+Dub TypeScript SDK provides a method to upsert a link – where an existing link is updated if it exists, or a new link is created if it doesn't. so you don't have to worry about checking if the link already exists.
 
 ```typescript server/api/links.put.ts
 export default defineEventHandler(async () => {
@@ -69,6 +69,8 @@ export default defineEventHandler(async () => {
   }
 });
 ```
+
+This way, you won't have to worry about checking if the link already exists when you're creating it.
 
 ## 5. Update link
 

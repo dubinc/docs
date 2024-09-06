@@ -91,8 +91,6 @@ class LinkController extends Controller
   <LinkArguments />
 </Accordion>
 
-## 3a. Create link with externalId
-
 Optionally, you can also pass an `externalId` field to associate the link with a unique identifier in your own system.
 
 ```php index.php
@@ -120,9 +118,11 @@ class LinkController extends Controller
 }
 ```
 
+This will let you easily [update the link](#5-update-link) or [retrieve analytics](#6-retrieve-analytics-for-link) for it later on using the `externalId` instead of the Dub `linkId`.
+
 ## 4. Upsert link
 
-The Dub Laravel SDK provides a method to create or update a link to avoid duplication.
+The Dub Laravel SDK provides a method to upsert a link – where an existing link is updated if it exists, or a new link is created if it doesn't.
 
 ```php index.php
 use Dub\Models\Operations;
@@ -147,6 +147,8 @@ class LinkController extends Controller
     }
 }
 ```
+
+This way, you won't have to worry about checking if the link already exists when you're creating it.
 
 ## 5. Update link
 
