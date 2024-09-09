@@ -241,6 +241,39 @@ Lastly, you'll need enable conversion tracking for your Dub links for to be able
 
 3. Enable **Conversion Tracking** and click **Save changes**
 
+Alternatively, you can also enable conversion tracking programmatically via the [Dub API](/api-reference). All you need to do is pass `trackConversion: true` when creating or updating a link:
+
+<CodeGroup>
+
+```typescript TypeScript
+const link = await dub.links.create({
+  url: "https://dub.co",
+  trackConversion: true,
+});
+```
+
+```python Python
+link = d.links.create(url="https://dub.co", track_conversion=True)
+```
+
+```go Go
+link, err := d.Links.Create(ctx, &dub.CreateLinkRequest{
+    URL: "https://dub.co",
+    TrackConversion: true,
+})
+```
+
+```ruby Ruby
+s.links.create_many(
+  ::OpenApiSDK::Operations::CreateLinkRequest.new(
+    url: "https://dub.co",
+    track_conversion: true,
+  )
+)
+```
+
+</CodeGroup>
+
 ## Step 5: View your conversions
 
 Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
