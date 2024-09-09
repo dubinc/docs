@@ -31,25 +31,9 @@ You can pass the following props to the `<Analytics />` component to customize t
       Specifies the number (in days) to be the value for the `Expires`
       Set-Cookie attribute. Example: `90`
     </ParamField>
-    <ParamField body="httpOnly" type="boolean" default="false">
-      Specifies the boolean value for the `HttpOnly` Set-Cookie attribute. Be
-      careful when setting this to true, as compliant clients will not allow
-      client-side JavaScript to see the cookie in `document.cookie`.
-    </ParamField>
-    <ParamField body="maxAge" type="integer">
-      Specifies the number (in seconds) to be the value for the `Max-Age`
-      Set-Cookie attribute. Example: `3600`
-    </ParamField>
     <ParamField body="path" type="string" default="/">
       Specifies the value for the `Path` Set-Cookie attribute. By default, the
       path is considered the "default path". Example: `/`
-    </ParamField>
-    <ParamField body="sameSite" type="string" default="Lax">
-      Specifies the boolean or string to be the value for the `SameSite`
-      Set-Cookie attribute. Example: `strict`
-    </ParamField>
-    <ParamField body="secure" type="boolean" default="false">
-      Specifies the boolean value for the `Secure` Set-Cookie attribute.
     </ParamField>
   </Expandable>
 </ParamField>
