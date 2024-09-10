@@ -33,9 +33,9 @@ DUB_API_KEY=your_api_key
 In your `config/services.php` file, add the following:
 
 ```php
-    'dub' => [
-        'api_key' => env('DUB_API_KEY'),
-    ],
+'dub' => [
+  'api_key' => env('DUB_API_KEY'),
+],
 ```
 
 </Step>
@@ -48,9 +48,7 @@ You can now create an instance of the `Dub` class and pass in your API key:
 use Dub\Dub;
 use Dub\Components\Security;
 
-$security = new Security();
-$security->token = config('services.dub.api_key');
-
+$security = new Security(config('services.dub.api_key'));
 $dub = Dub::builder()->setSecurity($security->token)->build();
 
 // create a link
@@ -65,10 +63,9 @@ If you want to be able to inject the `Dub` class via the service container, add 
 
 ```php index.php
 $this->app->bind(Dub::class, function ($app) {
-    $security = new Security();
-    $security->token = $app['config']->get('services.dub.api_key');
+  $security = new Security($app['config']->get('services.dub.api_key'));
 
-    return Dub::builder()->setSecurity($security->token)->build();
+  return Dub::builder()->setSecurity($security->token)->build();
 });
 ```
 
@@ -77,13 +74,11 @@ You can then inject the authenticated `Dub` instance throughout your application
 ```php index.php
 use Dub\Laravel\Dub;
 
-class LinkController extends Controller
-{
-    public function createLink(Dub $dub)
-    {
-        // Now you can use the SDK instance
-        $sdk->links->create(...);
-    }
+class LinkController extends Controller {
+  public function createLink(Dub $dub) {
+    // Now you can use the SDK instance
+    $sdk->links->create(...);
+  }
 }
 ```
 
@@ -98,24 +93,24 @@ Let's create a short link using the Dub Laravel SDK.
 ```php index.php
 use Dub\Models\Operations;
 
-class LinkController extends Controller
-{
-    public function createLink()
-    {
-        $sdk = new Dub();
-        try {
-            $request = new Operations\CreateLinkRequestBody(
-                url: 'https://google.com'
-            );
-            $response = $sdk->links->create($request);
+class LinkController extends Controller {
+  public function createLink() {
+    $sdk = new Dub();
 
-            if ($response->linkSchema !== null) {
-                // handle response
-            }
-        } catch (Throwable $e) {
-            // handle exception
-        }
-    }
+    try {
+      $request = new Operations\CreateLinkRequestBody(
+        url: 'https://google.com'
+      );
+
+      $response = $sdk->links->create($request);
+
+      if ($response->linkSchema !== null) {
+        // handle response
+      }
+  } catch (Throwable $e) {
+    // handle exception
+  }
+  }
 }
 ```
 
@@ -138,6 +133,7 @@ class LinkController extends Controller
                 url: 'https://google.com',
                 externalId: '12345'
             );
+
             $response = $sdk->links->create($request);
 
             if ($response->linkSchema !== null) {
@@ -168,6 +164,7 @@ class LinkController extends Controller
             $request = new Operations\UpsertLinkRequestBody(
                 url: 'https://google.com'
             );
+            
             $response = $sdk->links->upsert($request);
 
             if ($response->linkSchema !== null) {
