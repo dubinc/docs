@@ -37,7 +37,7 @@ use Dub\Models\Components;
 $security = new Components\Security();
 $security->token = 'DUB_API_KEY';
 
-$dub = Dub\Dub::builder()->setSecurity($security)->build();
+$dub = Dub::builder()->setSecurity($security->token)->build();
 ```
 
 </Step>

@@ -51,7 +51,7 @@ use Dub\Components\Security;
 $security = new Security();
 $security->token = config('services.dub.api_key');
 
-$sdk = Dub::builder()->setSecurity($security)->build();
+$dub = Dub::builder()->setSecurity($security->token)->build();
 
 // create a link
 $sdk->links->create(...);
@@ -68,7 +68,7 @@ $this->app->bind(Dub::class, function ($app) {
     $security = new Security();
     $security->token = $app['config']->get('services.dub.api_key');
 
-    return Dub::builder()->setSecurity($security)->build();
+    return Dub::builder()->setSecurity($security->token)->build();
 });
 ```
 
