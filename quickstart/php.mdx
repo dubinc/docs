@@ -31,12 +31,10 @@ declare(strict_types=1);
 
 require 'vendor/autoload.php';
 
-use Dub;
+use Dub\Dub;
 use Dub\Models\Components;
 
-$security = new Components\Security();
-$security->token = 'DUB_API_KEY';
-
+$security = new Components\Security('DUB_API_KEY');
 $dub = Dub::builder()->setSecurity($security->token)->build();
 ```
 
@@ -52,16 +50,17 @@ Let's create a short link using the Dub PHP SDK.
 use Dub\Models\Operations;
 
 try {
-    $request = new Operations\CreateLinkRequestBody(
-        url: 'https://google.com',
-    );
-    $response = $dub->links->create($request);
+  $request = new Operations\CreateLinkRequestBody(
+    url: 'https://google.com',
+  );
 
-    if ($response->linkSchema !== null) {
-        // handle response
-    }
+  $response = $dub->links->create($request);
+
+  if ($response->linkSchema !== null) {
+    // handle response
+  }
 } catch (Throwable $e) {
-    // handle exception
+  // handle exception
 }
 ```
 
@@ -75,17 +74,18 @@ Optionally, you can also pass an `externalId` field which is a unique identifier
 use Dub\Models\Operations;
 
 try {
-    $request = new Operations\CreateLinkRequestBody(
-        url: 'https://google.com',
-        externalId: '12345',
-    );
-    $response = $dub->links->create($request);
-
-    if ($response->linkSchema !== null) {
-        // handle response
-    }
+  $request = new Operations\CreateLinkRequestBody(
+    url: 'https://google.com',
+    externalId: '12345',
+  );
+  
+  $response = $dub->links->create($request);
+  
+  if ($response->linkSchema !== null) {
+    // handle response
+  }
 } catch (Throwable $e) {
-    // handle exception
+  // handle exception
 }
 ```
 
@@ -99,16 +99,17 @@ Dub PHP SDK provides a method to upsert a link – where an existing link is up
 use Dub\Models\Operations;
 
 try {
-    $request = new Operations\UpsertLinkRequestBody(
-        url: 'https://google.com',
-    );
-    $response = $dub->links->upsert($request);
-
-    if ($response->linkSchema !== null) {
-        // handle response
-    }
+  $request = new Operations\UpsertLinkRequestBody(
+    url: 'https://google.com',
+  );
+  
+  $response = $dub->links->upsert($request);
+  
+  if ($response->linkSchema !== null) {
+    // handle response
+  }
 } catch (Throwable $e) {
-    // handle exception
+  // handle exception
 }
 ```
 
