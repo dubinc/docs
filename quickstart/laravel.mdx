@@ -52,7 +52,7 @@ $security = new Security(config('services.dub.api_key'));
 $dub = Dub::builder()->setSecurity($security->token)->build();
 
 // create a link
-$sdk->links->create(...);
+$dub->links->create(...);
 ```
 
 </Step>
@@ -77,7 +77,7 @@ use Dub\Laravel\Dub;
 class LinkController extends Controller {
   public function createLink(Dub $dub) {
     // Now you can use the SDK instance
-    $sdk->links->create(...);
+    $dub->links->create(...);
   }
 }
 ```
@@ -95,14 +95,14 @@ use Dub\Models\Operations;
 
 class LinkController extends Controller {
   public function createLink() {
-    $sdk = new Dub();
+    $dub = new Dub();
 
     try {
       $request = new Operations\CreateLinkRequestBody(
         url: 'https://google.com'
       );
 
-      $response = $sdk->links->create($request);
+      $response = $dub->links->create($request);
 
       if ($response->linkSchema !== null) {
         // handle response
@@ -127,14 +127,15 @@ class LinkController extends Controller
 {
     public function createLinkWithExternalId()
     {
-        $sdk = new Dub();
+        $dub = new Dub();
+
         try {
             $request = new Operations\CreateLinkRequestBody(
                 url: 'https://google.com',
                 externalId: '12345'
             );
 
-            $response = $sdk->links->create($request);
+            $response = $dub->links->create($request);
 
             if ($response->linkSchema !== null) {
                 // handle response
@@ -159,13 +160,14 @@ class LinkController extends Controller
 {
     public function upsertLink()
     {
-        $sdk = new Dub();
+        $dub = new Dub();
+
         try {
             $request = new Operations\UpsertLinkRequestBody(
                 url: 'https://google.com'
             );
             
-            $response = $sdk->links->upsert($request);
+            $response = $dub->links->upsert($request);
 
             if ($response->linkSchema !== null) {
                 // handle response
@@ -190,14 +192,15 @@ class LinkController extends Controller
 {
     public function updateLink()
     {
-        $sdk = new Dub();
+        $dub = new Dub();
+
         try {
             $request = new Operations\UpdateLinkRequest();
             $request->linkId = 'cly2p8onm000cym8200nfay7l';
             $request->requestBody = new Operations\UpdateLinkRequestBody();
             $request->requestBody->url = 'https://google.us';
 
-            $response = $sdk->links->update($request);
+            $response = $dub->links->update($request);
 
             if ($response->linkSchema !== null) {
                 echo $response->linkSchema->shortLink;
@@ -220,14 +223,15 @@ class LinkController extends Controller
 {
     public function retrieveAnalytics()
     {
-        $sdk = new Dub();
+        $dub = new Dub();
+
         try {
             $request = new Operations\RetrieveAnalyticsRequest();
             $request->linkId = 'clmnr6jcc0005l308q9v56uz1';
             $request->interval = Operations\Interval::SevenD;
             $request->groupBy = Operations\GroupBy::Timeseries;
 
-            $response = $sdk->analytics->retrieve($request);
+            $response = $dub->analytics->retrieve($request);
 
             if ($response->oneOf !== null) {
                 // Handle the response
