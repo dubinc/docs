@@ -1,9 +1,9 @@
-speakeasyVersion: 1.395.1
+speakeasyVersion: 1.396.2
 sources:
     merge-code-samples-into-spec:
         sourceNamespace: merge-code-samples-into-spec
-        sourceRevisionDigest: sha256:ab9093aa2caff0a633837b3b5d2632a9456311dc26b4f48714be37b37cf3f4d5
-        sourceBlobDigest: sha256:e38ea7ae6ef2554191c02a38a0a321cea95ef78935dd0475156fe2c975277690
+        sourceRevisionDigest: sha256:772a9a0c294f337ea6d17ce46c257e8c2efbbfb20b5abec17e77afd8f7bd9c6d
+        sourceBlobDigest: sha256:c5d377d5871225b57cfdf18a7358f6dca224244470ac3b7c781b081c0c282021
         tags:
             - latest
             - main
