@@ -22,10 +22,10 @@ Next, configure Supabase Auth to track a lead conversion event in the auth callb
 Here's how it works in a nutshell:
 
 1. In the `/api/auth/callback` route, check if:
-   - the `dclid` cookie is present.
+   - the `dubId` cookie is present.
    - the user is a new sign up (created in the last 10 minutes).
-2. If the `dclid` cookie is present and the user is a new sign up, send a lead event to Dub using `dub.track.lead`
-3. Delete the `dclid` cookie.
+2. If the `dubId` cookie is present and the user is a new sign up, send a lead event to Dub using `dub.track.lead`
+3. Delete the `dubId` cookie.
 
 <CodeGroup>
 
@@ -48,15 +48,15 @@ export async function GET(request: Request) {
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       const { user } = data;
-      const dclid = cookies().get("dclid")?.value;
+      const dubId = cookies().get("dubId")?.value;
       // if the user is created in the last 10 minutes, consider them new
       const isNewUser =
         new Date(user.created_at) > new Date(Date.now() - 10 * 60 * 1000);
-      // if the user is new and has a dclid cookie, track the lead
-      if (dclid && isNewUser) {
+      // if the user is new and has a dubId cookie, track the lead
+      if (dubId && isNewUser) {
         waitUntil(
           dub.track.lead({
-            clickId: dclid,
+            clickId: dubId,
             eventName: "Sign Up",
             customerId: user.id,
             customerName: user.user_metadata.name,
@@ -65,7 +65,7 @@ export async function GET(request: Request) {
           })
         );
         // delete the clickId cookie
-        cookies().delete("dclid");
+        cookies().delete("dubId");
       }
       return NextResponse.redirect(`${origin}${next}`);
     }
@@ -99,17 +99,17 @@ export default async function handler(
 
     if (!error) {
       const { user } = data;
-      const { dclid } = req.cookies;
+      const { dubId } = req.cookies;
 
       // if the user is created in the last 10 minutes, consider them new
       const isNewUser =
         new Date(user.created_at) > new Date(Date.now() - 10 * 60 * 1000);
 
-      // if the user is new and has a dclid cookie, track the lead
-      if (dclid && isNewUser) {
+      // if the user is new and has a dubId cookie, track the lead
+      if (dubId && isNewUser) {
         dub.track
           .lead({
-            clickId: dclid,
+            clickId: dubId,
             eventName: "Sign Up",
             customerId: user.id,
             customerName: user.user_metadata.name,
@@ -121,7 +121,7 @@ export default async function handler(
         // delete the clickId cookie
         res.setHeader(
           "Set-Cookie",
-          `dclid=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+          `dubId=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
         );
       }
 
