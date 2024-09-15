@@ -24,7 +24,7 @@ In this guide, we'll walk you through the steps to get started with Dub Conversi
 
 First step is to install the [Dub analytics client-side SDK](/sdks/client-side/introduction).
 
-This will handle the detection of the `dubId` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+This will handle the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
 <Frame>
   <img
@@ -165,7 +165,7 @@ When sending a lead conversion event, you can include the following properties:
 
 | Property         | Description                                                                                                              | Required |
 | :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
-| `clickId`        | The unique `dubId` parameter that the lead conversion event is attributed to.                                            | Yes      |
+| `clickId`        | The unique `dub_id` parameter that the lead conversion event is attributed to.                                           | Yes      |
 | `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
 | `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
 | `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |

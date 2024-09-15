@@ -2936,7 +2936,7 @@ paths:
                 "clickId":
                   type: "string"
                   minLength: 1
-                  description: "The ID of the click in th Dub. You can read this value from `dubId` cookie."
+                  description: "The ID of the click in th Dub. You can read this value from `dub_id` cookie."
                 "eventName":
                   type: "string"
                   minLength: 1

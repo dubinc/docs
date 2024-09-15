@@ -136,7 +136,7 @@ const stripeSession = await stripe.checkout.sessions.create({
 
 ### Option 2: Pass the user ID and the click event ID in the Stripe customer creation flow
 
-Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dubId`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
+Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
 
 ```typescript app/api/create-customer/route.ts
 import { stripe } from "@/lib/stripe";
@@ -147,14 +147,14 @@ const user = {
   teamId: "team_xxxxxxxxx",
 };
 
-const dubId = req.headers.get("dubId");
+const dub_id = req.headers.get("dub_id");
 
 await stripe.customers.create({
   email: user.email,
   name: user.name,
   metadata: {
     dubCustomerId: user.id,
-    dubClickId: dubId,
+    dubClickId: dub_id,
   },
 });
 ```
