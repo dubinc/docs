@@ -1620,7 +1620,7 @@ paths:
           name: "page"
           schema:
             type: "number"
-            default: 0
+            default: 1
         - in: "query"
           name: "limit"
           schema:
@@ -2173,7 +2173,7 @@ paths:
                 "clickId":
                   type: "string"
                   minLength: 1
-                  description: "The ID of the click in th Dub. You can read this value from `dclid` cookie."
+                  description: "The ID of the click in th Dub. You can read this value from `dub_id` cookie."
                 "eventName":
                   type: "string"
                   minLength: 1
@@ -3547,6 +3547,9 @@ components:
         "conversionEnabled":
           type: "boolean"
           description: "Whether the workspace has conversion tracking enabled (d.to/conversions)."
+        "dotLinkClaimed":
+          type: "boolean"
+          description: "Whether the workspace has claimed a free .link domain. (dub.link/free)"
         "createdAt":
           type: "string"
           description: "The date and time when the workspace was created."
@@ -3614,6 +3617,7 @@ components:
         - "aiLimit"
         - "referralLinkId"
         - "conversionEnabled"
+        - "dotLinkClaimed"
         - "createdAt"
         - "users"
         - "domains"
@@ -3681,6 +3685,24 @@ components:
         "updatedAt":
           type: "string"
           description: "The date the domain was last updated."
+        "registeredDomain":
+          type: "object"
+          nullable: true
+          properties:
+            "id":
+              type: "string"
+              description: "The ID of the registered domain record."
+            "createdAt":
+              type: "string"
+              description: "The date the domain was created."
+            "expiresAt":
+              type: "string"
+              description: "The date the domain expires."
+          required:
+            - "id"
+            - "createdAt"
+            - "expiresAt"
+          description: "The registered domain record."
       required:
         - "id"
         - "slug"
