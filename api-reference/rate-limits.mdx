@@ -157,3 +157,53 @@ puts res.raw_response.body
 ```
 
 </CodeGroup>
+
+Alternatively, you can also periodically fetch a [list of links](/api-reference/endpoint/retrieve-a-list-of-links) sorted by last clicked, and [paginate](/api-reference/pagination) through the links until you get the one that has the same `clicks` value as the one you have stored – that way you know you've updated all the links that were clicked on since your last update.
+
+<CodeGroup>
+
+```typescript TypeScript
+await dub.links.list({
+  sort: "lastClicked",
+  page: 1,
+});
+```
+
+```python Python
+res = d.links.list(request={
+    "sort": "lastClicked",
+    "page": 1,
+})
+```
+
+```go Go
+func main() {
+  // Retrieve the links sorted by last clicked
+  request := operations.ListLinksRequest{
+    Sort: "lastClicked",
+    Page: 1,
+  }
+
+  ctx := context.Background()
+  res, err := d.Links.List(ctx, request)
+  if err != nil {
+    log.Fatal(err)
+  }
+  if res.OneOf != nil {
+    // handle response
+  }
+}
+```
+
+```ruby Ruby
+req = ::OpenApiSDK::Operations::ListLinksRequest.new(
+  sort: ::OpenApiSDK::Operations::Sort::LAST_CLICKED,
+  page: 1,
+)
+
+res = dub.links.list(req)
+
+puts res.raw_response.body
+```
+
+</CodeGroup>
