@@ -366,7 +366,7 @@
     { "name": "API Reference", "url": "api-reference" },
     { "name": "SDKs", "url": "sdks" }
   ],
-  "topbarCtaButton": { "name": "Dashboard", "url": "https://app.dub.co" },
+  "topbarCtaButton": { "name": "Dashboard", "url": "https://d.to/try" },
   "topbarLinks": [
     { "name": "Support", "url": "mailto:support@dub.co" },
     {
