@@ -1258,7 +1258,7 @@ paths:
       operationId: "retrieveAnalytics"
       x-speakeasy-name-override: "retrieve"
       summary: "Retrieve analytics for a link, a domain, or the authenticated workspace."
-      x-codeSamples: [{"lang": "typescript", "label": "retrieveAnalytics", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.analytics.retrieve();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"}, {"lang": "go", "label": "retrieveAnalytics", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "retrieveAnalytics", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n)\n    \nres = s.analytics.retrieve(req)\n\nif ! res.one_of.nil?\n  # handle response\nend"}, {"lang": "php", "label": "retrieveAnalytics", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Components;\nuse Dub\\Models\\Operations;\n\n$security = new Components\\Security(\n    token: \"DUB_API_KEY\",\n);\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\ntry {\n    $request = new Operations\\RetrieveAnalyticsRequest(\n        timezone: 'America/New_York',\n        city: 'New York',\n        device: 'Desktop',\n        browser: 'Chrome',\n        os: 'Windows',\n        referer: 'google.com',\n        refererUrl: 'https://dub.co/blog',\n    );\n    $response = $sdk->analytics->retrieve($request);\n\n    if ($response->oneOf !== null) {\n        // handle response\n    }\n} catch (Throwable $e) {\n    // handle exception\n}"}, {lang: python, label: retrieveAnalytics, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.analytics.retrieve(request={\n    \"timezone\": \"America/New_York\",\n    \"city\": \"New York\",\n    \"device\": \"Desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"referer\": \"google.com\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/analytics\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "retrieveAnalytics", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.analytics.retrieve();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"}, {"lang": "go", "label": "retrieveAnalytics", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "retrieveAnalytics", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n  referer_url: \"https://dub.co/blog\",\n)\n    \nres = s.analytics.retrieve(req)\n\nif ! res.one_of.nil?\n  # handle response\nend"}, {"lang": "php", "label": "retrieveAnalytics", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Components;\nuse Dub\\Models\\Operations;\n\n$security = new Components\\Security(\n    token: \"DUB_API_KEY\",\n);\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\ntry {\n    $request = new Operations\\RetrieveAnalyticsRequest(\n        timezone: 'America/New_York',\n        city: 'New York',\n        device: 'Desktop',\n        browser: 'Chrome',\n        os: 'Windows',\n        referer: 'google.com',\n        refererUrl: 'https://dub.co/blog',\n    );\n    $response = $sdk->analytics->retrieve($request);\n\n    if ($response->oneOf !== null) {\n        // handle response\n    }\n} catch (Throwable $e) {\n    // handle exception\n}"}, {lang: python, label: retrieveAnalytics, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.analytics.retrieve(request={\n    \"timezone\": \"America/New_York\",\n    \"city\": \"New York\",\n    \"device\": \"Desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"referer\": \"google.com\",\n    \"referer_url\": \"https://dub.co/blog\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/analytics\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Retrieve analytics for a link, a domain, or the authenticated workspace. The response type depends on the `event` and `type` query parameters."
       tags:
         - "Analytics"
@@ -1292,6 +1292,7 @@ paths:
               - "browsers"
               - "os"
               - "referers"
+              - "referer_urls"
               - "top_links"
               - "top_urls"
               - "trigger"
@@ -1400,6 +1401,13 @@ paths:
             description: "The referer to retrieve analytics for."
             example: "google.com"
         - in: "query"
+          name: "refererUrl"
+          description: "The full referer URL to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The full referer URL to retrieve analytics for."
+            example: "https://dub.co/blog"
+        - in: "query"
           name: "url"
           description: "The URL to retrieve analytics for."
           schema:
@@ -1472,7 +1480,7 @@ paths:
       operationId: "listEvents"
       x-speakeasy-name-override: "list"
       summary: "Retrieve a list of events"
-      x-codeSamples: [{"lang": "typescript", "label": "listEvents", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.events.list();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"}, {"lang": "go", "label": "listEvents", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Events.List(ctx, operations.ListEventsRequest{\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "listEvents", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListEventsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n)\n    \nres = s.events.list(req)\n\nif ! res.click_events.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listEvents", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Components;\nuse Dub\\Models\\Operations;\n\n$security = new Components\\Security(\n    token: \"DUB_API_KEY\",\n);\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\ntry {\n    $request = new Operations\\ListEventsRequest(\n        timezone: 'America/New_York',\n        city: 'New York',\n        device: 'Desktop',\n        browser: 'Chrome',\n        os: 'Windows',\n        referer: 'google.com',\n        refererUrl: 'https://dub.co/blog',\n    );\n    $response = $sdk->events->list($request);\n\n    if ($response->clickEvents !== null) {\n        // handle response\n    }\n} catch (Throwable $e) {\n    // handle exception\n}"}, {lang: python, label: listEvents, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.events.list(request={\n    \"timezone\": \"America/New_York\",\n    \"city\": \"New York\",\n    \"device\": \"Desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"referer\": \"google.com\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/events\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "listEvents", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.events.list();\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"}, {"lang": "go", "label": "listEvents", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Events.List(ctx, operations.ListEventsRequest{\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "listEvents", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListEventsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n  referer_url: \"https://dub.co/blog\",\n)\n    \nres = s.events.list(req)\n\nif ! res.click_events.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listEvents", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Components;\nuse Dub\\Models\\Operations;\n\n$security = new Components\\Security(\n    token: \"DUB_API_KEY\",\n);\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\ntry {\n    $request = new Operations\\ListEventsRequest(\n        timezone: 'America/New_York',\n        city: 'New York',\n        device: 'Desktop',\n        browser: 'Chrome',\n        os: 'Windows',\n        referer: 'google.com',\n        refererUrl: 'https://dub.co/blog',\n    );\n    $response = $sdk->events->list($request);\n\n    if ($response->clickEvents !== null) {\n        // handle response\n    }\n} catch (Throwable $e) {\n    // handle exception\n}"}, {lang: python, label: listEvents, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.events.list(request={\n    \"timezone\": \"America/New_York\",\n    \"city\": \"New York\",\n    \"device\": \"Desktop\",\n    \"browser\": \"Chrome\",\n    \"os\": \"Windows\",\n    \"referer\": \"google.com\",\n    \"referer_url\": \"https://dub.co/blog\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/events\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Retrieve a paginated list of events for the authenticated workspace."
       tags:
         - "Events"
@@ -1592,6 +1600,13 @@ paths:
             type: "string"
             description: "The referer to retrieve analytics for."
             example: "google.com"
+        - in: "query"
+          name: "refererUrl"
+          description: "The full referer URL to retrieve analytics for."
+          schema:
+            type: "string"
+            description: "The full referer URL to retrieve analytics for."
+            example: "https://dub.co/blog"
         - in: "query"
           name: "url"
           description: "The URL to retrieve analytics for."
@@ -4702,6 +4717,8 @@ components:
                       type: "string"
                     "referer":
                       type: "string"
+                    "refererUrl":
+                      type: "string"
                     "qr":
                       type: "boolean"
                     "ip":
@@ -4716,6 +4733,7 @@ components:
                     - "browser"
                     - "os"
                     - "referer"
+                    - "refererUrl"
                     - "ip"
                 "link":
                   type: "object"
@@ -5711,6 +5729,8 @@ components:
                       type: "string"
                     "referer":
                       type: "string"
+                    "refererUrl":
+                      type: "string"
                     "qr":
                       type: "boolean"
                     "ip":
@@ -5725,6 +5745,7 @@ components:
                     - "browser"
                     - "os"
                     - "referer"
+                    - "refererUrl"
                     - "ip"
                 "link":
                   type: "object"
@@ -6722,6 +6743,8 @@ components:
                       type: "string"
                     "referer":
                       type: "string"
+                    "refererUrl":
+                      type: "string"
                     "qr":
                       type: "boolean"
                     "ip":
@@ -6736,6 +6759,7 @@ components:
                     - "browser"
                     - "os"
                     - "referer"
+                    - "refererUrl"
                     - "ip"
                 "link":
                   type: "object"
@@ -9313,6 +9337,8 @@ components:
               type: "string"
             "referer":
               type: "string"
+            "refererUrl":
+              type: "string"
             "qr":
               type: "boolean"
             "ip":
@@ -9327,6 +9353,7 @@ components:
             - "browser"
             - "os"
             - "referer"
+            - "refererUrl"
             - "ip"
         "link":
           type: "object"
@@ -10362,6 +10389,8 @@ components:
               type: "string"
             "referer":
               type: "string"
+            "refererUrl":
+              type: "string"
             "qr":
               type: "boolean"
             "ip":
@@ -10376,6 +10405,7 @@ components:
             - "browser"
             - "os"
             - "referer"
+            - "refererUrl"
             - "ip"
         "link":
           type: "object"
@@ -12361,6 +12391,8 @@ components:
               type: "string"
             "referer":
               type: "string"
+            "refererUrl":
+              type: "string"
             "qr":
               type: "boolean"
             "ip":
@@ -12375,6 +12407,7 @@ components:
             - "browser"
             - "os"
             - "referer"
+            - "refererUrl"
             - "ip"
         "customer":
           type: "object"
