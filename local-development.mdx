@@ -288,9 +288,13 @@ Prerequisites:
 
 </Steps>
 
-<Note>
-  The docker-compose setup includes Mailhog, which acts as a mock SMTP server and shows received emails in a web UI. You can access the Mailhog web interface at [http://localhost:8025](http://localhost:8025). This is useful for testing email functionality without sending real emails during local development.
-</Note>
+<Tip>
+  The docker-compose setup includes Mailhog, which acts as a mock SMTP server
+  and shows received emails in a web UI. You can access the Mailhog web
+  interface at [http://localhost:8025](http://localhost:8025). This is useful
+  for testing email functionality without sending real emails during local
+  development.
+</Tip>
 
 ### Option 2: PlanetScale hosted database
 
@@ -343,19 +347,7 @@ Prerequisites:
 
 </Steps>
 
-## Step 5: Set up GitHub OAuth
-
-Next, [create a new GitHub App](https://github.com/settings/applications/new). This will allow you to sign in to Dub.co with your GitHub account.
-
-Don't forget to set the following Callback URL:
-
-```
-http://localhost:8888/api/auth/callback/github
-```
-
-Once your GitHub App is created, copy the `Client ID` and `Client Secret` into your `.env` file as the `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables.
-
-## Step 6: Start the development server
+## Step 5: Start the development server
 
 Finally, you can start the development server. This will build the packages + start the app servers.
 
