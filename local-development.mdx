@@ -347,7 +347,43 @@ Prerequisites:
 
 </Steps>
 
-## Step 5: Start the development server
+## Step 5: Set up Mailhog
+
+To view emails sent from your application during local development, you'll need to set up [Mailhog](https://github.com/mailhog/MailHog).
+
+<Note>
+  If you've already run `docker compose up` as part of the database setup, you
+  can skip this step. Mailhog is included in the Docker Compose configuration
+  and should already be running.
+</Note>
+
+<Steps>
+
+  <Step title="Pull Mailhog Docker image">
+
+    Run the following command to pull the Mailhog Docker image:
+
+    ```bash Terminal
+    docker pull mailhog/mailhog
+    ```
+
+  </Step>
+
+  <Step title="Start Mailhog container">
+
+    Start the Mailhog container with the following command:
+
+    ```bash Terminal
+    docker run -d -p 8025:8025 -p 1025:1025 mailhog/mailhog
+    ```
+
+    This will run Mailhog in the background, and the web interface will be available at [http://localhost:8025](http://localhost:8025).
+
+  </Step>
+
+</Steps>
+
+## Step 6: Start the development server
 
 Finally, you can start the development server. This will build the packages + start the app servers.
 
