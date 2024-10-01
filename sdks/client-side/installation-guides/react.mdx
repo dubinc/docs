@@ -17,6 +17,31 @@ This quick start guide will show you how to get started with Dub Analytics on yo
 
 You can pass the following props to the `<Analytics />` component to customize the tracking script:
 
+<ParamField body="apiHost" type="url" default="https://api.dub.co">
+  The base URL for the Dub API. This is useful for setting up reverse proxies to
+  avoid adblockers.
+</ParamField>
+<ParamField body="apiKey" type="string">
+  The publishable API key to use for client-side click tracking. Get your
+  publishable API key from your [Dub workspace's token settings
+  page](https://app.dub.co/settings/tokens).
+</ParamField>
+
+<ParamField
+  body="attributionModel"
+  type="first-click | last-click"
+  default="last-click"
+>
+  The attribution model to use for the analytics event. The following
+  attribution models are available:
+
+- `first-click`: The first click model
+  gives all the credit to the first touchpoint in the customer journey.
+- `last-click`: The last click model gives all the credit to the last
+  touchpoint in the customer journey.
+
+</ParamField>
+
 <ParamField body="cookieOptions" type="CookieOption Object">
   <Expandable title="properties">
     <ParamField body="domain" type="string">
@@ -37,43 +62,6 @@ You can pass the following props to the `<Analytics />` component to customize t
     </ParamField>
   </Expandable>
 </ParamField>
-
-<ParamField
-  body="attributionModel"
-  type="first-click | last-click"
-  default="last-click"
->
-  The attribution model to use for the analytics event. The following
-  attribution models are available:
-
-- `first-click`: The first click model
-  gives all the credit to the first touchpoint in the customer journey.
-- `last-click`: The last click model gives all the credit to the last
-  touchpoint in the customer journey.
-
-</ParamField>
-
-For example, to set a cross domain cookie that works on the apex domain (`domain.com`) as well as subdomains (`app.domain.com`):
-
-```jsx app/layout.tsx
-import { Analytics as DubAnalytics } from "@dub/analytics";
-
-<DubAnalytics
-  cookieOptions={{
-    domain: process.env.IS_PRODUCTION_ENV
-      ? ".yourdomain.com" // for cross-domain tracking
-      : undefined,
-  }}
-/>;
-```
-
-Alternatively, to set a first-click attribution model:
-
-```jsx app/layout.tsx
-import { Analytics as DubAnalytics } from "@dub/analytics";
-
-<DubAnalytics attributionModel="first-click" />;
-```
 
 ## Examples
 
