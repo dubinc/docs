@@ -21,6 +21,7 @@ You can pass the following props to the `<Analytics />` component to customize t
   The base URL for the Dub API. This is useful for setting up reverse proxies to
   avoid adblockers.
 </ParamField>
+
 <ParamField body="apiKey" type="string">
   The publishable API key to use for client-side click tracking. Get your
   publishable API key from your [Dub workspace's token settings
@@ -61,6 +62,17 @@ You can pass the following props to the `<Analytics />` component to customize t
       path is considered the "default path". Example: `/`
     </ParamField>
   </Expandable>
+</ParamField>
+
+<ParamField body="queryParam" type="string" default="ref">
+  The query parameter to listen to for client-side click-tracking (e.g.
+  `?ref=abc123`).
+</ParamField>
+
+<ParamField body="scriptProps" type="HTMLScriptElement Object">
+  Custom properties to pass to the script tag. Refer to
+  [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement) for
+  all available options.
 </ParamField>
 
 ## Examples
