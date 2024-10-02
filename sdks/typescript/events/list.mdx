@@ -6,18 +6,19 @@ description: "Retrieve a list of events for the authenticated workspace. The lis
 ---
 
 <Note>
-  Analytics endpoints require a [Pro plan](https://d.to/pro) subscription or
-  higher.
+  Events endpoints require a [Business plan](https://d.to/business) subscription
+  or higher.
 </Note>
 
 ## Arguments
 
-<ParamField body="event" type="string" default="clicks">
-  The type of event to retrieve analytics for. Defaults to `clicks`.
+<ParamField body="event" type="enum" default="clicks">
+  The type of event to retrieve events for. Available options: `clicks`,
+  `leads`, and `sales`.
 </ParamField>
 
 <ParamField body="domain" type="string">
-  The domain to filter analytics for.
+  The domain of the short link.
 </ParamField>
 
 <ParamField body="key" type="string">
@@ -29,33 +30,43 @@ description: "Retrieve a list of events for the authenticated workspace. The lis
 </ParamField>
 
 <ParamField body="externalId" type="string">
-  This is the ID of the link in the your database. Must be prefixed with `ext_`
+  This is the ID of the link in the your database. Must be prefixed with 'ext_'
   when passed as a query parameter.
 </ParamField>
 
 <ParamField body="interval" type="enum<string>">
-  The interval to retrieve analytics for. Available options are `1h`, `24h`,
-  `7d`, `30d`, `90d`, `ytd`, `1y`, and `all`.Takes precedence over `start` and
-  `end`.
+  The interval to retrieve events for.
+  
+  Available options are `1h`, `24h`, `7d`, `30d`, `90d`, `ytd`, `1y`, and `all`.
+
+Takes precedence over `start` and `end`.
+
 </ParamField>
 
 <ParamField body="start" type="string">
-  The start date to retrieve events for. Cannot be earlier than September 22,
-  2022.
+  The start date to retrieve events for.
+
+Cannot be earlier than September 22, 2022.
+
 </ParamField>
 
 <ParamField body="end" type="string">
-  The start date to retrieve events for. Cannot be in the future. If not
-  provided, defaults to the current date.
+  The start date to retrieve events for.
+
+Cannot be in the future. If not provided, defaults to the current date.
+
 </ParamField>
 
-<ParamField body="timezone" type="string" default="UTC">
+<ParamField body="timezone" type="string">
   The IANA time zone code for aligning timeseries granularity (e.g.
-  `America/New_York`). Defaults to `UTC`.
+  America/New_York). Defaults to UTC.
 </ParamField>
 
 <ParamField body="continent" type="string">
   The continent to retrieve events for.
+
+Available options are `AF`, `AN`, `AS`, `EU`, `NA`, `OC`, and `SA`.
+
 </ParamField>
 
 <ParamField body="country" type="enum<string>">
@@ -104,6 +115,10 @@ Available options are `AF`, `AL`, `DZ`,
   The referer to retrieve events for.
 </ParamField>
 
+<ParamField body="refererUrl" type="string">
+  The full referer URL to retrieve events for.
+</ParamField>
+
 <ParamField body="url" type="string">
   The URL to retrieve events for.
 </ParamField>
@@ -113,56 +128,40 @@ Available options are `AF`, `AL`, `DZ`,
 </ParamField>
 
 <ParamField body="qr" type="boolean">
-  Filter for QR code scans. If `true`, filter for QR codes only. If `false`,
-  filter for links only. If `undefined`, return both.
+  Filter for QR code scans. If true, filter for QR code scans only. If false,
+  filter for link clicks only. If undefined, return both.
 </ParamField>
 
 <ParamField body="root" type="boolean">
-  Filter for root domains. If `true`, filter for domains only. If `false`,
-  filter for links only. If `undefined`, return both.
+  Filter for root domains. If true, filter for domains only. If false, filter
+  for links only. If undefined, return both.
+</ParamField>
+
+<ParamField body="limit" type="number">
+  The number of records to retrieve.
+</ParamField>
+
+<ParamField body="offset" type="number">
+  Number of records to offset the results by.
+</ParamField>
+
+<ParamField body="sortBy" type="enum<'timestamp'>">
+  The field to sort the results by.
+</ParamField>
+
+<ParamField body="order" type="enum<'asc' | 'desc'>">
+  The order to sort the results by.
 </ParamField>
 
 <RequestExample>
 
 ```ts
 await dub.events.list({
-  domain: "dub.sh",
+  event: "clicks",
+  linkId: "abc123",
+  start: "a week ago", // we support relative dates like "a week ago"
+  end: "today", // we support relative dates like "today"
 });
 ```
 
 </RequestExample>
-
-<ResponseExample>
-
-```ts
-[
-  {
-    timestamp: "2024-08-20T15:42:57.434Z",
-    click_id: "Ndh2IG1NIRy6xadJ",
-    link_id: "clmnr6jcc0005l308q9v56uz1",
-    domain: "dub.sh",
-    key: "checkly-check",
-    url: "https://www.checklyhq.com/",
-    continent: "NA",
-    country: "US",
-    city: "Boydton",
-    device: "Desktop",
-    browser: "Unknown",
-    os: "Unknown",
-    referer: "(direct)",
-    ip: "172.200.199.200",
-    qr: 0,
-    link: {
-      id: "clmnr6jcc0005l308q9v56uz1",
-      domain: "dub.sh",
-      key: "checkly-check",
-      url: "https://www.checklyhq.com/",
-    },
-    customer: {
-      avatar: "https://api.dicebear.com/7.x/micah/svg?seed=undefined",
-    },
-  },
-];
-```
-
-</ResponseExample>

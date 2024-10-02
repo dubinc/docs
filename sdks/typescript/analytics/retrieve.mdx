@@ -19,8 +19,8 @@ description: Retrieve analytics for a link, a domain, or the authenticated works
 <ParamField body="groupBy" type="enum">
   The parameter to group the analytics data points by. Defaults to 'count' if
   undefined. Available options: `count`, `timeseries`, `countries`, `cities`,
-  `devices`, `browsers`, `os`, `referers`, `top_links`, `top_urls`, and
-  `trigger`.
+  `devices`, `browsers`, `os`, `referers`, `referer_urls`, `top_links`,
+  `top_urls`, and `trigger`.
 </ParamField>
 
 <ParamField body="domain" type="string">
@@ -29,6 +29,15 @@ description: Retrieve analytics for a link, a domain, or the authenticated works
 
 <ParamField body="key" type="string">
   The short link slug.
+</ParamField>
+
+<ParamField body="linkId" type="string">
+  The unique ID of the short link on Dub.
+</ParamField>
+
+<ParamField body="externalId" type="string">
+  This is the ID of the link in the your database. Must be prefixed with 'ext_'
+  when passed as a query parameter.
 </ParamField>
 
 <ParamField body="interval" type="enum<string>">
@@ -51,6 +60,18 @@ Cannot be earlier than September 22, 2022.
   The start date to retrieve analytics for.
 
 Cannot be in the future. If not provided, defaults to the current date.
+
+</ParamField>
+
+<ParamField body="timezone" type="string">
+  The IANA time zone code for aligning timeseries granularity (e.g.
+  America/New_York). Defaults to UTC.
+</ParamField>
+
+<ParamField body="continent" type="string">
+  The continent to retrieve analytics for.
+
+Available options are `AF`, `AN`, `AS`, `EU`, `NA`, `OC`, and `SA`.
 
 </ParamField>
 
@@ -100,54 +121,54 @@ Available options are `AF`, `AL`, `DZ`,
   The referer to retrieve analytics for.
 </ParamField>
 
-<ParamField body="url" type="string">
-  The URL to retrieve analytics for.
+<ParamField body="refererUrl" type="string">
+  The full referer URL to retrieve analytics for.
 </ParamField>
 
-<ParamField body="excludeRoot" type="boolean">
-  Whether to exclude the root link from the response.
+<ParamField body="url" type="string">
+  The URL to retrieve analytics for.
 </ParamField>
 
 <ParamField body="tagId" type="string">
   The tag ID to retrieve analytics for.
 </ParamField>
 
-## Response
+<ParamField body="qr" type="boolean">
+  Filter for QR code scans. If true, filter for QR code scans only. If false,
+  filter for link clicks only. If undefined, return both.
+</ParamField>
 
-<ResponseField name="browser" type="string" required>
-  The name of the browser
-</ResponseField>
-
-<ResponseField name="clicks" type="number" required>
-  The number of clicks from this browser
-</ResponseField>
+<ParamField body="root" type="boolean">
+  Filter for root domains. If true, filter for domains only. If false, filter
+  for links only. If undefined, return both.
+</ParamField>
 
 <RequestExample>
 
 ```typescript
 // Retrieve total clicks for a link
 await dub.analytics.retrieve({
-  key: "dummy",
-  domain: "dub.sh",
   event: "clicks",
+  domain: "dub.sh",
+  key: "dummy",
+  groupBy: "count",
 });
 
 // Retrieve timeseries analytics for a link
 await dub.analytics.retrieve({
-  key: "dummy",
-  domain: "dub.sh",
-  interval: "30d",
   event: "clicks",
+  linkId: "abc123",
+  start: "30 days ago", // we support natural language for start and end dates
+  end: "now",
   groupBy: "timeseries",
+});
+
+// Retrieve analytics by external ID
+await dub.analytics.retrieve({
+  event: "clicks",
+  externalId: "ext_123", // ID of the link in your database – must be prefixed with 'ext_'
+  groupBy: "referer_urls", // we support grouping by the top referer URLs
 });
 ```
 
 </RequestExample>
-
-<ResponseExample>
-
-```typescript
-// The response type depends on the `event` and `type` query parameters.
-```
-
-</ResponseExample>
