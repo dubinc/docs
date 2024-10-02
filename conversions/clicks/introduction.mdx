@@ -260,3 +260,11 @@ export default function App() {
 ```
 
 </CodeGroup>
+
+### Step 5: Verify your setup
+
+To verify that your click-tracking is working, run your website locally with the specific query parameter (e.g. `?via=jane`) and check if the following is true:
+
+1. The click tracked correctly in the [**Analytics**](https://app.dub.co/analytics) tab of your Dub workspace.
+2. There is a successful `/track/click` request in your browser's **Network** tab (and no errors in the **Console** tab).
+3. The `dub_id` cookie is being set in your browser upon a successful click-tracking request.
