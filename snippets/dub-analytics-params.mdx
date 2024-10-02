@@ -1,0 +1,57 @@
+<ParamField body="apiHost" type="url" default="https://api.dub.co">
+  The base URL for the Dub API. This is useful for setting up reverse proxies to
+  avoid adblockers.
+</ParamField>
+
+<ParamField body="apiKey" type="string">
+  The publishable API key to use for client-side click tracking. Get your
+  publishable API key from your [Dub workspace's token settings
+  page](https://app.dub.co/settings/tokens).
+</ParamField>
+
+<ParamField
+  body="attributionModel"
+  type="first-click | last-click"
+  default="last-click"
+>
+  The attribution model to use for the analytics event. The following
+  attribution models are available:
+
+- `first-click`: The first click model
+  gives all the credit to the first touchpoint in the customer journey.
+- `last-click`: The last click model gives all the credit to the last
+  touchpoint in the customer journey.
+
+</ParamField>
+
+<ParamField body="cookieOptions" type="CookieOption Object">
+  <Expandable title="properties">
+    <ParamField body="domain" type="string">
+      Specifies the value for the `Domain` Set-Cookie attribute. This is useful
+      for cross-domain tracking. Example: `.example.com`
+    </ParamField>
+    <ParamField body="expires" type="integer" default="90">
+      Specifies the `Date` object to be the value for the `Expires` Set-Cookie
+      attribute. Example: `new Date('2024-12-31')`
+    </ParamField>
+    <ParamField body="expiresInDays" type="integer" default="90">
+      Specifies the number (in days) to be the value for the `Expires`
+      Set-Cookie attribute. Example: `90`
+    </ParamField>
+    <ParamField body="path" type="string" default="/">
+      Specifies the value for the `Path` Set-Cookie attribute. By default, the
+      path is considered the "default path". Example: `/`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="queryParam" type="string" default="ref">
+  The query parameter to listen to for client-side click-tracking (e.g.
+  `?ref=abc123`).
+</ParamField>
+
+<ParamField body="scriptProps" type="HTMLScriptElement Object">
+  Custom properties to pass to the script tag. Refer to
+  [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement) for
+  all available options.
+</ParamField>

@@ -1,0 +1,262 @@
+---
+title: Introduction
+description: Click-tracking with Dub Conversions
+---
+
+import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
+
+Clicks are the starting point for all conversion events on Dub.
+
+A click event can be triggered by:
+
+- A user clicking on a [Dub link](https://dub.co/help/article/how-to-create-link)
+- A user scanning a [Dub QR code](https://dub.co/features/qr-codes)
+
+In [Dub Analytics](https://dub.co/help/article/dub-analytics), you can [filter between QR code scans and link clicks](https://dub.co/help/article/filter-analytics-by-trigger), giving you a full picture of how your various marketing channels are performing.
+
+Clicks are tracked automatically for all Dub short links upon a redirect event – and you also have the flexibility to track clicks via query parameters using our [Client-side SDK](/sdks/client-side/introduction).
+
+## Server-side click-tracking
+
+Server-side click-tracking is enabled by default for all Dub links and come with the following attributes:
+
+| Attribute    | Type    | Description                                                                                      |
+| :----------- | :------ | :----------------------------------------------------------------------------------------------- |
+| `timestamp`  | string  | The timestamp of the click event                                                                 |
+| `id`         | string  | The unique ID of the click event                                                                 |
+| `url`        | string  | The destination URL that the link resolved to – this can vary if geo/device-targeting is enabled |
+| `continent`  | string  | The continent of the user who clicked the link                                                   |
+| `country`    | string  | The country of the user who clicked the link                                                     |
+| `city`       | string  | The city of the user who clicked the link                                                        |
+| `device`     | string  | The device of the user who clicked the link                                                      |
+| `browser`    | string  | The browser of the user who clicked the link                                                     |
+| `os`         | string  | The operating system of the user who clicked the link                                            |
+| `referer`    | string  | The referrer of the user who clicked the link                                                    |
+| `refererUrl` | string  | The full referrer URL of the user who clicked the link                                           |
+| `qr`         | boolean | Whether the click event was triggered by a QR code scan                                          |
+| `ip`         | string  | The IP address of the user who clicked the link (non-EU users only)                              |
+
+These events happen on the server-side and cannot be blocked by browser extensions or ad-blockers, which improves the accuracy of your analytics data.
+
+## Client-side click-tracking
+
+Alternatively, you can track clicks on the client-side using query parameters (e.g. `?via=john`, `?ref=jane`). This gives you the flexibility to track clicks directly on your website or app, without needing to rely on link redirects.
+
+A few use cases include:
+
+- You are migrating from an existing affiliate management platform that uses query parameters to track conversions and don't want ask your affiliates to update all their links
+- You need to use an unfurled URL for the platform you're sharing the link on (no short links allowed)
+- You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks using a `track()` function inside your application code.
+
+With our [Client-side SDK](/sdks/client-side/introduction), you can do exactly that.
+
+Here's how you can enable client-side click-tracking for your links:
+
+### Step 1: Add a unique `identifier` to your links
+
+First, you need to add a unique `identifier` to your links. This `identifier` is unique across your workspace and will be used to identify the corresponding link when passed as the query parameter (e.g. `?via=jane`).
+
+There are two ways to add an `identifier` to your links:
+
+<AccordionGroup>
+<Accordion title="Using the Dub Link Builder">
+
+1. Inside the Dub Link Builder, click on the **More options** button and select **Advanced Settings**. You can also use the `A` keyboard shortcut.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="/images/link-builder-advanced-settings.png"
+    alt="Dub Link Builder Advanced Settings"
+  />
+</Frame>
+
+2. Under the **Identifier** section, enter a unique value that corresponds to the query parameter you want to use for the click-tracking.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="/images/link-builder-identifier.png"
+    alt="Dub Link Builder Identifier"
+  />
+</Frame>
+
+3. Click on the **Save** button to save the changes.
+
+</Accordion>
+
+<Accordion title="Using the Dub API">
+
+If you're using the [Dub API](/api-reference/introduction) to programmatically create your links, you can use the `identifier` field to specify the unique identifier for the link.
+
+Here's an example of how to create a link with a custom `identifier`:
+
+<CodeGroup>
+
+```typescript TypeScript
+await dub.links.create({
+  url: "https://google.com",
+  identifier: "my-custom-identifier",
+});
+```
+
+```python Python
+res = d.links.create(request={
+    url: "https://google.com",
+    identifier: "my-custom-identifier",
+});
+```
+
+```go Go
+func main() {
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    ctx := context.Background()
+    res, err := s.Links.Create(ctx, &operations.CreateLinkRequestBody{
+        URL: "https://google.com",
+        Identifier: "my-custom-identifier",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+req = ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
+  url: "https://google.com",
+  identifier: "my-custom-identifier",
+)
+
+res = s.links.create(req)
+```
+
+</CodeGroup>
+</Accordion>
+</AccordionGroup>
+
+### Step 2: Create a Publishable Key
+
+Next, you'll need to create a [Publishable Key](/sdks/client-side/publishable-keys) that you'll use to initialize the [Client-side SDK](/sdks/client-side/introduction). The key has the following format:
+
+```
+dub_publishable_xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+You can create a Publishable Key in the [**Tokens** settings page](https://app.dub.co/settings/tokens) in your Dub workspace.
+
+### Step 3: Install the Client-side SDK
+
+Lastly, you'll need to install the [Client-side SDK](/sdks/client-side/introduction) and initialize it with the Publishable Key you created in the previous step.
+
+<CodeGroup>
+
+```typescript React/Next.js
+// install the package (e.g. npm install @dub/analytics)
+import { Analytics as DubAnalytics } from "@dub/analytics/react";
+
+export default function App() {
+  return (
+    <Layout>
+      <DubAnalytics
+        apiKey={process.env.NEXT_PUBLIC_DUB_PUBLISHABLE_KEY}
+        queryParam="referral" // default is "via"
+      />
+      {/* Your app code here */}
+    </Layout>
+  );
+}
+```
+
+```javascript Other Frameworks
+// include this script tag in your HTML Head tag
+<script
+  src="https://www.dubcdn.com/analytics/script.js"
+  apiKey="YOUR_DUB_PUBLISHABLE_KEY"
+  defer
+  queryParam="referral" // default is "via"
+/>
+```
+
+</CodeGroup>
+
+Here's the full list of parameters you can pass to the `<Analytics />` component:
+
+<Accordion title="Parameters">
+  <DubAnalyticsParams />
+</Accordion>
+
+### Step 4 (Optional, but recommended): Set up a reverse proxy
+
+To avoid ad-blockers from blocking your click-tracking requests, we recommend setting up a reverse proxy.
+
+Depending on which backend framework you're using, there are a few different ways to do this:
+
+<CodeGroup>
+
+```javascript Next.js
+// next.config.js
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/_proxy/dub/track/click",
+        destination: "https://api.dub.co/track/click",
+      },
+    ];
+  },
+};
+```
+
+```json Vercel
+// vercel.json
+{
+  "rewrites": [
+    {
+      "source": "/_proxy/dub/track/click",
+      "destination": "https://api.dub.co/track/click"
+    }
+  ]
+}
+```
+
+</CodeGroup>
+
+Once you've set up your reverse proxy, don't forget to update the `apiHost` parameter in the `<Analytics />` component to point to your proxy URL.
+
+<CodeGroup>
+
+```typescript React/Next.js
+import { Analytics as DubAnalytics } from "@dub/analytics/react";
+
+export default function App() {
+  return (
+    <Layout>
+      <DubAnalytics
+        apiHost="/_proxy/dub"
+        apiKey={process.env.NEXT_PUBLIC_DUB_PUBLISHABLE_KEY}
+        queryParam="referral" // default is "via"
+      />
+      {/* Your app code here */}
+    </Layout>
+  );
+}
+```
+
+```javascript Other Frameworks
+// include this script tag in your HTML Head tag
+<script
+  src="https://www.dubcdn.com/analytics/script.js"
+  apiHost="/_proxy/dub"
+  apiKey="YOUR_DUB_PUBLISHABLE_KEY"
+  defer
+  queryParam="referral" // default is "via"
+/>
+```
+
+</CodeGroup>
