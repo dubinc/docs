@@ -38,9 +38,11 @@ paths:
                   example: "https://google.com"
                 "domain":
                   type: "string"
+                  maxLength: 190
                   description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
                 "key":
                   type: "string"
+                  maxLength: 190
                   description: "The short link slug. If not provided, a random 7-character slug will be generated."
                 "externalId":
                   type: "string"
@@ -491,9 +493,11 @@ paths:
                   example: "https://google.com"
                 "domain":
                   type: "string"
+                  maxLength: 190
                   description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
                 "key":
                   type: "string"
+                  maxLength: 190
                   description: "The short link slug. If not provided, a random 7-character slug will be generated."
                 "externalId":
                   type: "string"
@@ -699,9 +703,11 @@ paths:
                     example: "https://google.com"
                   "domain":
                     type: "string"
+                    maxLength: 190
                     description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
                   "key":
                     type: "string"
+                    maxLength: 190
                     description: "The short link slug. If not provided, a random 7-character slug will be generated."
                   "externalId":
                     type: "string"
@@ -1079,9 +1085,11 @@ paths:
                   example: "https://google.com"
                 "domain":
                   type: "string"
+                  maxLength: 190
                   description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
                 "key":
                   type: "string"
+                  maxLength: 190
                   description: "The short link slug. If not provided, a random 7-character slug will be generated."
                 "externalId":
                   type: "string"
@@ -1240,6 +1248,13 @@ paths:
             type: "string"
             description: "The URL to generate a QR code for."
           required: true
+        - in: "query"
+          name: "logo"
+          description: "The logo to include in the QR code. Defaults to `https://assets.dub.co/logo.png` if not provided."
+          schema:
+            type: "string"
+            default: "https://assets.dub.co/logo.png"
+            description: "The logo to include in the QR code. Defaults to `https://assets.dub.co/logo.png` if not provided."
         - in: "query"
           name: "size"
           description: "The size of the QR code in pixels. Defaults to `600` if not provided."
@@ -2007,6 +2022,7 @@ paths:
                 "slug":
                   type: "string"
                   minLength: 1
+                  maxLength: 190
                   description: "Name of the domain."
                   example: "acme.com"
                 "expiredUrl":
@@ -2135,6 +2151,7 @@ paths:
                 "slug":
                   type: "string"
                   minLength: 1
+                  maxLength: 190
                   description: "Name of the domain."
                   example: "acme.com"
                 "expiredUrl":
@@ -9577,6 +9594,7 @@ components:
         - "event"
         - "createdAt"
         - "data"
+      description: "Triggered when a link is created, updated, or deleted."
     "LinkClickedEvent":
       type: "object"
       properties:
@@ -10574,6 +10592,7 @@ components:
         - "event"
         - "createdAt"
         - "data"
+      description: "Triggered when a link is clicked."
     "LeadCreatedEvent":
       type: "object"
       properties:
@@ -11594,6 +11613,7 @@ components:
         - "event"
         - "createdAt"
         - "data"
+      description: "Triggered when a lead is created."
     "SaleCreatedEvent":
       type: "object"
       properties:
@@ -12632,6 +12652,7 @@ components:
         - "event"
         - "createdAt"
         - "data"
+      description: "Triggered when a sale is created."
   responses:
     "400":
       description: "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
