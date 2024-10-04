@@ -18,6 +18,13 @@ Webhooks allows you to listen to real-time events happening across your Dub work
 - Send a notification on [Slack](https://app.dub.co/integrations/slack) when a link is clicked
 - For building gamified referral programs with [Dub Conversions](/conversions/quickstart) – e.g. increment usage credits for both the referrer and referee when a conversion event happens
 
+<Warning>
+  The following endpoints do not trigger webhook events: [Bulk create
+  links](/api-reference/endpoint/bulk-create-links), [Bulk update
+  links](/api-reference/endpoint/bulk-update-links), [Bulk delete
+  links](/api-reference/endpoint/bulk-delete-links).
+</Warning>
+
 In this guide, we'll show you how to configure webhooks for your Dub workspace and a list of available events you can listen to.
 
 ## Creating a webhook
