@@ -1,31 +1,107 @@
 ---
 title: "API Keys"
-"og:title": "How to get my Dub.co API key?"
-description: "Learn how to get your Dub.co API key."
+description: "Learn how API keys work on Dub"
 icon: key
 ---
 
-API keys on Dub.co allow other apps to access your workspace programmatically. This is useful for integrating Dub with other tools and services.
+API keys on Dub allow you to access your workspace programmatically. This is useful for integrating Dub into your application or with other tools and services.
 
-Each API key is tied to a specific workspace – meaning you can use it to access that workspace's resources without having to worry about "leaking" access to other workspaces. You also no longer need to pass your [workspace ID](https://dub.co/help/article/how-to-get-workspace-id) in your API requests.
+Each API key is tied to a specific workspace – meaning you can use it to access that workspace's resources without having to worry about "leaking" access to other workspaces.
 
-<Tip>Dub API keys are prefixed with `dub_` for easy identification.</Tip>
+## Secret and publishable keys
+
+There are two types of API keys on Dub – **Secret keys** and **Publishable keys**.
+
+Here are the key differences between them:
+
+| Type            | Format                     | When to use                                                                                                                                                                                                                                                                                                   |
+| :-------------- | :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Secret**      | `dub_xxxxxxxx`             | Use this key to authenticate requests on your server. By default, you can use this key to perform any API request without restriction, so it must be stored securely in your app's server-side code (such as in an environment variable or credential management system). Don’t expose this key on a website. |
+| **Publishable** | `dub_publishable_xxxxxxxx` | Use this key to authenticate requests on the client side for operations like [client-side click tracking](/conversions/clicks/introduction#client-side-click-tracking) and [generating QR codes programmatically with a custom logo](/api-reference/endpoint/retrieve-a-qr-code).                             |
+
+## Create a secret API key
+
+You can create an API key by following these steps:
+
+<Steps>
+  <Step title="Go to your workspace">
+    Go to **Settings** > [**API Keys**](https://app.dub.co/settings/tokens) in your workspace.
+
+    <Frame>
+      <img
+        src="/images/workspace-api-keys.png"
+        alt="Workspace API keys on Dub"
+        width="1468"
+        height="249"
+      />
+    </Frame>
+
+  </Step>
+  <Step title="Create an API Key">
+    Click on the "Create" button and select permissions you want to grant to
+    the API key.
+
+    Select between "You" and "Machine" to associate the API key with your account or a [machine user](#machine-users).
+
+    - **You**: This API key is tied to your user and can make requests against the selected workspace.
+    - **Machine**: A machine user will be added to your workspace, and an API key associated with that machine user will be created.
+
+    <Frame>
+      <img
+        src="/images/add-new-api-key.png"
+        alt="Add new API key on Dub"
+        width="1468"
+        height="249"
+      />
+    </Frame>
+
+    When making API calls, if your API Key have insufficient permissions, the error should tell you which permissions you need.
+
+    Make sure to copy your API key and store it in a safe place. You won't be able to see it again.
+
+  </Step>
+  <Step title="Use your API Key">
+    Now that you have your API key, you can use it to access your workspace's resources programmatically via SDKs or within any API request as a bearer token.
+
+    ```
+    Authorization: Bearer dub_xxxx
+    ```
+
+  </Step>
+</Steps>
+
+<Tip>
+  We recommend creating API keys with the least privilege necessary to perform
+  the required tasks. This helps to reduce the risk of unauthorized access to
+  your workspace.
+</Tip>
+
+## Create a publishable API key
+
+To create a publishable key, you can go to **Settings** > [**API Keys**](https://app.dub.co/settings/tokens) and click on **Create publishable key**. The key will be in the format `dub_publishable_xxxxxxxx`.
+
+<Note>
+  Publishable keys are currently in beta. If you'd like access, [reach out to us
+  via
+  email](mailto:support@dub.co?subject=I%20want%20access%20to%20publishable%20keys).
+</Note>
 
 ## API key permissions
 
-You can create 3 types of API keys on Dub.co:
+When creating a secret key, you can select the permissions it has, which will give the key access to certain (or all) resources on Dub. Here are the different permission options:
 
-1. **All permissions** – This API key will have full access to all resources.
-2. **Read only** – This API key will have read-only access to all resources.
-3. **Restricted** – This API key will have restricted access to some resources:
-   - [Links](/data-model#links)
-   - [Analytics](/api-reference/endpoint/retrieve-analytics)
-   - [Workspaces](/data-model#workspace)
-   - [Domains](/data-model#domains)
-   - [Tags](/data-model#tags)
-   - API Keys
+| Permission          | Description                                                                                                                                                                                                                                                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **All permissions** | This API key will have full access to all resources.                                                                                                                                                                                                                                         |
+| **Read only**       | This API key will have read-only access to all resources.                                                                                                                                                                                                                                    |
+| **Restricted**      | This API key will have restricted access to some resources: <ul><li>[Links](/data-model#links)</li><li>[Analytics](/api-reference/endpoint/retrieve-analytics)</li><li>[Workspaces](/data-model#workspace)</li><li>[Domains](/data-model#domains)</li><li>[Tags](/data-model#tags)</li></ul> |
 
 Depending on your use case, you might want to use one of these 3 options to limit the scope of the API key and improve security.
+
+<Tip>
+  You can only set permissions on Secret keys. Publishable keys only have access
+  to certain endpoints, and cannot be restricted.
+</Tip>
 
 ## Machine users
 
@@ -62,60 +138,3 @@ These machine users will show up on your workspace's **People** tab, but will no
   the owner of the workspace, this option will be disabled when creating an API
   key.
 </Warning>
-
-## How to create an API key
-
-You can create an API key by following these steps:
-
-<Steps>
-  <Step title="Go to your workspace">
-    Go to **Settings** > **API Keys** in your workspace.
-
-    <Frame>
-      <img
-        src="/images/workspace-api-keys.png"
-        alt="Workspace API keys on Dub"
-        width="1468"
-        height="249"
-      />
-    </Frame>
-
-  </Step>
-  <Step title="Create an API Key">
-    Click on the "Create" button and select permissions you want to grant to
-    the API key.
-
-    Select between "You" and "Machine" to associate the API key with a user or a [machine user](#machine-users).
-
-    - **You** – This API key is tied to your user and can make requests against the selected workspace.
-    - **Machine** – A machine user will be added to your workspace, and an API key will be created.
-
-    <Frame>
-      <img
-        src="/images/add-new-api-key.png"
-        alt="Add new API key on Dub"
-        width="1468"
-        height="249"
-      />
-    </Frame>
-
-    When making API calls, if your API Key have insufficient permissions, the error should tell you which permissions you need.
-
-    Make sure to copy your API key and store it in a safe place. You won't be able to see it again.
-
-  </Step>
-  <Step title="Use your API Key">
-    Now that you have your API key, you can use it to access your workspace's resources programmatically via SDKs or within any API request as a bearer token.
-
-    ```
-    Authorization: Bearer dub_xxxx
-    ```
-
-  </Step>
-</Steps>
-
-<Tip>
-  We recommend creating API keys with the least privilege necessary to perform
-  the required tasks. This helps to reduce the risk of unauthorized access to
-  your workspace.
-</Tip>
