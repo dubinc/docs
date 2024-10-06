@@ -1331,7 +1331,7 @@ paths:
       parameters:
         - in: "query"
           name: "event"
-          description: "The type of event to retrieve analytics for. Defaults to 'clicks'."
+          description: "The type of event to retrieve analytics for. Defaults to `clicks`."
           schema:
             type: "string"
             enum:
@@ -1340,10 +1340,10 @@ paths:
               - "sales"
               - "composite"
             default: "clicks"
-            description: "The type of event to retrieve analytics for. Defaults to 'clicks'."
+            description: "The type of event to retrieve analytics for. Defaults to `clicks`."
         - in: "query"
           name: "groupBy"
-          description: "The parameter to group the analytics data points by. Defaults to 'count' if undefined."
+          description: "The parameter to group the analytics data points by. Defaults to `count` if undefined. Note that `trigger` is deprecated (use `triggers` instead), but kept for backwards compatibility."
           schema:
             type: "string"
             enum:
@@ -1355,13 +1355,14 @@ paths:
               - "devices"
               - "browsers"
               - "os"
+              - "trigger"
+              - "triggers"
               - "referers"
               - "referer_urls"
               - "top_links"
               - "top_urls"
-              - "trigger"
             default: "count"
-            description: "The parameter to group the analytics data points by. Defaults to 'count' if undefined."
+            description: "The parameter to group the analytics data points by. Defaults to `count` if undefined. Note that `trigger` is deprecated (use `triggers` instead), but kept for backwards compatibility."
         - in: "query"
           name: "domain"
           description: "The domain to filter analytics for."
@@ -1458,6 +1459,15 @@ paths:
             description: "The OS to retrieve analytics for."
             example: "Windows"
         - in: "query"
+          name: "trigger"
+          description: "The trigger to retrieve analytics for. If undefined, return both QR and link clicks."
+          schema:
+            type: "string"
+            enum:
+              - "qr"
+              - "link"
+            description: "The trigger to retrieve analytics for. If undefined, return both QR and link clicks."
+        - in: "query"
           name: "referer"
           description: "The referer to retrieve analytics for."
           schema:
@@ -1485,10 +1495,11 @@ paths:
             description: "The tag ID to retrieve analytics for."
         - in: "query"
           name: "qr"
-          description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+          description: "Deprecated. Use the `trigger` field instead. Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
           schema:
             type: "boolean"
-            description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+            description: "Deprecated. Use the `trigger` field instead. Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+            deprecated: true
         - in: "query"
           name: "root"
           description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
@@ -1507,6 +1518,9 @@ paths:
                     items: {"$ref": "#/components/schemas/AnalyticsTimeseries"}
                     title: "AnalyticsTimeseries"
                   - type: "array"
+                    items: {"$ref": "#/components/schemas/AnalyticsContinents"}
+                    title: "AnalyticsContinents"
+                  - type: "array"
                     items: {"$ref": "#/components/schemas/AnalyticsCountries"}
                     title: "AnalyticsCountries"
                   - type: "array"
@@ -1522,8 +1536,14 @@ paths:
                     items: {"$ref": "#/components/schemas/AnalyticsOS"}
                     title: "AnalyticsOS"
                   - type: "array"
+                    items: {"$ref": "#/components/schemas/AnalyticsTriggers"}
+                    title: "AnalyticsTriggers"
+                  - type: "array"
                     items: {"$ref": "#/components/schemas/AnalyticsReferers"}
                     title: "AnalyticsReferers"
+                  - type: "array"
+                    items: {"$ref": "#/components/schemas/AnalyticsRefererUrls"}
+                    title: "AnalyticsRefererUrls"
                   - type: "array"
                     items: {"$ref": "#/components/schemas/AnalyticsTopLinks"}
                     title: "AnalyticsTopLinks"
@@ -1658,6 +1678,15 @@ paths:
             description: "The OS to retrieve analytics for."
             example: "Windows"
         - in: "query"
+          name: "trigger"
+          description: "The trigger to retrieve analytics for. If undefined, return both QR and link clicks."
+          schema:
+            type: "string"
+            enum:
+              - "qr"
+              - "link"
+            description: "The trigger to retrieve analytics for. If undefined, return both QR and link clicks."
+        - in: "query"
           name: "referer"
           description: "The referer to retrieve analytics for."
           schema:
@@ -1685,10 +1714,11 @@ paths:
             description: "The tag ID to retrieve analytics for."
         - in: "query"
           name: "qr"
-          description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+          description: "Deprecated. Use the `trigger` field instead. Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
           schema:
             type: "boolean"
-            description: "Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+            description: "Deprecated. Use the `trigger` field instead. Filter for QR code scans. If true, filter for QR codes only. If false, filter for links only. If undefined, return both."
+            deprecated: true
         - in: "query"
           name: "root"
           description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
@@ -2068,7 +2098,7 @@ paths:
       operationId: "listDomains"
       x-speakeasy-name-override: "list"
       x-speakeasy-pagination: {"type": "offsetLimit", "inputs": [{"name": "page", "in": "parameters", "type": "page"}, {"name": "pageSize", "in": "parameters", "type": "limit"}], "outputs": {"results": "$"}}
-      x-codeSamples: [{"lang": "typescript", "label": "listDomains", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.domains.list();\n\n  for await (const page of result) {\n    // Handle the page\n    console.log(page);\n  }\n}\n\nrun();"}, {"lang": "go", "label": "listDomains", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Domains.List(ctx, operations.ListDomainsRequest{\n        Page: dubgo.Float64(1),\n        PageSize: dubgo.Float64(50),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n                for {\n            // handle items\n        \n            res, err = res.Next()\n        \n            if err != nil {\n                // handle error\n            }\n        \n            if res == nil {\n                break\n            }\n        }\n        \n    }\n}"}, {"lang": "ruby", "label": "listDomains", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListDomainsRequest.new(\n  page: 1.0,\n  page_size: 50.0,\n)\n    \nres = s.domains.list(req)\n\nif ! res.domain_schemas.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listDomains", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->domains->list(\n    archived: false,\n    search: '<value>',\n    page: 1,\n    pageSize: 50\n\n);\n\nif ($response->domainSchemas !== null) {\n    // handle response\n}"}, {lang: python, label: listDomains, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.domains.list(request={\n    \"page\": 1,\n    \"page_size\": 50,\n})\n\nif res is not None:\n    while True:\n        # handle items\n\n        res = res.next()\n        if res is None:\n            break"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/domains\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "listDomains", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.domains.list();\n\n  for await (const page of result) {\n    // Handle the page\n    console.log(page);\n  }\n}\n\nrun();"}, {"lang": "go", "label": "listDomains", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Domains.List(ctx, operations.ListDomainsRequest{\n        Page: dubgo.Float64(1),\n        PageSize: dubgo.Float64(50),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n                for {\n            // handle items\n        \n            res, err = res.Next()\n        \n            if err != nil {\n                // handle error\n            }\n        \n            if res == nil {\n                break\n            }\n        }\n        \n    }\n}"}, {"lang": "ruby", "label": "listDomains", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListDomainsRequest.new(\n  page: 1.0,\n  page_size: 50.0,\n)\n    \nres = s.domains.list(req)\n\nif ! res.domain_schemas.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listDomains", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->domains->list(\n    archived: true,\n    search: '<value>',\n    page: 1,\n    pageSize: 50\n\n);\n\nif ($response->domainSchemas !== null) {\n    // handle response\n}"}, {lang: python, label: listDomains, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.domains.list(request={\n    \"page\": 1,\n    \"page_size\": 50,\n})\n\nif res is not None:\n    while True:\n        # handle items\n\n        res = res.next()\n        if res is None:\n            break"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/domains\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       summary: "Retrieve a list of domains"
       description: "Retrieve a list of domains associated with the authenticated workspace."
       tags:
@@ -4636,6 +4666,42 @@ components:
         - "leads"
         - "sales"
         - "saleAmount"
+    "AnalyticsContinents":
+      type: "object"
+      properties:
+        "continent":
+          type: "string"
+          enum:
+            - "AF"
+            - "AN"
+            - "AS"
+            - "EU"
+            - "NA"
+            - "OC"
+            - "SA"
+          description: "The 2-letter ISO 3166-1 code representing the continent associated with the location of the user."
+        "clicks":
+          type: "number"
+          description: "The number of clicks from this continent"
+          default: 0
+        "leads":
+          type: "number"
+          description: "The number of leads from this continent"
+          default: 0
+        "sales":
+          type: "number"
+          description: "The number of sales from this continent"
+          default: 0
+        "saleAmount":
+          type: "number"
+          description: "The total amount of sales from this continent, in cents"
+          default: 0
+      required:
+        - "continent"
+        - "clicks"
+        - "leads"
+        - "sales"
+        - "saleAmount"
     "AnalyticsCountries":
       type: "object"
       properties:
@@ -5288,6 +5354,37 @@ components:
         - "leads"
         - "sales"
         - "saleAmount"
+    "AnalyticsTriggers":
+      type: "object"
+      properties:
+        "trigger":
+          type: "string"
+          enum:
+            - "qr"
+            - "link"
+          description: "The type of trigger method: link click or QR scan"
+        "clicks":
+          type: "number"
+          description: "The number of clicks from this trigger method"
+          default: 0
+        "leads":
+          type: "number"
+          description: "The number of leads from this trigger method"
+          default: 0
+        "sales":
+          type: "number"
+          description: "The number of sales from this trigger method"
+          default: 0
+        "saleAmount":
+          type: "number"
+          description: "The total amount of sales from this trigger method, in cents"
+          default: 0
+      required:
+        - "trigger"
+        - "clicks"
+        - "leads"
+        - "sales"
+        - "saleAmount"
     "AnalyticsReferers":
       type: "object"
       properties:
@@ -5312,6 +5409,34 @@ components:
           default: 0
       required:
         - "referer"
+        - "clicks"
+        - "leads"
+        - "sales"
+        - "saleAmount"
+    "AnalyticsRefererUrls":
+      type: "object"
+      properties:
+        "refererUrl":
+          type: "string"
+          description: "The full URL of the referer. If unknown, this will be `(direct)`"
+        "clicks":
+          type: "number"
+          description: "The number of clicks from this referer to this URL"
+          default: 0
+        "leads":
+          type: "number"
+          description: "The number of leads from this referer to this URL"
+          default: 0
+        "sales":
+          type: "number"
+          description: "The number of sales from this referer to this URL"
+          default: 0
+        "saleAmount":
+          type: "number"
+          description: "The total amount of sales from this referer to this URL, in cents"
+          default: 0
+      required:
+        - "refererUrl"
         - "clicks"
         - "leads"
         - "sales"
