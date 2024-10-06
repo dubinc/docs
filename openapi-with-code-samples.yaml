@@ -1250,11 +1250,10 @@ paths:
           required: true
         - in: "query"
           name: "logo"
-          description: "The logo to include in the QR code. Defaults to `https://assets.dub.co/logo.png` if not provided."
+          description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
           schema:
             type: "string"
-            default: "https://assets.dub.co/logo.png"
-            description: "The logo to include in the QR code. Defaults to `https://assets.dub.co/logo.png` if not provided."
+            description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
         - in: "query"
           name: "size"
           description: "The size of the QR code in pixels. Defaults to `600` if not provided."
@@ -1288,6 +1287,13 @@ paths:
             type: "string"
             default: "#FFFFFF"
             description: "The background color of the QR code in hex format. Defaults to `#ffffff` if not provided."
+        - in: "query"
+          name: "hideLogo"
+          description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
+          schema:
+            type: "boolean"
+            default: "false"
+            description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
         - in: "query"
           name: "includeMargin"
           description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
