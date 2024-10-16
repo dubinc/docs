@@ -401,6 +401,12 @@ Here's an example payload:
       "saleAmount": 20000,
       "createdAt": "2024-08-29T13:03:59.098Z",
       "updatedAt": "2024-08-30T09:57:50.891Z"
+    },
+    "sale": {
+      "amount": 4500,
+      "currency": "usd",
+      "paymentProcessor": "stripe",
+      "invoiceId": null
     }
   }
 }
@@ -427,20 +433,22 @@ Here's an example payload:
   "event": "link.clicked",
   "createdAt": "2024-08-30T10:16:13.149Z",
   "data": {
-    "timestamp": "2024-08-30T10:16:12.124Z",
-    "clickId": "d0UtZqE0BZuBPrJS",
-    "url": "https://github.com/dubinc/dub",
-    "ip": "63.141.57.109",
-    "continent": "NA",
-    "country": "US",
-    "city": "San Francisco",
-    "device": "Desktop",
-    "browser": "Chrome",
-    "os": "Mac OS",
-    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-    "bot": false,
-    "qr": false,
-    "referer": "(direct)",
+    "click": {
+      "timestamp": "2024-08-30T10:16:12.124Z",
+      "clickId": "d0UtZqE0BZuBPrJS",
+      "url": "https://github.com/dubinc/dub",
+      "ip": "63.141.57.109",
+      "continent": "NA",
+      "country": "US",
+      "city": "San Francisco",
+      "device": "Desktop",
+      "browser": "Chrome",
+      "os": "Mac OS",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "bot": false,
+      "qr": false,
+      "referer": "(direct)"
+    },
     "link": {
       "id": "cm0faqkyn0001txvfwjfeq7gl",
       "domain": "dub.sh",
