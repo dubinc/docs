@@ -1,0 +1,105 @@
+---
+title: "Overview"
+description: "Dub CLI for easily shortening URLs"
+icon: terminal
+---
+
+## Install
+
+<Tabs>
+  <Tab title="npm">
+
+    ```bash
+    npm i -g dub-cli@latest
+    ```
+
+  </Tab>
+  <Tab title="yarn">
+  
+    ```bash
+    yarn global add dub-cli@latest
+    ```
+  
+  </Tab>
+  <Tab title="pnpm">
+  
+    ```bash 
+    pnpm i -g dub-cli@latest
+    ```
+  
+  </Tab>
+</Tabs>
+
+<Info>To update an existing installation, run the same command.</Info>
+
+## Version
+
+Check your installed version of Dub CLI:
+
+```bash
+dub --version
+```
+
+## Commands
+
+Below is a list of key Dub CLI commands:
+
+### Login
+
+Log into the Dub platform:
+
+```bash
+dub login
+```
+
+### Config
+
+View your workspace credentials:
+
+```bash
+dub config
+```
+
+### Domains
+
+Configure domains for URL shortening:
+
+```bash
+dub domains
+```
+
+### Shorten
+
+Create a short link:
+
+```bash
+dub shorten
+```
+
+You can specify the URL and custom key or follow the CLI prompts:
+
+```bash
+dub shorten [url] [key]
+```
+
+### Links
+
+Search for links in your Dub workspace:
+
+```bash
+dub links
+```
+
+Options: `-s, --search <search>` to search by name, or `-l, --limit <limit>` to limit the number of results (default is 10):
+
+```bash
+dub links [options]
+```
+
+### Help
+
+Get help for a specific command:
+
+```bash
+dub help [command]
+```

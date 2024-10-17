@@ -251,6 +251,11 @@
           "pages": ["sdks/typescript/metatags/get"]
         }
       ]
+    },
+    {
+      "group": "CLI",
+      "icon": "terminal",
+      "pages": ["sdks/cli/overview"]
     }
   ],
   "openapi": "/openapi-with-code-samples.yaml",
