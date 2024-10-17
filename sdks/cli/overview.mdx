@@ -38,13 +38,16 @@ Check your installed version of Dub CLI:
 
 ```bash
 dub --version
+# => 0.0.12
 ```
 
 ## Commands
 
 Below is a list of available Dub CLI commands:
 
-### Login
+<AccordionGroup>
+
+<Accordion title="dub login">
 
 Log into the Dub platform:
 
@@ -52,7 +55,9 @@ Log into the Dub platform:
 dub login
 ```
 
-### Config
+</Accordion>
+
+<Accordion title="dub config">
 
 View your workspace credentials:
 
@@ -60,7 +65,9 @@ View your workspace credentials:
 dub config
 ```
 
-### Domains
+</Accordion>
+
+<Accordion title="dub domains">
 
 Configure a domain for URL shortening:
 
@@ -68,7 +75,9 @@ Configure a domain for URL shortening:
 dub domains
 ```
 
-### Shorten
+</Accordion>
+
+<Accordion title="dub shorten">
 
 Create a short link:
 
@@ -76,13 +85,15 @@ Create a short link:
 dub shorten
 ```
 
-You can specify the URL and custom key or follow the CLI prompts:
+You can preemptively pass the URL and the generated short link key, or go through the CLI prompts.
 
 ```bash
 dub shorten [url] [key]
 ```
 
-### Links
+</Accordion>
+
+<Accordion title="dub links">
 
 Search for links in your Dub workspace:
 
@@ -90,16 +101,31 @@ Search for links in your Dub workspace:
 dub links
 ```
 
-Options: `-s, --search <search>` to search by name, or `-l, --limit <limit>` to limit the number of results (default is 10):
+Here are the available options:
+
+| Option                  | Description                                 |
+| ----------------------- | ------------------------------------------- |
+| `-s, --search <search>` | Search by name                              |
+| `-l, --limit <limit>`   | Limit the number of results (default is 10) |
 
 ```bash
 dub links [options]
 ```
 
-### Help
+</Accordion>
+
+<Accordion title="dub help">
 
 Get help for a specific command:
 
 ```bash
 dub help [command]
 ```
+
+</Accordion>
+
+</AccordionGroup>
+
+## Demo
+
+<video src="https://github.com/user-attachments/assets/2ce9fe51-68ab-4e6d-b08d-4da09c17f90e" />
