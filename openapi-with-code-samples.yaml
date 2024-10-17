@@ -3839,8 +3839,8 @@ components:
           default: false
         "placeholder":
           type: "string"
+          nullable: true
           description: "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened."
-          default: "https://dub.co/help/article/what-is-dub"
           example: "https://dub.co/help/article/what-is-dub"
         "expiredUrl":
           type: "string"
