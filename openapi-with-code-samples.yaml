@@ -3644,6 +3644,10 @@ components:
           nullable: true
           default:
           description: "The logo of the workspace."
+        "inviteCode":
+          type: "string"
+          nullable: true
+          description: "The invite code of the workspace."
         "plan":
           type: "string"
           enum:
@@ -3662,14 +3666,14 @@ components:
         "billingCycleStart":
           type: "number"
           description: "The date and time when the billing cycle starts for the workspace."
+        "paymentFailedAt":
+          type: "string"
+          nullable: true
+          description: "The date and time when the payment failed for the workspace."
         "stripeConnectId":
           type: "string"
           nullable: true
           description: "[BETA]: The Stripe Connect ID of the workspace."
-        "inviteCode":
-          type: "string"
-          nullable: true
-          description: "The invite code of the workspace."
         "usage":
           type: "number"
           description: "The usage of the workspace."
@@ -3766,11 +3770,12 @@ components:
         - "name"
         - "slug"
         - "logo"
+        - "inviteCode"
         - "plan"
         - "stripeId"
         - "billingCycleStart"
+        - "paymentFailedAt"
         - "stripeConnectId"
-        - "inviteCode"
         - "usage"
         - "usageLimit"
         - "linksUsage"
