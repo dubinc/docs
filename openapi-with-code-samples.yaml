@@ -1909,6 +1909,7 @@ paths:
                 "name":
                   type: "string"
                   minLength: 1
+                  maxLength: 50
                   description: "The name of the tag to create."
                 "color":
                   type: "string"
@@ -1997,6 +1998,7 @@ paths:
                 "name":
                   type: "string"
                   minLength: 1
+                  maxLength: 50
                   description: "The name of the tag to create."
                 "color":
                   type: "string"
@@ -2111,6 +2113,7 @@ paths:
                 "placeholder":
                   type: "string"
                   nullable: true
+                  maxLength: 100
                   default: "https://dub.co/help/article/what-is-dub"
                   description: "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened."
                   example: "https://dub.co/help/article/what-is-dub"
@@ -2245,6 +2248,7 @@ paths:
                 "placeholder":
                   type: "string"
                   nullable: true
+                  maxLength: 100
                   default: "https://dub.co/help/article/what-is-dub"
                   description: "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened."
                   example: "https://dub.co/help/article/what-is-dub"
@@ -3548,6 +3552,7 @@ components:
           description: "The UTM content of the short link."
         "userId":
           type: "string"
+          nullable: true
           description: "The user ID of the creator of the short link."
         "workspaceId":
           type: "string"
