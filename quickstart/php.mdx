@@ -34,8 +34,7 @@ require 'vendor/autoload.php';
 use Dub\Dub;
 use Dub\Models\Components;
 
-$security = new Components\Security('DUB_API_KEY');
-$dub = Dub::builder()->setSecurity($security->token)->build();
+$dub = Dub::builder()->setSecurity("DUB_API_KEY")->build();
 ```
 
 </Step>
@@ -78,9 +77,9 @@ try {
     url: 'https://google.com',
     externalId: '12345',
   );
-  
+
   $response = $dub->links->create($request);
-  
+
   if ($response->linkSchema !== null) {
     // handle response
   }
@@ -102,9 +101,9 @@ try {
   $request = new Operations\UpsertLinkRequestBody(
     url: 'https://google.com',
   );
-  
+
   $response = $dub->links->upsert($request);
-  
+
   if ($response->linkSchema !== null) {
     // handle response
   }

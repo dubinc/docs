@@ -58,12 +58,12 @@ import LinkResponse from "/snippets/link-response.mdx";
 
 ```ts
 // Find links by domain
-await dub.links.list({
+const { result } = await dub.links.list({
   domain: "dub.sh",
 });
 
 // Find links by tagIds
-await dub.links.list({
+const { result } = await dub.links.list({
   tagIds: ["clv3mewk30001mq0rxl3j3frn"],
 });
 ```

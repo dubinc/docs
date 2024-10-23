@@ -48,8 +48,7 @@ You can now create an instance of the `Dub` class and pass in your API key:
 use Dub\Dub;
 use Dub\Components\Security;
 
-$security = new Security(config('services.dub.api_key'));
-$dub = Dub::builder()->setSecurity($security->token)->build();
+$dub = Dub::builder()->setSecurity(config('services.dub.api_key'))->build();
 
 // create a link
 $dub->links->create(...);
@@ -63,9 +62,7 @@ If you want to be able to inject the `Dub` class via the service container, add 
 
 ```php index.php
 $this->app->bind(Dub::class, function ($app) {
-  $security = new Security($app['config']->get('services.dub.api_key'));
-
-  return Dub::builder()->setSecurity($security->token)->build();
+  return Dub::builder()->setSecurity($app['config']->get('services.dub.api_key'))->build();
 });
 ```
 
@@ -166,7 +163,7 @@ class LinkController extends Controller
             $request = new Operations\UpsertLinkRequestBody(
                 url: 'https://google.com'
             );
-            
+
             $response = $dub->links->upsert($request);
 
             if ($response->linkSchema !== null) {
