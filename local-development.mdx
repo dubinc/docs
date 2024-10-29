@@ -100,6 +100,16 @@ First, clone the [Dub.co repo](https://d.to/github) into a public GitHub reposit
 
   </Step>
 
+  <Step title="Build internal packages">
+
+    Execute the command below to compile all internal packages:
+
+    ```bash Terminal
+    pnpm -r --filter "./packages/**" build
+    ```
+
+  </Step>
+
   <Step title="Set up environment variables">
 
     Copy the `.env.example` file to `.env`:
