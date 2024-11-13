@@ -2,8 +2,8 @@ speakeasyVersion: 1.438.1
 sources:
     merge-code-samples-into-spec:
         sourceNamespace: merge-code-samples-into-spec
-        sourceRevisionDigest: sha256:fe733571850dcae42de7091b5bd2785c403ad3f99622f32c7e405944eb1944b5
-        sourceBlobDigest: sha256:bce2f535d15ee080704e6d69c357c4575fdeada4a1eb374fd59767dd399085c3
+        sourceRevisionDigest: sha256:a3d1fc5cc3086b7f1e162b9e96538ffb27441d9c31b2f023f9bc18758d547771
+        sourceBlobDigest: sha256:4137fa21213f85e5dd08e4149283453b490a50011174afdf1df5950d11fbbc9d
         tags:
             - latest
             - main
