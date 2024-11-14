@@ -1268,92 +1268,6 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
-  "/qr":
-    get:
-      operationId: "getQRCode"
-      x-speakeasy-name-override: "get"
-      summary: "Retrieve a QR code"
-      x-codeSamples: [{"lang": "typescript", "label": "getQRCode", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.qrCodes.get({\n    url: \"https://normal-making.name\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getQRCode", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.QRCodes.Get(ctx, operations.GetQRCodeRequest{\n        URL: \"https://normal-making.name\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getQRCode", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetQRCodeRequest.new(\n  url: \"https://normal-making.name\",\n)\n    \nres = s.qr_codes.get(req)\n\nif ! res.res.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getQRCode", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\GetQRCodeRequest(\n    url: 'https://normal-making.name',\n);\n\n$response = $sdk->qrCodes->get(\n    request: $request\n);\n\nif ($response->res !== null) {\n    // handle response\n}"}, {lang: python, label: getQRCode, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.qr_codes.get(request={\n    \"url\": \"https://normal-making.name\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/qr\")\n  .get()\n  .addHeader(\"accept\", \"image/png\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
-      description: "Retrieve a QR code for a link."
-      tags:
-        - "QR Codes"
-      parameters:
-        - in: "query"
-          name: "url"
-          description: "The URL to generate a QR code for."
-          schema:
-            type: "string"
-            description: "The URL to generate a QR code for."
-          required: true
-        - in: "query"
-          name: "logo"
-          description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
-          schema:
-            type: "string"
-            description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
-        - in: "query"
-          name: "size"
-          description: "The size of the QR code in pixels. Defaults to `600` if not provided."
-          schema:
-            type: "number"
-            default: 600
-            description: "The size of the QR code in pixels. Defaults to `600` if not provided."
-        - in: "query"
-          name: "level"
-          description: "The level of error correction to use for the QR code. Defaults to `L` if not provided."
-          schema:
-            type: "string"
-            enum:
-              - "L"
-              - "M"
-              - "Q"
-              - "H"
-            default: "L"
-            description: "The level of error correction to use for the QR code. Defaults to `L` if not provided."
-        - in: "query"
-          name: "fgColor"
-          description: "The foreground color of the QR code in hex format. Defaults to `#000000` if not provided."
-          schema:
-            type: "string"
-            default: "#000000"
-            description: "The foreground color of the QR code in hex format. Defaults to `#000000` if not provided."
-        - in: "query"
-          name: "bgColor"
-          description: "The background color of the QR code in hex format. Defaults to `#ffffff` if not provided."
-          schema:
-            type: "string"
-            default: "#FFFFFF"
-            description: "The background color of the QR code in hex format. Defaults to `#ffffff` if not provided."
-        - in: "query"
-          name: "hideLogo"
-          description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
-          schema:
-            type: "boolean"
-            default: "false"
-            description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
-        - in: "query"
-          name: "includeMargin"
-          description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
-          schema:
-            type: "boolean"
-            default: "false"
-            description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
-      responses:
-        "200":
-          description: "The QR code"
-          content:
-            "image/png":
-              schema:
-                type: "string"
-        "400": {"$ref": "#/components/responses/400"}
-        "401": {"$ref": "#/components/responses/401"}
-        "403": {"$ref": "#/components/responses/403"}
-        "404": {"$ref": "#/components/responses/404"}
-        "409": {"$ref": "#/components/responses/409"}
-        "410": {"$ref": "#/components/responses/410"}
-        "422": {"$ref": "#/components/responses/422"}
-        "429": {"$ref": "#/components/responses/429"}
-        "500": {"$ref": "#/components/responses/500"}
   "/analytics":
     get:
       operationId: "retrieveAnalytics"
@@ -1834,88 +1748,6 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
-  "/workspaces/{idOrSlug}":
-    get:
-      operationId: "getWorkspace"
-      x-speakeasy-name-override: "get"
-      summary: "Retrieve a workspace"
-      x-codeSamples: [{"lang": "typescript", "label": "getWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.get({\n    idOrSlug: \"<value>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getWorkspace", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Workspaces.Get(ctx, operations.GetWorkspaceRequest{\n        IDOrSlug: \"<value>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetWorkspaceRequest.new(\n  id_or_slug: \"<value>\",\n)\n    \nres = s.workspaces.get(req)\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->workspaces->get(\n    idOrSlug: '<value>'\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: getWorkspace, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.workspaces.get(request={\n    \"id_or_slug\": \"<value>\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
-      description: "Retrieve a workspace for the authenticated user."
-      tags:
-        - "Workspaces"
-      security:
-        - token: []
-      parameters:
-        - in: "path"
-          name: "idOrSlug"
-          description: "The ID or slug of the workspace."
-          schema:
-            type: "string"
-            description: "The ID or slug of the workspace."
-          required: true
-      responses:
-        "200":
-          description: "The retrieved workspace"
-          content:
-            "application/json":
-              schema: {"$ref": "#/components/schemas/WorkspaceSchema"}
-        "400": {"$ref": "#/components/responses/400"}
-        "401": {"$ref": "#/components/responses/401"}
-        "403": {"$ref": "#/components/responses/403"}
-        "404": {"$ref": "#/components/responses/404"}
-        "409": {"$ref": "#/components/responses/409"}
-        "410": {"$ref": "#/components/responses/410"}
-        "422": {"$ref": "#/components/responses/422"}
-        "429": {"$ref": "#/components/responses/429"}
-        "500": {"$ref": "#/components/responses/500"}
-    patch:
-      operationId: "updateWorkspace"
-      x-speakeasy-name-override: "update"
-      x-speakeasy-max-method-params: 2
-      summary: "Update a workspace"
-      x-codeSamples: [{"lang": "typescript", "label": "updateWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.update(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateWorkspace", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Workspaces.Update(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.workspaces.update(id_or_slug=\"<value>\", request_body=::OpenApiSDK::Operations::UpdateWorkspaceRequestBody.new())\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$requestBody = new Operations\\UpdateWorkspaceRequestBody();\n\n$response = $sdk->workspaces->update(\n    idOrSlug: '<value>',\n    requestBody: $requestBody\n\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: updateWorkspace, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.workspaces.update(id_or_slug=\"<value>\")\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"string\\\",\\\"slug\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
-      description: "Update a workspace by ID or slug."
-      tags:
-        - "Workspaces"
-      security:
-        - token: []
-      parameters:
-        - in: "path"
-          name: "idOrSlug"
-          description: "The ID or slug of the workspace to update."
-          schema:
-            type: "string"
-            description: "The ID or slug of the workspace to update."
-          required: true
-      requestBody:
-        content:
-          "application/json":
-            schema:
-              type: "object"
-              properties:
-                "name":
-                  type: "string"
-                  minLength: 1
-                  maxLength: 32
-                "slug":
-                  type: "string"
-                  minLength: 3
-                  maxLength: 48
-      responses:
-        "200":
-          description: "The updated workspace."
-          content:
-            "application/json":
-              schema: {"$ref": "#/components/schemas/WorkspaceSchema"}
-        "400": {"$ref": "#/components/responses/400"}
-        "401": {"$ref": "#/components/responses/401"}
-        "403": {"$ref": "#/components/responses/403"}
-        "404": {"$ref": "#/components/responses/404"}
-        "409": {"$ref": "#/components/responses/409"}
-        "410": {"$ref": "#/components/responses/410"}
-        "422": {"$ref": "#/components/responses/422"}
-        "429": {"$ref": "#/components/responses/429"}
-        "500": {"$ref": "#/components/responses/500"}
   "/tags":
     post:
       operationId: "createTag"
@@ -2340,7 +2172,7 @@ paths:
       operationId: "trackLead"
       x-speakeasy-name-override: "lead"
       summary: "Track a lead"
-      x-codeSamples: [{"lang": "typescript", "label": "trackLead", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.track.lead();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "trackLead", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Track.Lead(ctx, &operations.TrackLeadRequestBody{\n        ClickID: \"<id>\",\n        EventName: \"Sign up\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "trackLead", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::TrackLeadRequestBody.new(\n  click_id: \"<id>\",\n  event_name: \"Sign up\",\n  customer_id: \"<id>\",\n)\n    \nres = s.track.lead(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "trackLead", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\TrackLeadRequestBody(\n    clickId: '<id>',\n    eventName: 'Sign up',\n);\n\n$response = $sdk->track->lead(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: trackLead, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.track.lead(request={\n    \"click_id\": \"<id>\",\n    \"event_name\": \"Sign up\",\n    \"customer_id\": \"<id>\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"clickId\\\":\\\"string\\\",\\\"eventName\\\":\\\"Sign up\\\",\\\"customerId\\\":\\\"string\\\",\\\"customerName\\\":\\\"string\\\",\\\"customerEmail\\\":\\\"user@example.com\\\",\\\"customerAvatar\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/lead\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "trackLead", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.track.lead();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "trackLead", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Track.Lead(ctx, &operations.TrackLeadRequestBody{\n        ClickID: \"<id>\",\n        EventName: \"Sign up\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "trackLead", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::TrackLeadRequestBody.new(\n  click_id: \"<id>\",\n  event_name: \"Sign up\",\n)\n    \nres = s.track.lead(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "trackLead", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\TrackLeadRequestBody(\n    clickId: '<id>',\n    eventName: 'Sign up',\n);\n\n$response = $sdk->track->lead(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: trackLead, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.track.lead(request={\n    \"click_id\": \"<id>\",\n    \"event_name\": \"Sign up\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"clickId\\\":\\\"string\\\",\\\"eventName\\\":\\\"Sign up\\\",\\\"externalId\\\":\\\"\\\",\\\"customerName\\\":\\\"string\\\",\\\"customerEmail\\\":\\\"user@example.com\\\",\\\"customerAvatar\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/lead\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Track a lead for a short link."
       tags:
         - "Track"
@@ -2362,11 +2194,18 @@ paths:
                   maxLength: 50
                   description: "The name of the event to track."
                   example: "Sign up"
+                "externalId":
+                  type: "string"
+                  maxLength: 100
+                  default: ""
+                  description: "This is the unique identifier for the customer in the client's app. This is used to track the customer's journey."
                 "customerId":
                   type: "string"
-                  minLength: 1
+                  nullable: true
                   maxLength: 100
+                  default:
                   description: "This is the unique identifier for the customer in the client's app. This is used to track the customer's journey."
+                  deprecated: true
                 "customerName":
                   type: "string"
                   nullable: true
@@ -2395,7 +2234,6 @@ paths:
               required:
                 - "clickId"
                 - "eventName"
-                - "customerId"
       responses:
         "200":
           description: "A lead was tracked."
@@ -2414,8 +2252,6 @@ paths:
                   "customer":
                     type: "object"
                     properties:
-                      "id":
-                        type: "string"
                       "name":
                         type: "string"
                         nullable: true
@@ -2425,11 +2261,14 @@ paths:
                       "avatar":
                         type: "string"
                         nullable: true
+                      "externalId":
+                        type: "string"
+                        nullable: true
                     required:
-                      - "id"
                       - "name"
                       - "email"
                       - "avatar"
+                      - "externalId"
                 required:
                   - "click"
                   - "customer"
@@ -2447,7 +2286,7 @@ paths:
       operationId: "trackSale"
       x-speakeasy-name-override: "sale"
       summary: "Track a sale"
-      x-codeSamples: [{"lang": "typescript", "label": "trackSale", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.track.sale();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "trackSale", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Track.Sale(ctx, &operations.TrackSaleRequestBody{\n        Amount: 996500,\n        PaymentProcessor: operations.PaymentProcessorPaddle,\n        EventName: dubgo.String(\"Purchase\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "trackSale", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::TrackSaleRequestBody.new(\n  customer_id: \"<id>\",\n  amount: 996500,\n  payment_processor: ::OpenApiSDK::Operations::PaymentProcessor::PADDLE,\n  event_name: \"Purchase\",\n)\n    \nres = s.track.sale(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "trackSale", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\TrackSaleRequestBody(\n    amount: 996500,\n    paymentProcessor: Operations\\PaymentProcessor::Paddle,\n    eventName: 'Purchase',\n);\n\n$response = $sdk->track->sale(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: trackSale, source: "from dub import Dub\nfrom dub.models import operations\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.track.sale(request={\n    \"customer_id\": \"<id>\",\n    \"amount\": 996500,\n    \"payment_processor\": operations.PaymentProcessor.PADDLE,\n    \"event_name\": \"Purchase\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerId\\\":\\\"string\\\",\\\"amount\\\":0,\\\"paymentProcessor\\\":\\\"stripe\\\",\\\"eventName\\\":\\\"Purchase\\\",\\\"invoiceId\\\":\\\"string\\\",\\\"currency\\\":\\\"usd\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/sale\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "trackSale", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.track.sale();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "trackSale", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Track.Sale(ctx, &operations.TrackSaleRequestBody{\n        Amount: 996500,\n        PaymentProcessor: operations.PaymentProcessorPaddle,\n        EventName: dubgo.String(\"Purchase\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "trackSale", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::TrackSaleRequestBody.new(\n  amount: 996500,\n  payment_processor: ::OpenApiSDK::Operations::PaymentProcessor::PADDLE,\n  event_name: \"Purchase\",\n)\n    \nres = s.track.sale(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "trackSale", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\TrackSaleRequestBody(\n    amount: 996500,\n    paymentProcessor: Operations\\PaymentProcessor::Paddle,\n    eventName: 'Purchase',\n);\n\n$response = $sdk->track->sale(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: trackSale, source: "from dub import Dub\nfrom dub.models import operations\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.track.sale(request={\n    \"amount\": 996500,\n    \"payment_processor\": operations.PaymentProcessor.PADDLE,\n    \"event_name\": \"Purchase\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"externalId\\\":\\\"\\\",\\\"amount\\\":0,\\\"paymentProcessor\\\":\\\"stripe\\\",\\\"eventName\\\":\\\"Purchase\\\",\\\"invoiceId\\\":\\\"string\\\",\\\"currency\\\":\\\"usd\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/sale\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Track a sale for a short link."
       tags:
         - "Track"
@@ -2459,11 +2298,18 @@ paths:
             schema:
               type: "object"
               properties:
+                "externalId":
+                  type: "string"
+                  maxLength: 100
+                  default: ""
+                  description: "This is the unique identifier for the customer in the client's app. This is used to track the customer's journey."
                 "customerId":
                   type: "string"
-                  minLength: 1
+                  nullable: true
                   maxLength: 100
+                  default:
                   description: "This is the unique identifier for the customer in the client's app. This is used to track the customer's journey."
+                  deprecated: true
                 "amount":
                   type: "integer"
                   minimum: 0
@@ -2497,7 +2343,6 @@ paths:
                   default:
                   description: "Additional metadata to be stored with the sale event."
               required:
-                - "customerId"
                 - "amount"
                 - "paymentProcessor"
       responses:
@@ -2524,11 +2369,15 @@ paths:
                       "avatar":
                         type: "string"
                         nullable: true
+                      "externalId":
+                        type: "string"
+                        nullable: true
                     required:
                       - "id"
                       - "name"
                       - "email"
                       - "avatar"
+                      - "externalId"
                   "sale":
                     type: "object"
                     properties:
@@ -2569,12 +2418,12 @@ paths:
       operationId: "trackCustomer"
       x-speakeasy-name-override: "customer"
       summary: "Track a customer"
-      x-codeSamples: [{"lang": "typescript", "label": "trackCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.track.customer();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "ruby", "label": "trackCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::TrackCustomerRequestBody.new(\n  customer_id: \"<id>\",\n)\n    \nres = s.track.customer(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {lang: python, label: trackCustomer, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.track.customer()\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerId\\\":\\\"string\\\",\\\"customerName\\\":\\\"string\\\",\\\"customerEmail\\\":\\\"user@example.com\\\",\\\"customerAvatar\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/customer\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Track a customer for an authenticated workspace."
       tags:
         - "Track"
       security:
         - token: []
+      deprecated: true
       requestBody:
         content:
           "application/json":
@@ -2625,6 +2474,493 @@ paths:
                   - "customerName"
                   - "customerEmail"
                   - "customerAvatar"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+      "x-codeSamples": [{"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerId\\\":\\\"string\\\",\\\"customerName\\\":\\\"string\\\",\\\"customerEmail\\\":\\\"user@example.com\\\",\\\"customerAvatar\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/customer\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+  "/customers":
+    get:
+      operationId: "getCustomers"
+      x-speakeasy-name-override: "list"
+      summary: "Get a list of customers"
+      x-codeSamples: [{"lang": "typescript", "label": "getCustomers", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getCustomers", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Customers.List(ctx)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getCustomers", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.customers.list()\n\nif ! res.response_bodies.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getCustomers", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->customers->list(\n\n);\n\nif ($response->responseBodies !== null) {\n    // handle response\n}"}, {lang: python, label: getCustomers, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.customers.list()\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Get a list of customers for the authenticated workspace."
+      tags:
+        - "Customers"
+      security:
+        - token: []
+      responses:
+        "200":
+          description: "The list of customers."
+          content:
+            "application/json":
+              schema:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    "id":
+                      type: "string"
+                      description: "The unique identifier of the customer in Dub."
+                    "externalId":
+                      type: "string"
+                      description: "Unique identifier for the customer in the client's app."
+                    "name":
+                      type: "string"
+                      description: "Name of the customer."
+                    "email":
+                      type: "string"
+                      nullable: true
+                      description: "Email of the customer."
+                    "avatar":
+                      type: "string"
+                      nullable: true
+                      description: "Avatar URL of the customer."
+                    "createdAt":
+                      type: "string"
+                      description: "The date the customer was created."
+                  required:
+                    - "id"
+                    - "externalId"
+                    - "name"
+                    - "createdAt"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+    post:
+      operationId: "createCustomer"
+      x-speakeasy-name-override: "create"
+      summary: "Create a customer"
+      x-codeSamples: [{"lang": "typescript", "label": "createCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.create();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "createCustomer", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Customers.Create(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "createCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::CreateCustomerRequestBody.new(\n  external_id: \"<id>\",\n)\n    \nres = s.customers.create(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "createCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\CreateCustomerRequestBody(\n    externalId: '<id>',\n);\n\n$response = $sdk->customers->create(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: createCustomer, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.customers.create()\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"email\\\":\\\"user@example.com\\\",\\\"name\\\":\\\"string\\\",\\\"avatar\\\":\\\"string\\\",\\\"externalId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Create a customer for the authenticated workspace."
+      tags:
+        - "Customers"
+      security:
+        - token: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "email":
+                  type: "string"
+                  nullable: true
+                  format: "email"
+                  description: "Email of the customer in the client's app."
+                "name":
+                  type: "string"
+                  nullable: true
+                  description: "Name of the customer in the client's app. If not provided, a random name will be generated."
+                "avatar":
+                  type: "string"
+                  nullable: true
+                  format: "uri"
+                  description: "Avatar URL of the customer in the client's app."
+                "externalId":
+                  type: "string"
+                  description: "Unique identifier for the customer in the client's app."
+              required:
+                - "externalId"
+      responses:
+        "201":
+          description: "The customer was created."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "id":
+                    type: "string"
+                    description: "The unique identifier of the customer in Dub."
+                  "externalId":
+                    type: "string"
+                    description: "Unique identifier for the customer in the client's app."
+                  "name":
+                    type: "string"
+                    description: "Name of the customer."
+                  "email":
+                    type: "string"
+                    nullable: true
+                    description: "Email of the customer."
+                  "avatar":
+                    type: "string"
+                    nullable: true
+                    description: "Avatar URL of the customer."
+                  "createdAt":
+                    type: "string"
+                    description: "The date the customer was created."
+                required:
+                  - "id"
+                  - "externalId"
+                  - "name"
+                  - "createdAt"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+  "/customers/{id}":
+    get:
+      operationId: "getCustomer"
+      x-speakeasy-name-override: "get"
+      summary: "Get a customer"
+      x-codeSamples: [{"lang": "typescript", "label": "getCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.get({\n    id: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getCustomer", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Customers.Get(ctx, operations.GetCustomerRequest{\n        ID: \"<id>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetCustomerRequest.new(\n  id: \"<id>\",\n)\n    \nres = s.customers.get(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->customers->get(\n    id: '<id>'\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: getCustomer, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.customers.get(request={\n    \"id\": \"<id>\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Get a customer by ID for the authenticated workspace."
+      tags:
+        - "Customers"
+      security:
+        - token: []
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "The unique identifier of the customer in Dub."
+          schema:
+            type: "string"
+            description: "The unique identifier of the customer in Dub."
+          required: true
+      responses:
+        "200":
+          description: "The customer object."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "id":
+                    type: "string"
+                    description: "The unique identifier of the customer in Dub."
+                  "externalId":
+                    type: "string"
+                    description: "Unique identifier for the customer in the client's app."
+                  "name":
+                    type: "string"
+                    description: "Name of the customer."
+                  "email":
+                    type: "string"
+                    nullable: true
+                    description: "Email of the customer."
+                  "avatar":
+                    type: "string"
+                    nullable: true
+                    description: "Avatar URL of the customer."
+                  "createdAt":
+                    type: "string"
+                    description: "The date the customer was created."
+                required:
+                  - "id"
+                  - "externalId"
+                  - "name"
+                  - "createdAt"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+    patch:
+      operationId: "updateCustomer"
+      x-speakeasy-name-override: "update"
+      x-speakeasy-max-method-params: 2
+      summary: "Update a customer"
+      x-codeSamples: [{"lang": "typescript", "label": "updateCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.update(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateCustomer", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Customers.Update(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.customers.update(id=\"<id>\", request_body=::OpenApiSDK::Operations::UpdateCustomerRequestBody.new())\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$requestBody = new Operations\\UpdateCustomerRequestBody();\n\n$response = $sdk->customers->update(\n    id: '<id>',\n    requestBody: $requestBody\n\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: updateCustomer, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.customers.update(id=\"<id>\")\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"email\\\":\\\"user@example.com\\\",\\\"name\\\":\\\"string\\\",\\\"avatar\\\":\\\"string\\\",\\\"externalId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Update a customer for the authenticated workspace."
+      tags:
+        - "Customers"
+      security:
+        - token: []
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "The unique identifier of the customer in Dub."
+          schema:
+            type: "string"
+            description: "The unique identifier of the customer in Dub."
+          required: true
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "email":
+                  type: "string"
+                  nullable: true
+                  format: "email"
+                  description: "Email of the customer in the client's app."
+                "name":
+                  type: "string"
+                  nullable: true
+                  description: "Name of the customer in the client's app. If not provided, a random name will be generated."
+                "avatar":
+                  type: "string"
+                  nullable: true
+                  format: "uri"
+                  description: "Avatar URL of the customer in the client's app."
+                "externalId":
+                  type: "string"
+                  description: "Unique identifier for the customer in the client's app."
+      responses:
+        "200":
+          description: "The customer was updated."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "id":
+                    type: "string"
+                    description: "The unique identifier of the customer in Dub."
+                  "externalId":
+                    type: "string"
+                    description: "Unique identifier for the customer in the client's app."
+                  "name":
+                    type: "string"
+                    description: "Name of the customer."
+                  "email":
+                    type: "string"
+                    nullable: true
+                    description: "Email of the customer."
+                  "avatar":
+                    type: "string"
+                    nullable: true
+                    description: "Avatar URL of the customer."
+                  "createdAt":
+                    type: "string"
+                    description: "The date the customer was created."
+                required:
+                  - "id"
+                  - "externalId"
+                  - "name"
+                  - "createdAt"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+    delete:
+      operationId: "deleteCustomer"
+      x-speakeasy-name-override: "delete"
+      x-speakeasy-max-method-params: 1
+      summary: "Delete a customer"
+      x-codeSamples: [{"lang": "typescript", "label": "deleteCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.delete(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "deleteCustomer", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Customers.Delete(ctx, \"<id>\")\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "deleteCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.customers.delete(id=\"<id>\")\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "deleteCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->customers->delete(\n    id: '<id>'\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: deleteCustomer, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.customers.delete(id=\"<id>\")\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .delete(null)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Delete a customer from a workspace."
+      tags:
+        - "Customers"
+      security:
+        - token: []
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "The unique identifier of the customer in Dub."
+          schema:
+            type: "string"
+            description: "The unique identifier of the customer in Dub."
+          required: true
+      responses:
+        "200":
+          description: "The customer was deleted."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "id":
+                    type: "string"
+                    description: "The unique identifier of the customer in Dub."
+                required:
+                  - "id"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+  "/workspaces/{idOrSlug}":
+    get:
+      operationId: "getWorkspace"
+      x-speakeasy-name-override: "get"
+      summary: "Retrieve a workspace"
+      x-codeSamples: [{"lang": "typescript", "label": "getWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.get({\n    idOrSlug: \"<value>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getWorkspace", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Workspaces.Get(ctx, operations.GetWorkspaceRequest{\n        IDOrSlug: \"<value>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetWorkspaceRequest.new(\n  id_or_slug: \"<value>\",\n)\n    \nres = s.workspaces.get(req)\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n\n\n$response = $sdk->workspaces->get(\n    idOrSlug: '<value>'\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: getWorkspace, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.workspaces.get(request={\n    \"id_or_slug\": \"<value>\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Retrieve a workspace for the authenticated user."
+      tags:
+        - "Workspaces"
+      security:
+        - token: []
+      parameters:
+        - in: "path"
+          name: "idOrSlug"
+          description: "The ID or slug of the workspace."
+          schema:
+            type: "string"
+            description: "The ID or slug of the workspace."
+          required: true
+      responses:
+        "200":
+          description: "The retrieved workspace"
+          content:
+            "application/json":
+              schema: {"$ref": "#/components/schemas/WorkspaceSchema"}
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+    patch:
+      operationId: "updateWorkspace"
+      x-speakeasy-name-override: "update"
+      x-speakeasy-max-method-params: 2
+      summary: "Update a workspace"
+      x-codeSamples: [{"lang": "typescript", "label": "updateWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.update(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateWorkspace", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.Workspaces.Update(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.workspaces.update(id_or_slug=\"<value>\", request_body=::OpenApiSDK::Operations::UpdateWorkspaceRequestBody.new())\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$requestBody = new Operations\\UpdateWorkspaceRequestBody();\n\n$response = $sdk->workspaces->update(\n    idOrSlug: '<value>',\n    requestBody: $requestBody\n\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: updateWorkspace, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.workspaces.update(id_or_slug=\"<value>\")\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"string\\\",\\\"slug\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Update a workspace by ID or slug."
+      tags:
+        - "Workspaces"
+      security:
+        - token: []
+      parameters:
+        - in: "path"
+          name: "idOrSlug"
+          description: "The ID or slug of the workspace to update."
+          schema:
+            type: "string"
+            description: "The ID or slug of the workspace to update."
+          required: true
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "name":
+                  type: "string"
+                  minLength: 1
+                  maxLength: 32
+                "slug":
+                  type: "string"
+                  minLength: 3
+                  maxLength: 48
+      responses:
+        "200":
+          description: "The updated workspace."
+          content:
+            "application/json":
+              schema: {"$ref": "#/components/schemas/WorkspaceSchema"}
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+  "/qr":
+    get:
+      operationId: "getQRCode"
+      x-speakeasy-name-override: "get"
+      summary: "Retrieve a QR code"
+      x-codeSamples: [{"lang": "typescript", "label": "getQRCode", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.qrCodes.get({\n    url: \"https://normal-making.name\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getQRCode", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.QRCodes.Get(ctx, operations.GetQRCodeRequest{\n        URL: \"https://normal-making.name\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getQRCode", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetQRCodeRequest.new(\n  url: \"https://normal-making.name\",\n)\n    \nres = s.qr_codes.get(req)\n\nif ! res.res.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getQRCode", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\GetQRCodeRequest(\n    url: 'https://normal-making.name',\n);\n\n$response = $sdk->qrCodes->get(\n    request: $request\n);\n\nif ($response->res !== null) {\n    // handle response\n}"}, {lang: python, label: getQRCode, source: "from dub import Dub\n\ns = Dub(\n    token=\"DUB_API_KEY\",\n)\n\nres = s.qr_codes.get(request={\n    \"url\": \"https://normal-making.name\",\n})\n\nif res is not None:\n    # handle response\n    pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/qr\")\n  .get()\n  .addHeader(\"accept\", \"image/png\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Retrieve a QR code for a link."
+      tags:
+        - "QR Codes"
+      parameters:
+        - in: "query"
+          name: "url"
+          description: "The URL to generate a QR code for."
+          schema:
+            type: "string"
+            description: "The URL to generate a QR code for."
+          required: true
+        - in: "query"
+          name: "logo"
+          description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
+          schema:
+            type: "string"
+            description: "The logo to include in the QR code. Can only be used with a paid plan on Dub.co."
+        - in: "query"
+          name: "size"
+          description: "The size of the QR code in pixels. Defaults to `600` if not provided."
+          schema:
+            type: "number"
+            default: 600
+            description: "The size of the QR code in pixels. Defaults to `600` if not provided."
+        - in: "query"
+          name: "level"
+          description: "The level of error correction to use for the QR code. Defaults to `L` if not provided."
+          schema:
+            type: "string"
+            enum:
+              - "L"
+              - "M"
+              - "Q"
+              - "H"
+            default: "L"
+            description: "The level of error correction to use for the QR code. Defaults to `L` if not provided."
+        - in: "query"
+          name: "fgColor"
+          description: "The foreground color of the QR code in hex format. Defaults to `#000000` if not provided."
+          schema:
+            type: "string"
+            default: "#000000"
+            description: "The foreground color of the QR code in hex format. Defaults to `#000000` if not provided."
+        - in: "query"
+          name: "bgColor"
+          description: "The background color of the QR code in hex format. Defaults to `#ffffff` if not provided."
+          schema:
+            type: "string"
+            default: "#FFFFFF"
+            description: "The background color of the QR code in hex format. Defaults to `#ffffff` if not provided."
+        - in: "query"
+          name: "hideLogo"
+          description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
+          schema:
+            type: "boolean"
+            default: "false"
+            description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
+        - in: "query"
+          name: "includeMargin"
+          description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
+          schema:
+            type: "boolean"
+            default: "false"
+            description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
+      responses:
+        "200":
+          description: "The QR code"
+          content:
+            "image/png":
+              schema:
+                type: "string"
         "400": {"$ref": "#/components/responses/400"}
         "401": {"$ref": "#/components/responses/401"}
         "403": {"$ref": "#/components/responses/403"}
@@ -3703,7 +4039,7 @@ components:
         "stripeConnectId":
           type: "string"
           nullable: true
-          description: "[BETA]: The Stripe Connect ID of the workspace."
+          description: "[BETA – Dub Conversions]: The Stripe Connect ID of the workspace."
         "usage":
           type: "number"
           description: "The usage of the workspace."
@@ -3795,6 +4131,21 @@ components:
           type: "string"
           nullable: true
           description: "The publishable key of the workspace."
+        "bankAccountName":
+          type: "string"
+          nullable: true
+          description: "[BETA – Dub Partners]: The name of the connected bank account."
+        "partialAccountNumber":
+          type: "string"
+          nullable: true
+          description: "[BETA – Dub Partners]: The partial account number of the bank account."
+        "routingNumber":
+          type: "string"
+          nullable: true
+          description: "[BETA – Dub Partners]: The routing number of the bank account."
+        "bankAccountVerified":
+          type: "boolean"
+          description: "[BETA – Dub Partners]: Whether the bank account is verified."
       required:
         - "id"
         - "name"
@@ -3824,6 +4175,10 @@ components:
         - "users"
         - "domains"
         - "publishableKey"
+        - "bankAccountName"
+        - "partialAccountNumber"
+        - "routingNumber"
+        - "bankAccountVerified"
       title: "Workspace"
     "TagSchema":
       type: "object"
@@ -7669,17 +8024,29 @@ components:
           properties:
             "id":
               type: "string"
+              description: "The unique identifier of the customer in Dub."
+            "externalId":
+              type: "string"
+              description: "Unique identifier for the customer in the client's app."
             "name":
               type: "string"
+              description: "Name of the customer."
             "email":
               type: "string"
+              nullable: true
+              description: "Email of the customer."
             "avatar":
               type: "string"
+              nullable: true
+              description: "Avatar URL of the customer."
+            "createdAt":
+              type: "string"
+              description: "The date the customer was created."
           required:
             - "id"
+            - "externalId"
             - "name"
-            - "email"
-            - "avatar"
+            - "createdAt"
         "click_id":
           type: "string"
           description: "Deprecated. Use `click.id` instead."
@@ -8751,17 +9118,29 @@ components:
           properties:
             "id":
               type: "string"
+              description: "The unique identifier of the customer in Dub."
+            "externalId":
+              type: "string"
+              description: "Unique identifier for the customer in the client's app."
             "name":
               type: "string"
+              description: "Name of the customer."
             "email":
               type: "string"
+              nullable: true
+              description: "Email of the customer."
             "avatar":
               type: "string"
+              nullable: true
+              description: "Avatar URL of the customer."
+            "createdAt":
+              type: "string"
+              description: "The date the customer was created."
           required:
             - "id"
+            - "externalId"
             - "name"
-            - "email"
-            - "avatar"
+            - "createdAt"
         "sale":
           type: "object"
           properties:
@@ -10863,20 +11242,29 @@ components:
               properties:
                 "id":
                   type: "string"
+                  description: "The unique identifier of the customer in Dub."
+                "externalId":
+                  type: "string"
+                  description: "Unique identifier for the customer in the client's app."
                 "name":
                   type: "string"
-                  nullable: true
+                  description: "Name of the customer."
                 "email":
                   type: "string"
                   nullable: true
+                  description: "Email of the customer."
                 "avatar":
                   type: "string"
                   nullable: true
+                  description: "Avatar URL of the customer."
+                "createdAt":
+                  type: "string"
+                  description: "The date the customer was created."
               required:
                 - "id"
+                - "externalId"
                 - "name"
-                - "email"
-                - "avatar"
+                - "createdAt"
             "click":
               type: "object"
               properties:
@@ -11890,20 +12278,29 @@ components:
               properties:
                 "id":
                   type: "string"
+                  description: "The unique identifier of the customer in Dub."
+                "externalId":
+                  type: "string"
+                  description: "Unique identifier for the customer in the client's app."
                 "name":
                   type: "string"
-                  nullable: true
+                  description: "Name of the customer."
                 "email":
                   type: "string"
                   nullable: true
+                  description: "Email of the customer."
                 "avatar":
                   type: "string"
                   nullable: true
+                  description: "Avatar URL of the customer."
+                "createdAt":
+                  type: "string"
+                  description: "The date the customer was created."
               required:
                 - "id"
+                - "externalId"
                 - "name"
-                - "email"
-                - "avatar"
+                - "createdAt"
             "click":
               type: "object"
               properties:
