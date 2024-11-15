@@ -121,7 +121,8 @@
         "api-reference/endpoint/retrieve-number-of-links",
         "api-reference/endpoint/bulk-create-links",
         "api-reference/endpoint/bulk-update-links",
-        "api-reference/endpoint/bulk-delete-links"
+        "api-reference/endpoint/bulk-delete-links",
+        "api-reference/endpoint/retrieve-a-qr-code"
       ]
     },
     {
@@ -131,10 +132,6 @@
     {
       "group": "Events",
       "pages": ["api-reference/endpoint/retrieve-a-list-of-events"]
-    },
-    {
-      "group": "QR Codes",
-      "pages": ["api-reference/endpoint/retrieve-a-qr-code"]
     },
     {
       "group": "Tags",
@@ -161,15 +158,20 @@
       ]
     },
     {
-      "group": "Metatags",
-      "pages": ["api-reference/endpoint/retrieve-metatags"]
-    },
-    {
       "group": "Conversions [BETA]",
       "pages": [
         "api-reference/endpoint/track-lead",
-        "api-reference/endpoint/track-sale",
-        "api-reference/endpoint/track-customer"
+        "api-reference/endpoint/track-sale"
+      ]
+    },
+    {
+      "group": "Customers",
+      "pages": [
+        "api-reference/endpoint/create-a-customer",
+        "api-reference/endpoint/update-a-customer",
+        "api-reference/endpoint/delete-a-customer",
+        "api-reference/endpoint/retrieve-a-customer",
+        "api-reference/endpoint/retrieve-a-list-of-customers"
       ]
     },
     { "group": "SDKs", "pages": ["sdks/overview"] },
