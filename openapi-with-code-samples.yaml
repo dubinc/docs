@@ -3968,6 +3968,10 @@ components:
           type: "string"
           description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
           deprecated: true
+        "programId":
+          type: "string"
+          nullable: true
+          description: "The ID of the program the short link is associated with."
       required:
         - "id"
         - "domain"
@@ -4012,6 +4016,7 @@ components:
         - "createdAt"
         - "updatedAt"
         - "projectId"
+        - "programId"
       title: "Link"
     "WorkspaceSchema":
       type: "object"
@@ -6938,6 +6943,10 @@ components:
               type: "string"
               description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
               deprecated: true
+            "programId":
+              type: "string"
+              nullable: true
+              description: "The ID of the program the short link is associated with."
           required:
             - "id"
             - "domain"
@@ -6976,6 +6985,7 @@ components:
             - "createdAt"
             - "updatedAt"
             - "projectId"
+            - "programId"
         "click_id":
           type: "string"
           description: "Deprecated. Use `click.id` instead."
@@ -8001,6 +8011,10 @@ components:
               type: "string"
               description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
               deprecated: true
+            "programId":
+              type: "string"
+              nullable: true
+              description: "The ID of the program the short link is associated with."
           required:
             - "id"
             - "domain"
@@ -8039,6 +8053,7 @@ components:
             - "createdAt"
             - "updatedAt"
             - "projectId"
+            - "programId"
         "customer":
           type: "object"
           properties:
@@ -9056,6 +9071,10 @@ components:
               type: "string"
               description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
               deprecated: true
+            "programId":
+              type: "string"
+              nullable: true
+              description: "The ID of the program the short link is associated with."
           required:
             - "id"
             - "domain"
@@ -9094,6 +9113,7 @@ components:
             - "createdAt"
             - "updatedAt"
             - "projectId"
+            - "programId"
         "click":
           type: "object"
           properties:
@@ -10193,6 +10213,10 @@ components:
               type: "string"
               description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
               deprecated: true
+            "programId":
+              type: "string"
+              nullable: true
+              description: "The ID of the program the short link is associated with."
           required:
             - "id"
             - "domain"
@@ -10231,6 +10255,7 @@ components:
             - "createdAt"
             - "updatedAt"
             - "projectId"
+            - "programId"
       required:
         - "id"
         - "event"
@@ -11194,6 +11219,10 @@ components:
                   type: "string"
                   description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
                   deprecated: true
+                "programId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the program the short link is associated with."
               required:
                 - "id"
                 - "domain"
@@ -11232,6 +11261,7 @@ components:
                 - "createdAt"
                 - "updatedAt"
                 - "projectId"
+                - "programId"
           required:
             - "click"
             - "link"
@@ -12228,6 +12258,10 @@ components:
                   type: "string"
                   description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
                   deprecated: true
+                "programId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the program the short link is associated with."
               required:
                 - "id"
                 - "domain"
@@ -12266,6 +12300,7 @@ components:
                 - "createdAt"
                 - "updatedAt"
                 - "projectId"
+                - "programId"
           required:
             - "eventName"
             - "customer"
@@ -13264,6 +13299,10 @@ components:
                   type: "string"
                   description: "The project ID of the short link. This field is deprecated – use `workspaceId` instead."
                   deprecated: true
+                "programId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the program the short link is associated with."
               required:
                 - "id"
                 - "domain"
@@ -13302,6 +13341,7 @@ components:
                 - "createdAt"
                 - "updatedAt"
                 - "projectId"
+                - "programId"
             "sale":
               type: "object"
               properties:
