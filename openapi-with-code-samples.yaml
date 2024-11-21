@@ -6070,8 +6070,6 @@ components:
             "expiredUrl":
               type: "string"
               nullable: true
-              format: "uri"
-              description: "The URL to redirect to when the short link has expired."
             "password":
               type: "string"
               nullable: true
@@ -7138,8 +7136,6 @@ components:
             "expiredUrl":
               type: "string"
               nullable: true
-              format: "uri"
-              description: "The URL to redirect to when the short link has expired."
             "password":
               type: "string"
               nullable: true
@@ -8198,8 +8194,6 @@ components:
             "expiredUrl":
               type: "string"
               nullable: true
-              format: "uri"
-              description: "The URL to redirect to when the short link has expired."
             "password":
               type: "string"
               nullable: true
@@ -9340,8 +9334,6 @@ components:
             "expiredUrl":
               type: "string"
               nullable: true
-              format: "uri"
-              description: "The URL to redirect to when the short link has expired."
             "password":
               type: "string"
               nullable: true
@@ -10346,8 +10338,6 @@ components:
                 "expiredUrl":
                   type: "string"
                   nullable: true
-                  format: "uri"
-                  description: "The URL to redirect to when the short link has expired."
                 "password":
                   type: "string"
                   nullable: true
@@ -11385,8 +11375,6 @@ components:
                 "expiredUrl":
                   type: "string"
                   nullable: true
-                  format: "uri"
-                  description: "The URL to redirect to when the short link has expired."
                 "password":
                   type: "string"
                   nullable: true
@@ -12426,8 +12414,6 @@ components:
                 "expiredUrl":
                   type: "string"
                   nullable: true
-                  format: "uri"
-                  description: "The URL to redirect to when the short link has expired."
                 "password":
                   type: "string"
                   nullable: true

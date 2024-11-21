@@ -1,12 +1,12 @@
-speakeasyVersion: 1.441.0
+speakeasyVersion: 1.441.1
 sources:
     merge-code-samples-into-spec:
         sourceNamespace: merge-code-samples-into-spec
-        sourceRevisionDigest: sha256:167cf54f031e4cc248f156b3e76d016e0fc4b86bf976279c51a7fff2b7ef716f
-        sourceBlobDigest: sha256:7700ff43108b76561688eceeb7fa3239c14793916f484d08f0fc46630de9e177
+        sourceRevisionDigest: sha256:cf059c3a11e0e1e220c8979c3d76d5b960ad872d90cd4762015ae74f4c3e4723
+        sourceBlobDigest: sha256:ef9e3c32a50f2f3ecaf03039598eec58d558fd963f36c2935ab3c619a131a30a
         tags:
             - latest
-            - speakeasy-sdk-regen-1732062147
+            - speakeasy-sdk-regen-1732148554
 targets: {}
 workflow:
     workflowVersion: 1.0.0
