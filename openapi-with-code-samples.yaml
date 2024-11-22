@@ -2968,12 +2968,20 @@ paths:
             default: "false"
             description: "Whether to hide the logo in the QR code. Can only be used with a paid plan on Dub.co."
         - in: "query"
+          name: "margin"
+          description: "The size of the margin around the QR code. Defaults to 2 if not provided."
+          schema:
+            type: "number"
+            default: 2
+            description: "The size of the margin around the QR code. Defaults to 2 if not provided."
+        - in: "query"
           name: "includeMargin"
-          description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
+          description: "DEPRECATED: Margin is included by default. Use the `margin` prop to customize the margin size."
           schema:
             type: "boolean"
-            default: "false"
-            description: "Whether to include a margin around the QR code. Defaults to `false` if not provided."
+            default: "true"
+            description: "DEPRECATED: Margin is included by default. Use the `margin` prop to customize the margin size."
+            deprecated: true
       responses:
         "200":
           description: "The QR code"
