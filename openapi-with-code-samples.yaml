@@ -1321,6 +1321,7 @@ paths:
               - "count"
               - "timeseries"
               - "continents"
+              - "regions"
               - "countries"
               - "cities"
               - "devices"
@@ -1394,10 +1395,6 @@ paths:
             example: "America/New_York"
             default: "UTC"
         - in: "query"
-          name: "continent"
-          description: "The continent to retrieve analytics for."
-          schema: {"$ref": "#/components/schemas/continentCode"}
-        - in: "query"
           name: "country"
           description: "The country to retrieve analytics for."
           schema: {"$ref": "#/components/schemas/countryCode"}
@@ -1408,6 +1405,14 @@ paths:
             type: "string"
             description: "The city to retrieve analytics for."
             example: "New York"
+        - in: "query"
+          name: "region"
+          description: "The ISO 3166-2 region code to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/regionCode"}
+        - in: "query"
+          name: "continent"
+          description: "The continent to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/continentCode"}
         - in: "query"
           name: "device"
           description: "The device to retrieve analytics for."
@@ -1624,10 +1629,6 @@ paths:
             example: "America/New_York"
             default: "UTC"
         - in: "query"
-          name: "continent"
-          description: "The continent to retrieve analytics for."
-          schema: {"$ref": "#/components/schemas/continentCode"}
-        - in: "query"
           name: "country"
           description: "The country to retrieve analytics for."
           schema: {"$ref": "#/components/schemas/countryCode"}
@@ -1638,6 +1639,14 @@ paths:
             type: "string"
             description: "The city to retrieve analytics for."
             example: "New York"
+        - in: "query"
+          name: "region"
+          description: "The ISO 3166-2 region code to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/regionCode"}
+        - in: "query"
+          name: "continent"
+          description: "The continent to retrieve analytics for."
+          schema: {"$ref": "#/components/schemas/continentCode"}
         - in: "query"
           name: "device"
           description: "The device to retrieve analytics for."
@@ -4825,17 +4834,6 @@ components:
           type: "string"
       additionalProperties: false
       description: "Geo targeting information for the short link in JSON format `{[COUNTRY]: https://example.com }`."
-    "continentCode":
-      type: "string"
-      enum:
-        - "AF"
-        - "AN"
-        - "AS"
-        - "EU"
-        - "NA"
-        - "OC"
-        - "SA"
-      description: "The continent to retrieve analytics for."
     "countryCode":
       type: "string"
       enum:
@@ -5090,6 +5088,20 @@ components:
         - "SS"
         - "XK"
       description: "The country to retrieve analytics for."
+    "regionCode":
+      type: "string"
+      description: "The ISO 3166-2 region code to retrieve analytics for."
+    "continentCode":
+      type: "string"
+      enum:
+        - "AF"
+        - "AN"
+        - "AS"
+        - "EU"
+        - "NA"
+        - "OC"
+        - "SA"
+      description: "The continent to retrieve analytics for."
     "AnalyticsCount":
       type: "object"
       properties:
@@ -6015,11 +6027,13 @@ components:
               type: "string"
             "url":
               type: "string"
-            "continent":
-              type: "string"
             "country":
               type: "string"
             "city":
+              type: "string"
+            "region":
+              type: "string"
+            "continent":
               type: "string"
             "device":
               type: "string"
@@ -6038,9 +6052,10 @@ components:
           required:
             - "id"
             - "url"
-            - "continent"
             - "country"
             - "city"
+            - "region"
+            - "continent"
             - "device"
             - "browser"
             - "os"
@@ -7081,11 +7096,13 @@ components:
               type: "string"
             "url":
               type: "string"
-            "continent":
-              type: "string"
             "country":
               type: "string"
             "city":
+              type: "string"
+            "region":
+              type: "string"
+            "continent":
               type: "string"
             "device":
               type: "string"
@@ -7104,9 +7121,10 @@ components:
           required:
             - "id"
             - "url"
-            - "continent"
             - "country"
             - "city"
+            - "region"
+            - "continent"
             - "device"
             - "browser"
             - "os"
@@ -9123,11 +9141,13 @@ components:
               type: "string"
             "url":
               type: "string"
-            "continent":
-              type: "string"
             "country":
               type: "string"
             "city":
+              type: "string"
+            "region":
+              type: "string"
+            "continent":
               type: "string"
             "device":
               type: "string"
@@ -9146,9 +9166,10 @@ components:
           required:
             - "id"
             - "url"
-            - "continent"
             - "country"
             - "city"
+            - "region"
+            - "continent"
             - "device"
             - "browser"
             - "os"
@@ -10283,11 +10304,13 @@ components:
                   type: "string"
                 "url":
                   type: "string"
-                "continent":
-                  type: "string"
                 "country":
                   type: "string"
                 "city":
+                  type: "string"
+                "region":
+                  type: "string"
+                "continent":
                   type: "string"
                 "device":
                   type: "string"
@@ -10306,9 +10329,10 @@ components:
               required:
                 - "id"
                 - "url"
-                - "continent"
                 - "country"
                 - "city"
+                - "region"
+                - "continent"
                 - "device"
                 - "browser"
                 - "os"
@@ -11320,11 +11344,13 @@ components:
                   type: "string"
                 "url":
                   type: "string"
-                "continent":
-                  type: "string"
                 "country":
                   type: "string"
                 "city":
+                  type: "string"
+                "region":
+                  type: "string"
+                "continent":
                   type: "string"
                 "device":
                   type: "string"
@@ -11343,9 +11369,10 @@ components:
               required:
                 - "id"
                 - "url"
-                - "continent"
                 - "country"
                 - "city"
+                - "region"
+                - "continent"
                 - "device"
                 - "browser"
                 - "os"
@@ -12359,11 +12386,13 @@ components:
                   type: "string"
                 "url":
                   type: "string"
-                "continent":
-                  type: "string"
                 "country":
                   type: "string"
                 "city":
+                  type: "string"
+                "region":
+                  type: "string"
+                "continent":
                   type: "string"
                 "device":
                   type: "string"
@@ -12382,9 +12411,10 @@ components:
               required:
                 - "id"
                 - "url"
-                - "continent"
                 - "country"
                 - "city"
+                - "region"
+                - "continent"
                 - "device"
                 - "browser"
                 - "os"
