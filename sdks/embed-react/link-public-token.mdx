@@ -1,0 +1,45 @@
+---
+title: Link Public Token
+description: How to generate a link public token for your affiliate links
+---
+
+The link public token is a crucial component for securely embedding the Dub widget in your app.
+
+To generate a link public token, you must possess a **Workspace API key** that has the `links.write` scope. This scope grants the permission to generate tokens for links.
+
+The link public token is scoped to a specific link, meaning it can only be used in the context of that link.
+
+Additionally, for security purposes, the token is designed to expire after **2 hours**. This limited lifespan helps to minimize the risk of unauthorized access.
+
+It's important to implement a logic that listens for the token's expiration event so that a new token can be generated and used when the current one expires.
+
+The link for which you are generating a token must be part of an affiliate program otherwise the request to generate a token will not succeed.
+
+You can generate a link public token by using following methods:
+
+<CodeGroup>
+
+```bash curl
+curl -X POST https://api.dub.co/tokens/embed \
+  -H "Authorization: Bearer DUB_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"linkId": "LINK_ID"}'
+```
+
+```bash TypeScript
+import { Dub } from "dub";
+
+const dub = new Dub({
+  token: "DUB_API_KEY",
+});
+
+const token = await dub.tokens.createEmbed({
+  linkId: "LINK_ID",
+});
+```
+
+</CodeGroup>
+
+You should generate the token on the **server side** and pass it to the widget. Ideally you should create a new endpoint on your application that will generate the token and return it to the client based on the link ID.
+
+Ensure that the token is included in the widget's configuration to enable it to fetch and display the necessary data.

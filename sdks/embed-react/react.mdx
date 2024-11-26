@@ -1,0 +1,73 @@
+---
+title: React
+description: How to add Dub Embed to your React or Next.js site
+---
+
+With Dub Embed, you can seamlessly integrate referral data visualization into your React or Next.js application.
+
+## Quickstart
+
+This quick start guide will show you how to get started with Dub Embed on your app.
+
+<Steps titleSize="h3">
+  <Step title="Install package">
+    Using the package manager of your choice, add the `@dub/embed-react` to your project.
+
+    <CodeGroup>
+
+      ```bash npm
+      npm install @embed-react
+      ```
+
+      ```bash pnpm
+      pnpm add @embed-react
+      ```
+
+      ```bash yarn
+      yarn add @embed-react
+      ```
+
+      ```bash bun
+      bun add @embed-react
+      ```
+
+    </CodeGroup>
+
+  </Step>
+  
+  <Step title="Initialize package">
+    You can use the `<DubWidget />` component to embed the Dub widget in your React app.
+
+    E.g. if you're using Next.js, you can add the `<DubWidget />` component to your root layout component or any other pages where you want to embed the Dub widget.
+
+    Follow the [link public token](/sdks/embed-react/link-public-token) guide to learn how to generate public token for your links.
+
+    ```jsx app/layout.tsx
+    import { DubWidget } from "@dub/embed-react";
+
+    <DubWidget
+      token="LINK_PUBLIC_TOKEN"
+    />;
+    ```
+
+  </Step>
+
+  <Step title="Customize widget">
+    You can customize the widget by passing the props to the `<DubWidget />` component.
+
+    For example, you can specify the placement of the widget or the trigger for the widget.
+
+    ```jsx app/layout.tsx
+    import { DubWidget } from "@dub/embed-react";
+
+    <DubWidget
+      token="LINK_PUBLIC_TOKEN"
+      placement="bottom-right"
+      trigger="manual"
+    />;
+    ```
+
+    For a full list of available props, please refer to the [widget customization](/sdks/embed-react/widget-customization) page.
+
+  </Step>
+</Steps>

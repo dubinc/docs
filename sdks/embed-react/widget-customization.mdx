@@ -1,0 +1,66 @@
+---
+title: Widget Customization
+description: Learn how to customize the Dub widget
+---
+
+Dub Widget comes with a set of props that allow you to customize the widget looks and behavior.
+
+## Available props
+
+<ParamField body="token" type="string" required>
+  The link public token.
+</ParamField>
+
+<ParamField body="trigger" default="floating-button">
+  The trigger for the widget. Available options are `floating-button`, `manual`.
+</ParamField>
+
+<ParamField body="placement" default="bottom-right">
+  The placement of the widget. Available options are `bottom-right`,
+  `bottom-left`, `top-right`, `top-left`, `center`.
+</ParamField>
+
+<ParamField body="onOpen">
+  The callback function that is called when the widget is opened.
+</ParamField>
+
+<ParamField body="onClose">
+  The callback function that is called when the widget is closed.
+</ParamField>
+
+<ParamField body="onError">
+  The callback function that is called when there is an error fetching the data.
+</ParamField>
+
+<ParamField body="onTokenExpired">
+  The callback function that is called when the link public token expires.
+</ParamField>
+
+<ParamField body="containerStyles">
+  The styles for the widget container.
+</ParamField>
+
+<ParamField body="popupStyles">The styles for the widget popup.</ParamField>
+
+<ParamField body="buttonStyles">The styles for the widget button.</ParamField>
+
+Here is a simple example of how to customize the widget:
+
+```tsx
+<DubWidget
+  token="YOUR_LINK_PUBLIC_TOKEN"
+  trigger="manual"
+  placement="bottom-left"
+
+  // Callbacks
+  onOpen={() => console.log("Widget opened")}
+  onClose={() => console.log("Widget closed")}
+  onError={(error) => console.log("Error fetching data", error)}
+  onTokenExpired={() => console.log("Link public token expired")}
+
+  // Styles
+  containerStyles={{ backgroundColor: "red" }}
+  popupStyles={{ backgroundColor: "blue" }}
+  buttonStyles={{ backgroundColor: "green" }}
+/>
+```
