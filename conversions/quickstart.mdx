@@ -158,6 +158,18 @@ Our most common lead event is `Sign Up`, which happens when a user signs up for 
   </Card>
 </CardGroup>
 
+<Tip>
+  If you're using the [Remix framework](https://remix.run/), you might run into an [issue](https://github.com/remix-run/remix/discussions/7922) where you get an empty/null value for the `dub_id` cookie. In that case, try using a library like [`cookie`](https://github.com/jshttp/cookie) instead:
+
+```typescript
+import cookie from "cookie";
+
+const cookies = cookie.parse(request.headers.get("cookie") ?? "");
+const dubId = cookies.dub_id;
+```
+
+</Tip>
+
 When sending a lead conversion event, you can include the following properties:
 
 | Property         | Description                                                                                                              | Required |
@@ -228,6 +240,8 @@ Lastly, you'll need enable conversion tracking for your Dub links for to be able
 
 1. Go to your [Dub dashboard](https://app.dub.co)
 2. Click on the short link you want to track conversions for, which will open up the [Link Builder](https://dub.co/help/article/dub-link-builder).
+3. Click on the `...` button, which will open up the additional options menu.
+4. Select **Enable Conversion Tracking** to enable conversion tracking for the link.
 
 <Frame>
   <img
@@ -236,7 +250,10 @@ Lastly, you'll need enable conversion tracking for your Dub links for to be able
   />
 </Frame>
 
-3. Enable **Conversion Tracking** and click **Save changes**
+<Tip>
+  You can also use the `C` keyboard shortcut when inside the link builder to
+  quickly enable conversion tracking for a given link.
+</Tip>
 
 Alternatively, you can also enable conversion tracking programmatically via the [Dub API](/api-reference). All you need to do is pass `trackConversion: true` when creating or updating a link:
 
