@@ -2251,7 +2251,6 @@ paths:
                 "customerAvatar":
                   type: "string"
                   nullable: true
-                  maxLength: 100
                   default:
                   description: "Avatar of the customer in the client's app."
                 "metadata":
@@ -2913,6 +2912,52 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
+  "/tokens/embed":
+    post:
+      operationId: "createEmbedToken"
+      x-speakeasy-name-override: "create"
+      summary: "Create a new embed token"
+      description: "Create a new embed token for the referral link."
+      tags:
+        - "Embed Tokens"
+      security:
+        - token: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "linkId":
+                  type: "string"
+                  minLength: 1
+              required:
+                - "linkId"
+      responses:
+        "201":
+          description: "The created public embed token."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "publicToken":
+                    type: "string"
+                  "expires":
+                    type: "string"
+                required:
+                  - "publicToken"
+                  - "expires"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+      "x-codeSamples": [{"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"linkId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/tokens/embed\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
   "/qr":
     get:
       operationId: "getQRCode"
