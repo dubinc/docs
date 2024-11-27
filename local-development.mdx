@@ -1,6 +1,6 @@
 ---
 title: "Local Development"
-"og:title": "How to setup Dub.co for Local Development (6 steps)"
+"og:title": "How to setup Dub.co for Local Development (7 steps)"
 description: "A guide on how to run Dub.co's codebase locally."
 icon: code
 ---
@@ -393,7 +393,33 @@ To view emails sent from your application during local development, you'll need 
 
 </Steps>
 
-## Step 6: Start the development server
+## Step 6: Set up NextAuth
+
+<Steps>
+
+  <Step title="Generate a random secret">
+
+    Run the following command to generate a random secret
+
+    ```bash Terminal
+    openssl rand -base64 32
+    ```
+
+  </Step>
+
+  <Step title="Set up environment variable">
+
+    Add the generated secret to `.env` file
+
+    ```
+    NEXTAUTH_SECRET=<secret>
+    ```
+
+  </Step>
+
+</Steps>
+
+## Step 7: Start the development server
 
 Finally, you can start the development server. This will build the packages + start the app servers.
 
