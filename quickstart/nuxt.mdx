@@ -85,9 +85,12 @@ You can do that in two ways:
 export default defineEventHandler(async () => {
   try {
     // Update a link by its linkId
-    const { shortLink } = await dub.links.update("clv3o9p9q000au1h0mc7r6l63", {
-      url: "https://www.google.uk", // new URL
-    });
+    const { shortLink } = await dub.links.update(
+      "link_rWOKByP0bRMrstK8e4HPjprJ",
+      {
+        url: "https://www.google.uk", // new URL
+      }
+    );
 
     // Update a link by its externalId
     const { shortLink } = await dub.links.update("ext_12345", {
