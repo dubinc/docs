@@ -23,6 +23,15 @@
   key is provided.
 </ParamField>
 
+<ParamField body="trackConversion" type="boolean" default={false}>
+  Whether to track conversions for the short link.
+</ParamField>
+
+<ParamField body="identifier" type="string | null">
+  The identifier of the short link that is unique across your workspace. If set,
+  it can be used to identify your short link for client-side click tracking.
+</ParamField>
+
 <ParamField body="archived" type="boolean" default={false}>
   Whether the short link is archived.
 </ParamField>
@@ -38,6 +47,10 @@
 
 <ParamField body="tagIds" type="string">
   The unique IDs of the tags assigned to the short link.
+</ParamField>
+
+<ParamField body="tagNames" type="string | string[]">
+  The unique name of the tags assigned to the short link (case insensitive).
 </ParamField>
 
 <ParamField body="comments" type="string | null">
@@ -75,6 +88,11 @@
   for Custom Social Media Cards if proxy is true.
 </ParamField>
 
+<ParamField body="video" type="string | null">
+  The custom link preview video (og:video). Will be used for Custom Social Media
+  Cards if `proxy` is true. Learn more: https://d.to/og
+</ParamField>
+
 <ParamField body="rewrite" type="boolean" default={false}>
   Whether the short link uses link cloaking.
 </ParamField>
@@ -85,6 +103,11 @@
 
 <ParamField body="android" type="string | null">
   The Android destination URL for the short link for Android device targeting.
+</ParamField>
+
+<ParamField body="doIndex" type="boolean" default={false}>
+  Allow search engines to index your short link. Defaults to `false` if not
+  provided. Learn more: https://d.to/noindex
 </ParamField>
 
 <ParamField body="utm_source" type="string | null">
@@ -110,4 +133,16 @@
 <ParamField body="utm_content" type="string | null">
   The UTM content of the short link. If set, this will populate or override the
   UTM content in the destination URL.
+</ParamField>
+
+<ParamField body="ref" type="string | null">
+  The referral tag of the short link. If set, this will populate or override the `ref` query parameter in the destination URL.
+</ParamField>
+
+<ParamField body="programId" type="string | null">
+  The ID of the program the short link is associated with.
+</ParamField>
+
+<ParamField body="webhookIds" type="string[] | null">
+  An array of webhook IDs to trigger when the link is clicked. These webhooks will receive click event data.
 </ParamField>

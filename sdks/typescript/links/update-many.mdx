@@ -1,26 +1,36 @@
 ---
-title: "dub.links.create"
-sidebarTitle: Create
-"og:title": "dub.links.create - Create a new link - TypeScript SDK"
-description: "Create a new link for the authenticated workspace."
+title: "dub.links.updateMany"
+sidebarTitle: Update Many
+"og:title": "dub.links.updateMany - Update multiple links - TypeScript SDK"
+description: "Bulk update up to 100 links with the same data for the authenticated workspace."
 ---
 
 import LinkArguments from "/snippets/link-arguments.mdx";
 import LinkResponse from "/snippets/link-response.mdx";
 
-## Arguments
+This method lets you update up to 100 links **with the same data**.
 
-<LinkArguments />
+Some potential use cases:
 
-## Response
+- Tagging multiple links at once
+- Setting the same expiration date for multiple links
+- Updating UTM parameters for multiple links
 
-<LinkResponse />
+<Warning>
+  You cannot update the domain or key of a link with this endpoint. Also,
+  [webhook events](/integrations/webhooks) will not be triggered when using this
+  endpoint.
+</Warning>
 
 <RequestExample>
 
 ```ts
-await dub.links.create({
-  url: "https://www.google.com",
+await dub.links.updateMany({
+  linkIds: ["clux0rgak00011...", "clux0rgak00022..."],
+  data: {
+    utm_source: "facebook",
+    utm_medium: "cpc",
+  },
 });
 ```
 
@@ -48,8 +58,14 @@ await dub.links.create({
   android: null,
   geo: null,
   publicStats: false,
-  tagId: null,
-  tags: [],
+  tagId: 'clv3j1h7o00032u1ngo8luv84',
+  tags: [
+    {
+      id: 'clv3j1h7o00032u1ngo8luv84',
+      name: 'news',
+      color: 'blue'
+    }
+  ],
   comments: null,
   shortLink: 'https://dub.sh/e7qzMuI',
   qrCode: 'https://api.dub.co/qr?url=https://dub.sh/e7qzMuI?qr=1',

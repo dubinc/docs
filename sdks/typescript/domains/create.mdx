@@ -13,20 +13,12 @@ import DomainResponse from "/snippets/domain-response.mdx";
   Name of the domain. Eg. `acme.com`.
 </ParamField>
 
-<ParamField body="type" type="enum<string>" default="redirect">
-  The type of redirect to use for this domain.
-  <enum>
-    <value>redirect</value>
-    <value>rewrite</value>
-  </enum>
-</ParamField>
-
-<ParamField body="target" type="string | null">
-  The page your users will get redirected to when they visit your domain.
-</ParamField>
-
 <ParamField body="expiredUrl" type="string | null">
   Redirect users to a specific URL when any link under this domain has expired.
+</ParamField>
+
+<ParamField body="notFoundUrl" type="string | null">
+  Redirect users to a specific URL when a link under this domain doesn't exist.
 </ParamField>
 
 <ParamField body="archived" type="boolean" default={false}>

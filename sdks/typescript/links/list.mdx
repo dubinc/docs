@@ -1,5 +1,6 @@
 ---
-title: "List"
+title: "dub.links.list"
+sidebarTitle: List
 "og:title": "dub.links.list - Retrieve a list of links - TypeScript SDK"
 description: "Retrieve a list of links for the authenticated workspace. The list will be paginated and the provided query parameters allow filtering the returned links."
 ---
@@ -20,6 +21,10 @@ import LinkResponse from "/snippets/link-response.mdx";
 
 <ParamField body="tagIds" type="string">
   The tag IDs to filter the links by.
+</ParamField>
+
+<ParamField body="tagNames" type="string | string[]">
+  The unique name of the tags assigned to the short link (case insensitive).
 </ParamField>
 
 <ParamField body="search" type="string">
@@ -48,6 +53,11 @@ import LinkResponse from "/snippets/link-response.mdx";
 
 <ParamField body="page" type="number">
   The page number for pagination (each page contains `100` links).
+</ParamField>
+
+<ParamField body="pageSize" type="number" default={100}>
+  The number of items per page. Must be greater than `0` and up to a maximum of
+  `100`.
 </ParamField>
 
 ## Response
