@@ -179,15 +179,26 @@
       "group": "Client SDKs",
       "icon": "js",
       "pages": [
-        "sdks/client-side/introduction",
         {
-          "group": "Installation Guides",
-          "icon": "download",
+          "group": "Dub Analytics",
+          "icon": "circle-down",
           "pages": [
+            "sdks/client-side/introduction",
             "sdks/client-side/installation-guides/react",
             "sdks/client-side/installation-guides/webflow",
             "sdks/client-side/installation-guides/wordpress",
             "sdks/client-side/installation-guides/framer"
+          ]
+        },
+        {
+          "group": "Dub Embed",
+          "icon": "circle-down",
+          "pages": [
+            "sdks/embed-react/introduction",
+            "sdks/embed-react/react",
+            "sdks/embed-react/html",
+            "sdks/embed-react/link-public-token",
+            "sdks/embed-react/widget-customization"
           ]
         }
       ]
