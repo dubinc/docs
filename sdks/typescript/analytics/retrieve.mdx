@@ -13,14 +13,14 @@ description: Retrieve analytics for a link, a domain, or the authenticated works
 
 <ParamField body="event" type="enum" default="clicks">
   The type of event to retrieve analytics for. Available options: `clicks`,
-  `leads`, and `sales`.
+  `leads`, `sales` and `composite`.
 </ParamField>
 
 <ParamField body="groupBy" type="enum">
   The parameter to group the analytics data points by. Defaults to 'count' if
-  undefined. Available options: `count`, `timeseries`, `countries`, `cities`,
-  `devices`, `browsers`, `os`, `referers`, `referer_urls`, `top_links`,
-  `top_urls`, and `trigger`.
+  undefined. Available options: `count`, `timeseries`, `continents`, `regions`,
+  `countries`, `cities`, `devices`, `browsers`, `os`, `trigger`, `triggers`,
+  `referers`, `referer_urls`, `top_links`, `top_urls`.
 </ParamField>
 
 <ParamField body="domain" type="string">
@@ -105,6 +105,10 @@ Available options are `AF`, `AL`, `DZ`,
   The city to retrieve analytics for.
 </ParamField>
 
+<ParamField body="region" type="string">
+  The ISO 3166-2 region code to retrieve analytics for.
+</ParamField>
+
 <ParamField body="device" type="string">
   The device to retrieve analytics for.
 </ParamField>
@@ -115,6 +119,11 @@ Available options are `AF`, `AL`, `DZ`,
 
 <ParamField body="os" type="string">
   The OS to retrieve analytics for.
+</ParamField>
+
+<ParamField body="trigger" type="enum<string>">
+  The trigger to retrieve analytics for. Available options: `qr`, `link`. If
+  `undefined`, return both QR and link clicks.
 </ParamField>
 
 <ParamField body="referer" type="string">
@@ -131,6 +140,11 @@ Available options are `AF`, `AL`, `DZ`,
 
 <ParamField body="tagId" type="string">
   The tag ID to retrieve analytics for.
+</ParamField>
+
+<ParamField body="tagIds" type="string | string[]">
+  The tag IDs to retrieve analytics for. Can be a single string or an array of
+  strings.
 </ParamField>
 
 <ParamField body="qr" type="boolean">

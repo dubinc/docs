@@ -9,7 +9,22 @@ import DomainResponse from "/snippets/domain-response.mdx";
 
 ## Arguments
 
-No arguments.
+<ParamField body="archived" type="boolean" default={false}>
+  Whether to include archived domains in the response. Defaults to `false` if
+  not provided.
+</ParamField>
+
+<ParamField body="search" type="string">
+  The search term to filter the domains by.
+</ParamField>
+
+<ParamField body="page" type="number" default={1}>
+  The page number for pagination.
+</ParamField>
+
+<ParamField body="pageSize" type="number" default={50}>
+  The number of items per page. Maximum is `50`.
+</ParamField>
 
 ## Response
 

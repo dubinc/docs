@@ -1,46 +1,60 @@
-<ParamField body="id" type="string" required>
+<ResponseField name="id" type="string" required>
   The unique identifier of the domain.
-</ParamField>
+</ResponseField>
 
-<ParamField body="slug" type="string" required>
+<ResponseField name="slug" type="string" required>
   The domain name.
-</ParamField>
+</ResponseField>
 
-<ParamField body="verified" type="boolean" default={false} required>
+<ResponseField name="verified" type="boolean" default={false} required>
   Whether the domain is verified.
-</ParamField>
+</ResponseField>
 
-<ParamField body="primary" type="boolean" default={false} required>
+<ResponseField name="primary" type="boolean" default={false} required>
   Whether the domain is the primary domain for the workspace.
-</ParamField>
+</ResponseField>
 
-<ParamField body="archived" type="boolean" default={false} required>
+<ResponseField name="archived" type="boolean" default={false} required>
   Whether the domain is archived.
-</ParamField>
+</ResponseField>
 
-<ParamField
-  body="placeholder"
+<ResponseField
+  name="placeholder"
   type="string"
   default="https://dub.co/help/article/what-is-dub"
   required
 >
   Provide context to your teammates in the link creation modal by showing them
   an example of a link to be shortened.
-</ParamField>
+</ResponseField>
 
-<ParamField body="expiredUrl" type="string | null" required>
+<ResponseField name="expiredUrl" type="string | null" required>
   The URL to redirect to when a link under this domain has expired.
-</ParamField>
+</ResponseField>
 
-<ParamField body="target" type="string | null" required>
-  The page your users will get redirected to when they visit your domain.
-</ParamField>
+<ResponseField name="notFoundUrl" type="string | null" required>
+  The URL to redirect to when a link under this domain doesn't exist.
+</ResponseField>
 
-<ParamField body="type" type="enum<string>" required>
-  The type of redirect to use for this domain. Available values are `redirect`
-  and `rewrite`.
-</ParamField>
+<ResponseField name="createdAt" type="string" required>
+  The date the domain was created.
+</ResponseField>
 
-<ParamField body="clicks" type="number" default={0} required>
-  The number of clicks on the domain.
-</ParamField>
+<ResponseField name="updatedAt" type="string" required>
+  The date the domain was last updated.
+</ResponseField>
+
+<ResponseField name="registeredDomain" type="object | null" required>
+  The registered domain record.
+  <Expandable title="properties">
+    <ResponseField name="id" type="string" required>
+      The ID of the registered domain record.
+    </ResponseField>
+    <ResponseField name="createdAt" type="string" required>
+      The date the domain was created.
+    </ResponseField>
+    <ResponseField name="expiresAt" type="string" required>
+      The date the domain expires.
+    </ResponseField>
+  </Expandable>
+</ResponseField>

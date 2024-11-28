@@ -1,5 +1,6 @@
 ---
-title: "Count"
+title: "dub.links.count"
+sidebarTitle: Count
 "og:title": "dub.links.count - Retrieve the number of links - TypeScript SDK"
 description: "Retrieve the number of links for the authenticated workspace. The provided query parameters allow filtering the returned links."
 ---
@@ -18,6 +19,10 @@ description: "Retrieve the number of links for the authenticated workspace. The 
 
 <ParamField body="tagIds" type="string">
   The tag IDs to filter the links by.
+</ParamField>
+
+<ParamField body="tagNames" type="string | string[]">
+  The unique name of the tags assigned to the short link (case insensitive).
 </ParamField>
 
 <ParamField body="search" type="string">
@@ -39,7 +44,8 @@ description: "Retrieve the number of links for the authenticated workspace. The 
 </ParamField>
 
 <ParamField body="groupBy" type="string">
-  The field to group the links by. Available options are `domain` and `tagId`.
+  The field to group the links by. Available options are `domain`, `tagId`, and
+  `userId`.
 </ParamField>
 
 ## Response

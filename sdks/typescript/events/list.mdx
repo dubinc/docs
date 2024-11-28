@@ -99,6 +99,10 @@ Available options are `AF`, `AL`, `DZ`,
   The city to retrieve events for.
 </ParamField>
 
+<ParamField body="region" type="string">
+  The ISO 3166-2 region code to retrieve analytics for.
+</ParamField>
+
 <ParamField body="device" type="string">
   The device to retrieve events for.
 </ParamField>
@@ -109,6 +113,11 @@ Available options are `AF`, `AL`, `DZ`,
 
 <ParamField body="os" type="string">
   The OS to retrieve events for.
+</ParamField>
+
+<ParamField body="trigger" type="enum<string>">
+  The trigger to retrieve analytics for. Available options: `qr`, `link`. If
+  `undefined`, return both QR and link clicks.
 </ParamField>
 
 <ParamField body="referer" type="string">
@@ -125,6 +134,11 @@ Available options are `AF`, `AL`, `DZ`,
 
 <ParamField body="tagId" type="string">
   The tag ID to retrieve events for.
+</ParamField>
+
+<ParamField body="tagIds" type="string | string[]">
+  The tag IDs to retrieve analytics for. Can be a single string or an array of
+  strings.
 </ParamField>
 
 <ParamField body="qr" type="boolean">
