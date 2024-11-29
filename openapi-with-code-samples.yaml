@@ -2912,6 +2912,52 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
+  "/tokens/embed":
+    post:
+      operationId: "createEmbedToken"
+      x-speakeasy-name-override: "create"
+      summary: "Create a new embed token"
+      x-codeSamples: [{"lang": "typescript", "label": "createEmbedToken", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.embedTokens.create();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "createEmbedToken", "source": "package main\n\nimport(\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"context\"\n\t\"log\"\n)\n\nfunc main() {\n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    ctx := context.Background()\n    res, err := s.EmbedTokens.Create(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "createEmbedToken", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::CreateEmbedTokenRequestBody.new(\n  link_id: \"<id>\",\n)\n    \nres = s.embed_tokens.create(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "createEmbedToken", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$request = new Operations\\CreateEmbedTokenRequestBody(\n    linkId: '<id>',\n);\n\n$response = $sdk->embedTokens->create(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: createEmbedToken, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as s:\n    res = s.embed_tokens.create()\n\n    if res is not None:\n        # handle response\n        pass"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"linkId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/tokens/embed\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Create a new embed token for the referral link."
+      tags:
+        - "Embed Tokens"
+      security:
+        - token: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "linkId":
+                  type: "string"
+                  minLength: 1
+              required:
+                - "linkId"
+      responses:
+        "201":
+          description: "The created public embed token."
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "publicToken":
+                    type: "string"
+                  "expires":
+                    type: "string"
+                required:
+                  - "publicToken"
+                  - "expires"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
   "/qr":
     get:
       operationId: "getQRCode"
