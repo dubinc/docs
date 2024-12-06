@@ -3,12 +3,6 @@
   avoid adblockers.
 </ParamField>
 
-<ParamField body="apiKey" type="string">
-  The publishable API key to use for client-side click tracking. Get your
-  publishable API key from your [Dub workspace's token settings
-  page](https://app.dub.co/settings/tokens).
-</ParamField>
-
 <ParamField
   body="attributionModel"
   type="first-click | last-click"
@@ -43,6 +37,12 @@
       path is considered the "default path". Example: `/`
     </ParamField>
   </Expandable>
+</ParamField>
+
+<ParamField body="domain" type="string">
+  The domain to use for client-side click tracking. This should be a subdomain
+  of your website domain. E.g. if your website domain is `example.com`, your
+  short domain should be something like `go.example.com`.
 </ParamField>
 
 <ParamField body="queryParam" type="string" default="via">
