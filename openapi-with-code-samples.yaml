@@ -4170,10 +4170,6 @@ components:
         "aiLimit":
           type: "number"
           description: "The AI limit of the workspace."
-        "referralLinkId":
-          type: "string"
-          nullable: true
-          description: "The ID of the referral link of the workspace."
         "conversionEnabled":
           type: "boolean"
           description: "Whether the workspace has conversion tracking enabled (d.to/conversions)."
@@ -4265,7 +4261,6 @@ components:
         - "usersLimit"
         - "aiUsage"
         - "aiLimit"
-        - "referralLinkId"
         - "conversionEnabled"
         - "dotLinkClaimed"
         - "createdAt"
