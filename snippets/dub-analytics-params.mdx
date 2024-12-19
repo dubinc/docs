@@ -39,10 +39,11 @@
   </Expandable>
 </ParamField>
 
-<ParamField body="domain" type="string">
-  The domain to use for client-side click tracking. This should be a subdomain
-  of your website domain. E.g. if your website domain is `example.com`, your
-  short domain should be something like `go.example.com`.
+<ParamField body="shortDomain" type="string">
+  The short domain you're using on Dub for your short links. For security
+  purposes, this must be a subdomain of your website's domain. E.g. if your
+  website domain is `example.com`, your short domain should be something like
+  `go.example.com`.
 </ParamField>
 
 <ParamField body="queryParam" type="string" default="via">
