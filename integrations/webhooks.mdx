@@ -557,9 +557,19 @@ You can also select on a specific event, which will open up a sheet with more de
 
 ## Retry Behaviour
 
-If your webhook endpoint does not respond with a success status code (2XX), we retry the request to ensure every message will be delivered.
+If your webhook endpoint does not respond with a success status code (2XX), we retry the request to ensure every message will be delivered. You can see all the retry attempts in your webhook event logs.
 
-Webhooks are retried 3 times with an exponential backoff. You can see all the retry attempts in the webhook event logs.
+Webhooks are retried until they are successfully delivered – with an exponential backoff to avoid overwhelming your webhook endpoint (also known as the "[thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)"). The delay is capped at 24 hours from the 5th retry attempt onwards.
+
+| Retry attempt | Delay    |
+| ------------- | -------- |
+| 1st           | 12s      |
+| 2nd           | 2m 28s   |
+| 3rd           | 30m 8s   |
+| 4th           | 6h 7m 6s |
+| 5th           | 24h      |
+| 6th           | 24h      |
+| ...           | ...      |
 
 ## Signature Verification
 
