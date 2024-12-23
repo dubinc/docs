@@ -2433,77 +2433,6 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
-  "/track/customer":
-    post:
-      operationId: "trackCustomer"
-      x-speakeasy-name-override: "customer"
-      summary: "Track a customer"
-      description: "Track a customer for an authenticated workspace."
-      tags:
-        - "Track"
-      security:
-        - token: []
-      deprecated: true
-      requestBody:
-        content:
-          "application/json":
-            schema:
-              type: "object"
-              properties:
-                "customerId":
-                  type: "string"
-                  minLength: 1
-                  maxLength: 100
-                  description: "This is the unique identifier for the customer in the client's app. This is used to track the customer's journey."
-                "customerName":
-                  type: "string"
-                  maxLength: 100
-                  description: "Name of the customer in the client's app."
-                "customerEmail":
-                  type: "string"
-                  format: "email"
-                  maxLength: 100
-                  description: "Email of the customer in the client's app."
-                "customerAvatar":
-                  type: "string"
-                  maxLength: 100
-                  description: "Avatar of the customer in the client's app."
-              required:
-                - "customerId"
-      responses:
-        "200":
-          description: "A customer was tracked."
-          content:
-            "application/json":
-              schema:
-                type: "object"
-                properties:
-                  "customerId":
-                    type: "string"
-                  "customerName":
-                    type: "string"
-                    nullable: true
-                  "customerEmail":
-                    type: "string"
-                    nullable: true
-                  "customerAvatar":
-                    type: "string"
-                    nullable: true
-                required:
-                  - "customerId"
-                  - "customerName"
-                  - "customerEmail"
-                  - "customerAvatar"
-        "400": {"$ref": "#/components/responses/400"}
-        "401": {"$ref": "#/components/responses/401"}
-        "403": {"$ref": "#/components/responses/403"}
-        "404": {"$ref": "#/components/responses/404"}
-        "409": {"$ref": "#/components/responses/409"}
-        "410": {"$ref": "#/components/responses/410"}
-        "422": {"$ref": "#/components/responses/422"}
-        "429": {"$ref": "#/components/responses/429"}
-        "500": {"$ref": "#/components/responses/500"}
-      "x-codeSamples": [{"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"customerId\\\":\\\"string\\\",\\\"customerName\\\":\\\"string\\\",\\\"customerEmail\\\":\\\"user@example.com\\\",\\\"customerAvatar\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/track/customer\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
   "/customers":
     get:
       operationId: "getCustomers"
@@ -2542,9 +2471,40 @@ paths:
                       type: "string"
                       nullable: true
                       description: "Avatar URL of the customer."
+                    "country":
+                      type: "string"
+                      nullable: true
+                      description: "Country of the customer."
                     "createdAt":
                       type: "string"
                       description: "The date the customer was created."
+                    "link":
+                      type: "object"
+                      nullable: true
+                      properties:
+                        "id":
+                          type: "string"
+                          description: "The unique ID of the short link."
+                        "domain":
+                          type: "string"
+                          description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                        "key":
+                          type: "string"
+                          description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                        "shortLink":
+                          type: "string"
+                          format: "uri"
+                          description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                        "programId":
+                          type: "string"
+                          nullable: true
+                          description: "The ID of the program the short link is associated with."
+                      required:
+                        - "id"
+                        - "domain"
+                        - "key"
+                        - "shortLink"
+                        - "programId"
                   required:
                     - "id"
                     - "externalId"
@@ -2619,9 +2579,40 @@ paths:
                     type: "string"
                     nullable: true
                     description: "Avatar URL of the customer."
+                  "country":
+                    type: "string"
+                    nullable: true
+                    description: "Country of the customer."
                   "createdAt":
                     type: "string"
                     description: "The date the customer was created."
+                  "link":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                        description: "The unique ID of the short link."
+                      "domain":
+                        type: "string"
+                        description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                      "key":
+                        type: "string"
+                        description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                      "shortLink":
+                        type: "string"
+                        format: "uri"
+                        description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                      "programId":
+                        type: "string"
+                        nullable: true
+                        description: "The ID of the program the short link is associated with."
+                    required:
+                      - "id"
+                      - "domain"
+                      - "key"
+                      - "shortLink"
+                      - "programId"
                 required:
                   - "id"
                   - "externalId"
@@ -2680,9 +2671,40 @@ paths:
                     type: "string"
                     nullable: true
                     description: "Avatar URL of the customer."
+                  "country":
+                    type: "string"
+                    nullable: true
+                    description: "Country of the customer."
                   "createdAt":
                     type: "string"
                     description: "The date the customer was created."
+                  "link":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                        description: "The unique ID of the short link."
+                      "domain":
+                        type: "string"
+                        description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                      "key":
+                        type: "string"
+                        description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                      "shortLink":
+                        type: "string"
+                        format: "uri"
+                        description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                      "programId":
+                        type: "string"
+                        nullable: true
+                        description: "The ID of the program the short link is associated with."
+                    required:
+                      - "id"
+                      - "domain"
+                      - "key"
+                      - "shortLink"
+                      - "programId"
                 required:
                   - "id"
                   - "externalId"
@@ -2764,9 +2786,40 @@ paths:
                     type: "string"
                     nullable: true
                     description: "Avatar URL of the customer."
+                  "country":
+                    type: "string"
+                    nullable: true
+                    description: "Country of the customer."
                   "createdAt":
                     type: "string"
                     description: "The date the customer was created."
+                  "link":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                        description: "The unique ID of the short link."
+                      "domain":
+                        type: "string"
+                        description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                      "key":
+                        type: "string"
+                        description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                      "shortLink":
+                        type: "string"
+                        format: "uri"
+                        description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                      "programId":
+                        type: "string"
+                        nullable: true
+                        description: "The ID of the program the short link is associated with."
+                    required:
+                      - "id"
+                      - "domain"
+                      - "key"
+                      - "shortLink"
+                      - "programId"
                 required:
                   - "id"
                   - "externalId"
@@ -4159,6 +4212,9 @@ components:
         "dotLinkClaimed":
           type: "boolean"
           description: "Whether the workspace has claimed a free .link domain. (dub.link/free)"
+        "partnersEnabled":
+          type: "boolean"
+          description: "Whether the workspace has Dub Partners enabled."
         "createdAt":
           type: "string"
           description: "The date and time when the workspace was created."
@@ -4228,6 +4284,7 @@ components:
         - "aiLimit"
         - "conversionEnabled"
         - "dotLinkClaimed"
+        - "partnersEnabled"
         - "createdAt"
         - "users"
         - "domains"
@@ -8101,9 +8158,40 @@ components:
               type: "string"
               nullable: true
               description: "Avatar URL of the customer."
+            "country":
+              type: "string"
+              nullable: true
+              description: "Country of the customer."
             "createdAt":
               type: "string"
               description: "The date the customer was created."
+            "link":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                  description: "The unique ID of the short link."
+                "domain":
+                  type: "string"
+                  description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                "key":
+                  type: "string"
+                  description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                "shortLink":
+                  type: "string"
+                  format: "uri"
+                  description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                "programId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the program the short link is associated with."
+              required:
+                - "id"
+                - "domain"
+                - "key"
+                - "shortLink"
+                - "programId"
           required:
             - "id"
             - "externalId"
@@ -9196,9 +9284,40 @@ components:
               type: "string"
               nullable: true
               description: "Avatar URL of the customer."
+            "country":
+              type: "string"
+              nullable: true
+              description: "Country of the customer."
             "createdAt":
               type: "string"
               description: "The date the customer was created."
+            "link":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                  description: "The unique ID of the short link."
+                "domain":
+                  type: "string"
+                  description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                "key":
+                  type: "string"
+                  description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                "shortLink":
+                  type: "string"
+                  format: "uri"
+                  description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                "programId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the program the short link is associated with."
+              required:
+                - "id"
+                - "domain"
+                - "key"
+                - "shortLink"
+                - "programId"
           required:
             - "id"
             - "externalId"
@@ -11319,9 +11438,40 @@ components:
                   type: "string"
                   nullable: true
                   description: "Avatar URL of the customer."
+                "country":
+                  type: "string"
+                  nullable: true
+                  description: "Country of the customer."
                 "createdAt":
                   type: "string"
                   description: "The date the customer was created."
+                "link":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                      description: "The unique ID of the short link."
+                    "domain":
+                      type: "string"
+                      description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                    "key":
+                      type: "string"
+                      description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                    "shortLink":
+                      type: "string"
+                      format: "uri"
+                      description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                    "programId":
+                      type: "string"
+                      nullable: true
+                      description: "The ID of the program the short link is associated with."
+                  required:
+                    - "id"
+                    - "domain"
+                    - "key"
+                    - "shortLink"
+                    - "programId"
               required:
                 - "id"
                 - "externalId"
@@ -12356,9 +12506,40 @@ components:
                   type: "string"
                   nullable: true
                   description: "Avatar URL of the customer."
+                "country":
+                  type: "string"
+                  nullable: true
+                  description: "Country of the customer."
                 "createdAt":
                   type: "string"
                   description: "The date the customer was created."
+                "link":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                      description: "The unique ID of the short link."
+                    "domain":
+                      type: "string"
+                      description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                    "key":
+                      type: "string"
+                      description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                    "shortLink":
+                      type: "string"
+                      format: "uri"
+                      description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                    "programId":
+                      type: "string"
+                      nullable: true
+                      description: "The ID of the program the short link is associated with."
+                  required:
+                    - "id"
+                    - "domain"
+                    - "key"
+                    - "shortLink"
+                    - "programId"
               required:
                 - "id"
                 - "externalId"
