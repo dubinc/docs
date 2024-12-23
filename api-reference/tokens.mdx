@@ -52,9 +52,14 @@ You can create an API key by following these steps:
       />
     </Frame>
 
-    When making API calls, if your API Key have insufficient permissions, the error should tell you which permissions you need.
+    Click on the **Create API Key** button to create the key. Make sure to copy your API key and store it in a safe place. You won't be able to see it again.
 
-    Make sure to copy your API key and store it in a safe place. You won't be able to see it again.
+     <Frame>
+      <img
+        src="/images/api-key-created.png"
+        alt="API Key created on Dub"
+      />
+    </Frame>
 
   </Step>
   <Step title="Use your API Key">
@@ -83,7 +88,7 @@ When creating a secret key, you can select the permissions it has, which will gi
 | **Read only**       | This API key will have read-only access to all resources.                                                                                                                                                                                                                                    |
 | **Restricted**      | This API key will have restricted access to some resources: <ul><li>[Links](/data-model#links)</li><li>[Analytics](/api-reference/endpoint/retrieve-analytics)</li><li>[Workspaces](/data-model#workspace)</li><li>[Domains](/data-model#domains)</li><li>[Tags](/data-model#tags)</li></ul> |
 
-Depending on your use case, you might want to use one of these 3 options to limit the scope of the API key and improve security.
+Depending on your use case, you might want to use one of these 3 options to limit the scope of the API key and improve security. When making API calls, if your API key has insufficient permissions, the error should tell you which permissions you need.
 
 <Tip>
   You can only set permissions on Secret keys. Publishable keys only have access
@@ -93,6 +98,12 @@ Depending on your use case, you might want to use one of these 3 options to limi
 ## Machine users
 
 On Dub, you can create API keys that are associated with a "Machine user". This is particularly helpful when you don't want to associate the API key with a particular user in your workspace, to avoid security risks in involving turnover or changes in project ownership.
+
+<Warning>
+  Machine users share the same permissions as the [owner
+  role](https://dub.co/help/article/workspace-roles#owner-role) in a workspace.
+  Make sure to only create machine users for trusted applications.
+</Warning>
 
 <Frame>
   <img
@@ -119,9 +130,3 @@ These machine users will show up on your workspace's **People** tab, but will no
   be deleted. Vice versa, if you delete a machine user, their corresponding API
   key will be deleted as well.
 </Tip>
-
-<Warning>
-  Machine users are available exclusively to workspace owners. If you are not
-  the owner of the workspace, this option will be disabled when creating an API
-  key.
-</Warning>
