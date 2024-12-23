@@ -3,11 +3,9 @@
   "api": { "maintainOrder": true },
   "backgroundImage": "/images/background.png",
   "colors": {
-    "anchors": { "from": "#FF7F57", "to": "#9563FF" },
-    "background": { "dark": "#090014" },
-    "dark": "#0D001D",
-    "light": "#AE87FF",
-    "primary": "#9563FF"
+    "dark": "#eb5611",
+    "light": "#eb5611",
+    "primary": "#eb5611"
   },
   "favicon": "/logos/favicon.png",
   "feedback": { "thumbsRating": true, "suggestEdit": true },
@@ -389,8 +387,8 @@
     }
   ],
   "analytics": {
-    "fathom": {
-      "siteId": "ORFDPXEC"
+    "ga4": {
+      "measurementId": "G-QTBMHSTT3W"
     },
     "plausible": {
       "domain": "dub.co"
