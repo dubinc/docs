@@ -2505,6 +2505,60 @@ paths:
                         - "key"
                         - "shortLink"
                         - "programId"
+                    "partner":
+                      type: "object"
+                      nullable: true
+                      properties:
+                        "id":
+                          type: "string"
+                        "name":
+                          type: "string"
+                        "email":
+                          type: "string"
+                        "image":
+                          type: "string"
+                          nullable: true
+                      required:
+                        - "id"
+                        - "name"
+                        - "email"
+                    "discount":
+                      type: "object"
+                      nullable: true
+                      properties:
+                        "id":
+                          type: "string"
+                        "couponId":
+                          type: "string"
+                          nullable: true
+                        "couponTestId":
+                          type: "string"
+                          nullable: true
+                        "amount":
+                          type: "number"
+                        "type":
+                          type: "string"
+                          enum:
+                            - "percentage"
+                            - "flat"
+                        "duration":
+                          type: "number"
+                          nullable: true
+                        "interval":
+                          type: "string"
+                          nullable: true
+                          enum:
+                            - "month"
+                            - "year"
+                            - null
+                      required:
+                        - "id"
+                        - "couponId"
+                        - "couponTestId"
+                        - "amount"
+                        - "type"
+                        - "duration"
+                        - "interval"
                   required:
                     - "id"
                     - "externalId"
@@ -2613,6 +2667,60 @@ paths:
                       - "key"
                       - "shortLink"
                       - "programId"
+                  "partner":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "name":
+                        type: "string"
+                      "email":
+                        type: "string"
+                      "image":
+                        type: "string"
+                        nullable: true
+                    required:
+                      - "id"
+                      - "name"
+                      - "email"
+                  "discount":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "couponId":
+                        type: "string"
+                        nullable: true
+                      "couponTestId":
+                        type: "string"
+                        nullable: true
+                      "amount":
+                        type: "number"
+                      "type":
+                        type: "string"
+                        enum:
+                          - "percentage"
+                          - "flat"
+                      "duration":
+                        type: "number"
+                        nullable: true
+                      "interval":
+                        type: "string"
+                        nullable: true
+                        enum:
+                          - "month"
+                          - "year"
+                          - null
+                    required:
+                      - "id"
+                      - "couponId"
+                      - "couponTestId"
+                      - "amount"
+                      - "type"
+                      - "duration"
+                      - "interval"
                 required:
                   - "id"
                   - "externalId"
@@ -2705,6 +2813,60 @@ paths:
                       - "key"
                       - "shortLink"
                       - "programId"
+                  "partner":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "name":
+                        type: "string"
+                      "email":
+                        type: "string"
+                      "image":
+                        type: "string"
+                        nullable: true
+                    required:
+                      - "id"
+                      - "name"
+                      - "email"
+                  "discount":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "couponId":
+                        type: "string"
+                        nullable: true
+                      "couponTestId":
+                        type: "string"
+                        nullable: true
+                      "amount":
+                        type: "number"
+                      "type":
+                        type: "string"
+                        enum:
+                          - "percentage"
+                          - "flat"
+                      "duration":
+                        type: "number"
+                        nullable: true
+                      "interval":
+                        type: "string"
+                        nullable: true
+                        enum:
+                          - "month"
+                          - "year"
+                          - null
+                    required:
+                      - "id"
+                      - "couponId"
+                      - "couponTestId"
+                      - "amount"
+                      - "type"
+                      - "duration"
+                      - "interval"
                 required:
                   - "id"
                   - "externalId"
@@ -2820,6 +2982,60 @@ paths:
                       - "key"
                       - "shortLink"
                       - "programId"
+                  "partner":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "name":
+                        type: "string"
+                      "email":
+                        type: "string"
+                      "image":
+                        type: "string"
+                        nullable: true
+                    required:
+                      - "id"
+                      - "name"
+                      - "email"
+                  "discount":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "couponId":
+                        type: "string"
+                        nullable: true
+                      "couponTestId":
+                        type: "string"
+                        nullable: true
+                      "amount":
+                        type: "number"
+                      "type":
+                        type: "string"
+                        enum:
+                          - "percentage"
+                          - "flat"
+                      "duration":
+                        type: "number"
+                        nullable: true
+                      "interval":
+                        type: "string"
+                        nullable: true
+                        enum:
+                          - "month"
+                          - "year"
+                          - null
+                    required:
+                      - "id"
+                      - "couponId"
+                      - "couponTestId"
+                      - "amount"
+                      - "type"
+                      - "duration"
+                      - "interval"
                 required:
                   - "id"
                   - "externalId"
@@ -8192,6 +8408,60 @@ components:
                 - "key"
                 - "shortLink"
                 - "programId"
+            "partner":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                "name":
+                  type: "string"
+                "email":
+                  type: "string"
+                "image":
+                  type: "string"
+                  nullable: true
+              required:
+                - "id"
+                - "name"
+                - "email"
+            "discount":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                "couponId":
+                  type: "string"
+                  nullable: true
+                "couponTestId":
+                  type: "string"
+                  nullable: true
+                "amount":
+                  type: "number"
+                "type":
+                  type: "string"
+                  enum:
+                    - "percentage"
+                    - "flat"
+                "duration":
+                  type: "number"
+                  nullable: true
+                "interval":
+                  type: "string"
+                  nullable: true
+                  enum:
+                    - "month"
+                    - "year"
+                    - null
+              required:
+                - "id"
+                - "couponId"
+                - "couponTestId"
+                - "amount"
+                - "type"
+                - "duration"
+                - "interval"
           required:
             - "id"
             - "externalId"
@@ -9318,6 +9588,60 @@ components:
                 - "key"
                 - "shortLink"
                 - "programId"
+            "partner":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                "name":
+                  type: "string"
+                "email":
+                  type: "string"
+                "image":
+                  type: "string"
+                  nullable: true
+              required:
+                - "id"
+                - "name"
+                - "email"
+            "discount":
+              type: "object"
+              nullable: true
+              properties:
+                "id":
+                  type: "string"
+                "couponId":
+                  type: "string"
+                  nullable: true
+                "couponTestId":
+                  type: "string"
+                  nullable: true
+                "amount":
+                  type: "number"
+                "type":
+                  type: "string"
+                  enum:
+                    - "percentage"
+                    - "flat"
+                "duration":
+                  type: "number"
+                  nullable: true
+                "interval":
+                  type: "string"
+                  nullable: true
+                  enum:
+                    - "month"
+                    - "year"
+                    - null
+              required:
+                - "id"
+                - "couponId"
+                - "couponTestId"
+                - "amount"
+                - "type"
+                - "duration"
+                - "interval"
           required:
             - "id"
             - "externalId"
@@ -11472,6 +11796,60 @@ components:
                     - "key"
                     - "shortLink"
                     - "programId"
+                "partner":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                    "name":
+                      type: "string"
+                    "email":
+                      type: "string"
+                    "image":
+                      type: "string"
+                      nullable: true
+                  required:
+                    - "id"
+                    - "name"
+                    - "email"
+                "discount":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                    "couponId":
+                      type: "string"
+                      nullable: true
+                    "couponTestId":
+                      type: "string"
+                      nullable: true
+                    "amount":
+                      type: "number"
+                    "type":
+                      type: "string"
+                      enum:
+                        - "percentage"
+                        - "flat"
+                    "duration":
+                      type: "number"
+                      nullable: true
+                    "interval":
+                      type: "string"
+                      nullable: true
+                      enum:
+                        - "month"
+                        - "year"
+                        - null
+                  required:
+                    - "id"
+                    - "couponId"
+                    - "couponTestId"
+                    - "amount"
+                    - "type"
+                    - "duration"
+                    - "interval"
               required:
                 - "id"
                 - "externalId"
@@ -12540,6 +12918,60 @@ components:
                     - "key"
                     - "shortLink"
                     - "programId"
+                "partner":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                    "name":
+                      type: "string"
+                    "email":
+                      type: "string"
+                    "image":
+                      type: "string"
+                      nullable: true
+                  required:
+                    - "id"
+                    - "name"
+                    - "email"
+                "discount":
+                  type: "object"
+                  nullable: true
+                  properties:
+                    "id":
+                      type: "string"
+                    "couponId":
+                      type: "string"
+                      nullable: true
+                    "couponTestId":
+                      type: "string"
+                      nullable: true
+                    "amount":
+                      type: "number"
+                    "type":
+                      type: "string"
+                      enum:
+                        - "percentage"
+                        - "flat"
+                    "duration":
+                      type: "number"
+                      nullable: true
+                    "interval":
+                      type: "string"
+                      nullable: true
+                      enum:
+                        - "month"
+                        - "year"
+                        - null
+                  required:
+                    - "id"
+                    - "couponId"
+                    - "couponTestId"
+                    - "amount"
+                    - "type"
+                    - "duration"
+                    - "interval"
               required:
                 - "id"
                 - "externalId"
