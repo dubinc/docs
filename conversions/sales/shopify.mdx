@@ -4,6 +4,103 @@ title: "Shopify"
 description: "Learn how to track a sale conversion event with Shopify"
 ---
 
-<Card title="Coming soon" icon="hourglass" iconType="duotone" color="#ca8b04">
-  We're working on this guide. Check back soon!
-</Card>
+When it comes to conversion tracking, a `sale` event happens when a user purchases a product from your Shopify store.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="/images/shopify-conversion-tracking.png"
+    alt="A diagram showing how lead events are tracked in the conversion funnel"
+  />
+</Frame>
+
+In this guide, we will be focusing on tracking sale events from Shopify by leveraging Dub's Shopify integration.
+
+## Step 1: Install the Dub Conversions app
+
+<Steps>
+
+<Step title="Install the app">
+  Install the Dub Conversions app from the Shopify App Store.
+</Step>
+
+<Step title="Connect the Dub workspace">
+  After installation, you will be prompted to link one of your Dub workspaces to
+  the app. Select **Connect** to establish a connection between your
+  Shopify store and your Dub workspace.
+
+You'll be redirected back to your Shopify store after this step and you should
+see the connection status in the app.
+
+<Frame>
+  <img
+    src="/images/shopify/shopify-app-workspace-connected.png"
+    alt="The connection status in the Dub Conversions app"
+  />
+</Frame>
+
+</Step>
+
+<Step title="Activate Dub Analytics Script">
+  After installing the Dub Conversions app, the Dub Analytics script is added as an app embed. However, it needs to be activated manually to ensure it is included in your current theme.
+
+To activate the Dub Analytics script, follow these steps:
+
+1. Navigate to your Shopify admin panel.
+2. Go to **Online Store** > **Themes**.
+3. Click on **Customize** for your current theme.
+4. In the theme editor, select **Theme Settings** > **App embeds**.
+5. Locate the **Analytics Script** for the Dub Conversions app and toggle it to activate.
+
+<Frame>
+  <img
+    src="/images/shopify/shopify-enable-tracking-script.png"
+    alt="Enable the Dub Analytics script in your Shopify theme"
+  />
+</Frame>
+
+</Step>
+
+</Steps>
+
+Dub’s Shopify integration will automatically forward the following events to Dub:
+
+- `orders/paid`: This event is triggered when a customer completes a purchase on your Shopify store. It is utilized to track sales that originate from Dub links.
+- `app/uninstalled`: This event occurs when the app is uninstalled from a store. It is used to remove the integration from your Dub workspace.
+
+In addition to the above, we also subscribe to the mandatory compliance webhook topics that are required by Shopify.
+
+## Step 2: View conversion results
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
+
+- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
+    alt="Time-series line chart"
+  />
+</Frame>
+
+- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversion-funnel-chart.png"
+    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
+  />
+</Frame>
+
+- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
+    alt="The Events Stream dashboard on Dub"
+  />
+</Frame>
+
+## Caveats
+
+- Lead events are only tracked when a customer completes a purchase. That means if a customer signs up without making a purchase, this event won't be tracked at the moment.
