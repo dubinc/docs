@@ -2444,6 +2444,25 @@ paths:
         - "Customers"
       security:
         - token: []
+      parameters:
+        - in: "query"
+          name: "email"
+          description: "A case-sensitive filter on the list based on the customer's `email` field. The value must be a string."
+          schema:
+            type: "string"
+            description: "A case-sensitive filter on the list based on the customer's `email` field. The value must be a string."
+        - in: "query"
+          name: "externalId"
+          description: "A case-sensitive filter on the list based on the customer's `externalId` field. The value must be a string."
+          schema:
+            type: "string"
+            description: "A case-sensitive filter on the list based on the customer's `externalId` field. The value must be a string."
+        - in: "query"
+          name: "includeExpandedFields"
+          description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
+          schema:
+            type: "boolean"
+            description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
       responses:
         "200":
           description: "The list of customers."
@@ -2754,6 +2773,12 @@ paths:
             type: "string"
             description: "The unique identifier of the customer in Dub."
           required: true
+        - in: "query"
+          name: "includeExpandedFields"
+          description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
+          schema:
+            type: "boolean"
+            description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
       responses:
         "200":
           description: "The customer object."
@@ -2886,7 +2911,7 @@ paths:
       x-speakeasy-name-override: "update"
       x-speakeasy-max-method-params: 2
       summary: "Update a customer"
-      x-codeSamples: [{"lang": "typescript", "label": "updateCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.update(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateCustomer", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Customers.Update(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.customers.update(id=\"<id>\", request_body=::OpenApiSDK::Operations::UpdateCustomerRequestBody.new())\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$requestBody = new Operations\\UpdateCustomerRequestBody();\n\n$response = $sdk->customers->update(\n    id: '<id>',\n    requestBody: $requestBody\n\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: updateCustomer, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.customers.update(id=\"<id>\")\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"email\\\":\\\"user@example.com\\\",\\\"name\\\":\\\"string\\\",\\\"avatar\\\":\\\"string\\\",\\\"externalId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "updateCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.update({\n    id: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateCustomer", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Customers.Update(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.customers.update(id=\"<id>\", request_body=::OpenApiSDK::Operations::UpdateCustomerRequestBody.new())\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$security = 'DUB_API_KEY';\n\n$sdk = Dub\\Dub::builder()->setSecurity($security)->build();\n\n$requestBody = new Operations\\UpdateCustomerRequestBody();\n\n$response = $sdk->customers->update(\n    id: '<id>',\n    requestBody: $requestBody\n\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: updateCustomer, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.customers.update(id=\"<id>\")\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"email\\\":\\\"user@example.com\\\",\\\"name\\\":\\\"string\\\",\\\"avatar\\\":\\\"string\\\",\\\"externalId\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Update a customer for the authenticated workspace."
       tags:
         - "Customers"
@@ -2900,6 +2925,12 @@ paths:
             type: "string"
             description: "The unique identifier of the customer in Dub."
           required: true
+        - in: "query"
+          name: "includeExpandedFields"
+          description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
+          schema:
+            type: "boolean"
+            description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
       requestBody:
         content:
           "application/json":
