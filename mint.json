@@ -7,6 +7,7 @@
     "light": "#eb5611",
     "primary": "#eb5611"
   },
+  "theme": "venus",
   "favicon": "/logos/favicon.png",
   "feedback": { "thumbsRating": true, "suggestEdit": true },
   "footerSocials": {
@@ -24,42 +25,15 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "data-model", "examples"]
+      "pages": ["introduction", "examples"]
     },
     {
-      "group": "Quickstart",
+      "group": "Concepts",
       "pages": [
-        {
-          "group": "Typescript",
-          "icon": "js",
-          "pages": [
-            "quickstart/typescript",
-            "quickstart/nextjs",
-            "quickstart/remix",
-            "quickstart/nuxt",
-            "quickstart/express"
-          ]
-        },
-        { "group": "Go", "icon": "golang", "pages": ["quickstart/go"] },
-        {
-          "group": "Python",
-          "icon": "python",
-          "pages": [
-            "quickstart/python",
-            "quickstart/flask",
-            "quickstart/django"
-          ]
-        },
-        {
-          "group": "Ruby",
-          "icon": "gem",
-          "pages": ["quickstart/ruby", "quickstart/rails", "quickstart/sinatra"]
-        },
-        {
-          "group": "PHP",
-          "icon": "php",
-          "pages": ["quickstart/php", "quickstart/laravel"]
-        }
+        "concepts/data-model",
+        "concepts/links",
+        "concepts/tags",
+        "concepts/analytics"
       ]
     },
     {
@@ -172,9 +146,52 @@
         "api-reference/endpoint/retrieve-a-list-of-customers"
       ]
     },
-    { "group": "SDKs", "pages": ["sdks/overview"] },
     {
-      "group": "Client SDKs",
+      "group": "SDKs",
+      "pages": ["sdks/overview"]
+    },
+    {
+      "group": "Quickstarts",
+      "pages": [
+        {
+          "group": "Typescript",
+          "icon": "js",
+          "pages": [
+            "sdks/quickstart/typescript",
+            "sdks/quickstart/nextjs",
+            "sdks/quickstart/remix",
+            "sdks/quickstart/nuxt",
+            "sdks/quickstart/express"
+          ]
+        },
+        { "group": "Go", "icon": "golang", "pages": ["sdks/quickstart/go"] },
+        {
+          "group": "Python",
+          "icon": "python",
+          "pages": [
+            "sdks/quickstart/python",
+            "sdks/quickstart/flask",
+            "sdks/quickstart/django"
+          ]
+        },
+        {
+          "group": "Ruby",
+          "icon": "gem",
+          "pages": [
+            "sdks/quickstart/ruby",
+            "sdks/quickstart/rails",
+            "sdks/quickstart/sinatra"
+          ]
+        },
+        {
+          "group": "PHP",
+          "icon": "php",
+          "pages": ["sdks/quickstart/php", "sdks/quickstart/laravel"]
+        }
+      ]
+    },
+    {
+      "group": "Client-side SDKs",
       "icon": "js",
       "pages": [
         "sdks/client-side/introduction",
@@ -191,70 +208,6 @@
       ]
     },
     {
-      "group": "TypeScript",
-      "pages": [
-        "sdks/typescript/overview",
-        {
-          "group": "Links",
-          "icon": "link",
-          "pages": [
-            "sdks/typescript/links/create",
-            "sdks/typescript/links/get",
-            "sdks/typescript/links/update",
-            "sdks/typescript/links/upsert",
-            "sdks/typescript/links/delete",
-            "sdks/typescript/links/list",
-            "sdks/typescript/links/count",
-            "sdks/typescript/links/create-many",
-            "sdks/typescript/links/update-many",
-            "sdks/typescript/links/delete-many"
-          ]
-        },
-        {
-          "group": "Analytics",
-          "icon": "chart-line",
-          "pages": ["sdks/typescript/analytics/retrieve"]
-        },
-        {
-          "group": "Events",
-          "icon": "layer-group",
-          "pages": ["sdks/typescript/events/list"]
-        },
-        {
-          "group": "Workspaces",
-          "icon": "folder",
-          "pages": [
-            "sdks/typescript/workspaces/get",
-            "sdks/typescript/workspaces/update"
-          ]
-        },
-        {
-          "group": "Domains",
-          "icon": "globe",
-          "pages": [
-            "sdks/typescript/domains/create",
-            "sdks/typescript/domains/update",
-            "sdks/typescript/domains/delete",
-            "sdks/typescript/domains/list"
-          ]
-        },
-        {
-          "group": "Tags",
-          "icon": "tag",
-          "pages": [
-            "sdks/typescript/tags/create",
-            "sdks/typescript/tags/list",
-            "sdks/typescript/tags/update"
-          ]
-        },
-        {
-          "group": "Metatags",
-          "icon": "image",
-          "pages": ["sdks/typescript/metatags/get"]
-        }
-      ]
-    },
-    {
       "group": "CLI",
       "icon": "terminal",
       "pages": ["sdks/cli/overview"]
@@ -262,116 +215,120 @@
   ],
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
-    { "destination": "/sdks/overview", "source": "/sdks" },
+    { "source": "/data-model", "destination": "/concepts/data-model" },
+    { "source": "/sdks", "destination": "/sdks/overview" },
     {
-      "destination": "/sdks/client-side/installation-guides/react",
-      "source": "/sdks/js-client/overview"
+      "source": "/sdks/js-client/overview",
+      "destination": "/sdks/client-side/installation-guides/react"
     },
-    { "destination": "/self-hosting", "source": "/self-hosting/guide" },
+    { "source": "/self-hosting/guide", "destination": "/self-hosting" },
     {
-      "destination": "/api-reference/endpoint/retrieve-a-workspace",
-      "source": "/api-reference/endpoint/retrieve-a-project"
-    },
-    {
-      "destination": "/api-reference/endpoint/retrieve-a-list-of-workspaces",
-      "source": "/api-reference/endpoint/retrieve-a-list-of-projects"
+      "source": "/api-reference/endpoint/retrieve-a-project",
+      "destination": "/api-reference/endpoint/retrieve-a-workspace"
     },
     {
-      "destination": "/api-reference/endpoint/update-a-link",
-      "source": "/api-reference/endpoint/edit-a-link"
+      "source": "/api-reference/endpoint/retrieve-a-list-of-projects",
+      "destination": "/api-reference/endpoint/retrieve-a-list-of-workspaces"
     },
     {
-      "destination": "/api-reference/endpoint/update-a-domain",
-      "source": "/api-reference/endpoint/edit-a-domain"
+      "source": "/api-reference/endpoint/edit-a-link",
+      "destination": "/api-reference/endpoint/update-a-link"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-browsers-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-browser"
+      "source": "/api-reference/endpoint/edit-a-domain",
+      "destination": "/api-reference/endpoint/update-a-domain"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-cities-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-city"
+      "source": "/api-reference/endpoint/retrieve-browser",
+      "destination": "/api-reference/endpoint/retrieve-browsers-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-clicks-count",
-      "source": "/api-reference/endpoint/retrieve-clicks"
+      "source": "/api-reference/endpoint/retrieve-city",
+      "destination": "/api-reference/endpoint/retrieve-cities-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-countries-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-country"
+      "source": "/api-reference/endpoint/retrieve-clicks",
+      "destination": "/api-reference/endpoint/retrieve-clicks-count"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-devices-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-device"
+      "source": "/api-reference/endpoint/retrieve-country",
+      "destination": "/api-reference/endpoint/retrieve-countries-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-os-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-os"
+      "source": "/api-reference/endpoint/retrieve-device",
+      "destination": "/api-reference/endpoint/retrieve-devices-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-referers-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-referer"
+      "source": "/api-reference/endpoint/retrieve-os",
+      "destination": "/api-reference/endpoint/retrieve-os-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-timeseries-clicks",
-      "source": "/api-reference/endpoint/retrieve-timeseries"
+      "source": "/api-reference/endpoint/retrieve-referer",
+      "destination": "/api-reference/endpoint/retrieve-referers-by-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-top-links-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-top-links"
+      "source": "/api-reference/endpoint/retrieve-timeseries",
+      "destination": "/api-reference/endpoint/retrieve-timeseries-clicks"
     },
     {
-      "destination": "/api-reference/endpoint/retrieve-top-urls-by-clicks",
-      "source": "/api-reference/endpoint/retrieve-top-urls"
+      "source": "/api-reference/endpoint/retrieve-top-links",
+      "destination": "/api-reference/endpoint/retrieve-top-links-by-clicks"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/count",
-      "source": "/sdks/typescript/analytics/clicks"
+      "source": "/api-reference/endpoint/retrieve-top-urls",
+      "destination": "/api-reference/endpoint/retrieve-top-urls-by-clicks"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/timeseries",
-      "source": "/sdks/typescript/analytics/timeseries"
+      "source": "/sdks/typescript/analytics/clicks",
+      "destination": "/sdks/typescript/analytics/clicks/count"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/browsers",
-      "source": "/sdks/typescript/analytics/browsers"
+      "source": "/sdks/typescript/analytics/timeseries",
+      "destination": "/sdks/typescript/analytics/clicks/timeseries"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/cities",
-      "source": "/sdks/typescript/analytics/cities"
+      "source": "/sdks/typescript/analytics/browsers",
+      "destination": "/sdks/typescript/analytics/clicks/browsers"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/countries",
-      "source": "/sdks/typescript/analytics/countries"
+      "source": "/sdks/typescript/analytics/cities",
+      "destination": "/sdks/typescript/analytics/clicks/cities"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/devices",
-      "source": "/sdks/typescript/analytics/devices"
+      "source": "/sdks/typescript/analytics/countries",
+      "destination": "/sdks/typescript/analytics/clicks/countries"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/os",
-      "source": "/sdks/typescript/analytics/os"
+      "source": "/sdks/typescript/analytics/devices",
+      "destination": "/sdks/typescript/analytics/clicks/devices"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/referers",
-      "source": "/sdks/typescript/analytics/referers"
+      "source": "/sdks/typescript/analytics/os",
+      "destination": "/sdks/typescript/analytics/clicks/os"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/top-links",
-      "source": "/sdks/typescript/analytics/top-links"
+      "source": "/sdks/typescript/analytics/referers",
+      "destination": "/sdks/typescript/analytics/clicks/referers"
     },
     {
-      "destination": "/sdks/typescript/analytics/clicks/top-urls",
-      "source": "/sdks/typescript/analytics/top-urls"
-    },
-    { "destination": "/quickstart/typescript", "source": "/quickstart/nodejs" },
-    {
-      "destination": "/sdks/typescript/domains/create",
-      "source": "/sdks/typescript/domains/add"
+      "source": "/sdks/typescript/analytics/top-links",
+      "destination": "/sdks/typescript/analytics/clicks/top-links"
     },
     {
-      "destination": "/api-reference/endpoint/create-a-domain",
-      "source": "/api-reference/endpoint/add-a-domain"
+      "source": "/sdks/typescript/analytics/top-urls",
+      "destination": "/sdks/typescript/analytics/clicks/top-urls"
+    },
+    {
+      "source": "/quickstart/nodejs",
+      "destination": "/sdks/quickstart/typescript"
+    },
+    {
+      "source": "/sdks/typescript/domains/add",
+      "destination": "/sdks/typescript/domains/create"
+    },
+    {
+      "source": "/api-reference/endpoint/add-a-domain",
+      "destination": "/api-reference/endpoint/create-a-domain"
     }
   ],
   "tabs": [
