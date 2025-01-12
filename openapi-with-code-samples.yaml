@@ -275,16 +275,40 @@ paths:
             description: "DEPRECATED. Filter for links that have at least one tag assigned to them."
             deprecated: true
         - in: "query"
-          name: "sort"
-          description: "The field to sort the links by. The default is `createdAt`, and sort order is always descending."
+          name: "sortBy"
+          description: "The field to sort the links by. The default is `createdAt`."
           schema:
             type: "string"
             enum:
               - "createdAt"
               - "clicks"
+              - "saleAmount"
               - "lastClicked"
             default: "createdAt"
-            description: "The field to sort the links by. The default is `createdAt`, and sort order is always descending."
+            description: "The field to sort the links by. The default is `createdAt`."
+        - in: "query"
+          name: "sortOrder"
+          description: "The sort order. The default is `desc`."
+          schema:
+            type: "string"
+            enum:
+              - "asc"
+              - "desc"
+            default: "desc"
+            description: "The sort order. The default is `desc`."
+        - in: "query"
+          name: "sort"
+          description: "DEPRECATED. Use `sortBy` instead."
+          schema:
+            type: "string"
+            enum:
+              - "createdAt"
+              - "clicks"
+              - "saleAmount"
+              - "lastClicked"
+            default: "createdAt"
+            description: "DEPRECATED. Use `sortBy` instead."
+            deprecated: true
         - in: "query"
           name: "page"
           description: "The page number for pagination."
@@ -891,7 +915,10 @@ paths:
             "application/json":
               schema:
                 type: "array"
-                items: {"$ref": "#/components/schemas/LinkSchema"}
+                items:
+                  oneOf:
+                    - {"$ref": "#/components/schemas/LinkSchema"}
+                    - {"$ref": "#/components/schemas/LinkErrorSchema"}
         "400": {"$ref": "#/components/responses/400"}
         "401": {"$ref": "#/components/responses/401"}
         "403": {"$ref": "#/components/responses/403"}
@@ -1759,20 +1786,35 @@ paths:
             type: "number"
             default: 100
         - in: "query"
-          name: "order"
+          name: "sortOrder"
+          description: "The sort order. The default is `desc`."
           schema:
             type: "string"
             enum:
               - "asc"
               - "desc"
             default: "desc"
+            description: "The sort order. The default is `desc`."
         - in: "query"
           name: "sortBy"
+          description: "The field to sort the events by. The default is `timestamp`."
           schema:
             type: "string"
             enum:
               - "timestamp"
             default: "timestamp"
+            description: "The field to sort the events by. The default is `timestamp`."
+        - in: "query"
+          name: "order"
+          description: "DEPRECATED. Use `sortOrder` instead."
+          schema:
+            type: "string"
+            enum:
+              - "asc"
+              - "desc"
+            default: "desc"
+            description: "DEPRECATED. Use `sortOrder` instead."
+            deprecated: true
       responses:
         "200":
           description: "A list of events"
@@ -3455,7 +3497,7 @@ components:
         "trackConversion":
           type: "boolean"
           default: false
-          description: "[BETA] Whether to track conversions for the short link."
+          description: "Whether to track conversions for the short link."
         "externalId":
           type: "string"
           nullable: true
@@ -4342,15 +4384,15 @@ components:
         "leads":
           type: "number"
           default: 0
-          description: "[BETA]: The number of leads the short links has generated."
+          description: "The number of leads the short links has generated."
         "sales":
           type: "number"
           default: 0
-          description: "[BETA]: The number of sales the short links has generated."
+          description: "The number of sales the short links has generated."
         "saleAmount":
           type: "number"
           default: 0
-          description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+          description: "The total dollar amount of sales the short links has generated (in cents)."
         "createdAt":
           type: "string"
           description: "The date and time when the short link was created."
@@ -4457,7 +4499,7 @@ components:
         "stripeConnectId":
           type: "string"
           nullable: true
-          description: "[BETA – Dub Conversions]: The Stripe Connect ID of the workspace."
+          description: "The Stripe Connect ID of the workspace."
         "payoutMethodId":
           type: "string"
           nullable: true
@@ -4689,6 +4731,33 @@ components:
         - {"$ref": "#/components/schemas/SaleCreatedEvent"}
       description: "Webhook event schema"
       x-speakeasy-include: true
+    "LinkErrorSchema":
+      type: "object"
+      properties:
+        "link":
+          description: "The link that caused the error."
+        "error":
+          type: "string"
+          description: "The error message."
+        "code":
+          type: "string"
+          enum:
+            - "bad_request"
+            - "not_found"
+            - "internal_server_error"
+            - "unauthorized"
+            - "forbidden"
+            - "rate_limit_exceeded"
+            - "invite_expired"
+            - "invite_pending"
+            - "exceeded_limit"
+            - "conflict"
+            - "unprocessable_entity"
+          description: "The error code."
+      required:
+        - "error"
+        - "code"
+      title: "LinkError"
     "linkGeoTargeting":
       type: "object"
       nullable: true
@@ -7308,15 +7377,15 @@ components:
             "leads":
               type: "number"
               default: 0
-              description: "[BETA]: The number of leads the short links has generated."
+              description: "The number of leads the short links has generated."
             "sales":
               type: "number"
               default: 0
-              description: "[BETA]: The number of sales the short links has generated."
+              description: "The number of sales the short links has generated."
             "saleAmount":
               type: "number"
               default: 0
-              description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+              description: "The total dollar amount of sales the short links has generated (in cents)."
             "createdAt":
               type: "string"
             "updatedAt":
@@ -8377,15 +8446,15 @@ components:
             "leads":
               type: "number"
               default: 0
-              description: "[BETA]: The number of leads the short links has generated."
+              description: "The number of leads the short links has generated."
             "sales":
               type: "number"
               default: 0
-              description: "[BETA]: The number of sales the short links has generated."
+              description: "The number of sales the short links has generated."
             "saleAmount":
               type: "number"
               default: 0
-              description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+              description: "The total dollar amount of sales the short links has generated (in cents)."
             "createdAt":
               type: "string"
             "updatedAt":
@@ -9520,15 +9589,15 @@ components:
             "leads":
               type: "number"
               default: 0
-              description: "[BETA]: The number of leads the short links has generated."
+              description: "The number of leads the short links has generated."
             "sales":
               type: "number"
               default: 0
-              description: "[BETA]: The number of sales the short links has generated."
+              description: "The number of sales the short links has generated."
             "saleAmount":
               type: "number"
               default: 0
-              description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+              description: "The total dollar amount of sales the short links has generated (in cents)."
             "createdAt":
               type: "string"
             "updatedAt":
@@ -10748,15 +10817,15 @@ components:
             "leads":
               type: "number"
               default: 0
-              description: "[BETA]: The number of leads the short links has generated."
+              description: "The number of leads the short links has generated."
             "sales":
               type: "number"
               default: 0
-              description: "[BETA]: The number of sales the short links has generated."
+              description: "The number of sales the short links has generated."
             "saleAmount":
               type: "number"
               default: 0
-              description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+              description: "The total dollar amount of sales the short links has generated (in cents)."
             "createdAt":
               type: "string"
             "updatedAt":
@@ -11755,15 +11824,15 @@ components:
                 "leads":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of leads the short links has generated."
+                  description: "The number of leads the short links has generated."
                 "sales":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of sales the short links has generated."
+                  description: "The number of sales the short links has generated."
                 "saleAmount":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+                  description: "The total dollar amount of sales the short links has generated (in cents)."
                 "createdAt":
                   type: "string"
                 "updatedAt":
@@ -12880,15 +12949,15 @@ components:
                 "leads":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of leads the short links has generated."
+                  description: "The number of leads the short links has generated."
                 "sales":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of sales the short links has generated."
+                  description: "The number of sales the short links has generated."
                 "saleAmount":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+                  description: "The total dollar amount of sales the short links has generated (in cents)."
                 "createdAt":
                   type: "string"
                 "updatedAt":
@@ -14007,15 +14076,15 @@ components:
                 "leads":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of leads the short links has generated."
+                  description: "The number of leads the short links has generated."
                 "sales":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The number of sales the short links has generated."
+                  description: "The number of sales the short links has generated."
                 "saleAmount":
                   type: "number"
                   default: 0
-                  description: "[BETA]: The total dollar amount of sales the short links has generated (in cents)."
+                  description: "The total dollar amount of sales the short links has generated (in cents)."
                 "createdAt":
                   type: "string"
                 "updatedAt":
