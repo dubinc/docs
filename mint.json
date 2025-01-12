@@ -25,27 +25,27 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "examples"]
+      "pages": ["introduction", "data-model", "examples"]
     },
     {
       "group": "Concepts",
       "pages": [
-        "concepts/data-model",
         "concepts/links",
         "concepts/tags",
-        "concepts/analytics"
+        "concepts/analytics",
+        {
+          "group": "Webhooks",
+          "icon": "webhook",
+          "pages": ["concepts/webhooks/introduction"]
+        }
       ]
     },
     {
       "group": "Integrations",
-      "pages": [
-        "integrations",
-        "integrations/quickstart",
-        "integrations/webhooks"
-      ]
+      "pages": ["integrations", "integrations/quickstart"]
     },
     {
-      "group": "Conversions [BETA]",
+      "group": "Conversion Analytics",
       "pages": [
         "conversions/quickstart",
         {
@@ -215,13 +215,16 @@
   ],
   "openapi": "/openapi-with-code-samples.yaml",
   "redirects": [
-    { "source": "/data-model", "destination": "/concepts/data-model" },
     { "source": "/sdks", "destination": "/sdks/overview" },
     {
       "source": "/sdks/js-client/overview",
       "destination": "/sdks/client-side/installation-guides/react"
     },
     { "source": "/self-hosting/guide", "destination": "/self-hosting" },
+    {
+      "source": "/integrations/webhooks",
+      "destination": "/concepts/webhooks/introduction"
+    },
     {
       "source": "/api-reference/endpoint/retrieve-a-project",
       "destination": "/api-reference/endpoint/retrieve-a-workspace"
