@@ -1,11 +1,11 @@
-<ParamField body="data-api-host" type="url" default="https://api.dub.co">
+<ParamField body="apiHost" type="url" default="https://api.dub.co">
   The base URL for the Dub API. This is useful for [setting up reverse
   proxies](/conversions/clicks/introduction#step-3-optional-but-recommended-set-up-a-reverse-proxy)
   to avoid adblockers.
 </ParamField>
 
 <ParamField
-  body="data-attribution-model"
+  body="attributionModel"
   type="first-click | last-click"
   default="last-click"
 >
@@ -19,7 +19,7 @@
 
 </ParamField>
 
-<ParamField body="data-cookie-options" type="CookieOption Object">
+<ParamField body="cookieOptions" type="CookieOption Object">
   <Expandable title="properties">
     <ParamField body="domain" type="string">
       Specifies the value for the `Domain` Set-Cookie attribute. This is useful
@@ -40,14 +40,20 @@
   </Expandable>
 </ParamField>
 
-<ParamField body="data-short-domain" type="string">
+<ParamField body="shortDomain" type="string">
   The short domain you're using on Dub for your short links. For security
   purposes, this must be a subdomain of your website's domain. E.g. if your
   website domain is `example.com`, your short domain should be something like
   `go.example.com`.
 </ParamField>
 
-<ParamField body="data-query-param" type="string" default="via">
+<ParamField body="queryParam" type="string" default="via">
   The query parameter to listen to for client-side click-tracking (e.g.
   `?via=abc123`).
+</ParamField>
+
+<ParamField body="scriptProps" type="HTMLScriptElement Object">
+  Custom properties to pass to the script tag. Refer to
+  [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement) for
+  all available options.
 </ParamField>

@@ -31,7 +31,6 @@
       "group": "Concepts",
       "pages": [
         "concepts/links",
-        "concepts/tags",
         "concepts/analytics",
         {
           "group": "Webhooks",
@@ -45,11 +44,7 @@
       ]
     },
     {
-      "group": "Integrations",
-      "pages": ["integrations", "integrations/quickstart"]
-    },
-    {
-      "group": "Conversion Analytics",
+      "group": "Conversions",
       "pages": [
         "conversions/quickstart",
         {
@@ -61,18 +56,27 @@
           "group": "Leads",
           "icon": "user-plus",
           "pages": [
+            "conversions/leads/introduction",
             "conversions/leads/next-auth",
-            "conversions/leads/supabase-auth",
-            "conversions/leads/auth0",
-            "conversions/leads/clerk"
+            "conversions/leads/clerk",
+            "conversions/leads/supabase",
+            "conversions/leads/auth0"
           ]
         },
         {
           "group": "Sales",
           "icon": "money-bill",
-          "pages": ["conversions/sales/stripe", "conversions/sales/shopify"]
+          "pages": [
+            "conversions/sales/introduction",
+            "conversions/sales/stripe",
+            "conversions/sales/shopify"
+          ]
         }
       ]
+    },
+    {
+      "group": "Integrations",
+      "pages": ["integrations", "integrations/quickstart"]
     },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
@@ -205,7 +209,8 @@
             "sdks/client-side/installation-guides/react",
             "sdks/client-side/installation-guides/webflow",
             "sdks/client-side/installation-guides/wordpress",
-            "sdks/client-side/installation-guides/framer"
+            "sdks/client-side/installation-guides/framer",
+            "sdks/client-side/installation-guides/shopify"
           ]
         }
       ]
@@ -227,6 +232,10 @@
     {
       "source": "/integrations/webhooks",
       "destination": "/concepts/webhooks/introduction"
+    },
+    {
+      "source": "/conversions/leads/supabase-auth",
+      "destination": "/conversions/leads/supabase"
     },
     {
       "source": "/api-reference/endpoint/retrieve-a-project",

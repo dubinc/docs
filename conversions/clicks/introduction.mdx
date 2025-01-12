@@ -3,7 +3,7 @@ title: Introduction
 description: Click-tracking with Dub Conversions
 ---
 
-import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
+import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
 
 Clicks are the starting point for all conversion events on Dub.
 
@@ -84,8 +84,8 @@ export default function App() {
 // include this script tag in your HTML Head tag
 <script
   src="https://www.dubcdn.com/analytics/script.js"
+  data-short-domain="go.example.com"
   defer
-  domain="go.example.com"
 />
 ```
 
@@ -154,9 +154,9 @@ export default function App() {
 // include this script tag in your HTML Head tag
 <script
   src="https://www.dubcdn.com/analytics/script.js"
-  apiHost="/_proxy/dub"
+  data-api-host="/_proxy/dub"
+  data-short-domain="go.example.com"
   defer
-  domain="go.example.com"
 />
 ```
 

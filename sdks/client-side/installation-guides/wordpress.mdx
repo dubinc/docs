@@ -1,11 +1,13 @@
 ---
 title: WordPress
-description: How to add Dub Analytics to your WordPress site
+description: How to add @dub/analytics to your WordPress site
 ---
 
-With Dub Analytics, you can track leads and sales conversions on your website, enabling you to measure the effectiveness of your marketing campaigns.
+import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 
-You can add Dub Analytics script to your WordPress website same way you would add Google Analytics script or any other JavaScript code.
+With `@dub/analytics`, you can track leads and sales conversions on your WordPress site, enabling you to measure the effectiveness of your marketing campaigns.
+
+You can add the `@dub/analytics` script to your WordPress website same way you would add Google Analytics script or any other JavaScript code.
 
 Follow these steps to add the script to your site:
 
@@ -17,3 +19,9 @@ Follow these steps to add the script to your site:
 ```html
 <script src="https://www.dubcdn.com/analytics/script.js" defer></script>
 ```
+
+## Concepts
+
+You can pass the following props to the `@dub/analytics` script to customize its behavior:
+
+<DubAnalyticsParams />
