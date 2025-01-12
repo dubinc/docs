@@ -36,7 +36,11 @@
         {
           "group": "Webhooks",
           "icon": "webhook",
-          "pages": ["concepts/webhooks/introduction"]
+          "pages": [
+            "concepts/webhooks/introduction",
+            "concepts/webhooks/event-types",
+            "concepts/webhooks/verify-webhook-requests"
+          ]
         }
       ]
     },
@@ -99,11 +103,27 @@
     },
     {
       "group": "Analytics",
-      "pages": ["api-reference/endpoint/retrieve-analytics"]
+      "pages": [
+        "api-reference/endpoint/retrieve-analytics",
+        "api-reference/endpoint/retrieve-a-list-of-events"
+      ]
     },
     {
-      "group": "Events",
-      "pages": ["api-reference/endpoint/retrieve-a-list-of-events"]
+      "group": "Conversion Tracking",
+      "pages": [
+        "api-reference/endpoint/track-lead",
+        "api-reference/endpoint/track-sale"
+      ]
+    },
+    {
+      "group": "Customers",
+      "pages": [
+        "api-reference/endpoint/create-a-customer",
+        "api-reference/endpoint/update-a-customer",
+        "api-reference/endpoint/delete-a-customer",
+        "api-reference/endpoint/retrieve-a-customer",
+        "api-reference/endpoint/retrieve-a-list-of-customers"
+      ]
     },
     {
       "group": "Tags",
@@ -127,23 +147,6 @@
       "pages": [
         "api-reference/endpoint/retrieve-a-workspace",
         "api-reference/endpoint/update-a-workspace"
-      ]
-    },
-    {
-      "group": "Conversions [BETA]",
-      "pages": [
-        "api-reference/endpoint/track-lead",
-        "api-reference/endpoint/track-sale"
-      ]
-    },
-    {
-      "group": "Customers",
-      "pages": [
-        "api-reference/endpoint/create-a-customer",
-        "api-reference/endpoint/update-a-customer",
-        "api-reference/endpoint/delete-a-customer",
-        "api-reference/endpoint/retrieve-a-customer",
-        "api-reference/endpoint/retrieve-a-list-of-customers"
       ]
     },
     {

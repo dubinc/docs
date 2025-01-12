@@ -1,0 +1,466 @@
+---
+title: Event types
+description: "List of available webhook events you can listen to along with their payload examples"
+---
+
+Webhooks are a great way to get real-time notifications on events that happen in your Dub workspace. Webhooks on Dub follow the following format:
+
+```json webhook-payload.json
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX", // The event ID
+  "event": "link.created", // The event type
+  "createdAt": "2024-08-26T16:41:52.346Z", // The timestamp of when the event was created
+  "data": {
+    // Event payload
+  }
+}
+```
+
+There are two types of webhook events you can listen to:
+
+- [**Workspace-level events**](#workspace-level-events)
+- [**Link-level events**](#link-level-events)
+
+## Workspace-level events
+
+These events are triggered in the context of your entire workspace:
+
+- [`link.created`](#link-created)
+- [`link.updated`](#link-updated)
+- [`link.deleted`](#link-deleted)
+- [`lead.created`](#lead-created)
+- [`sale.created`](#sale-created)
+
+### `link.created`
+
+This event is triggered when a [new link is created](/api-reference/endpoint/create-a-new-link) in your Dub workspace. The event payload contains the created link's details.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json link.created
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "link.created",
+  "createdAt": "2024-08-26T16:41:52.346Z",
+  "data": {
+    "id": "cm0b87844000dismqhkviju54",
+    "domain": "dub.sh",
+    "key": "sOvvXDT",
+    "externalId": null,
+    "url": "https://github.com/stack-auth/stack",
+    "trackConversion": false,
+    "archived": false,
+    "expiresAt": null,
+    "expiredUrl": null,
+    "password": null,
+    "proxy": false,
+    "title": null,
+    "description": null,
+    "image": null,
+    "video": null,
+    "rewrite": false,
+    "doIndex": false,
+    "ios": null,
+    "android": null,
+    "geo": null,
+    "publicStats": false,
+    "tagId": null,
+    "tags": [],
+    "comments": null,
+    "shortLink": "https://dub.sh/sOvvXDT",
+    "qrCode": "https://api.dub.co/qr?url=https://dub.sh/sOvvXDT?qr=1",
+    "utm_source": null,
+    "utm_medium": null,
+    "utm_campaign": null,
+    "utm_term": null,
+    "utm_content": null,
+    "userId": "cm022rkcw0000ikt14mscg9sg",
+    "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+    "clicks": 0,
+    "lastClicked": null,
+    "leads": 0,
+    "sales": 0,
+    "saleAmount": 0,
+    "createdAt": "2024-08-26T16:41:52.084Z",
+    "updatedAt": "2024-08-26T16:41:52.084Z",
+    "projectId": "cm022sis60003ikt1syy7kfhl"
+  }
+}
+```
+</Accordion>
+
+### `link.updated`
+
+This event is triggered when a [link is updated](/api-reference/endpoint/update-a-link) in your Dub workspace. The event payload contains the updated link's details.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json link.updated
+{
+  "id": "event_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "link.updated",
+  "createdAt": "2024-08-26T16:41:52.346Z",
+  "data": {
+    "id": "cm0b87844000dismqhkviju54",
+    "domain": "dub.sh",
+    "key": "sOvvXDT",
+    "externalId": null,
+    "url": "https://github.com/stack-auth/stack",
+    "trackConversion": false,
+    "archived": false,
+    "expiresAt": null,
+    "expiredUrl": null,
+    "password": null,
+    "proxy": false,
+    "title": null,
+    "description": null,
+    "image": null,
+    "video": null,
+    "rewrite": false,
+    "doIndex": false,
+    "ios": null,
+    "android": null,
+    "geo": null,
+    "publicStats": false,
+    "tagId": null,
+    "tags": [],
+    "comments": null,
+    "shortLink": "https://dub.sh/sOvvXDT",
+    "qrCode": "https://api.dub.co/qr?url=https://dub.sh/sOvvXDT?qr=1",
+    "utm_source": null,
+    "utm_medium": null,
+    "utm_campaign": null,
+    "utm_term": null,
+    "utm_content": null,
+    "userId": "cm022rkcw0000ikt14mscg9sg",
+    "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+    "clicks": 0,
+    "lastClicked": null,
+    "leads": 0,
+    "sales": 0,
+    "saleAmount": 0,
+    "createdAt": "2024-08-26T16:41:52.084Z",
+    "updatedAt": "2024-08-26T16:41:52.084Z",
+    "projectId": "cm022sis60003ikt1syy7kfhl"
+  }
+}
+```
+</Accordion>
+
+### `link.deleted`
+
+This event is triggered when a [link is deleted](/api-reference/endpoint/delete-a-link) in your Dub workspace. The event payload contains the deleted link's details.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json link.deleted
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "link.deleted",
+  "createdAt": "2024-08-26T16:41:52.346Z",
+  "data": {
+    "id": "cm0b87844000dismqhkviju54",
+    "domain": "dub.sh",
+    "key": "sOvvXDT",
+    "externalId": null,
+    "url": "https://github.com/stack-auth/stack",
+    "trackConversion": false,
+    "archived": false,
+    "expiresAt": null,
+    "expiredUrl": null,
+    "password": null,
+    "proxy": false,
+    "title": null,
+    "description": null,
+    "image": null,
+    "video": null,
+    "rewrite": false,
+    "doIndex": false,
+    "ios": null,
+    "android": null,
+    "geo": null,
+    "publicStats": false,
+    "tagId": null,
+    "tags": [],
+    "comments": null,
+    "shortLink": "https://dub.sh/sOvvXDT",
+    "qrCode": "https://api.dub.co/qr?url=https://dub.sh/sOvvXDT?qr=1",
+    "utm_source": null,
+    "utm_medium": null,
+    "utm_campaign": null,
+    "utm_term": null,
+    "utm_content": null,
+    "userId": "cm022rkcw0000ikt14mscg9sg",
+    "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+    "clicks": 0,
+    "lastClicked": null,
+    "leads": 0,
+    "sales": 0,
+    "saleAmount": 0,
+    "createdAt": "2024-08-26T16:41:52.084Z",
+    "updatedAt": "2024-08-26T16:41:52.084Z",
+    "projectId": "cm022sis60003ikt1syy7kfhl"
+  }
+}
+```
+</Accordion>
+
+### `lead.created`
+
+This event is triggered when a [new lead is created](/api-reference/endpoint/track-lead) via [Dub Conversions](/conversions/quickstart). The event payload contains the following:
+
+- `eventName`: The name of the event that was tracked.
+- `customer`: Details about the customer that signed up.
+- `click`: Details about the click event that led to the lead event.
+- `link`: Details about the referral link that the lead event is associated with.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json lead.created
+{
+  "id": "evt_P343bmyae40ALQYr5HT4vRXRd",
+  "event": "lead.created",
+  "createdAt": "2024-08-30T09:53:50.343Z",
+  "data": {
+    "eventName": "Sign up",
+    "customer": {
+      "id": "oU5P0SqI8fpwx5bxw1",
+      "name": "John",
+      "email": "john@example.com",
+      "avatar": "https://example.com/john.jpeg"
+    },
+    "click": {
+      "id": "d0UtZqE0BZuBPrJS",
+      "url": "https://github.com/dubinc/dub",
+      "ip": "63.141.57.109",
+      "continent": "NA",
+      "country": "US",
+      "city": "San Francisco",
+      "device": "Desktop",
+      "browser": "Chrome",
+      "os": "Mac OS",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "bot": false,
+      "qr": false,
+      "referer": "(direct)"
+    },
+    "link": {
+      "id": "cm0faqkyn0001txvfwjfeq7gl",
+      "domain": "dub.sh",
+      "key": "79ys3WA",
+      "externalId": null,
+      "url": "https://github.com/dubinc/dub",
+      "trackConversion": true,
+      "archived": false,
+      "expiresAt": null,
+      "expiredUrl": null,
+      "password": null,
+      "proxy": false,
+      "title": null,
+      "description": null,
+      "image": null,
+      "video": null,
+      "rewrite": false,
+      "doIndex": false,
+      "ios": null,
+      "android": null,
+      "geo": null,
+      "publicStats": false,
+      "comments": null,
+      "shortLink": "https://dub.sh/79ys3WA",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
+      "utm_source": null,
+      "utm_medium": null,
+      "utm_campaign": null,
+      "utm_term": null,
+      "utm_content": null,
+      "userId": "cm022rkcw0000ikt14mscg9sg",
+      "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+      "clicks": 10,
+      "lastClicked": "2024-08-30T07:45:09.000Z",
+      "leads": 5,
+      "sales": 0,
+      "saleAmount": 0,
+      "createdAt": "2024-08-29T13:03:59.098Z",
+      "updatedAt": "2024-08-30T09:53:49.505Z"
+    }
+  }
+}
+```
+</Accordion>
+
+### `sale.created`
+
+This event is triggered when a [new sale is tracked](/api-reference/endpoint/track-sale) via [Dub Conversions](/conversions/quickstart). The event payload contains the following:
+
+- `eventName`: The name of the event that was tracked.
+- `customer`: Details about the customer that made the purchase.
+- `click`: Details about the click event that led to the sale event.
+- `link`: Details about the referral link that the sale event is associated with.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json sale.created
+{
+  "id": "evt_WHjyHhqsfYOrlJOOVJSoHXysD",
+  "event": "sale.created",
+  "createdAt": "2024-08-30T09:57:51.245Z",
+  "data": {
+    "eventName": "Purchased",
+    "customer": {
+      "id": "cm0gjdvr20001dkbha2n9gt2b",
+      "name": "John",
+      "email": "john@example.com",
+      "avatar": "https://example.com/john.jpeg"
+    },
+    "click": {
+      "id": "d0UtZqE0BZuBPrJS",
+      "url": "https://github.com/dubinc/dub",
+      "ip": "63.141.57.109",
+      "continent": "NA",
+      "country": "US",
+      "city": "San Francisco",
+      "device": "Desktop",
+      "browser": "Chrome",
+      "os": "Mac OS",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "bot": false,
+      "qr": false,
+      "referer": "(direct)"
+    },
+    "link": {
+      "id": "cm0faqkyn0001txvfwjfeq7gl",
+      "domain": "dub.sh",
+      "key": "79ys3WA",
+      "externalId": null,
+      "url": "https://github.com/dubinc/dub",
+      "trackConversion": true,
+      "archived": false,
+      "expiresAt": null,
+      "expiredUrl": null,
+      "password": null,
+      "proxy": false,
+      "title": null,
+      "description": null,
+      "image": null,
+      "video": null,
+      "rewrite": false,
+      "doIndex": false,
+      "ios": null,
+      "android": null,
+      "geo": null,
+      "publicStats": false,
+      "comments": null,
+      "shortLink": "https://dub.sh/79ys3WA",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
+      "utm_source": null,
+      "utm_medium": null,
+      "utm_campaign": null,
+      "utm_term": null,
+      "utm_content": null,
+      "userId": "cm022rkcw0000ikt14mscg9sg",
+      "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+      "clicks": 10,
+      "lastClicked": "2024-08-30T07:45:09.000Z",
+      "leads": 5,
+      "sales": 1,
+      "saleAmount": 20000,
+      "createdAt": "2024-08-29T13:03:59.098Z",
+      "updatedAt": "2024-08-30T09:57:50.891Z"
+    },
+    "sale": {
+      "amount": 4500,
+      "currency": "usd",
+      "paymentProcessor": "stripe",
+      "invoiceId": null
+    }
+  }
+}
+```
+
+    </Accordion>
+
+## Link-level events
+
+Due to the high volume nature of these events, these events are scoped to a specific link.
+
+This means that you need to specify the link when creating a webhook – though you can select multiple links for the same webhook if you'd like.
+
+### `link.clicked`
+
+This event is triggered when a user [clicks on a link](/conversions/clicks/introduction). The event payload contains all the details about the click event.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json link.clicked
+{
+  "id": "evt_b9ywgxWqai2glUpCQjclB17kM",
+  "event": "link.clicked",
+  "createdAt": "2024-08-30T10:16:13.149Z",
+  "data": {
+    "click": {
+      "timestamp": "2024-08-30T10:16:12.124Z",
+      "clickId": "d0UtZqE0BZuBPrJS",
+      "url": "https://github.com/dubinc/dub",
+      "ip": "63.141.57.109",
+      "continent": "NA",
+      "country": "US",
+      "city": "San Francisco",
+      "device": "Desktop",
+      "browser": "Chrome",
+      "os": "Mac OS",
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "bot": false,
+      "qr": false,
+      "referer": "(direct)"
+    },
+    "link": {
+      "id": "cm0faqkyn0001txvfwjfeq7gl",
+      "domain": "dub.sh",
+      "key": "79ys3WA",
+      "externalId": null,
+      "url": "https://github.com/dubinc/dub",
+      "trackConversion": true,
+      "archived": false,
+      "expiresAt": null,
+      "expiredUrl": null,
+      "password": null,
+      "proxy": false,
+      "title": null,
+      "description": null,
+      "image": null,
+      "video": null,
+      "rewrite": false,
+      "doIndex": false,
+      "ios": null,
+      "android": null,
+      "geo": null,
+      "publicStats": false,
+      "comments": null,
+      "shortLink": "https://dub.sh/79ys3WA",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
+      "utm_source": null,
+      "utm_medium": null,
+      "utm_campaign": null,
+      "utm_term": null,
+      "utm_content": null,
+      "userId": "cm022rkcw0000ikt14mscg9sg",
+      "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
+      "clicks": 11,
+      "lastClicked": "2024-08-30T07:45:09.000Z",
+      "leads": 6,
+      "sales": 10,
+      "saleAmount": 200000,
+      "createdAt": "2024-08-29T13:03:59.098Z",
+      "updatedAt": "2024-08-30T10:16:12.126Z"
+    }
+  }
+}
+```
+</Accordion>
