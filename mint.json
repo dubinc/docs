@@ -207,6 +207,7 @@
           "icon": "download",
           "pages": [
             "sdks/client-side/installation-guides/react",
+            "sdks/client-side/installation-guides/manual",
             "sdks/client-side/installation-guides/webflow",
             "sdks/client-side/installation-guides/wordpress",
             "sdks/client-side/installation-guides/framer",

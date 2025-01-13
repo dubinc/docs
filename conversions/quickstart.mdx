@@ -25,27 +25,6 @@ This will handle the detection of the `dub_id` query parameter and storing it as
   />
 </Frame>
 
-Depending on which framework or platform you're using, you can install the script in different ways:
-
-<CardGroup cols={1}>
-  <Card
-    title="React"
-    icon="react"
-    href="/sdks/client-side/installation-guides/react"
-    horizontal
-  >
-    Add Dub Analytics to your React or Next.js app.
-  </Card>
-  <Card
-    title="Website Builder"
-    icon="globe"
-    href="/sdks/client-side/introduction"
-    horizontal
-  >
-    Add Dub Analytics to websites built using Webflow, WordPress, or Framer.
-  </Card>
-</CardGroup>
-
 ## Step 2: Install the Dub server-side SDK
 
 Dub Conversions uses [server-side event tracking](https://dub.co/help/article/dub-conversions#how-are-conversions-tracked) to track conversions. To enable this, you'll need to install the Dub server-side SDKs.
@@ -113,7 +92,7 @@ The first event you'll want to send is a `lead` event. This happens when a user 
 
 Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
 
-<CardGroup cols={1}>
+<CardGroup>
   <Card
     title="NextAuth.js"
     icon="shield-halved"
@@ -121,7 +100,7 @@ Our most common lead event is `Sign Up`, which happens when a user signs up for 
     href="/conversions/leads/next-auth"
     horizontal
   >
-    Tracking a lead conversion event with NextAuth.js and the Dub SDK
+    Tracking lead events with NextAuth.js
   </Card>
   <Card
     title="Clerk"
@@ -130,16 +109,16 @@ Our most common lead event is `Sign Up`, which happens when a user signs up for 
     href="/conversions/leads/clerk"
     horizontal
   >
-    Tracking a lead conversion event with Clerk and the Dub SDK
+    Tracking lead events with Clerk
   </Card>
   <Card
-    title="Supabase Auth"
+    title="Supabase"
     icon="shield-halved"
     iconType="solid"
     href="/conversions/leads/supabase-auth"
     horizontal
   >
-    Tracking a lead conversion event with Supabase Auth and the Dub SDK
+    Tracking lead events with Supabase
   </Card>
   <Card
     title="Auth0"
@@ -148,7 +127,7 @@ Our most common lead event is `Sign Up`, which happens when a user signs up for 
     href="/conversions/leads/auth0"
     horizontal
   >
-    Tracking a lead conversion event with Auth0 and the Dub SDK
+    Tracking lead events with Auth0
   </Card>
 </CardGroup>
 

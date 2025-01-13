@@ -19,7 +19,11 @@
 
 </ParamField>
 
-<ParamField body="data-cookie-options" type="CookieOption Object">
+<ParamField body="data-cookie-options" type="JSON-stringified object (e.g. { expiresInDays: 60 })">
+  Custom properties to pass to the cookie. Refer to
+  [MDN's Set-Cookie documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) for
+  all available options.
+
   <Expandable title="properties">
     <ParamField body="domain" type="string">
       Specifies the value for the `Domain` Set-Cookie attribute. This is useful
@@ -31,12 +35,24 @@
     </ParamField>
     <ParamField body="expiresInDays" type="integer" default="90">
       Specifies the number (in days) to be the value for the `Expires`
-      Set-Cookie attribute. Example: `90`
+      Set-Cookie attribute.
+
+      For example, to set the cookie window to 60 days (instead of the default 90 days), you can add the following to your script:
+
+      ```html
+      <script
+        src="https://www.dubcdn.com/analytics/script.js"
+        defer
+        data-cookie-options='{"expiresInDays": 60}'
+      />
+      ```
+
     </ParamField>
     <ParamField body="path" type="string" default="/">
       Specifies the value for the `Path` Set-Cookie attribute. By default, the
       path is considered the "default path". Example: `/`
     </ParamField>
+
   </Expandable>
 </ParamField>
 
