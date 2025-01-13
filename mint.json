@@ -57,8 +57,8 @@
           "icon": "user-plus",
           "pages": [
             "conversions/leads/introduction",
-            "conversions/leads/next-auth",
             "conversions/leads/clerk",
+            "conversions/leads/next-auth",
             "conversions/leads/supabase",
             "conversions/leads/auth0"
           ]

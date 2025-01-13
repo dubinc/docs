@@ -6,6 +6,8 @@ icon: arrow-progress
 ---
 
 import DubClientInstall from "/snippets/dub-client-install.mdx";
+import AuthProviders from "/snippets/auth-providers.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
 
 [Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you to turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
 
@@ -177,44 +179,7 @@ The first event you'll want to send is a `lead` event. This happens when a user 
 
 Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
 
-<CardGroup>
-  <Card
-    title="NextAuth.js"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/next-auth"
-    horizontal
-  >
-    Tracking lead events with NextAuth.js
-  </Card>
-  <Card
-    title="Clerk"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/clerk"
-    horizontal
-  >
-    Tracking lead events with Clerk
-  </Card>
-  <Card
-    title="Supabase"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/supabase-auth"
-    horizontal
-  >
-    Tracking lead events with Supabase
-  </Card>
-  <Card
-    title="Auth0"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/auth0"
-    horizontal
-  >
-    Tracking lead events with Auth0
-  </Card>
-</CardGroup>
+<AuthProviders />
 
 <Tip>
   If you're using the [Remix framework](https://remix.run/), you might run into an [issue](https://github.com/remix-run/remix/discussions/7922) where you get an empty/null value for the `dub_id` cookie. In that case, try using a library like [`cookie`](https://github.com/jshttp/cookie) instead:
@@ -294,34 +259,9 @@ Here are the properties you can include when sending a sale event:
 
 ## Step 5: View your conversions
 
-Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
+Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://app.dub.co/analytics). We provide 3 different views to help you understand your conversions:
 
-- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
-
-<Frame>
-  <img
-    src="/images/conversions/timeseries-chart.png"
-    alt="Time-series line chart"
-  />
-</Frame>
-
-- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
-
-<Frame>
-  <img
-    src="/images/conversions/funnel-chart.png"
-    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
-  />
-</Frame>
-
-- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
-
-<Frame>
-  <img
-    src="/images/conversions/events-table.png"
-    alt="The Events Stream dashboard on Dub"
-  />
-</Frame>
+<ViewConversions />
 
 ## Example Apps
 
