@@ -76,7 +76,24 @@
     },
     {
       "group": "Integrations",
-      "pages": ["integrations", "integrations/quickstart"]
+      "pages": [
+        "integrations",
+        "integrations/quickstart",
+        {
+          "group": "List of integrations",
+          "icon": "list",
+          "pages": [
+            "integrations/zapier",
+            "integrations/make",
+            "integrations/stripe",
+            "integrations/shopify",
+            "integrations/segment",
+            "integrations/wordpress",
+            "integrations/raycast",
+            "integrations/slack"
+          ]
+        }
+      ]
     },
     { "group": "Open source", "pages": ["local-development", "self-hosting"] },
     {
