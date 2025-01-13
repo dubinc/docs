@@ -5,6 +5,7 @@ description: "Learn how to track a sale conversion event with Stripe"
 ---
 
 import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
 
 When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
 
@@ -77,7 +78,7 @@ Dub's Stripe integration will automatically forward the following events to Dub:
 
 ## Step 2: Associate Stripe customer with your customer ID
 
-Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/quickstart#step-3a-sending-lead-events)).
+Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/leads/introduction)).
 
 This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
 
@@ -163,32 +164,7 @@ await stripe.customers.create({
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
 
-- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
-    alt="Time-series line chart"
-  />
-</Frame>
-
-- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-funnel-chart.png"
-    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
-  />
-</Frame>
-
-- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
-    alt="The Events Stream dashboard on Dub"
-  />
-</Frame>
+<ViewConversions />
 
 ## Example Apps
 
