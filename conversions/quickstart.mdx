@@ -8,6 +8,8 @@ icon: arrow-progress
 import DubClientInstall from "/snippets/dub-client-install.mdx";
 import AuthProviders from "/snippets/auth-providers.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
+import LeadAttributes from "/snippets/leads-attributes.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
 
 [Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
 
@@ -209,16 +211,7 @@ const dubId = cookies.dub_id;
 
 </Tip>
 
-When sending a lead conversion event, you can include the following properties:
-
-| Property         | Description                                                                                                              | Required |
-| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
-| `clickId`        | The unique `dub_id` parameter that the lead conversion event is attributed to.                                           | Yes      |
-| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
-| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
-| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
-| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
-| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |
+<LeadAttributes />
 
 The lead event will serve as the source of truth for the customer's identity and which link they came from. This means that all subsequent actions performed by the customer (e.g. upgrading their plan, purchasing a product) will automatically be attributed to the original link.
 
@@ -261,17 +254,7 @@ Depending on which payment processor you're using, we offer native integrations 
 
 Alternatively, you can also send sale events manually using [our SDKs](/sdks/overview) or the [`POST /track/sale` API endpoint](/api-reference/endpoint/track-sale).
 
-Here are the properties you can include when sending a sale event:
-
-| Property           | Description                                                 | Required |
-| :----------------- | :---------------------------------------------------------- | :------- |
-| `customerId`       | The unique ID of the customer in your system.               | Yes      |
-| `amount`           | The amount of the sale in cents.                            | Yes      |
-| `paymentProcessor` | The name of the payment processor that processed the sale.  | Yes      |
-| `eventName`        | The name of the event. Defaults to "Purchase".              | No       |
-| `invoiceId`        | The unique ID of the invoice in your system.                | No       |
-| `currency`         | The currency of the sale. Defaults to "usd".                | No       |
-| `metadata`         | An object containing additional information about the sale. | No       |
+<SaleAttributes />
 
 ## Step 5: View your conversions
 
