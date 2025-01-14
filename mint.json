@@ -30,6 +30,8 @@
     {
       "group": "Concepts",
       "pages": [
+        "concepts/links",
+        "concepts/analytics",
         {
           "group": "Webhooks",
           "icon": "webhook",
