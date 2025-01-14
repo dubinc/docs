@@ -1,0 +1,406 @@
+---
+title: Bulk actions
+description: "Learn how to perform bulk actions on links."
+---
+
+Dub allows you to perform bulk actions on links. This is particularly useful when you need to create, update, or delete multiple links at once without having to make multiple API requests.
+
+## Bulk create links
+
+Bulk create allows you to create up to 100 links at once.
+
+<Warning>
+  Bulk link creation does not support [custom link
+  previews](https://dub.co/help/article/custom-link-previews). Also, [webhook
+  events](/concepts/webhooks/introduction) will not be triggered when using bulk
+  link creation.
+</Warning>
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.createMany([
+  {
+    url: "https://google.com",
+  },
+  {
+    url: "https://google.uk",
+  },
+]);
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+}
+
+res, err := s.Links.CreateMany(ctx, []operations.RequestBody{
+  operations.RequestBody{
+    URL: "https://google.com",
+  },
+  operations.RequestBody{
+    URL: "https://google.uk",
+  },
+})
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.links.create_many(request=[
+  {
+     "url": "https://google.com",
+  },
+  {
+    "url": "https://google.uk",
+  },
+])
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = [
+  ::OpenApiSDK::Operations::RequestBody.new(
+    url: "https://google.com",
+  ),
+  ::OpenApiSDK::Operations::RequestBody.new(
+    url: "https://example.uk"
+  ),
+]
+
+res = s.links.create_many(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = [
+  new Operations\RequestBody(
+    url: 'https://google.com',
+  ),
+  new Operations\RequestBody(
+    url: 'https://google.uk',
+  ),
+];
+
+$response = $sdk->links->createMany(
+  request: $request
+);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.dub.co/links/bulk \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+  --data '[
+    {
+      "url": "https://google.com"
+    },
+    {
+      "url": "https://google.uk"
+    }
+  ]'
+```
+
+</CodeGroup>
+
+## Bulk update links
+
+Bulk update allows you to modify up to 100 links simultaneously **with the same data**.
+
+Some potential use cases:
+
+- Tagging multiple links at once
+- Setting the same expiration date for multiple links
+- Updating UTM parameters for multiple links
+
+<Warning>
+  You cannot update the domain or key of a link with this endpoint. Also,
+  [webhook events](/concepts/webhooks/introduction) will not be triggered when
+  using bulk link updates
+</Warning>
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.updateMany({
+  linkIds: ["clux0rgak00011...", "clux0rgak00022..."],
+  data: {
+    utm_source: "facebook",
+    utm_medium: "cpc",
+  },
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.UpdateMany(ctx, operations.BulkUpdateLinksRequestBody{
+    LinkIds: []string{
+      "clux0rgak00011...",
+      "clux0rgak00022...",
+    },
+    Data: map[string]string{
+      "utm_source": "facebook",
+      "utm_medium": "cpc",
+    },
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.links.update_many(request={
+  "link_ids": [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+  "data": {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::BulkUpdateLinksRequestBody.new(
+  link_ids: [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+  data: {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+)
+
+res = s.links.update_many(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$response = $sdk->links->updateMany(
+  linkIds: [
+    'clux0rgak00011...',
+    'clux0rgak00022...',
+  ],
+  data: {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+);
+```
+
+```bash cURL
+curl --request PATCH \
+  --url https://api.dub.co/links/bulk \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{"link_ids": ["clux0rgak00011...", "clux0rgak00022..."], "data": {"utm_source": "facebook", "utm_medium": "cpc"}}'
+```
+
+</CodeGroup>
+
+## Bulk delete links
+
+With bulk delete, you can delete up to 100 links at once.
+
+<Warning>
+  This is a destructive action and cannot be undone. Proceed with caution. Also,
+  [webhook events](/concepts/webhooks/introduction) will not be triggered when
+  using this endpoint.
+</Warning>
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.deleteMany({
+  linkIds: ["clux0rgak00011...", "clux0rgak00022..."],
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+   res, err := s.Links.DeleteMany(ctx, operations.BulkDeleteLinksRequest{
+    LinkIds: []string{
+      "clux0rgak00011...",
+      "clux0rgak00022...",
+    },
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+ res = dub.links.delete_many(request={
+  "link_ids": [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::BulkDeleteLinksRequest.new(
+  link_ids: [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+)
+
+res = s.links.delete_many(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+
+$response = $sdk->links->deleteMany(
+  linkIds: [
+    'clux0rgak00011...',
+    'clux0rgak00022...',
+  ]
+);
+
+```
+
+```bash cURL
+curl --request DELETE \
+  --url https://api.dub.co/links/bulk?linkIds=clux0rgak00011... \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>

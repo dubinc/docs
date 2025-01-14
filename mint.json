@@ -31,6 +31,16 @@
       "group": "Concepts",
       "pages": [
         {
+          "group": "Links",
+          "icon": "link",
+          "pages": [
+            "concepts/links/introduction",
+            "concepts/links/organization",
+            "concepts/links/bulk-actions"
+          ]
+        },
+        "concepts/analytics",
+        {
           "group": "Webhooks",
           "icon": "webhook",
           "pages": [
