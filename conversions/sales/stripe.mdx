@@ -135,6 +135,8 @@ const stripeSession = await stripe.checkout.sessions.create({
 });
 ```
 
+This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
 ### Option 2: Pass the user ID and the click event ID in the Stripe customer creation flow
 
 Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
@@ -160,6 +162,8 @@ await stripe.customers.create({
 });
 ```
 
+This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
+
 ## Step 3: View conversion results
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
@@ -170,9 +174,9 @@ And that's it – you're all set! You can now sit back, relax, and watch your c
 
 <CardGroup cols={2}>
   <Card
-    title="Dub Conversions Demo App"
+    title="Dub + Stripe Demo App"
     icon="github"
-    href="https://github.com/dubinc/examples/tree/main/conversions"
+    href="https://github.com/dubinc/examples/tree/main/conversions/stripe"
     color="#333333"
   >
     See the full example on GitHub.
