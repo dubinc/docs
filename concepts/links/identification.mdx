@@ -15,7 +15,7 @@ Dub allows you to create links using an `externalId` and subsequently retrieve t
 
 <Note>`externalId` is unique across your workspace.</Note>
 
-### Creating links with externalId
+### Create link with an externalId
 
 Here is an example of how to create a link with an `externalId`:
 
@@ -131,7 +131,7 @@ curl --request POST \
 
 </CodeGroup>
 
-### Retrieving link by externalId
+### Retrieve link by externalId
 
 Let's see how to retrieve a link by its `externalId`:
 
@@ -228,7 +228,7 @@ curl --request GET \
 
 </CodeGroup>
 
-### Updating link by externalId
+### Update link by externalId
 
 In addition to updating a link by its `linkId`, you can also update a link by its `externalId`.
 
@@ -342,7 +342,7 @@ curl --request PATCH \
 
 </CodeGroup>
 
-### Retrieving analytics by externalId
+### Retrieve analytics by externalId
 
 You can also retrieve analytics for a link by its `externalId`.
 
@@ -571,19 +571,206 @@ curl --request POST \
 
 </CodeGroup>
 
-### Retrieve links by tag
+### Retrieve links by tags
 
 You can retrieve links by tag by tags.
 
 <CodeGroup>
 
+```javascript Node.js {8}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.list({
+  tagNames: ["tag1"],
+});
+```
+
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.List(ctx, operations.GetLinksRequest{
+    TagNames: []string{"tag1"},
+  })
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = s.links.list(request={
+  "tag_names": ["tag1"],
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::GetLinksRequest.new(
+  tag_names: ["tag1"],
+)
+
+res = s.links.list(req)
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\GetLinksRequest(
+  tagNames: ["tag1"],
+);
+
+$responses = $sdk->links->list(
+  request: $request
+);
+
+```
+
+```bash cURL {2}
+curl --request GET \
+  --url https://api.dub.co/links?tagNames=tag1 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
 </CodeGroup>
 
-### Retrieve analytics by tag
+### Retrieve analytics by tags
 
 You can retrieve analytics for a link by its tag by passing the IDs of the tags.
 
 <CodeGroup>
+
+```javascript Node.js {8}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const analytics = await dub.analytics.retrieve({
+  tagNames: ["tag1"],
+});
+```
+
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+    TagNames: []string{"tag1"},
+  })
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.analytics.retrieve(request={
+  "tag_names": ["tag1"],
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  tag_names: ["tag1"],
+)
+
+res = s.analytics.retrieve(req)
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+  tagNames: ["tag1"],
+);
+
+$response = $sdk->analytics->retrieve(
+  request: $request
+);
+```
+
+```bash cURL {2}
+curl --request GET \
+  --url https://api.dub.co/analytics?tagNames=tag1 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
 
 </CodeGroup>
 
@@ -595,7 +782,7 @@ The ID of the tenant that created the link inside your system. If set, it can be
 
 ### Create link with tenantId
 
-You can create a link with a tenant ID by passing the ID to the `tenantId` parameter.
+Let's see how to create a link with a tenant ID:
 
 <CodeGroup>
 
@@ -603,7 +790,7 @@ You can create a link with a tenant ID by passing the ID to the `tenantId` param
 
 ### Retrieve links by tenantId
 
-You can retrieve links by tenant ID by passing the ID to the `tenantId` parameter.
+Here is how to retrieve links by tenant ID:
 
 <CodeGroup>
 
@@ -611,7 +798,7 @@ You can retrieve links by tenant ID by passing the ID to the `tenantId` paramete
 
 ### Retrieve analytics by tenantId
 
-You can retrieve analytics for a link by its tenant ID by passing the ID to the `tenantId` parameter.
+You can also retrieve analytics for a link by its tenant ID.
 
 <CodeGroup>
 
