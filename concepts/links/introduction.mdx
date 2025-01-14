@@ -27,15 +27,18 @@ The link model consists of the following properties:
 | `domain`    | The domain of the link                                    | `dub.link`                      |
 | `key`       | The short link slug                                       | `claim`                         |
 
+For more advanced features like custom link previews, conversion tracking, and more, see the full list of properties below;
+
 <Accordion title="Full list of link properties">
   <LinkResponse />
 </Accordion>
 
+You can use the various Dub SDKs to programmatically manage your links.
+
 ## Create a link
 
-You can use the various Dub SDKs to create links.
-
 The `url` field, representing the destination URL, is the sole mandatory parameter required for the creation of a new short link.
+
 <CodeGroup>
 
 ```javascript Node.js {8}
@@ -63,19 +66,19 @@ import(
 
 func main() {
   ctx := context.Background()
-  
+
   s := dubgo.New(
     dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
   )
-  
+
   res, err := s.Links.Create(ctx, &operations.CreateLinkRequestBody{
     URL: "https://google.com",
   })
-  
+
   if err != nil {
     log.Fatal(err)
   }
-  
+
   if res != nil {
     // handle response
   }
@@ -142,6 +145,225 @@ curl --request POST \
 
 ## Update a link
 
+An existing link can be updated by providing the `id` to the `update` method. This method returns the updated link as a response.
+
+You can use either the `linkId` or an `externalId` prefixed with `ext_` which is a unique identifier for the link in your own database to associate it with the link in Dub's system.
+
+<CodeGroup>
+
+```javascript Node.js {8}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.update("link_eBKA4MT44XnI17hYLchkjUOd", {
+  url: "https://www.google.uk", // new URL
+});
+```
+
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Update(ctx, "link_eBKA4MT44XnI17hYLchkjUOd", &operations.UpdateLinkRequestBody{
+    URL: "https://www.google.uk", // new URL
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.links.update(link_id="link_eBKA4MT44XnI17hYLchkjUOd", request_body={
+  "url": "https://www.google.uk", // new URL
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+res = s.links.update(link_id="link_eBKA4MT44XnI17hYLchkjUOd", request_body={
+  "url": "https://www.google.uk", // new URL
+})
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$requestBody = new Operations\UpdateLinkRequestBody(
+  url: 'https://www.google.uk', // new URL
+);
+
+$response = $sdk->links->update(
+  linkId: 'link_eBKA4MT44XnI17hYLchkjUOd',
+  requestBody: $requestBody
+);
+```
+
+```bash cURL {5}
+curl --request PATCH \
+  --url https://api.dub.co/links/link_eBKA4MT44XnI17hYLchkjUOd \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{"url": "https://www.google.uk"}'
+```
+
+</CodeGroup>
+
 ## Upsert a link
 
+Upserting a link is a combination of creating and updating a link. If a link with the same URL already exists, return it (or update it if there are any changes). Otherwise, a new link will be created.
+
+This allows you to use the upsert method without the necessity of checking for the link's existence beforehand.
+
+<CodeGroup>
+
+```javascript Node.js {8}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.upsert({
+  url: "https://google.com", // will always be the same short link
+});
+```
+
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Upsert(ctx, &operations.UpsertLinkRequestBody{
+    URL: "https://google.com",
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = d.links.upsert(request={
+  "url": "https://google.com",
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::UpsertLinkRequestBody.new(
+  url: "https://google.com",
+)
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\UpsertLinkRequestBody(
+  url: 'https://google.com',
+);
+
+$response = $sdk->links->upsert(
+  request: $request
+);
+```
+
+```bash cURL {5}
+curl --request POST \
+  --url https://api.dub.co/links/upsert \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{"url": "https://google.com"}'
+```
+
+</CodeGroup>
+
 ## UTM tags
+
+TODO
