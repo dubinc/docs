@@ -151,6 +151,212 @@ curl --request POST \
 
 Bulk update allows you to modify up to 100 links simultaneously with same data.
 
+Some potential use cases:
+
+- Tagging multiple links at once
+- Setting the same expiration date for multiple links
+- Updating UTM parameters for multiple links
+
+<Warning>
+  You cannot update the domain or key of a link with this endpoint. Also,
+  [webhook events](/concepts/webhooks/introduction) will not be triggered when
+  using this endpoint.
+</Warning>
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.updateMany();
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.dub.co/links/bulk \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+  --data '[
+    {
+      "url": "https://google.com"
+    },
+    {
+      "url": "https://google.uk"
+    }
+  ]'
+```
+
+</CodeGroup>
+
 ## Bulk delete links
 
 With bulk delete, you can delete up to 100 links at once.
+
+<Warning>
+  This is a destructive action and cannot be undone. Proceed with caution. Also,
+  [webhook events](/concepts/webhooks/introduction) will not be triggered when
+  using this endpoint.
+</Warning>
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.deleteMany({
+  linkIds: ["clux0rgak00011...", "clux0rgak00022..."],
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+   res, err := s.Links.DeleteMany(ctx, operations.BulkDeleteLinksRequest{
+    LinkIds: []string{
+      "clux0rgak00011...",
+      "clux0rgak00022...",
+    },
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+ res = dub.links.delete_many(request={
+  "link_ids": [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::BulkDeleteLinksRequest.new(
+  link_ids: [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+)
+
+res = s.links.delete_many(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+
+$response = $sdk->links->deleteMany(
+  linkIds: [
+    'clux0rgak00011...',
+    'clux0rgak00022...',
+  ]
+);
+
+```
+
+```bash cURL
+curl --request DELETE \
+  --url https://api.dub.co/links/bulk?linkIds=clux0rgak00011... \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>
