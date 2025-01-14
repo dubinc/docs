@@ -5,6 +5,347 @@ description: "Learn how to identify links in your system."
 
 // TODO: Need a better name
 
+## External ID
+
+In certain scenarios, it is essential to identify links within your system. For instance, you may need to associate a link with a user without storing the Dub link ID directly in your database.
+
+The `externalId` field serves this purpose effectively. It acts as a unique identifier within your database, allowing you to associate it with a corresponding link in Dub's system.
+
+Dub allows you to create links using an `externalId` and subsequently retrieve them by the same identifier.
+
+<Note>`externalId` is unique across your workspace.</Note>
+
+### Creating links with externalId
+
+Here is an example of how to create a link with an `externalId`:
+
+<CodeGroup>
+
+```javascript Node.js {9}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.create({
+  url: "https://google.com",
+  externalId: "12345",
+});
+```
+
+```go Go {20}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Create(ctx, &operations.CreateLinkRequestBody{
+    URL: "https://google.com",
+    ExternalId: "12345",
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python {11}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = d.links.create(request={
+  "url": "https://google.com",
+  "external_id": "12345",
+})
+```
+
+```ruby Ruby {12}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
+  url: "https://google.com",
+  external_id: "12345",
+)
+```
+
+```php PHP {12}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\CreateLinkRequestBody(
+  url: 'https://google.com',
+  externalId: '12345',
+);
+
+$response = $sdk->links->create(
+  request: $request
+);
+```
+
+```bash cURL {7}
+curl --request POST \
+  --url https://api.dub.co/links \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "url": "https://google.com",
+    "external_id": "12345"
+  }'
+```
+
+</CodeGroup>
+
+### Retrieving link by externalId
+
+Let's see how to retrieve a link by its `externalId`:
+
+<CodeGroup>
+
+```javascript Node.js {8}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.get({
+  externalId: "12345",
+});
+```
+
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Get(ctx, operations.GetLinkInfoRequest{
+    ExternalID: dubgo.String("12345"),
+  })
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = d.links.get(request={
+  "external_id": "12345",
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::GetLinkInfoRequest.new(
+  external_id: "12345",
+)
+
+res = s.links.get(req)
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$response = $sdk->links->get(
+  externalId: '12345'
+);
+```
+
+```bash cURL {2}
+curl --request GET \
+  --url https://api.dub.co/links/info?external_id=12345 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>
+
+### Updating link by externalId
+
+In addition to updating a link by its `linkId`, you can also update a link by its `externalId`.
+
+<Note>
+  Make sure to prefix the `externalId` with `ext_`. For example, if your
+  `externalId` is `12345`, you should pass `ext_12345`.
+</Note>
+
+<CodeGroup>
+
+```javascript Node.js {7}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.update("ext_12345", {
+  url: "https://www.google.uk", // new URL
+});
+```
+
+```go Go {18}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Update(ctx, "ext_12345", &operations.UpdateLinkRequestBody{
+    URL: "https://www.google.uk", // new URL
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python {9}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.links.update(link_id="ext_12345", request_body={
+  "url": "https://www.google.uk", // new URL
+})
+```
+
+```ruby Ruby {10}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+res = s.links.update(link_id="ext_12345", request_body={
+  "url": "https://www.google.uk", // new URL
+})
+```
+
+```php PHP {10}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$requestBody = new Operations\UpdateLinkRequestBody(
+  url: 'https://www.google.uk', // new URL
+);
+
+$response = $sdk->links->update(
+  linkId: 'ext_12345',
+  requestBody: $requestBody
+);
+```
+
+```bash cURL {2}
+curl --request PATCH \
+  --url https://api.dub.co/links/ext_12345 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{"url": "https://www.google.uk"}'
+```
+
+</CodeGroup>
+
+### Retrieving analytics by externalId
+
+---
+
 Talk about
 
 - externalId
