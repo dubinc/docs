@@ -30,7 +30,15 @@
     {
       "group": "Concepts",
       "pages": [
-        "concepts/links",
+        {
+          "group": "Links",
+          "icon": "link",
+          "pages": [
+            "concepts/links/introduction",
+            "concepts/links/identification",
+            "concepts/links/bulk-actions"
+          ]
+        },
         "concepts/analytics",
         {
           "group": "Webhooks",

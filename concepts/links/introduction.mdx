@@ -1,0 +1,37 @@
+---
+title: Introduction
+description: "Learn how to use Dub's links to track and analyze your marketing campaigns."
+---
+
+import LinkResponse from "/snippets/link-response.mdx";
+
+Links are the bread and butter of [Dub](https://dub.co).
+
+Everything on Dub starts with a link. Whether you're creating:
+
+- a handful of links for your marketing campaign
+- hundreds of links for your affiliate program
+- thousands of links, [programmatically](/api-reference/endpoint/bulk-create-links), for your SMS campaign
+
+In this guide, we'll cover the link model, how to create links, and more.
+
+## The link model
+
+The link model consists of the following properties:
+
+| Property    | Description                                               | Example                         |
+| ----------- | :-------------------------------------------------------- | :------------------------------ |
+| `id`        | The unique identifier of the link (prefixed with `link_`) | `link_eBKA4MT44XnI17hYLchkjUOd` |
+| `url`       | The destination URL of the link                           | `https://dub.co/home`           |
+| `shortLink` | The shortened version of the link (including https)       | `https://dub.link/claim`        |
+| `domain`    | The domain of the link                                    | `dub.link`                      |
+| `key`       | The short link slug                                       | `claim`                         |
+
+<Accordion title="Full list of link properties">
+  <LinkResponse />
+</Accordion>
+
+- create link
+- update link
+- upsert link
+- UTM tags
