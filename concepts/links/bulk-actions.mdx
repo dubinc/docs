@@ -13,8 +13,8 @@ Bulk create allows you to create up to 100 links at once.
   Bulk link creation does not support the following features: [Link
   cloaking](https://dub.co/help/article/link-cloaking), [Custom social media
   cards](https://dub.co/help/article/custom-link-previews). Also, [webhook
-  events](/concepts/webhooks/introduction) will not be triggered when using this
-  endpoint.
+  events](/concepts/webhooks/introduction) will not be triggered when using bulk
+  create.
 </Warning>
 
 <CodeGroup>
@@ -160,7 +160,7 @@ Some potential use cases:
 <Warning>
   You cannot update the domain or key of a link with this endpoint. Also,
   [webhook events](/concepts/webhooks/introduction) will not be triggered when
-  using this endpoint.
+  using bulk update.
 </Warning>
 
 <CodeGroup>
@@ -172,7 +172,13 @@ export const dub = new Dub({
   token: process.env.DUB_API_KEY,
 });
 
-const result = await dub.links.updateMany();
+const result = await dub.links.updateMany({
+  linkIds: ["clux0rgak00011...", "clux0rgak00022..."],
+  data: {
+    utm_source: "facebook",
+    utm_medium: "cpc",
+  },
+});
 ```
 
 ```go Go
@@ -192,6 +198,17 @@ func main() {
   s := dubgo.New(
     dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
   )
+
+  res, err := s.Links.UpdateMany(ctx, operations.BulkUpdateLinksRequestBody{
+    LinkIds: []string{
+      "clux0rgak00011...",
+      "clux0rgak00022...",
+    },
+    Data: map[string]string{
+      "utm_source": "facebook",
+      "utm_medium": "cpc",
+    },
+  })
 }
 ```
 
@@ -203,6 +220,17 @@ from dub.models import operations
 d = dub.Dub(
   token=os.environ['DUB_API_KEY'],
 )
+
+res = dub.links.update_many(request={
+  "link_ids": [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+  "data": {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+})
 ```
 
 ```ruby Ruby
@@ -214,6 +242,19 @@ s.config_security(
     token: "DUB_API_KEY",
   )
 )
+
+req = ::OpenApiSDK::Operations::BulkUpdateLinksRequestBody.new(
+  link_ids: [
+    "clux0rgak00011...",
+    "clux0rgak00022...",
+  ],
+  data: {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+)
+
+res = s.links.update_many(req)
 ```
 
 ```php PHP
@@ -225,21 +266,25 @@ use Dub;
 use Dub\Models\Operations;
 
 $sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$response = $sdk->links->updateMany(
+  linkIds: [
+    'clux0rgak00011...',
+    'clux0rgak00022...',
+  ],
+  data: {
+    "utm_source": "facebook",
+    "utm_medium": "cpc",
+  },
+);
 ```
 
 ```bash cURL
-curl --request POST \
+curl --request PATCH \
   --url https://api.dub.co/links/bulk \
   --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json'
-  --data '[
-    {
-      "url": "https://google.com"
-    },
-    {
-      "url": "https://google.uk"
-    }
-  ]'
+  --header 'Content-Type: application/json' \
+  --data '{"link_ids": ["clux0rgak00011...", "clux0rgak00022..."], "data": {"utm_source": "facebook", "utm_medium": "cpc"}}'
 ```
 
 </CodeGroup>
