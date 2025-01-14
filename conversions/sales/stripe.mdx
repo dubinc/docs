@@ -90,7 +90,7 @@ Remember in the [lead conversion tracking guide](/conversions/leads/next-auth), 
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
-  customerId: user.id,
+  externalId: user.id,
   customerName: user.name,
   customerEmail: user.email,
   customerAvatar: user.image,
