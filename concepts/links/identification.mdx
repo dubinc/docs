@@ -584,7 +584,7 @@ export const dub = new Dub({
   token: process.env.DUB_API_KEY,
 });
 
-const result = await dub.analytics.list({
+const result = await dub.links.list({
   tagNames: ["tag1"],
 });
 ```
@@ -786,6 +786,114 @@ Let's see how to create a link with a tenant ID:
 
 <CodeGroup>
 
+```javascript Node.js {9}
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.create({
+  url: "https://google.com",
+  tenantId: "12345",
+});
+```
+
+```go Go {20}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Create(ctx, &operations.CreateLinkRequestBody{
+    URL: "https://google.com",
+    TenantId: "12345",
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python {11}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = d.links.create(request={
+  "url": "https://google.com",
+  "tenant_id": "12345",
+})
+```
+
+```ruby Ruby {12}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
+  url: "https://google.com",
+  tenant_id: "12345",
+)
+```
+
+```php PHP {12}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\CreateLinkRequestBody(
+  url: 'https://google.com',
+  tenantId: '12345',
+);
+
+$response = $sdk->links->create(
+  request: $request
+);
+```
+
+```bash cURL {7}
+curl --request POST \
+  --url https://api.dub.co/links \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "url": "https://google.com",
+    "external_id": "12345"
+  }'
+```
+
 </CodeGroup>
 
 ### Retrieve links by tenantId
@@ -794,12 +902,98 @@ Here is how to retrieve links by tenant ID:
 
 <CodeGroup>
 
-</CodeGroup>
+```javascript Node.js {8}
+import { Dub } from "dub";
 
-### Retrieve analytics by tenantId
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
 
-You can also retrieve analytics for a link by its tenant ID.
+const result = await dub.links.list({
+  tenantId: "12345",
+});
+```
 
-<CodeGroup>
+```go Go {19}
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.List(ctx, operations.GetLinksRequest{
+    TenantId: dubgo.String("12345"),
+  })
+}
+```
+
+```python Python {10}
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = s.links.list(request={
+  "tenant_id": "12345",
+})
+```
+
+```ruby Ruby {11}
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::GetLinksRequest.new(
+  tenant_id: "12345",
+)
+
+res = s.links.list(req)
+```
+
+```php PHP {11}
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\GetLinksRequest(
+  tenantId: "12345",
+);
+
+$responses = $sdk->links->list(
+  request: $request
+);
+
+```
+
+```bash cURL {2}
+curl --request GET \
+  --url https://api.dub.co/links?tenantId=12345 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
 
 </CodeGroup>
