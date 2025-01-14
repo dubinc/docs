@@ -41,7 +41,7 @@ The `url` field, representing the destination URL, is the sole mandatory paramet
 
 <CodeGroup>
 
-```javascript Node.js {8}
+```javascript Node.js
 import { Dub } from "dub";
 
 export const dub = new Dub({
@@ -53,7 +53,7 @@ const link = await dub.links.create({
 });
 ```
 
-```go Go {19}
+```go Go
 package main
 
 import(
@@ -85,7 +85,7 @@ func main() {
 }
 ```
 
-```python Python {10}
+```python Python
 import os
 import dub
 from dub.models import operations
@@ -99,7 +99,7 @@ res = d.links.create(request={
 })
 ```
 
-```ruby Ruby {11}
+```ruby Ruby
 require 'dub'
 
 s = ::OpenApiSDK::Dub.new
@@ -114,7 +114,7 @@ req = ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
 )
 ```
 
-```php PHP {11}
+```php PHP
 declare(strict_types=1);
 
 require 'vendor/autoload.php';
@@ -151,7 +151,7 @@ You can use either the `linkId` or an `externalId` prefixed with `ext_` which is
 
 <CodeGroup>
 
-```javascript Node.js {8}
+```javascript Node.js
 import { Dub } from "dub";
 
 export const dub = new Dub({
@@ -163,7 +163,7 @@ const link = await dub.links.update("link_eBKA4MT44XnI17hYLchkjUOd", {
 });
 ```
 
-```go Go {19}
+```go Go
 package main
 
 import(
@@ -195,7 +195,7 @@ func main() {
 }
 ```
 
-```python Python {10}
+```python Python
 import os
 import dub
 from dub.models import operations
@@ -209,7 +209,7 @@ res = dub.links.update(link_id="link_eBKA4MT44XnI17hYLchkjUOd", request_body={
 })
 ```
 
-```ruby Ruby {11}
+```ruby Ruby
 require 'dub'
 
 s = ::OpenApiSDK::Dub.new
@@ -224,7 +224,7 @@ res = s.links.update(link_id="link_eBKA4MT44XnI17hYLchkjUOd", request_body={
 })
 ```
 
-```php PHP {11}
+```php PHP
 declare(strict_types=1);
 
 require 'vendor/autoload.php';
@@ -244,7 +244,7 @@ $response = $sdk->links->update(
 );
 ```
 
-```bash cURL {5}
+```bash cURL
 curl --request PATCH \
   --url https://api.dub.co/links/link_eBKA4MT44XnI17hYLchkjUOd \
   --header 'Authorization: Bearer <token>' \
@@ -262,7 +262,7 @@ This allows you to use the upsert method without the necessity of checking for t
 
 <CodeGroup>
 
-```javascript Node.js {8}
+```javascript Node.js
 import { Dub } from "dub";
 
 export const dub = new Dub({
@@ -274,7 +274,7 @@ const link = await dub.links.upsert({
 });
 ```
 
-```go Go {19}
+```go Go
 package main
 
 import(
@@ -306,7 +306,7 @@ func main() {
 }
 ```
 
-```python Python {10}
+```python Python
 import os
 import dub
 from dub.models import operations
@@ -320,7 +320,7 @@ res = d.links.upsert(request={
 })
 ```
 
-```ruby Ruby {11}
+```ruby Ruby
 require 'dub'
 
 s = ::OpenApiSDK::Dub.new
@@ -335,7 +335,7 @@ req = ::OpenApiSDK::Operations::UpsertLinkRequestBody.new(
 )
 ```
 
-```php PHP {11}
+```php PHP
 declare(strict_types=1);
 
 require 'vendor/autoload.php';
@@ -354,7 +354,7 @@ $response = $sdk->links->upsert(
 );
 ```
 
-```bash cURL {5}
+```bash cURL
 curl --request POST \
   --url https://api.dub.co/links/upsert \
   --header 'Authorization: Bearer <token>' \
@@ -363,7 +363,3 @@ curl --request POST \
 ```
 
 </CodeGroup>
-
-## UTM tags
-
-TODO

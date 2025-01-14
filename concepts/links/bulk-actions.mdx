@@ -10,11 +10,10 @@ Dub allows you to perform bulk actions on links. This is particularly useful whe
 Bulk create allows you to create up to 100 links at once.
 
 <Warning>
-  Bulk link creation does not support the following features: [Link
-  cloaking](https://dub.co/help/article/link-cloaking), [Custom social media
-  cards](https://dub.co/help/article/custom-link-previews). Also, [webhook
+  Bulk link creation does not support [custom link
+  previews](https://dub.co/help/article/custom-link-previews). Also, [webhook
   events](/concepts/webhooks/introduction) will not be triggered when using bulk
-  create.
+  link creation.
 </Warning>
 
 <CodeGroup>
@@ -149,7 +148,7 @@ curl --request POST \
 
 ## Bulk update links
 
-Bulk update allows you to modify up to 100 links simultaneously with same data.
+Bulk update allows you to modify up to 100 links simultaneously **with the same data**.
 
 Some potential use cases:
 
@@ -160,7 +159,7 @@ Some potential use cases:
 <Warning>
   You cannot update the domain or key of a link with this endpoint. Also,
   [webhook events](/concepts/webhooks/introduction) will not be triggered when
-  using bulk update.
+  using bulk link updates
 </Warning>
 
 <CodeGroup>
