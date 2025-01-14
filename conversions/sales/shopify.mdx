@@ -4,6 +4,8 @@ title: "Shopify"
 description: "Learn how to track a sale conversion event with Shopify"
 ---
 
+import ViewConversions from "/snippets/view-conversions.mdx";
+
 When it comes to conversion tracking, a `sale` event happens when a user purchases a product from your Shopify store.
 
 <Frame>
@@ -16,16 +18,32 @@ When it comes to conversion tracking, a `sale` event happens when a user purchas
 
 In this guide, we will be focusing on tracking sale events from Shopify by leveraging Dub's Shopify integration.
 
-## Step 1: Install the Dub Conversions app
+<iframe
+  width="100%"
+  height="469px"
+  className="rounded-xl"
+  src="https://www.loom.com/embed/936970b8db5b41488657fa92ffec384a?sid=04030975-6d7e-4126-8487-a1d9a3095efc"
+  title="Loom video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+/>
+
+## Step 1: Install the Dub Shopify app
 
 <Steps>
 
 <Step title="Install the app">
-  Install the Dub Conversions app from the Shopify App Store.
+  Install the [Dub Shopify App](https://d.to/shopify) from the App Store.
 
-  <Tip>
-    Our Shopify integration is still in closed beta and would require a [Business plan](https://dub.co/help/article/business-plan) subscription and above. If you'd like to join the beta, [reach out to us via email](mailto:support@dub.co?subject=I%20want%20to%20use%20the%20Dub%20Shopify%20integration%20for%20conversion%20tracking).
-  </Tip>
+  <Frame>
+    <img
+      src="/images/shopify/shopify-app.png"
+      alt="The connection status in the Dub Conversions app"
+    />
+  </Frame>
+  
 </Step>
 
 <Step title="Connect the Dub workspace">
@@ -53,7 +71,7 @@ To activate the Dub Analytics script, follow these steps:
 1. Navigate to your Shopify admin panel.
 2. Go to **Online Store** > **Themes**.
 3. Click on **Customize** for your current theme.
-4. In the theme editor, select **Theme Settings** > **App embeds**.
+4. In the theme editor, select the **App embeds** tab.
 5. Locate the **Analytics Script** for the Dub Conversions app and toggle it to activate.
 
 <Frame>
@@ -78,33 +96,4 @@ In addition to the above, we also subscribe to the mandatory compliance webhook 
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
 
-- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
-    alt="Time-series line chart"
-  />
-</Frame>
-
-- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-funnel-chart.png"
-    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
-  />
-</Frame>
-
-- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
-    alt="The Events Stream dashboard on Dub"
-  />
-</Frame>
-
-## Caveats
-
-- Lead events are only tracked when a customer completes a purchase. That means if a customer signs up without making a purchase, this event won't be tracked at the moment.
+<ViewConversions />

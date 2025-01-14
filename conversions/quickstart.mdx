@@ -5,22 +5,113 @@ description: "Learn how to get started with Dub Conversions"
 icon: arrow-progress
 ---
 
-<Note>
-  Dub Conversions is currently in closed beta and would require a [Business
-  plan](https://dub.co/help/article/business-plan) subscription and above. If
-  you'd like to join the beta, [reach out to us via
-  email](mailto:support@dub.co?subject=I%20want%20to%20join%20the%20Dub%20Conversions%20beta).
-</Note>
+import DubClientInstall from "/snippets/dub-client-install.mdx";
+import AuthProviders from "/snippets/auth-providers.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
+import LeadAttributes from "/snippets/leads-attributes.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
 
-[Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you to turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
+[Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
 
 Learn more about [how Dub Conversions works](https://dub.co/help/article/dub-conversions).
 
-In this guide, we'll walk you through the steps to get started with Dub Conversions.
+<Frame>
+  <img
+    src="https://assets.dub.co/blog/introducing-dub-conversions.webp"
+    alt="Conversion analytics"
+  />
+</Frame>
 
-## Step 1: Install the Dub analytics client-side SDK
+In this guide, we'll walk you through the steps to get started with Dub Conversions:
 
-First step is to install the [Dub analytics client-side SDK](/sdks/client-side/introduction).
+1. [Enable conversion tracking for your links](#step-1-enable-conversion-tracking-for-your-links)
+2. [Install the `@dub/analytics` client-side SDK](#step-2-install-the-dub-analytics-client-side-sdk)
+3. [Install the Dub server-side SDK](#step-3-install-the-dub-server-side-sdk)
+4. [Start sending events](#step-4-start-sending-events)
+5. [View your conversions](#step-5-view-your-conversions)
+
+## Step 1: Enable conversion tracking for your links
+
+First, you'll need to enable conversion tracking for your Dub links to be able to start tracking conversions.
+
+There are a few ways to do this:
+
+1. [On a workspace-level](#option-1-on-a-workspace-level)
+2. [On a link-level](#option-2-on-a-link-level)
+3. [Via the API](#option-3-via-the-api)
+
+### Option 1: On a workspace-level
+
+To enable conversion tracking for all future links in a workspace, you can do the following:
+
+1. Navigate to your [workspace settings page](https://app.dub.co/settings).
+2. Toggle the **Workspace-level Conversion Tracking** switch to enable conversion tracking for the workspace.
+
+<Frame>
+  <img
+    src="/images/conversions/enable-conversion-tracking-workspace.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+This option will enable conversion tracking in the [Dub Link Builder](https://dub.co/help/article/dub-link-builder) for all future links.
+
+### Option 2: On a link-level
+
+If you don't want to enable conversion tracking for all your links in a workspace, you can also opt to enable it on a link-level.
+
+To enable conversion tracking for a specific link, open the [Dub Link Builder](https://dub.co/help/article/dub-link-builder) for a link and toggle the **Conversion Tracking** switch.
+
+<Frame>
+  <img
+    src="/images/conversions/enable-conversion-tracking.png"
+    alt="Enabling conversion tracking for a link"
+  />
+</Frame>
+
+<Tip>
+  You can also use the `C` keyboard shortcut when inside the link builder to
+  quickly enable conversion tracking for a given link.
+</Tip>
+
+### Option 3: Via the API
+
+Alternatively, you can also enable conversion tracking programmatically via the [Dub API](/api-reference/introduction). All you need to do is pass `trackConversion: true` when creating or updating a link:
+
+<CodeGroup>
+
+```typescript TypeScript
+const link = await dub.links.create({
+  url: "https://dub.co",
+  trackConversion: true,
+});
+```
+
+```python Python
+link = d.links.create(url="https://dub.co", track_conversion=True)
+```
+
+```go Go
+link, err := d.Links.Create(ctx, &dub.CreateLinkRequest{
+    URL: "https://dub.co",
+    TrackConversion: true,
+})
+```
+
+```ruby Ruby
+s.links.create_many(
+  ::OpenApiSDK::Operations::CreateLinkRequest.new(
+    url: "https://dub.co",
+    track_conversion: true,
+  )
+)
+```
+
+</CodeGroup>
+
+## Step 2: Install the `@dub/analytics` client-side SDK
+
+Next, you'll need to install the [@dub/analytics client-side SDK](/sdks/client-side/introduction).
 
 This will handle the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
@@ -32,32 +123,17 @@ This will handle the detection of the `dub_id` query parameter and storing it as
   />
 </Frame>
 
-Depending on which framework or platform you're using, you can install the script in different ways:
+<DubClientInstall />
 
-<CardGroup cols={1}>
-  <Card
-    title="React"
-    icon="react"
-    href="/sdks/client-side/installation-guides/react"
-    horizontal
-  >
-    Add Dub Analytics to your React or Next.js app.
-  </Card>
-  <Card
-    title="Website Builder"
-    icon="globe"
-    href="/sdks/client-side/introduction"
-    horizontal
-  >
-    Add Dub Analytics to websites built using Webflow, WordPress, or Framer.
-  </Card>
-</CardGroup>
+## Step 3: Install the Dub server-side SDK
 
-## Step 2: Install the Dub server-side SDK
+<Tip>
+  If you are using Shopify, you can skip this step since our Shopify app will
+  automatically track conversions for you. Read the [Shopify integration
+  guide](/sdks/client-side/installation-guides/shopify) for more information.
+</Tip>
 
-Dub Conversions uses [server-side event tracking](https://dub.co/help/article/dub-conversions#how-are-conversions-tracked) to track conversions. To enable this, you'll need to install the Dub server-side SDKs.
-
-Depending on which framework you're using, you can use our [native SDKs](/sdks/overview):
+Dub Conversions uses server-side event tracking to track conversions. Depending on which framework you're using, you can use our [native SDKs](/sdks/overview):
 
 <CardGroup>
   <Card
@@ -71,21 +147,16 @@ Depending on which framework you're using, you can use our [native SDKs](/sdks/o
   <Card
     title="Go"
     icon="golang"
-    href="https://dub.co/solutions/go"
+    href="/sdks/quickstart/go"
     iconType="brands"
     horizontal
   >
     Go library for the Dub API
   </Card>
-  <Card
-    title="Python"
-    icon="python"
-    href="https://dub.co/solutions/python"
-    horizontal
-  >
+  <Card title="Python" icon="python" href="/sdks/quickstart/python" horizontal>
     Python library for the Dub API
   </Card>
-  <Card title="Ruby" icon="gem" href="https://dub.co/solutions/ruby" horizontal>
+  <Card title="Ruby" icon="gem" href="/sdks/quickstart/ruby" horizontal>
     Ruby library for the Dub API
   </Card>
 </CardGroup>
@@ -95,14 +166,20 @@ If you're using a framework that isn't listed, you can use the Dub REST API to t
 - [Tracking a lead event](/api-reference/endpoint/track-lead)
 - [Tracking a sale event](/api-reference/endpoint/track-sale)
 
-## Step 3: Start sending events
+## Step 4: Start sending events
+
+<Tip>
+  If you are using Shopify, you can skip this step since our Shopify app will
+  automatically track conversions for you. Read the [Shopify integration
+  guide](/sdks/client-side/installation-guides/shopify) for more information.
+</Tip>
 
 Now that you've installed the SDKs, you can start sending events to Dub. Since click events are tracked automatically, you'll only need to send events for the following cases:
 
-- [Lead events](#step-3a-sending-lead-events)
-- [Sale events](#step-3b-sending-sale-events)
+- [Lead events](#step-4a-sending-lead-events)
+- [Sale events](#step-4b-sending-sale-events)
 
-### Step 3a: Sending Lead Events
+### Step 4a: Sending Lead Events
 
 The first event you'll want to send is a `lead` event. This happens when a user performs an action that indicates interest in your product or service. This could be anything from:
 
@@ -120,44 +197,7 @@ The first event you'll want to send is a `lead` event. This happens when a user 
 
 Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
 
-<CardGroup cols={1}>
-  <Card
-    title="NextAuth.js"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/next-auth"
-    horizontal
-  >
-    Tracking a lead conversion event with NextAuth.js and the Dub SDK
-  </Card>
-  <Card
-    title="Clerk"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/clerk"
-    horizontal
-  >
-    Tracking a lead conversion event with Clerk and the Dub SDK
-  </Card>
-  <Card
-    title="Supabase Auth"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/supabase-auth"
-    horizontal
-  >
-    Tracking a lead conversion event with Supabase Auth and the Dub SDK
-  </Card>
-  <Card
-    title="Auth0"
-    icon="shield-halved"
-    iconType="solid"
-    href="/conversions/leads/auth0"
-    horizontal
-  >
-    Tracking a lead conversion event with Auth0 and the Dub SDK
-  </Card>
-</CardGroup>
+<AuthProviders />
 
 <Tip>
   If you're using the [Remix framework](https://remix.run/), you might run into an [issue](https://github.com/remix-run/remix/discussions/7922) where you get an empty/null value for the `dub_id` cookie. In that case, try using a library like [`cookie`](https://github.com/jshttp/cookie) instead:
@@ -171,20 +211,11 @@ const dubId = cookies.dub_id;
 
 </Tip>
 
-When sending a lead conversion event, you can include the following properties:
-
-| Property         | Description                                                                                                              | Required |
-| :--------------- | :----------------------------------------------------------------------------------------------------------------------- | :------- |
-| `clickId`        | The unique `dub_id` parameter that the lead conversion event is attributed to.                                           | Yes      |
-| `eventName`      | The name of the event. Example: "Sign up".                                                                               | Yes      |
-| `customerId`     | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. | Yes      |
-| `customerEmail`  | The email address of the customer. If not passed, a random email address will be generated.                              | No       |
-| `customerName`   | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       | No       |
-| `customerAvatar` | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    | No       |
+<LeadAttributes />
 
 The lead event will serve as the source of truth for the customer's identity and which link they came from. This means that all subsequent actions performed by the customer (e.g. upgrading their plan, purchasing a product) will automatically be attributed to the original link.
 
-### Step 3b: Sending Sale Events
+### Step 4b: Sending Sale Events
 
 The second event you'll want to send is a `sale` event. This happens when a user purchases your product or service. This could be anything from:
 
@@ -223,102 +254,13 @@ Depending on which payment processor you're using, we offer native integrations 
 
 Alternatively, you can also send sale events manually using [our SDKs](/sdks/overview) or the [`POST /track/sale` API endpoint](/api-reference/endpoint/track-sale).
 
-Here are the properties you can include when sending a sale event:
-
-| Property           | Description                                                 | Required |
-| :----------------- | :---------------------------------------------------------- | :------- |
-| `customerId`       | The unique ID of the customer in your system.               | Yes      |
-| `amount`           | The amount of the sale in cents.                            | Yes      |
-| `paymentProcessor` | The name of the payment processor that processed the sale.  | Yes      |
-| `eventName`        | The name of the event. Defaults to "Purchase".              | No       |
-| `invoiceId`        | The unique ID of the invoice in your system.                | No       |
-| `currency`         | The currency of the sale. Defaults to "usd".                | No       |
-| `metadata`         | An object containing additional information about the sale. | No       |
-
-## Step 4: Enable conversion tracking for your links
-
-Lastly, you'll need enable conversion tracking for your Dub links for to be able to start tracking conversions. You can do this by:
-
-1. Go to your [Dub dashboard](https://app.dub.co)
-2. Click on the short link you want to track conversions for, which will open up the [Link Builder](https://dub.co/help/article/dub-link-builder).
-3. Click on the `...` button, which will open up the additional options menu.
-4. Select **Enable Conversion Tracking** to enable conversion tracking for the link.
-
-<Frame>
-  <img
-    src="/images/enable-conversion-tracking.png"
-    alt="Enabling conversion tracking for a link"
-  />
-</Frame>
-
-<Tip>
-  You can also use the `C` keyboard shortcut when inside the link builder to
-  quickly enable conversion tracking for a given link.
-</Tip>
-
-Alternatively, you can also enable conversion tracking programmatically via the [Dub API](/api-reference/introduction). All you need to do is pass `trackConversion: true` when creating or updating a link:
-
-<CodeGroup>
-
-```typescript TypeScript
-const link = await dub.links.create({
-  url: "https://dub.co",
-  trackConversion: true,
-});
-```
-
-```python Python
-link = d.links.create(url="https://dub.co", track_conversion=True)
-```
-
-```go Go
-link, err := d.Links.Create(ctx, &dub.CreateLinkRequest{
-    URL: "https://dub.co",
-    TrackConversion: true,
-})
-```
-
-```ruby Ruby
-s.links.create_many(
-  ::OpenApiSDK::Operations::CreateLinkRequest.new(
-    url: "https://dub.co",
-    track_conversion: true,
-  )
-)
-```
-
-</CodeGroup>
+<SaleAttributes />
 
 ## Step 5: View your conversions
 
-Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://dub.co/help/article/dub-analytics). We provide 3 different views to help you understand your conversions:
+Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://app.dub.co/analytics). We provide 3 different views to help you understand your conversions:
 
-- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
-    alt="Time-series line chart"
-  />
-</Frame>
-
-- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-funnel-chart.png"
-    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
-  />
-</Frame>
-
-- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
-    alt="The Events Stream dashboard on Dub"
-  />
-</Frame>
+<ViewConversions />
 
 ## Example Apps
 
@@ -326,7 +268,7 @@ Once you've enabled conversion tracking for your links, all your tracked convers
   <Card
     title="Dub Conversions Demo App"
     icon="github"
-    href="https://github.com/dubinc/examples/tree/main/conversions"
+    href="https://github.com/dubinc/examples/tree/main/conversions/stripe"
     color="#333333"
   >
     See the full example on GitHub.

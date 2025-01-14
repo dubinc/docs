@@ -1,74 +1,43 @@
 ---
-title: "Webhooks"
-"og:title": "Dub.co Webhooks: Build custom integrations with Dub"
-description: "Use webhooks to build custom integrations with Dub."
-icon: webhook
+title: Event types
+description: "List of available webhook events you can listen to along with their payload examples"
 ---
 
-<Note>
-  Dub Webhooks are currently in closed beta and would require a [Business
-  plan](https://dub.co/help/article/business-plan) subscription and above. If
-  you'd like to join the beta, [reach out to us via
-  email](mailto:support@dub.co?subject=I%20want%20to%20join%20the%20Dub%20Webhooks%20beta).
-</Note>
+Webhooks are a great way to get real-time notifications on events that happen in your Dub workspace. Webhooks on Dub follow the following format:
 
-Webhooks allows you to listen to real-time events happening across your Dub workspace. With webhooks, you can build custom integrations with Dub, such as:
+```json webhook-payload.json
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX", // The event ID
+  "event": "link.created", // The event type
+  "createdAt": "2024-08-26T16:41:52.346Z", // The timestamp of when the event was created
+  "data": {
+    // Event payload
+  }
+}
+```
 
-- Triggering a Zap on [Zapier](https://app.dub.co/integrations/zapier) when a new link is created in Dub
-- Send a notification on [Slack](https://app.dub.co/integrations/slack) when a link is clicked
-- For building gamified referral programs with [Dub Conversions](/conversions/quickstart) – e.g. increment usage credits for both the referrer and referee when a conversion event happens
+There are two types of webhook events you can listen to:
 
-<Warning>
-  The following endpoints do not trigger webhook events: [Bulk create
-  links](/api-reference/endpoint/bulk-create-links), [Bulk update
-  links](/api-reference/endpoint/bulk-update-links), [Bulk delete
-  links](/api-reference/endpoint/bulk-delete-links).
-</Warning>
+- [**Workspace-level events**](#workspace-level-events)
+- [**Link-level events**](#link-level-events)
 
-In this guide, we'll show you how to configure webhooks for your Dub workspace and a list of available events you can listen to.
-
-## Creating a webhook
-
-To create a webhook for your Dub workspace, you'll need to follow these steps:
-
-Navigate to the [**Webhooks** settings page](https://app.dub.co/webhooks) in your Dub workspace.
-
-<Frame>
-  <img src="/images/create-webhook.png" alt="Create Webhook" />
-</Frame>
-
-Click on **Create Webhook** to create a new webhook.
-
-<Frame>
-  <img src="/images/create-webhook-form.png" alt="Create Webhook Form" />
-</Frame>
-
-Fill in the required fields in the webhook creation form:
-
-1. **Name**: Give your webhook a name that helps you identify it.
-2. **URL**: Enter the URL of the endpoint where you want to send the webhook. We recommend using [webhook.site](https://webhook.site/) to test your webhook.
-3. **Signing secret**: This is an auto-generated secret key that you can use to verify the authenticity of the webhook in your application.
-4. **Events**: Select the events you want to listen to. You can select multiple events. Refer to the [Available Events](#available-events) section to see the list of available events.
-
-Finally, click on **Create webhook** to create the webhook.
-
-## Available webhook events
-
-When setting up a webhook, you can select the events you want to listen to across your Dub workspace. There are two types of events you can listen to:
-
-- **Workspace-level events**: These events are triggered in the context of your entire workspace.
-- **Link-level events**: These events are triggered in the context of a specific link.
-
-### Workspace-level events
+## Workspace-level events
 
 These events are triggered in the context of your entire workspace:
 
-<AccordionGroup>
-  <Accordion title="link.created">
-      This event is triggered when a [new link is created](/api-reference/endpoint/create-a-new-link) in your Dub workspace. The event payload contains the created link's details.
-      
-      Here's an example payload:
+- [`link.created`](#link-created)
+- [`link.updated`](#link-updated)
+- [`link.deleted`](#link-deleted)
+- [`lead.created`](#lead-created)
+- [`sale.created`](#sale-created)
 
+### `link.created`
+
+This event is triggered when a [new link is created](/api-reference/endpoint/create-a-new-link) in your Dub workspace. The event payload contains the created link's details.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
 ```json link.created
 {
   "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
@@ -119,13 +88,15 @@ These events are triggered in the context of your entire workspace:
   }
 }
 ```
+</Accordion>
 
-  </Accordion>
-  <Accordion title="link.updated">
-      This event is triggered when a link is updated in your Dub workspace. The event payload contains the updated link's details.
+### `link.updated`
 
-      Here's an example payload:
+This event is triggered when a [link is updated](/api-reference/endpoint/update-a-link) in your Dub workspace. The event payload contains the updated link's details.
 
+Here's an example payload:
+
+<Accordion title="Sample payload">
 ```json link.updated
 {
   "id": "event_KleiO4HBwZFbO1vZLWIPZ2AtX",
@@ -176,15 +147,15 @@ These events are triggered in the context of your entire workspace:
   }
 }
 ```
-
 </Accordion>
 
-<Accordion title="link.deleted">
+### `link.deleted`
 
-This event is triggered when a link is deleted in your Dub workspace. The event payload contains the deleted link's details.
+This event is triggered when a [link is deleted](/api-reference/endpoint/delete-a-link) in your Dub workspace. The event payload contains the deleted link's details.
 
 Here's an example payload:
 
+<Accordion title="Sample payload">
 ```json link.deleted
 {
   "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
@@ -235,10 +206,9 @@ Here's an example payload:
   }
 }
 ```
-
 </Accordion>
 
-<Accordion title="lead.created">
+### `lead.created`
 
 This event is triggered when a [new lead is created](/api-reference/endpoint/track-lead) via [Dub Conversions](/conversions/quickstart). The event payload contains the following:
 
@@ -249,6 +219,7 @@ This event is triggered when a [new lead is created](/api-reference/endpoint/tra
 
 Here's an example payload:
 
+<Accordion title="Sample payload">
 ```json lead.created
 {
   "id": "evt_P343bmyae40ALQYr5HT4vRXRd",
@@ -320,12 +291,11 @@ Here's an example payload:
   }
 }
 ```
-
 </Accordion>
 
-<Accordion title="sale.created">
+### `sale.created`
 
-This event is triggered when a [new sale is created](/api-reference/endpoint/track-sale) via [Dub Conversions](/conversions/quickstart). The event payload contains the following:
+This event is triggered when a [new sale is tracked](/api-reference/endpoint/track-sale) via [Dub Conversions](/conversions/quickstart). The event payload contains the following:
 
 - `eventName`: The name of the event that was tracked.
 - `customer`: Details about the customer that made the purchase.
@@ -334,6 +304,7 @@ This event is triggered when a [new sale is created](/api-reference/endpoint/tra
 
 Here's an example payload:
 
+<Accordion title="Sample payload">
 ```json sale.created
 {
   "id": "evt_WHjyHhqsfYOrlJOOVJSoHXysD",
@@ -412,21 +383,21 @@ Here's an example payload:
 }
 ```
 
-</Accordion>
-</AccordionGroup>
+    </Accordion>
 
-### Link-level events
+## Link-level events
 
-Due to the high volume nature of these events, they are scoped to a specific link.
+Due to the high volume nature of these events, these events are scoped to a specific link.
 
 This means that you need to specify the link when creating a webhook – though you can select multiple links for the same webhook if you'd like.
 
-<Accordion title="link.clicked">
+### `link.clicked`
 
-This event is triggered when a user clicks on a link. The event payload contains all the details about the click event.
+This event is triggered when a user [clicks on a link](/conversions/clicks/introduction). The event payload contains all the details about the click event.
 
 Here's an example payload:
 
+<Accordion title="Sample payload">
 ```json link.clicked
 {
   "id": "evt_b9ywgxWqai2glUpCQjclB17kM",
@@ -492,221 +463,4 @@ Here's an example payload:
   }
 }
 ```
-
 </Accordion>
-
-## Sending test events
-
-You can send test events to your webhook URL to ensure that it's working correctly. To do this:
-
-<Steps>
-<Step title="Go to the webhook details page">
-Navigate to the [**Webhooks** settings page](https://app.dub.co/webhooks) and select the webhook you want to test.
-
-Click on the **Update Details** tab to open the webhook details page.
-
-</Step>
-<Step title="Open the test event modal">
-Select the `⋮` icon on the top right of the page, and click on **Send test event**.
-
-<Frame>
-  <img src="/images/send-test-event.png" alt="Send Test Event" />
-</Frame>
-
-This will open up a modal where you can select the event you want to send.
-
-<Frame>
-  <img src="/images/send-test-event-modal.png" alt="Send Test Event Modal" />
-</Frame>
-
-</Step>
-
-<Step title="Send the test event">
-  Select the event you want to send, and click on **Send test webhook**.
-
-<Frame>
-  <img src="/images/send-test-webhook.png" alt="Send Test Webhook" />
-</Frame>
-
-You'll see a success message and receive the webhook event in the webhook endpoint you specified.
-
-</Step>
-
-</Steps>
-
-## Viewing webhook event logs
-
-We also provide you with a webhook event logs page where you can view all the webhook events that have been sent to your webhook endpoint in real-time.
-
-To view the webhook event logs, select the webhook from the [**Webhooks** settings page](https://app.dub.co/webhooks) and click on the **Webhook Logs** tab.
-
-Here, you'll see a list of all the webhook events that have been sent to your webhook endpoint:
-
-<Frame>
-  <img src="/images/webhook-event-logs.png" alt="Webhook Event Logs" />
-</Frame>
-
-You can also select on a specific event, which will open up a sheet with more details about the event:
-
-<Frame>
-  <img
-    src="/images/webhook-event-logs-details.png"
-    alt="Webhook Event Logs Details"
-  />
-</Frame>
-
-## Retry Behaviour
-
-If your webhook endpoint does not respond with a success status code (2XX), we retry the request to ensure every message will be delivered. You can see all the retry attempts in your webhook event logs.
-
-Webhooks are retried until they are successfully delivered – with an exponential backoff to avoid overwhelming your webhook endpoint (also known as the "[thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem)"). The delay is capped at 24 hours from the 5th retry attempt onwards.
-
-| Retry attempt | Delay    |
-| ------------- | -------- |
-| 1st           | 12s      |
-| 2nd           | 2m 28s   |
-| 3rd           | 30m 8s   |
-| 4th           | 6h 7m 6s |
-| 5th           | 24h      |
-| 6th           | 24h      |
-| ...           | ...      |
-
-## Signature Verification
-
-With signature verification, you can determine if the webhook came from Dub, and has not been tampered with in transit.
-
-All webhooks are delivered with a `Dub-Signature` header. Dub generates this header using a secret key that only you and Dub know.
-
-An example header looks like this:
-
-```
-Dub-Signature: c9ed6a2abf93f59d761eea69908d8de00f4437b5b6d7cd8b9bf5719cbe61bf46
-```
-
-To verify, you can use the secret key to generate your own signature for each webhook. If both signatures match then you can be sure that a received event came from Dub.
-
-The steps required are:
-
-1. Get the raw body of the request.
-2. Extract the signature from the `Dub-Signature` header.
-3. Calculate the HMAC of the raw body using the `SHA-256` hash function and the secret.
-4. Compare the calculated `HMAC` with the one sent in the `Dub-Signature` header. If they match, the webhook is verified.
-
-<CodeGroup>
-
-```javascript Next.js
-export const POST = async (req: Request) => {
-  const webhookSignature = req.headers.get("Dub-Signature");
-  if (!webhookSignature) {
-    return new Response("No signature provided.", { status: 401 });
-  }
-
-  // Copy this from the webhook details page
-  const secret = process.env.DUB_WEBHOOK_SECRET;
-  if (!secret) {
-    return new Response("No secret provided.", { status: 401 });
-  }
-
-  // Make sure to get the raw body from the request
-  const rawBody = await req.text();
-
-  const computedSignature = crypto
-    .createHmac("sha256", secret)
-    .update(rawBody)
-    .digest("hex");
-
-  if (webhookSignature !== computedSignature) {
-    return new Response("Invalid signature", { status: 400 });
-  }
-
-  # Handle the webhook event
-  # ...
-};
-```
-
-```python Python
-import hmac
-import hashlib
-
-def webhook():
-    # Get the signature from the header
-    webhook_signature = request.headers.get('Dub-Signature')
-    if not webhook_signature:
-        abort(401, 'No signature provided.')
-
-    # Copy this from the webhook details page
-    secret = os.environ.get('DUB_WEBHOOK_SECRET')
-    if not secret:
-        abort(401, 'No secret provided.')
-
-    # Get the raw body of the request
-    raw_body = request.data
-
-    # Calculate the HMAC
-    computed_signature = hmac.new(
-        secret.encode('utf-8'),
-        raw_body,
-        hashlib.sha256
-    ).hexdigest()
-
-    if webhook_signature != computed_signature:
-        abort(400, 'Invalid signature')
-
-    # Handle the webhook event
-    # ...
-
-    return 'OK', 200
-```
-
-```go Go
-
-import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
-	"io/ioutil"
-	"net/http"
-	"os"
-)
-
-func webhookHandler(w http.ResponseWriter, r *http.Request) {
-	// Get the signature from the header
-	webhookSignature := r.Header.Get("Dub-Signature")
-	if webhookSignature == "" {
-		http.Error(w, "No signature provided.", http.StatusUnauthorized)
-		return
-	}
-
-	// Copy this from the webhook details page
-	secret := os.Getenv("DUB_WEBHOOK_SECRET")
-	if secret == "" {
-		http.Error(w, "No secret provided.", http.StatusUnauthorized)
-		return
-	}
-
-	// Read the raw body
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		http.Error(w, "Error reading request body", http.StatusInternalServerError)
-		return
-	}
-
-	// Calculate the HMAC
-	h := hmac.New(sha256.New, []byte(secret))
-	h.Write(body)
-	computedSignature := hex.EncodeToString(h.Sum(nil))
-
-	if webhookSignature != computedSignature {
-		http.Error(w, "Invalid signature", http.StatusBadRequest)
-		return
-	}
-
-	// Handle the webhook event
-	// ...
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("OK"))
-}
-```
-
-</CodeGroup>

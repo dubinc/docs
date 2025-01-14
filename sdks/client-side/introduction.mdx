@@ -1,46 +1,55 @@
 ---
 title: Introduction
-description: Client-side JavaScript SDK for for Dub Conversions
+description: Learn more about the @dub/analytics script and how to install it.
 icon: code
 ---
 
-The following guides show you how to add [Dub Analytics](https://github.com/dubinc/analytics) to your website.
+import DubClientInstall from "/snippets/dub-client-install.mdx";
+import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 
-With Dub Analytics, you can [track leads and sales conversions](/conversions/quickstart) on your website, enabling you to measure the effectiveness of your marketing campaigns.
+`@dub/analytics` is a lightweight (\<1kb), [open-source](https://github.com/dubinc/analytics) client-side script used for tracking conversions with [Dub Conversions](https://dub.co/help/article/dub-conversions).
 
-Based on the framework or platform you're using, you can install the script in different ways:
+The script handles the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
-<CardGroup>
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-click-event.png"
+    alt="A diagram showing how click events are tracked in the conversion funnel"
+  />
+</Frame>
+
+With the script, you can also [track clicks on the client-side](/conversions/clicks/introduction#client-side-click-tracking) using query parameters (e.g. `?via=john`). This gives you the flexibility to track clicks directly on your website or app, without needing to rely on link redirects.
+
+## Installation guides
+
+<DubClientInstall />
+
+## Concepts
+
+You can pass the following props to the `@dub/analytics` script to customize its behavior:
+
+<DubAnalyticsParams />
+
+## Examples
+
+Check out some examples of the script in action:
+
+<CardGroup cols={2}>
   <Card
-    title="React"
-    icon="react"
-    href="/sdks/client-side/installation-guides/react"
-    horizontal
+    title="Dub Analytics with Client-side Click Tracking + Reverse Proxy"
+    icon="github"
+    href="https://github.com/dubinc/analytics/tree/main/apps/nextjs-reverse-proxy"
+    color="#333333"
   >
-    Add Dub Analytics to your React or Next.js app.
+    See the full example on GitHub.
   </Card>
   <Card
-    title="WordPress"
-    icon="wordpress"
-    href="/sdks/client-side/installation-guides/wordpress"
-    horizontal
+    title="Dub Analytics with Geolocation"
+    icon="github"
+    href="https://github.com/dubinc/analytics/tree/main/apps/nextjs-geolocation-script"
+    color="#333333"
   >
-    Add Dub Analytics to your WordPress site.
-  </Card>
-  <Card
-    title="Webflow"
-    icon="webflow"
-    href="/sdks/client-side/installation-guides/webflow"
-    horizontal
-  >
-    Add Dub Analytics to your Webflow site.
-  </Card>
-  <Card
-    title="Framer"
-    icon="framer"
-    href="/sdks/client-side/installation-guides/framer"
-    horizontal
-  >
-    Add Dub Analytics to your Framer site.
+    See the full example on GitHub.
   </Card>
 </CardGroup>

@@ -5,6 +5,7 @@ description: "Learn how to track a sale conversion event with Stripe"
 ---
 
 import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
 
 When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
 
@@ -77,19 +78,19 @@ Dub's Stripe integration will automatically forward the following events to Dub:
 
 ## Step 2: Associate Stripe customer with your customer ID
 
-Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/quickstart#step-3a-sending-lead-events)).
+Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/leads/introduction)).
 
 This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
 
 <Accordion title="How does this work?">
 
-Remember in the [lead conversion tracking guide](/conversions/leads/next-auth), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
+Remember in the [lead conversion tracking guide](/conversions/leads/introduction), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
 
 ```typescript
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
-  customerId: user.id,
+  externalId: user.id,
   customerName: user.name,
   customerEmail: user.email,
   customerAvatar: user.image,
@@ -134,6 +135,8 @@ const stripeSession = await stripe.checkout.sessions.create({
 });
 ```
 
+This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
 ### Option 2: Pass the user ID and the click event ID in the Stripe customer creation flow
 
 Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
@@ -159,44 +162,21 @@ await stripe.customers.create({
 });
 ```
 
+This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
+
 ## Step 3: View conversion results
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
 
-- **Time-series**: A [time-series view](https://dub.co/help/article/dub-analytics#1-time-series-analytics-chart) of the number clicks, leads and sales.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-timeseries-analytics.png"
-    alt="Time-series line chart"
-  />
-</Frame>
-
-- **Funnel chart**: A funnel chart view visualizing the conversion & dropoff rates across the different steps in the conversion funnel (clicks → leads → sales).
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-funnel-chart.png"
-    alt="Funnel chart view showing the conversion & dropoff rates from clicks → leads → sales"
-  />
-</Frame>
-
-- **Real-time events stream**: A [real-time events stream](https://dub.co/help/article/real-time-events-stream) of every single conversion event that occurs across all your links in your workspace.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversions-events-stream-dashboard.png"
-    alt="The Events Stream dashboard on Dub"
-  />
-</Frame>
+<ViewConversions />
 
 ## Example Apps
 
 <CardGroup cols={2}>
   <Card
-    title="Dub Conversions Demo App"
+    title="Dub + Stripe Demo App"
     icon="github"
-    href="https://github.com/dubinc/examples/tree/main/conversions"
+    href="https://github.com/dubinc/examples/tree/main/conversions/stripe"
     color="#333333"
   >
     See the full example on GitHub.

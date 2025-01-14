@@ -1,0 +1,159 @@
+---
+title: "Introduction"
+description: "Learn how to track sales conversion events with Dub Conversions"
+---
+
+import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
+
+When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
+
+- Subscribing to a paid plan
+- Usage expansion (upgrading from one plan to another)
+- Purchasing a product from your online store
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-sale-event.png"
+    alt="A diagram showing how lead events are tracked in the conversion funnel"
+  />
+</Frame>
+
+In this guide, we will be focusing on tracking sales conversion events with Dub.
+
+<SalesPrerequisites />
+
+## Step 1: Configure sale tracking
+
+Next, depending on which payment processor you're using, you can leverage our native integrations to track sale events:
+
+<CardGroup cols={1}>
+  <Card
+    title="Stripe"
+    icon="stripe"
+    href="/conversions/sales/stripe"
+    horizontal
+  >
+    Tracking a sale conversion event with Stripe and the Dub SDK
+  </Card>
+  <Card
+    title="Shopify"
+    icon="shopify"
+    href="/conversions/sales/shopify"
+    horizontal
+  >
+    Tracking a sale conversion event with Shopify and the Dub SDK
+  </Card>
+</CardGroup>
+
+If you're not using any of the providers listed above, you can also manually track sale events using our [native SDKs](/sdks/overview) within your backend code:
+
+<CodeGroup>
+
+```typescript TypeScript
+import { Dub } from "dub";
+
+const dub = new Dub();
+
+await dub.track.sale({
+  externalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  amount: 100,
+  paymentProcessor: "paddle",
+  eventName: "E-book purchase",
+  invoiceId: "123456",
+  currency: "usd",
+});
+```
+
+```python Python
+from dub import Dub
+import os
+
+dub = Dub(token=os.environ['DUB_API_KEY'])
+
+dub.track.sale({
+    'external_id': 'cus_RBfbD57HDzPKpduI8elr5qHA',
+    'amount': 100,
+    'payment_processor': 'paddle',
+    'event_name': 'E-book purchase',
+    'invoice_id': '123456',
+    'currency': 'usd'
+})
+```
+
+```go Go
+package main
+
+import (
+    "context"
+    dub "github.com/dubinc/dub-go"
+)
+
+d := dub.New(
+    dub.WithSecurity(os.Getenv("DUB_API_KEY")),
+)
+
+_, err := d.Track.Sale(context.Background(), &operations.TrackSaleRequest{
+    ExternalId:       "cus_RBfbD57HDzPKpduI8elr5qHA",
+    Amount:          100,
+    PaymentProcessor: "paddle",
+    EventName:       "E-book purchase",
+    InvoiceId:       "123456",
+    Currency:        "usd",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+dub = ::OpenApiSDK::Dub.new
+dub.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: ENV['DUB_API_KEY']
+  )
+)
+
+req = ::OpenApiSDK::Operations::TrackSaleRequest.new(
+  external_id: 'cus_RBfbD57HDzPKpduI8elr5qHA',
+  amount: 100,
+  payment_processor: 'paddle',
+  event_name: 'E-book purchase',
+  invoice_id: '123456',
+  currency: 'usd'
+)
+
+dub.track.sale(req)
+```
+
+```php PHP
+<?php
+
+require 'vendor/autoload.php';
+
+use Dub\Dub;
+use Dub\Models\Operations;
+
+$dub = Dub::builder()->setSecurity($_ENV["DUB_API_KEY"])->build();
+
+$request = new Operations\TrackSaleRequest();
+$request->externalId = 'cus_RBfbD57HDzPKpduI8elr5qHA';
+$request->amount = 100;
+$request->paymentProcessor = 'paddle';
+$request->eventName = 'E-book purchase';
+$request->invoiceId = '123456';
+$request->currency = 'usd';
+
+$dub->track->sale($request);
+```
+
+</CodeGroup>
+
+<SaleAttributes />
+
+## Step 2: View conversion results
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
+
+<ViewConversions />

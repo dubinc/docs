@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
           await dub.track.lead({
             clickId: dub_id,
             eventName: "Sign Up",
-            customerId: user.id,
+            externalId: user.id,
             customerName: user.name,
             customerEmail: user.email,
             customerAvatar: user.image,
@@ -84,7 +84,7 @@ export const getOptions = (req: NextApiRequest): NextAuthOptions => ({
           await dub.track.lead({
             clickId: dub_id,
             eventName: "Sign Up",
-            customerId: user.id,
+            externalId: user.id,
             customerName: user.name,
             customerEmail: user.email,
             customerAvatar: user.image,

@@ -43,7 +43,7 @@ const afterCallback = async (req: Request, session: Session) => {
       await dub.track.lead({
         clickId,
         eventName: "Sign Up",
-        customerId: session.user.id,
+        externalId: session.user.id,
         customerName: session.user.name,
         customerEmail: session.user.email,
         customerAvatar: session.user.image,
@@ -63,4 +63,5 @@ export default handleAuth({
 ```
 
 <LeadsAttributes />
+
 <LeadsOutro />
