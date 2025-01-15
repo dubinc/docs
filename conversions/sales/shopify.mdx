@@ -34,7 +34,7 @@ In this guide, we will be focusing on tracking sale events from Shopify by lever
 
 <Steps>
 
-<Step title="Install the app">
+<Step title="Install the Shopify app">
   Install the [Dub Shopify App](https://d.to/shopify) from the App Store.
 
   <Frame>
@@ -46,25 +46,35 @@ In this guide, we will be focusing on tracking sale events from Shopify by lever
   
 </Step>
 
-<Step title="Connect the Dub workspace">
+<Step title="Connect Shopify to your Dub workspace">
   After installation, you will be prompted to link one of your Dub workspaces to
   the app. Select **Connect** to establish a connection between your
   Shopify store and your Dub workspace.
 
-You'll be redirected back to your Shopify store after this step and you should
-see the connection status in the app.
+You'll be redirected back to your Shopify store after this step and you'll see a list of the links in your Dub workspace:
 
 <Frame>
   <img
-    src="/images/shopify/shopify-app-workspace-connected.png"
-    alt="The connection status in the Dub Conversions app"
+    src="/images/shopify/shopify-links-table.png"
+    alt="The list of links in your Dub workspace"
   />
 </Frame>
+
+With the Shopify app, you can also create [conversion-enabled links](/conversions//quickstart#step-1-enable-conversion-tracking-for-your-links) directly from your Shopify store:
+
+<Frame>
+  <img
+    src="/images/shopify/shopify-create-link.png"
+    alt="Create a conversion-enabled link from your Shopify store"
+  />
+</Frame>
+
+If you want a more powerful link builder, you can also use the [Dub Link Builder](https://dub.co/help/article/dub-link-builder) to create conversion-enabled links.
 
 </Step>
 
 <Step title="Activate Dub Analytics Script">
-  After installing the Dub Conversions app, the Dub Analytics script is added as an app embed. However, it needs to be activated manually to ensure it is included in your current theme.
+  After installing the Dub Shopify app, the Dub Analytics script is added as an app embed. However, it needs to be activated manually to ensure it is included in your current theme.
 
 To activate the Dub Analytics script, follow these steps:
 
@@ -72,7 +82,7 @@ To activate the Dub Analytics script, follow these steps:
 2. Go to **Online Store** > **Themes**.
 3. Click on **Customize** for your current theme.
 4. In the theme editor, select the **App embeds** tab.
-5. Locate the **Analytics Script** for the Dub Conversions app and toggle it to activate.
+5. Locate the **Analytics Script** for the Dub Shopify app and toggle it to activate.
 
 <Frame>
   <img
@@ -85,12 +95,16 @@ To activate the Dub Analytics script, follow these steps:
 
 </Steps>
 
+<Tip>
+
 Dub’s Shopify integration will automatically forward the following events to Dub:
 
 - `orders/paid`: This event is triggered when a customer completes a purchase on your Shopify store. It is utilized to track sales that originate from Dub links.
 - `app/uninstalled`: This event occurs when the app is uninstalled from a store. It is used to remove the integration from your Dub workspace.
 
 In addition to the above, we also subscribe to the mandatory compliance webhook topics that are required by Shopify.
+
+</Tip>
 
 ## Step 2: View conversion results
 
