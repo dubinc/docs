@@ -25,48 +25,75 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
 
 <SalesPrerequisites />
 
-## Step 1: Enable the Stripe Integration on Dub
+## Step 1: Install the Stripe integration
 
 <Steps>
-<Step title="Go to Stripe integration page">
- Navigate to the [Stripe integration page](https://app.dub.co/integrations/stripe) in your Dub workspace.
-</Step>
-<Step title="Enable the Stripe integration">
-Click on the "Enable" button to enable the Stripe integration, which will redirect you to the Stripe App installation flow.
-</Step>
-
+<Step title="Find Dub on the Stripe App Marketplace">
+ Navigate to the [Dub: Conversions Analytics page](https://d.to/stripe) on the Stripe App Marketplace.
+ 
 <Frame>
   <img
-    src="https://assets.dub.co/help/stripe-integration-dub.png"
-    alt="The Stripe integration page on Dub"
+    src="/images/stripe/stripe-app-marketplace.png"
+    alt="The Dub: Conversions Analytics page on the Stripe App Marketplace"
   />
 </Frame>
 
+</Step>
 <Step title="Install the Stripe app">
-Select the Stripe account to install the app on, and select "Install App".
+  On the top right, click on **Install app** to install the Dub Conversions app on your Stripe account.
 
 <Frame>
   <img
-    src="https://assets.dub.co/help/stripe-integration-install.png"
+    src="/images/stripe/stripe-app-install.png"
     alt="The Stripe integration installation flow"
   />
 </Frame>
-</Step>
 
-<Step title="Verify the installation">
-  Once this is done, you will be redirected back to your Dub workspace and you
-  should see that the integration is now installed.
-</Step>
+<Tip>
+  Alternatively, you can also install the Stripe app in test mode first to test
+  your end-to-end flow without involving real money.
+</Tip>
 
-<Step title="Optional: Install the app in Stripe test mode">
-Navigate to your [Stripe "Installed Apps" dashboard](https://dashboard.stripe.com/settings/apps/dub.co) and verify that the Dub app is installed. We also recommmend installing the app in test mode to be able to test your end-to-end flow without using real money.
+Once the app is installed, click on **Continue to app settings** to finish the installation.
 
 <Frame>
   <img
-    src="https://assets.dub.co/help/stripe-app-install-test-mode.png"
-    alt="The Stripe integration page on Dub"
+    src="/images/stripe/stripe-app-install-continue.png"
+    alt="Continue to app settings"
   />
 </Frame>
+
+</Step>
+
+<Step title="Connect Stripe to your Dub workspace">
+
+In the app settings page, click on **Connect workspace** to connect your Stripe account with your Dub workspace.
+
+<Frame>
+  <img
+    src="/images/stripe/stripe-app-connect-workspace.png"
+    alt="Connect Stripe to Dub"
+  />
+</Frame>
+
+This will redirect you to the [Dub OAuth flow](/integrations/quickstart), where you can select the Dub workspace you want to connect to your Stripe account.
+
+<Frame>
+  <img
+    src="/images/stripe/select-dub-workspace.png"
+    alt="Select the Dub workspace you want to connect to your Stripe account"
+  />
+</Frame>
+
+Once you click on **Authorize**, you will be redirected back to the Dub app settings page on Stripe, where you should see that the integration is now installed.
+
+<Frame>
+  <img
+    src="/images/stripe/stripe-app-installed.png"
+    alt="The Stripe integration is now installed"
+  />
+</Frame>
+
 </Step>
 
 </Steps>
