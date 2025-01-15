@@ -119,3 +119,16 @@ Webhooks are retried until they are successfully delivered – with an exponenti
 | 5th           | 24h      |
 | 6th           | 24h      |
 | ...           | ...      |
+
+### Temporary Disablement
+
+If a webhook endpoint consistently fails, it will be automatically disabled after a series of failed attempts.
+
+Notifications will be sent to the Workspace owners at the following intervals:
+
+- After 5, 10, and 15 consecutive failed attempts.
+- On the 20th consecutive failed attempt, the **webhook will be disabled**.
+
+This mechanism ensures that non-responsive endpoints do not continue to receive retry attempts indefinitely, maintaining system efficiency and preventing unnecessary load on both the sender and receiver.
+
+You can re-enable a disabled webhook by clicking on the **Enable webhook** button in the webhook details page.
