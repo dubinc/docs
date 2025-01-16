@@ -68,7 +68,8 @@
             "conversions/leads/clerk",
             "conversions/leads/next-auth",
             "conversions/leads/supabase",
-            "conversions/leads/auth0"
+            "conversions/leads/auth0",
+            "conversions/leads/appwrite"
           ]
         },
         {
