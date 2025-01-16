@@ -3210,7 +3210,7 @@ paths:
       x-speakeasy-name-override: "update"
       x-speakeasy-max-method-params: 2
       summary: "Update a workspace"
-      x-codeSamples: [{"lang": "typescript", "label": "updateWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.update(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateWorkspace", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Workspaces.Update(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.workspaces.update(id_or_slug=\"<value>\", request_body=::OpenApiSDK::Operations::UpdateWorkspaceRequestBody.new())\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$requestBody = new Operations\\UpdateWorkspaceRequestBody();\n\n$response = $sdk->workspaces->update(\n    idOrSlug: '<value>',\n    requestBody: $requestBody\n\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: updateWorkspace, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.workspaces.update(id_or_slug=\"<value>\")\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"string\\\",\\\"slug\\\":\\\"string\\\",\\\"logo\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "updateWorkspace", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.workspaces.update(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "updateWorkspace", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Workspaces.Update(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "updateWorkspace", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.workspaces.update(id_or_slug=\"<value>\", request_body=::OpenApiSDK::Operations::UpdateWorkspaceRequestBody.new())\n\nif ! res.workspace_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "updateWorkspace", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$requestBody = new Operations\\UpdateWorkspaceRequestBody();\n\n$response = $sdk->workspaces->update(\n    idOrSlug: '<value>',\n    requestBody: $requestBody\n\n);\n\nif ($response->workspaceSchema !== null) {\n    // handle response\n}"}, {lang: python, label: updateWorkspace, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.workspaces.update(id_or_slug=\"<value>\")\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"name\\\":\\\"string\\\",\\\"slug\\\":\\\"string\\\",\\\"logo\\\":\\\"string\\\",\\\"conversionEnabled\\\":true}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/workspaces/idOrSlug\")\n  .patch(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Update a workspace by ID or slug."
       tags:
         - "Workspaces"
@@ -3240,6 +3240,8 @@ paths:
                   maxLength: 48
                 "logo":
                   type: "string"
+                "conversionEnabled":
+                  type: "boolean"
       responses:
         "200":
           description: "The updated workspace."
@@ -4509,7 +4511,7 @@ components:
           description: "The AI limit of the workspace."
         "conversionEnabled":
           type: "boolean"
-          description: "Whether the workspace has conversion tracking enabled (d.to/conversions)."
+          description: "Whether the workspace has conversion tracking enabled automatically for new links (d.to/conversions)."
         "dotLinkClaimed":
           type: "boolean"
           description: "Whether the workspace has claimed a free .link domain. (dub.link/free)"
@@ -4560,6 +4562,11 @@ components:
           additionalProperties:
             type: "boolean"
           description: "The feature flags of the workspace, indicating which features are enabled."
+        "store":
+          type: "object"
+          nullable: true
+          additionalProperties: {}
+          description: "The miscellaneous key-value store of the workspace."
       required:
         - "id"
         - "name"
@@ -4589,6 +4596,7 @@ components:
         - "createdAt"
         - "users"
         - "domains"
+        - "store"
       title: "Workspace"
     "TagSchema":
       type: "object"
