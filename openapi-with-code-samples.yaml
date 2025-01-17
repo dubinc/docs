@@ -2426,6 +2426,7 @@ paths:
                     type: "string"
                   "customer":
                     type: "object"
+                    nullable: true
                     properties:
                       "id":
                         type: "string"
@@ -2449,6 +2450,7 @@ paths:
                       - "externalId"
                   "sale":
                     type: "object"
+                    nullable: true
                     properties:
                       "amount":
                         type: "number"
