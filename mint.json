@@ -147,11 +147,10 @@
     {
       "group": "Customers",
       "pages": [
-        "api-reference/endpoint/create-a-customer",
-        "api-reference/endpoint/update-a-customer",
-        "api-reference/endpoint/delete-a-customer",
         "api-reference/endpoint/retrieve-a-customer",
-        "api-reference/endpoint/retrieve-a-list-of-customers"
+        "api-reference/endpoint/retrieve-a-list-of-customers",
+        "api-reference/endpoint/update-a-customer",
+        "api-reference/endpoint/delete-a-customer"
       ]
     },
     {
@@ -262,6 +261,10 @@
     {
       "source": "/conversions/leads/supabase-auth",
       "destination": "/conversions/leads/supabase"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-customer",
+      "destination": "/api-reference/endpoint/retrieve-a-customer"
     },
     {
       "source": "/api-reference/endpoint/retrieve-a-project",
