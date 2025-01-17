@@ -24,7 +24,31 @@ Next, configure Appwrite to track lead conversion events during the sign up proc
 
   <Step title="Create an Appwrite Cloud project">
 
-    Head to [Appwrite Cloud](https://apwr.dev/appwrite-dub) and create a new project. Create a new API key with the `sessions.write` scope enabled and save the API key for later use. You can also copy your project ID and endpoint from the project's Settings page.
+    Head to [Appwrite Cloud](https://apwr.dev/appwrite-dub) and create a new project. 
+    
+    <Frame>
+
+      <img
+        src="/images/conversions/appwrite/appwrite-new-project.png"
+        alt="New project on Appwrite Cloud"
+        width="1440"
+        height="1024"
+      />
+
+    </Frame>
+
+    Create a new API key with the `sessions.write` scope enabled and save the API key for later use. You can also copy your project ID and endpoint from the project's Settings page.
+
+    <Frame>
+
+      <img
+        src="/images/conversions/appwrite/appwrite-api-key.png"
+        alt="API key in your project on Appwrite Cloud"
+        width="1440"
+        height="1024"
+      />
+
+    </Frame>
 
     Then, in your Next.js app, install the Appwrite Node.js SDK.
     ```bash
