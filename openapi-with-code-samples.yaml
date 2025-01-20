@@ -1867,12 +1867,70 @@ paths:
       operationId: "getTags"
       x-speakeasy-name-override: "list"
       summary: "Retrieve a list of tags"
-      x-codeSamples: [{"lang": "typescript", "label": "getTags", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.tags.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getTags", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Tags.List(ctx)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getTags", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n    \nres = s.tags.list()\n\nif ! res.tag_schemas.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getTags", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n\n\n$response = $sdk->tags->list(\n\n);\n\nif ($response->tagSchemas !== null) {\n    // handle response\n}"}, {lang: python, label: getTags, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.tags.list()\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/tags\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "getTags", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.tags.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getTags", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Tags.List(ctx, operations.GetTagsRequest{\n        Page: dubgo.Float64(1),\n        PageSize: dubgo.Float64(50),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getTags", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetTagsRequest.new(\n  page: 1.0,\n  page_size: 50.0,\n)\n    \nres = s.tags.list(req)\n\nif ! res.tag_schemas.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getTags", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\GetTagsRequest(\n    page: 1,\n    pageSize: 50,\n);\n\n$response = $sdk->tags->list(\n    request: $request\n);\n\nif ($response->tagSchemas !== null) {\n    // handle response\n}"}, {lang: python, label: getTags, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.tags.list(request={\n        \"page\": 1,\n        \"page_size\": 50,\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/tags\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Retrieve a list of tags for the authenticated workspace."
       tags:
         - "Tags"
       security:
         - token: []
+      parameters:
+        - in: "query"
+          name: "sortBy"
+          description: "The field to sort the tags by."
+          schema:
+            type: "string"
+            enum:
+              - "name"
+              - "createdAt"
+            default: "name"
+            description: "The field to sort the tags by."
+        - in: "query"
+          name: "sortOrder"
+          description: "The order to sort the tags by."
+          schema:
+            type: "string"
+            enum:
+              - "asc"
+              - "desc"
+            default: "asc"
+            description: "The order to sort the tags by."
+        - in: "query"
+          name: "search"
+          description: "The search term to filter the tags by."
+          schema:
+            type: "string"
+            description: "The search term to filter the tags by."
+        - in: "query"
+          name: "ids"
+          description: "IDs of tags to filter by."
+          schema:
+            anyOf:
+              - type: "string"
+              - type: "array"
+                items:
+                  type: "string"
+            description: "IDs of tags to filter by."
+        - in: "query"
+          name: "page"
+          description: "The page number for pagination."
+          schema:
+            type: "number"
+            minimum: 0
+            exclusiveMinimum: true
+            default: 1
+            description: "The page number for pagination."
+            example: 1
+        - in: "query"
+          name: "pageSize"
+          description: "The number of items per page."
+          schema:
+            type: "number"
+            minimum: 0
+            exclusiveMinimum: true
+            maximum: 100
+            default: 100
+            description: "The number of items per page."
+            example: 50
       responses:
         "200":
           description: "A list of tags"
