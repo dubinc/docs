@@ -136,6 +136,10 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
     Copy your `admin` [Auth Token](https://www.tinybird.co/docs/concepts/auth-tokens.html). Paste this token as the `TINYBIRD_API_KEY` environment variable in your `.env` file.
 
+    <Tip>
+      Alternatively, you can set up a [local Tinybird container](https://www.tinybird.co/docs/cli/local-container) for local development.
+    </Tip>
+
   </Step>
 
   <Step title="Install Tinybird CLI and authenticate">
@@ -268,7 +272,7 @@ Prerequisites:
     Add the following credentials to your `.env` file:
 
     ```
-    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900"
+    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900/planetscale"
     DATABASE_URL="mysql://root:@localhost:3306/planetscale"
     ```
 
