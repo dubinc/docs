@@ -18,11 +18,11 @@
 
 <ResponseField name="shortLink" type="string" required>
   The full URL of the short link, including the https protocol (e.g.
-  `https://dub.sh/try`).
+  `https://d.to/try`).
 </ResponseField>
 
 <ResponseField name="trackConversion" type="boolean" default="false">
-  [BETA] Whether to track conversions for the short link.
+  Whether to track conversions for the short link.
 </ResponseField>
 
 <ResponseField name="externalId" type="string | null">
@@ -96,11 +96,6 @@
   Whether the short link's stats are publicly accessible.
 </ResponseField>
 
-<ResponseField name="tagId" type="string | null">
-  The unique ID of the tag assigned to the short link. This field is deprecated
-  – use `tags` instead.
-</ResponseField>
-
 <ResponseField name="tags" type="object[] | null">
   The tags assigned to the short link.
 
@@ -130,7 +125,7 @@
 
 <ResponseField name="qrCode" type="string">
   The full URL of the QR code for the short link (e.g.
-  `https://api.dub.co/qr?url=https://dub.sh/try`).
+  `https://api.dub.co/qr?url=https://d.to/try`).
 </ResponseField>
 
 <ResponseField name="utm_source" type="string | null">
@@ -166,16 +161,15 @@
 </ResponseField>
 
 <ResponseField name="leads" type="number" required default="0">
-  [BETA]: The number of leads the short link has generated.
+  The number of leads the short link has generated.
 </ResponseField>
 
 <ResponseField name="sales" type="number" required default="0">
-  [BETA]: The number of sales the short link has generated.
+  The number of sales the short link has generated.
 </ResponseField>
 
 <ResponseField name="saleAmount" type="number" required default="0">
-  [BETA]: The total dollar amount of sales the short link has generated (in
-  cents).
+  The total dollar amount of sales the short link has generated (in cents).
 </ResponseField>
 
 <ResponseField name="lastClicked" type="string | null">
@@ -188,11 +182,6 @@
 
 <ResponseField name="updatedAt" type="string">
   The date and time when the short link was last updated.
-</ResponseField>
-
-<ResponseField name="projectId" type="string">
-  The project ID of the short link. This field is deprecated – use `workspaceId`
-  instead.
 </ResponseField>
 
 <ResponseField name="programId" type="string | null">

@@ -17,6 +17,11 @@
   identify the link in the future.
 </ParamField>
 
+<ParamField body="tenantId" type="string | null">
+  The ID of the tenant that created the link inside your system. If set, it can
+  be used to fetch all links for a tenant.
+</ParamField>
+
 <ParamField body="prefix" type="string">
   The prefix of the short link slug for randomly-generated keys (e.g. if prefix
   is `/c/`, generated keys will be in the `/c/:key` format). Will be ignored if
@@ -38,11 +43,6 @@
 
 <ParamField body="publicStats" type="boolean" default={false}>
   Whether the short link's stats are publicly accessible.
-</ParamField>
-
-<ParamField body="tagId" type="string | null">
-  The unique ID of the tag assigned to the short link. This field is deprecated
-  – use `tagIds` instead.
 </ParamField>
 
 <ParamField body="tagIds" type="string">
@@ -136,7 +136,8 @@
 </ParamField>
 
 <ParamField body="ref" type="string | null">
-  The referral tag of the short link. If set, this will populate or override the `ref` query parameter in the destination URL.
+  The referral tag of the short link. If set, this will populate or override the
+  `ref` query parameter in the destination URL.
 </ParamField>
 
 <ParamField body="programId" type="string | null">
@@ -144,5 +145,6 @@
 </ParamField>
 
 <ParamField body="webhookIds" type="string[] | null">
-  An array of webhook IDs to trigger when the link is clicked. These webhooks will receive click event data.
+  An array of webhook IDs to trigger when the link is clicked. These webhooks
+  will receive click event data.
 </ParamField>
