@@ -338,9 +338,9 @@ And that's it – you're all set! You can now sit back, relax, and watch your c
 
 ## Currency support
 
-For simplicity, Dub records all sales in the native currency of the Stripe account.
+For simplicity, Dub records all sales in the native currency of the Stripe account. For example, if you're using USD for your Stripe account, Dub will record all sales in USD.
 
-If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will record the sale amount using the currency of your Stripe account:
+If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will still record the sale amount using the currency of your Stripe account:
 
 ```json
 {
