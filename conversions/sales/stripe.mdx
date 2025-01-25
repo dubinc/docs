@@ -336,6 +336,35 @@ And that's it – you're all set! You can now sit back, relax, and watch your c
 
 <ViewConversions />
 
+## Currency support
+
+For simplicity, Dub records all sales in the native currency of the Stripe account.
+
+If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will record the sale amount using the currency of your Stripe account:
+
+```json
+{
+  "id": "{{EVENT_ID}}",
+  "object": "event",
+  "type": "checkout.session.completed",
+  "data": {
+    "object": {
+      "id": "{{SESSION_ID}}",
+      "object": "checkout.session",
+      "currency": "cad",
+      "amount_subtotal": 2055,
+      "amount_total": 2055,
+      "currency_conversion": {
+        "amount_subtotal": 1500,
+        "amount_total": 1500, // this is the amount that Dub will record
+        "source_currency": "usd", // the currency of your Stripe account
+        "fx_rate": "1.37"
+      }
+    }
+  }
+}
+```
+
 ## Example Apps
 
 <CardGroup cols={2}>
