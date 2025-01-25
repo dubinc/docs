@@ -25,6 +25,15 @@ In this guide, we will be focusing on tracking sale events with Stripe as the pa
 
 <SalesPrerequisites />
 
+<Tip>
+  Alternatively, if your setup doesn't involve an authentication step (e.g. for
+  one-time purchases / if you're using [Stripe Payment
+  Links](https://docs.stripe.com/payment-links)), you can skip the server-side
+  SDK step above and just [pass the Dub click ID to the Stripe Checkout Flow
+  (instructions
+  below)](#option-3-pass-the-dub-click-id-to-the-stripe-checkout-flow).
+</Tip>
+
 ## Step 1: Install the Dub Stripe integration
 
 <Steps>
@@ -130,10 +139,11 @@ Then, when the user makes a purchase, Dub will automatically associate the check
 
 </Accordion>
 
-There are 2 ways to associate the Stripe customer object with the user ID in your database:
+There are 3 ways to associate the Stripe customer object with the user ID in your database:
 
 1. [Include your customer's unique user ID in checkout sessions](#option-1-include-your-customers-unique-user-id-in-checkout-sessions)
 2. [Pass the user ID and the click event ID in the Stripe customer creation flow](#option-2-pass-the-user-id-and-the-click-event-id-in-the-stripe-customer-creation-flow)
+3. [Pass the Dub click ID to the Stripe Checkout Flow](#option-3-pass-the-dub-click-id-to-the-stripe-checkout-flow)
 
 ### Option 1: Include your customer's unique user ID in checkout sessions
 
@@ -190,6 +200,135 @@ await stripe.customers.create({
 ```
 
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
+
+### Option 3: Pass the Dub click ID to the Stripe Checkout Flow
+
+If your setup doesn't involve a [lead event](/conversions/leads/introduction) and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID as the `client_reference_id` parameter to enable conversion tracking with Dub.
+
+<Tip>
+  When passing the Dub click ID as the `client_reference_id` parameter to
+  Stripe, remember to **prefix it with `dub_id_`** to allow Dub to detect the
+  conversion event.
+</Tip>
+
+- For [Stripe Payment Links](https://docs.stripe.com/payment-links) – pass it as a [query parameter](https://docs.stripe.com/payment-links/url-parameters):
+
+  ```
+  https://buy.stripe.com/xxxxxx?client_reference_id=dub_id_xxxxxxxxxxxxxx
+  ```
+
+- For [Stripe Pricing Tables](https://docs.stripe.com/payments/checkout/pricing-table) – pass it as a [`client-reference-id` attribute](https://docs.stripe.com/payments/checkout/pricing-table#handle-fulfillment-with-the-stripe-api):
+
+  <CodeGroup>
+
+  ```html HTML
+  <body>
+    <h1>We offer plans that help any business!</h1>
+    <!-- Paste your embed code script here. -->
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <stripe-pricing-table
+      pricing-table-id="{{PRICING_TABLE_ID}}"
+      publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
+      client-reference-id="dub_id_xxxxxxxxxxxxxx"
+    >
+    </stripe-pricing-table>
+  </body>
+  ```
+
+  ```jsx React
+  import * as React from "react";
+
+  function PricingPage() {
+    // Paste the stripe-pricing-table snippet in your React component
+    return (
+      <stripe-pricing-table
+        pricing-table-id="'{{PRICING_TABLE_ID}}'"
+        publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
+        client-reference-id="dub_id_xxxxxxxxxxxxxx"
+      ></stripe-pricing-table>
+    );
+  }
+
+  export default PricingPage;
+  ```
+
+  </CodeGroup>
+
+- For [Stripe Checkout Sessions](https://docs.stripe.com/api/checkout/sessions/object) – pass it as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id):
+
+  <CodeGroup>
+
+  ```typescript TypeScript
+  const session = await stripe.checkout.sessions.create({
+    success_url: "https://example.com/success",
+    line_items: [
+      {
+        price: "price_xxxxxxxxxxxxxxxx",
+        quantity: 2,
+      },
+    ],
+    mode: "payment",
+    client_reference_id: "dub_id_xxxxxxxxxxxxxx",
+  });
+  ```
+
+  ```python Python
+    stripe.checkout.Session.create(
+      success_url="https://example.com/success",
+      line_items=[{"price": "price_xxxxxxxxxxxxxxxx", "quantity": 2}],
+      mode="payment",
+      client_reference_id="dub_id_xxxxxxxxxxxxxx",
+    )
+  ```
+
+  ```go Go
+    params := &stripe.CheckoutSessionParams{
+      SuccessURL: stripe.String("https://example.com/success"),
+      LineItems: []*stripe.CheckoutSessionLineItemParams{
+        &stripe.CheckoutSessionLineItemParams{
+          Price: stripe.String("price_xxxxxxxxxxxxxxxx"),
+          Quantity: stripe.Int64(2),
+        },
+      },
+      Mode: stripe.String(string(stripe.CheckoutSessionModePayment)),
+      ClientReferenceID: stripe.String("dub_id_xxxxxxxxxxxxxx"),
+    };
+    result, err := session.New(params);
+  ```
+
+  ```php PHP
+    $stripe->checkout->sessions->create([
+      'success_url' => 'https://example.com/success',
+      'line_items' => [
+        [
+          'price' => 'price_xxxxxxxxxxxxxxxx',
+          'quantity' => 2,
+        ],
+      ],
+      'mode' => 'payment',
+      'client_reference_id' => "dub_id_xxxxxxxxxxxxxx",
+    ]);
+  ```
+
+  ```ruby Ruby
+    Stripe::Checkout::Session.create({
+      success_url: 'https://example.com/success',
+      line_items: [
+        {
+          price: 'price_xxxxxxxxxxxxxxxx',
+          quantity: 2,
+        },
+      ],
+      mode: 'payment',
+      client_reference_id: "dub_id_xxxxxxxxxxxxxx",
+    })
+  ```
+
+  </CodeGroup>
+
+Behind the scenes, Dub will automatically detect when the user completes the checkout flow and track the customer as a [lead](/conversions/leads/introduction) and the purchase event as a [sale](/conversions/sales/introduction).
+
+In this case, we will also [update the customer's `externalId`](/api-reference/endpoint/update-a-customer) with their Stripe customer ID for future reference.
 
 ## Step 3: View conversion results
 
