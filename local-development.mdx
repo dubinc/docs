@@ -282,11 +282,11 @@ Prerequisites:
 
   <Step title="Set up database environment variables">
 
-    Add the following credentials to your `.env` file:
+    Ensure the following credientials are added to your `.env` file:
 
     ```
-    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900/planetscale"
     DATABASE_URL="mysql://root:@localhost:3306/planetscale"
+    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900/planetscale"
     ```
 
     Here, we are using the open-source [PlanetScale simulator](https://github.com/mattrobenolt/ps-http-sim) so the application can continue to use the `@planetscale/database` SDK.
