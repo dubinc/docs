@@ -342,7 +342,8 @@ For simplicity, Dub records all sales in the native currency of the Stripe accou
 
 If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will still record the sale amount using the currency of your Stripe account:
 
-```json
+```json checkout.session.completed
+// Stripe checkout.session.completed event payload
 {
   "id": "{{EVENT_ID}}",
   "object": "event",
