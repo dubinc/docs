@@ -56,14 +56,7 @@ Here's how you can enable client-side click-tracking for your links:
 
 First, you'll need to [add a custom short link domain](https://dub.co/help/article/how-to-add-custom-domain) to your Dub workspace.
 
-<Tip>
-  For security reasons, the domain should be a
-  [subdomain](https://dub.co/help/article/how-to-add-custom-domain#step-2b-adding-a-subdomain)
-  of your website domain. This will prevent unauthorized domains from sending
-  click-tracking requests to your Dub workspace.
-</Tip>
-
-E.g. if your website domain is `example.com`, your short domain should be something like `go.example.com`.
+This is the domain that you'll use for your short links, as well as the `shortDomain` attribute in the following steps.
 
 ### Step 2: Install the Dub Client-side SDK
 
