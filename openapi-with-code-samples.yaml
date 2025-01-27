@@ -1332,7 +1332,7 @@ paths:
             description: "The type of event to retrieve analytics for. Defaults to `clicks`."
         - in: "query"
           name: "groupBy"
-          description: "The parameter to group the analytics data points by. Defaults to `count` if undefined. Note that `trigger` is deprecated (use `triggers` instead), but kept for backwards compatibility."
+          description: "The parameter to group the analytics data points by. Defaults to `count` if undefined."
           schema:
             type: "string"
             enum:
@@ -1351,8 +1351,13 @@ paths:
               - "referer_urls"
               - "top_links"
               - "top_urls"
+              - "utm_sources"
+              - "utm_mediums"
+              - "utm_campaigns"
+              - "utm_terms"
+              - "utm_contents"
             default: "count"
-            description: "The parameter to group the analytics data points by. Defaults to `count` if undefined. Note that `trigger` is deprecated (use `triggers` instead), but kept for backwards compatibility."
+            description: "The parameter to group the analytics data points by. Defaults to `count` if undefined."
         - in: "query"
           name: "domain"
           description: "The domain to filter analytics for."
@@ -1511,6 +1516,46 @@ paths:
           schema:
             type: "boolean"
             description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
+        - in: "query"
+          name: "utm_source"
+          description: "The UTM source of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM source of the short link."
+        - in: "query"
+          name: "utm_medium"
+          description: "The UTM medium of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM medium of the short link."
+        - in: "query"
+          name: "utm_campaign"
+          description: "The UTM campaign of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM campaign of the short link."
+        - in: "query"
+          name: "utm_term"
+          description: "The UTM term of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM term of the short link."
+        - in: "query"
+          name: "utm_content"
+          description: "The UTM content of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM content of the short link."
       responses:
         "200":
           description: "Analytics data"
@@ -1745,6 +1790,46 @@ paths:
           schema:
             type: "boolean"
             description: "Filter for root domains. If true, filter for domains only. If false, filter for links only. If undefined, return both."
+        - in: "query"
+          name: "utm_source"
+          description: "The UTM source of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM source of the short link."
+        - in: "query"
+          name: "utm_medium"
+          description: "The UTM medium of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM medium of the short link."
+        - in: "query"
+          name: "utm_campaign"
+          description: "The UTM campaign of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM campaign of the short link."
+        - in: "query"
+          name: "utm_term"
+          description: "The UTM term of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM term of the short link."
+        - in: "query"
+          name: "utm_content"
+          description: "The UTM content of the short link."
+          schema:
+            type: "string"
+            nullable: true
+            maxLength: 190
+            description: "The UTM content of the short link."
         - in: "query"
           name: "page"
           schema:
@@ -4533,10 +4618,6 @@ components:
           type: "string"
           nullable: true
           description: "The Stripe Connect ID of the workspace."
-        "payoutMethodId":
-          type: "string"
-          nullable: true
-          description: "[BETA – Dub Partners]: The ID of the payment method for partner payouts."
         "usage":
           type: "number"
           description: "The usage of the workspace."
@@ -4639,7 +4720,6 @@ components:
         - "billingCycleStart"
         - "paymentFailedAt"
         - "stripeConnectId"
-        - "payoutMethodId"
         - "usage"
         - "usageLimit"
         - "linksUsage"
