@@ -3317,6 +3317,466 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
+  "/partners":
+    post:
+      operationId: "createPartner"
+      x-speakeasy-name-override: "create"
+      summary: "Create a new partner"
+      x-codeSamples: [{"lang": "typescript", "label": "createPartner", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.create();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\",\\\"username\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"country\\\":\\\"AF\\\",\\\"description\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      description: "Create a new partner for a program. If partner exists, automatically enrolls them."
+      tags:
+        - "Partners"
+      security:
+        - token: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "programId":
+                  type: "string"
+                  description: "The ID of the program to create a partner for."
+                "name":
+                  type: "string"
+                  minLength: 1
+                  maxLength: 100
+                  description: "Full legal name of the partner."
+                "email":
+                  type: "string"
+                  format: "email"
+                  minLength: 1
+                  maxLength: 190
+                  description: "Email for the partner in your system. Partners will be able to claim their profile by signing up to Dub Partners with this email."
+                "username":
+                  type: "string"
+                  minLength: 1
+                  maxLength: 100
+                  description: "A unique username for the partner in your system. This will be used to create a short link for the partner using your program's default domain."
+                "image":
+                  type: "string"
+                  nullable: true
+                  description: "Avatar image for the partner – if not provided, a default avatar will be used."
+                "country":
+                  type: "string"
+                  nullable: true
+                  enum:
+                    - "AF"
+                    - "AL"
+                    - "DZ"
+                    - "AS"
+                    - "AD"
+                    - "AO"
+                    - "AI"
+                    - "AQ"
+                    - "AG"
+                    - "AR"
+                    - "AM"
+                    - "AW"
+                    - "AU"
+                    - "AT"
+                    - "AZ"
+                    - "BS"
+                    - "BH"
+                    - "BD"
+                    - "BB"
+                    - "BY"
+                    - "BE"
+                    - "BZ"
+                    - "BJ"
+                    - "BM"
+                    - "BT"
+                    - "BO"
+                    - "BA"
+                    - "BW"
+                    - "BV"
+                    - "BR"
+                    - "IO"
+                    - "BN"
+                    - "BG"
+                    - "BF"
+                    - "BI"
+                    - "KH"
+                    - "CM"
+                    - "CA"
+                    - "CV"
+                    - "KY"
+                    - "CF"
+                    - "TD"
+                    - "CL"
+                    - "CN"
+                    - "CX"
+                    - "CC"
+                    - "CO"
+                    - "KM"
+                    - "CG"
+                    - "CD"
+                    - "CK"
+                    - "CR"
+                    - "CI"
+                    - "HR"
+                    - "CU"
+                    - "CY"
+                    - "CZ"
+                    - "DK"
+                    - "DJ"
+                    - "DM"
+                    - "DO"
+                    - "EC"
+                    - "EG"
+                    - "SV"
+                    - "GQ"
+                    - "ER"
+                    - "EE"
+                    - "ET"
+                    - "FK"
+                    - "FO"
+                    - "FJ"
+                    - "FI"
+                    - "FR"
+                    - "GF"
+                    - "PF"
+                    - "TF"
+                    - "GA"
+                    - "GM"
+                    - "GE"
+                    - "DE"
+                    - "GH"
+                    - "GI"
+                    - "GR"
+                    - "GL"
+                    - "GD"
+                    - "GP"
+                    - "GU"
+                    - "GT"
+                    - "GN"
+                    - "GW"
+                    - "GY"
+                    - "HT"
+                    - "HM"
+                    - "VA"
+                    - "HN"
+                    - "HK"
+                    - "HU"
+                    - "IS"
+                    - "IN"
+                    - "ID"
+                    - "IR"
+                    - "IQ"
+                    - "IE"
+                    - "IL"
+                    - "IT"
+                    - "JM"
+                    - "JP"
+                    - "JO"
+                    - "KZ"
+                    - "KE"
+                    - "KI"
+                    - "KP"
+                    - "KR"
+                    - "KW"
+                    - "KG"
+                    - "LA"
+                    - "LV"
+                    - "LB"
+                    - "LS"
+                    - "LR"
+                    - "LY"
+                    - "LI"
+                    - "LT"
+                    - "LU"
+                    - "MO"
+                    - "MG"
+                    - "MW"
+                    - "MY"
+                    - "MV"
+                    - "ML"
+                    - "MT"
+                    - "MH"
+                    - "MQ"
+                    - "MR"
+                    - "MU"
+                    - "YT"
+                    - "MX"
+                    - "FM"
+                    - "MD"
+                    - "MC"
+                    - "MN"
+                    - "MS"
+                    - "MA"
+                    - "MZ"
+                    - "MM"
+                    - "NA"
+                    - "NR"
+                    - "NP"
+                    - "NL"
+                    - "NC"
+                    - "NZ"
+                    - "NI"
+                    - "NE"
+                    - "NG"
+                    - "NU"
+                    - "NF"
+                    - "MK"
+                    - "MP"
+                    - "NO"
+                    - "OM"
+                    - "PK"
+                    - "PW"
+                    - "PS"
+                    - "PA"
+                    - "PG"
+                    - "PY"
+                    - "PE"
+                    - "PH"
+                    - "PN"
+                    - "PL"
+                    - "PT"
+                    - "PR"
+                    - "QA"
+                    - "RE"
+                    - "RO"
+                    - "RU"
+                    - "RW"
+                    - "SH"
+                    - "KN"
+                    - "LC"
+                    - "PM"
+                    - "VC"
+                    - "WS"
+                    - "SM"
+                    - "ST"
+                    - "SA"
+                    - "SN"
+                    - "SC"
+                    - "SL"
+                    - "SG"
+                    - "SK"
+                    - "SI"
+                    - "SB"
+                    - "SO"
+                    - "ZA"
+                    - "GS"
+                    - "ES"
+                    - "LK"
+                    - "SD"
+                    - "SR"
+                    - "SJ"
+                    - "SZ"
+                    - "SE"
+                    - "CH"
+                    - "SY"
+                    - "TW"
+                    - "TJ"
+                    - "TZ"
+                    - "TH"
+                    - "TL"
+                    - "TG"
+                    - "TK"
+                    - "TO"
+                    - "TT"
+                    - "TN"
+                    - "TR"
+                    - "TM"
+                    - "TC"
+                    - "TV"
+                    - "UG"
+                    - "UA"
+                    - "AE"
+                    - "GB"
+                    - "US"
+                    - "UM"
+                    - "UY"
+                    - "UZ"
+                    - "VU"
+                    - "VE"
+                    - "VN"
+                    - "VG"
+                    - "VI"
+                    - "WF"
+                    - "EH"
+                    - "YE"
+                    - "ZM"
+                    - "ZW"
+                    - "AX"
+                    - "BQ"
+                    - "CW"
+                    - "GG"
+                    - "IM"
+                    - "JE"
+                    - "ME"
+                    - "BL"
+                    - "MF"
+                    - "RS"
+                    - "SX"
+                    - "SS"
+                    - "XK"
+                    - null
+                  description: "Country where the partner is based."
+                "description":
+                  type: "string"
+                  nullable: true
+                  maxLength: 5000
+                  description: "A brief description of the partner and their background."
+              required:
+                - "programId"
+                - "name"
+                - "email"
+                - "username"
+      responses:
+        "201":
+          description: "The created partner"
+          content:
+            "application/json":
+              schema:
+                type: "object"
+                properties:
+                  "id":
+                    type: "string"
+                  "name":
+                    type: "string"
+                  "email":
+                    type: "string"
+                    nullable: true
+                  "image":
+                    type: "string"
+                    nullable: true
+                  "country":
+                    type: "string"
+                  "bio":
+                    type: "string"
+                    nullable: true
+                  "stripeConnectId":
+                    type: "string"
+                    nullable: true
+                  "couponId":
+                    type: "string"
+                    nullable: true
+                  "payoutsEnabled":
+                    type: "boolean"
+                  "createdAt":
+                    type: "string"
+                  "updatedAt":
+                    type: "string"
+                  "status":
+                    type: "string"
+                    enum:
+                      - "approved"
+                      - "pending"
+                      - "rejected"
+                  "link":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                        description: "The unique ID of the short link."
+                      "shortLink":
+                        type: "string"
+                        format: "uri"
+                        description: "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+                      "domain":
+                        type: "string"
+                        description: "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                      "key":
+                        type: "string"
+                        description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                      "url":
+                        type: "string"
+                        format: "uri"
+                        description: "The destination URL of the short link."
+                      "clicks":
+                        type: "number"
+                        default: 0
+                        description: "The number of clicks on the short link."
+                      "leads":
+                        type: "number"
+                        default: 0
+                        description: "The number of leads the short links has generated."
+                      "sales":
+                        type: "number"
+                        default: 0
+                        description: "The number of sales the short links has generated."
+                      "saleAmount":
+                        type: "number"
+                        default: 0
+                        description: "The total dollar amount of sales the short links has generated (in cents)."
+                    required:
+                      - "id"
+                      - "shortLink"
+                      - "domain"
+                      - "key"
+                      - "url"
+                      - "clicks"
+                      - "leads"
+                      - "sales"
+                      - "saleAmount"
+                  "discount":
+                    type: "object"
+                    nullable: true
+                    properties:
+                      "id":
+                        type: "string"
+                      "couponId":
+                        type: "string"
+                        nullable: true
+                      "couponTestId":
+                        type: "string"
+                        nullable: true
+                      "amount":
+                        type: "number"
+                      "type":
+                        type: "string"
+                        enum:
+                          - "percentage"
+                          - "flat"
+                      "duration":
+                        type: "number"
+                        nullable: true
+                      "interval":
+                        type: "string"
+                        nullable: true
+                        enum:
+                          - "month"
+                          - "year"
+                          - null
+                    required:
+                      - "id"
+                      - "couponId"
+                      - "couponTestId"
+                      - "amount"
+                      - "type"
+                      - "duration"
+                      - "interval"
+                  "commissionAmount":
+                    type: "number"
+                    nullable: true
+                  "earnings":
+                    type: "number"
+                required:
+                  - "id"
+                  - "name"
+                  - "email"
+                  - "image"
+                  - "country"
+                  - "bio"
+                  - "stripeConnectId"
+                  - "payoutsEnabled"
+                  - "createdAt"
+                  - "updatedAt"
+                  - "status"
+                  - "link"
+                  - "commissionAmount"
+                  - "earnings"
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
   "/workspaces/{idOrSlug}":
     get:
       operationId: "getWorkspace"
