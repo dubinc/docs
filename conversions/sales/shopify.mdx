@@ -121,3 +121,26 @@ In addition to the above, we also subscribe to the mandatory compliance webhook 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
 
 <ViewConversions />
+
+## Currency support
+
+For simplicity, Dub records all sales in the native currency of the Shopify store. For example, if you're using USD for your Shopify store, Dub will record all sales in USD – even if your customers are paying in a different currency.
+
+```json orders/paid
+// Shopify orders/paid event payload
+// @see: https://shopify.dev/docs/api/webhooks?reference=toml#list-of-topics-orders/paid
+{
+  ...
+  "current_subtotal_price_set": {
+    "shop_money": {
+      "amount": "398.00", // this is the amount that Dub will record
+      "currency_code": "USD" // this is the currency of your Shopify store
+    },
+    "presentment_money": {
+      "amount": "572.25",
+      "currency_code": "CAD"
+    }
+  },
+  ...
+}
+```
