@@ -1614,7 +1614,7 @@ paths:
       operationId: "listEvents"
       x-speakeasy-name-override: "list"
       summary: "Retrieve a list of events"
-      x-codeSamples: [{"lang": "typescript", "label": "listEvents", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.events.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "listEvents", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Events.List(ctx, operations.ListEventsRequest{\n        Event: operations.QueryParamEventClicks.ToPointer(),\n        Interval: operations.QueryParamIntervalTwentyFourh.ToPointer(),\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n        Page: dubgo.Float64(1),\n        Limit: dubgo.Float64(100),\n        SortOrder: operations.QueryParamSortOrderDesc.ToPointer(),\n        SortBy: operations.QueryParamSortByTimestamp.ToPointer(),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "listEvents", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListEventsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n  referer_url: \"https://dub.co/blog\",\n)\n    \nres = s.events.list(req)\n\nif ! res.click_events.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listEvents", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\ListEventsRequest(\n    timezone: 'America/New_York',\n    city: 'New York',\n    device: 'Desktop',\n    browser: 'Chrome',\n    os: 'Windows',\n    referer: 'google.com',\n    refererUrl: 'https://dub.co/blog',\n);\n\n$response = $sdk->events->list(\n    request: $request\n);\n\nif ($response->clickEvents !== null) {\n    // handle response\n}"}, {lang: python, label: listEvents, source: "from dub import Dub\nfrom dub.models import operations\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.events.list(request={\n        \"event\": operations.QueryParamEvent.CLICKS,\n        \"interval\": operations.QueryParamInterval.TWENTY_FOURH,\n        \"timezone\": \"America/New_York\",\n        \"city\": \"New York\",\n        \"device\": \"Desktop\",\n        \"browser\": \"Chrome\",\n        \"os\": \"Windows\",\n        \"referer\": \"google.com\",\n        \"referer_url\": \"https://dub.co/blog\",\n        \"page\": 1,\n        \"limit\": 100,\n        \"sort_order\": operations.QueryParamSortOrder.DESC,\n        \"sort_by\": operations.QueryParamSortBy.TIMESTAMP,\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/events\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "listEvents", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.events.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "listEvents", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Events.List(ctx, operations.ListEventsRequest{\n        Event: operations.QueryParamEventClicks.ToPointer(),\n        Interval: operations.QueryParamIntervalTwentyFourh.ToPointer(),\n        Timezone: dubgo.String(\"America/New_York\"),\n        City: dubgo.String(\"New York\"),\n        Device: dubgo.String(\"Desktop\"),\n        Browser: dubgo.String(\"Chrome\"),\n        Os: dubgo.String(\"Windows\"),\n        Referer: dubgo.String(\"google.com\"),\n        RefererURL: dubgo.String(\"https://dub.co/blog\"),\n        Page: dubgo.Float64(1),\n        Limit: dubgo.Float64(100),\n        SortOrder: operations.QueryParamSortOrderDesc.ToPointer(),\n        SortBy: operations.QueryParamSortByTimestamp.ToPointer(),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "listEvents", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::ListEventsRequest.new(\n  timezone: \"America/New_York\",\n  city: \"New York\",\n  device: \"Desktop\",\n  browser: \"Chrome\",\n  os: \"Windows\",\n  referer: \"google.com\",\n  referer_url: \"https://dub.co/blog\",\n)\n    \nres = s.events.list(req)\n\nif ! res.click_events.nil?\n  # handle response\nend"}, {"lang": "php", "label": "listEvents", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\ListEventsRequest(\n    timezone: 'America/New_York',\n    city: 'New York',\n    device: 'Desktop',\n    browser: 'Chrome',\n    os: 'Windows',\n    referer: 'google.com',\n    refererUrl: 'https://dub.co/blog',\n);\n\n$response = $sdk->events->list(\n    request: $request\n);\n\nif ($response->oneOf !== null) {\n    // handle response\n}"}, {lang: python, label: listEvents, source: "from dub import Dub\nfrom dub.models import operations\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.events.list(request={\n        \"event\": operations.QueryParamEvent.CLICKS,\n        \"interval\": operations.QueryParamInterval.TWENTY_FOURH,\n        \"timezone\": \"America/New_York\",\n        \"city\": \"New York\",\n        \"device\": \"Desktop\",\n        \"browser\": \"Chrome\",\n        \"os\": \"Windows\",\n        \"referer\": \"google.com\",\n        \"referer_url\": \"https://dub.co/blog\",\n        \"page\": 1,\n        \"limit\": 100,\n        \"sort_order\": operations.QueryParamSortOrder.DESC,\n        \"sort_by\": operations.QueryParamSortBy.TIMESTAMP,\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/events\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Retrieve a paginated list of events for the authenticated workspace."
       tags:
         - "Events"
@@ -3322,7 +3322,7 @@ paths:
       operationId: "createPartner"
       x-speakeasy-name-override: "create"
       summary: "Create a new partner"
-      x-codeSamples: [{"lang": "typescript", "label": "createPartner", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.create();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\",\\\"username\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"country\\\":\\\"AF\\\",\\\"description\\\":\\\"string\\\"}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "createPartner", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.create();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "createPartner", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Partners.Create(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "createPartner", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::CreatePartnerRequestBody.new(\n  program_id: \"<id>\",\n  name: \"<value>\",\n  email: \"Loyal79@yahoo.com\",\n  username: \"Aaliyah_Borer\",\n)\n    \nres = s.partners.create(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "createPartner", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\CreatePartnerRequestBody(\n    programId: '<id>',\n    name: '<value>',\n    email: 'Loyal79@yahoo.com',\n    username: 'Aaliyah_Borer',\n);\n\n$response = $sdk->partners->create(\n    request: $request\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: createPartner, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as dub:\n\n    res = dub.partners.create()\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\",\\\"username\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"country\\\":\\\"AF\\\",\\\"description\\\":\\\"string\\\",\\\"linkProps\\\":{\\\"externalId\\\":\\\"123456\\\",\\\"tenantId\\\":\\\"string\\\",\\\"prefix\\\":\\\"string\\\",\\\"archived\\\":true,\\\"tagIds\\\":\\\"string\\\",\\\"tagNames\\\":\\\"string\\\",\\\"comments\\\":\\\"string\\\",\\\"expiresAt\\\":\\\"string\\\",\\\"expiredUrl\\\":\\\"string\\\",\\\"password\\\":\\\"string\\\",\\\"proxy\\\":true,\\\"title\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"video\\\":\\\"string\\\",\\\"rewrite\\\":true,\\\"ios\\\":\\\"string\\\",\\\"android\\\":\\\"string\\\",\\\"doIndex\\\":true,\\\"utm_source\\\":\\\"string\\\",\\\"utm_medium\\\":\\\"string\\\",\\\"utm_campaign\\\":\\\"string\\\",\\\"utm_term\\\":\\\"string\\\",\\\"utm_content\\\":\\\"string\\\",\\\"ref\\\":\\\"string\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Create a new partner for a program. If partner exists, automatically enrolls them."
       tags:
         - "Partners"
@@ -3618,6 +3618,116 @@ paths:
                   nullable: true
                   maxLength: 5000
                   description: "A brief description of the partner and their background."
+                "linkProps":
+                  type: "object"
+                  properties:
+                    "externalId":
+                      type: "string"
+                      nullable: true
+                      minLength: 1
+                      maxLength: 255
+                      description: "The ID of the link in your database. If set, it can be used to identify the link in future API requests (must be prefixed with 'ext_' when passed as a query parameter). This key is unique across your workspace."
+                      example: "123456"
+                    "tenantId":
+                      type: "string"
+                      nullable: true
+                      maxLength: 255
+                      description: "The ID of the tenant that created the link inside your system. If set, it can be used to fetch all links for a tenant."
+                    "prefix":
+                      type: "string"
+                      description: "The prefix of the short link slug for randomly-generated keys (e.g. if prefix is `/c/`, generated keys will be in the `/c/:key` format). Will be ignored if `key` is provided."
+                    "archived":
+                      type: "boolean"
+                      description: "Whether the short link is archived. Defaults to `false` if not provided."
+                    "tagIds":
+                      anyOf:
+                        - type: "string"
+                        - type: "array"
+                          items:
+                            type: "string"
+                      description: "The unique IDs of the tags assigned to the short link."
+                      example: ["clux0rgak00011..."]
+                    "tagNames":
+                      anyOf:
+                        - type: "string"
+                        - type: "array"
+                          items:
+                            type: "string"
+                      description: "The unique name of the tags assigned to the short link (case insensitive)."
+                    "comments":
+                      type: "string"
+                      nullable: true
+                      description: "The comments for the short link."
+                    "expiresAt":
+                      type: "string"
+                      nullable: true
+                      description: "The date and time when the short link will expire at."
+                    "expiredUrl":
+                      type: "string"
+                      nullable: true
+                      description: "The URL to redirect to when the short link has expired."
+                    "password":
+                      type: "string"
+                      nullable: true
+                      description: "The password required to access the destination URL of the short link."
+                    "proxy":
+                      type: "boolean"
+                      description: "Whether the short link uses Custom Social Media Cards feature. Defaults to `false` if not provided."
+                    "title":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview title (og:title). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "description":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview description (og:description). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "image":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview image (og:image). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "video":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview video (og:video). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "rewrite":
+                      type: "boolean"
+                      description: "Whether the short link uses link cloaking. Defaults to `false` if not provided."
+                    "ios":
+                      type: "string"
+                      nullable: true
+                      description: "The iOS destination URL for the short link for iOS device targeting."
+                    "android":
+                      type: "string"
+                      nullable: true
+                      description: "The Android destination URL for the short link for Android device targeting."
+                    "doIndex":
+                      type: "boolean"
+                      description: "Allow search engines to index your short link. Defaults to `false` if not provided. Learn more: https://d.to/noindex"
+                    "utm_source":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM source of the short link. If set, this will populate or override the UTM source in the destination URL."
+                    "utm_medium":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM medium of the short link. If set, this will populate or override the UTM medium in the destination URL."
+                    "utm_campaign":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM campaign of the short link. If set, this will populate or override the UTM campaign in the destination URL."
+                    "utm_term":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM term of the short link. If set, this will populate or override the UTM term in the destination URL."
+                    "utm_content":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM content of the short link. If set, this will populate or override the UTM content in the destination URL."
+                    "ref":
+                      type: "string"
+                      nullable: true
+                      description: "The referral tag of the short link. If set, this will populate or override the `ref` query parameter in the destination URL."
+                  description: "Additional properties that you can pass to the partner's short link. Will be used to override the default link properties for this partner."
               required:
                 - "programId"
                 - "name"
