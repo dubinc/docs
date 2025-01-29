@@ -61,10 +61,7 @@ Link redirects on Dub are powered by [Next.js Middleware](https://nextjs.org/doc
 
 To handle high traffic, we use Redis to cache every link's metadata when it's first created. This allows us to serve redirects without hitting our MySQL database.
 
-Here's the code that powers link redirects:
-
-- Link redirects: [`main`/apps/web/lib/middleware/link.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/link.ts).
-- Root domain redirects: [`main`/apps/web/lib/middleware/root.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/root.ts).
+Here's the code that powers link redirects: [`main`/apps/web/lib/middleware/link.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/link.ts)
 
 ## Running Dub locally
 
