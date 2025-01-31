@@ -2955,7 +2955,7 @@ paths:
       x-speakeasy-name-override: "get"
       summary: "Retrieve a customer"
       x-codeSamples: [{"lang": "typescript", "label": "getCustomer", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.customers.get({\n    id: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "getCustomer", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Customers.Get(ctx, operations.GetCustomerRequest{\n        ID: \"<id>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "getCustomer", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::GetCustomerRequest.new(\n  id: \"<id>\",\n)\n    \nres = s.customers.get(req)\n\nif ! res.object.nil?\n  # handle response\nend"}, {"lang": "php", "label": "getCustomer", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n\n\n$response = $sdk->customers->get(\n    id: '<id>',\n    includeExpandedFields: false\n\n);\n\nif ($response->object !== null) {\n    // handle response\n}"}, {lang: python, label: getCustomer, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as d_client:\n\n    res = d_client.customers.get(request={\n        \"id\": \"<id>\",\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/customers/id\")\n  .get()\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
-      description: "Retrieve a customer by ID or external ID for the authenticated workspace."
+      description: "Retrieve a customer by ID for the authenticated workspace."
       tags:
         - "Customers"
       security:
@@ -2963,13 +2963,10 @@ paths:
       parameters:
         - in: "path"
           name: "id"
-          description: "ID or external ID of the customer to retrieve. External ID should be prefixed with `ext_`."
+          description: "The unique identifier of the customer in Dub."
           schema:
             type: "string"
-            description: "ID or external ID of the customer to retrieve. External ID should be prefixed with `ext_`."
-            examples:
-              - "cus_3TagGjzRzmsFJdH8od2BNCsc"
-              - "ext_1234567890"
+            description: "The unique identifier of the customer in Dub."
           required: true
         - in: "query"
           name: "includeExpandedFields"
@@ -3118,18 +3115,17 @@ paths:
       parameters:
         - in: "path"
           name: "id"
-          description: "ID or external ID of the customer to retrieve. External ID should be prefixed with `ext_`."
+          description: "The unique identifier of the customer in Dub."
           schema:
             type: "string"
-            description: "ID or external ID of the customer to retrieve. External ID should be prefixed with `ext_`."
-            examples:
-              - "cus_3TagGjzRzmsFJdH8od2BNCsc"
-              - "ext_1234567890"
+            description: "The unique identifier of the customer in Dub."
           required: true
         - in: "query"
           name: "includeExpandedFields"
+          description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
           schema:
             type: "boolean"
+            description: "Whether to include expanded fields on the customer (`link`, `partner`, `discount`)."
       requestBody:
         content:
           "application/json":
