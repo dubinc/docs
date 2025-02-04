@@ -61,10 +61,7 @@ Link redirects on Dub are powered by [Next.js Middleware](https://nextjs.org/doc
 
 To handle high traffic, we use Redis to cache every link's metadata when it's first created. This allows us to serve redirects without hitting our MySQL database.
 
-Here's the code that powers link redirects:
-
-- Link redirects: [`main`/apps/web/lib/middleware/link.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/link.ts).
-- Root domain redirects: [`main`/apps/web/lib/middleware/root.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/root.ts).
+Here's the code that powers link redirects: [`main`/apps/web/lib/middleware/link.ts](https://github.com/dubinc/dub/blob/main/apps/web/lib/middleware/link.ts)
 
 ## Running Dub locally
 
@@ -73,6 +70,19 @@ To run Dub.co locally, you'll need to set up the following:
 - A [Tinybird](https://www.tinybird.co/) account
 - An [Upstash](https://upstash.com/) account
 - A [PlanetScale](https://planetscale.com/)-compatible MySQL database
+
+Watch this video from our friends at Tinybird to learn how to set up Dub locally:
+
+<iframe
+  width="100%"
+  className="aspect-video"
+  src="https://www.youtube.com/embed/9GNYcS9BHhc"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+/>
 
 ## Step 1: Local setup
 
@@ -135,6 +145,10 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
     In your [Tinybird](https://tinybird.co/) account, create a new Workspace.
 
     Copy your `admin` [Auth Token](https://www.tinybird.co/docs/concepts/auth-tokens.html). Paste this token as the `TINYBIRD_API_KEY` environment variable in your `.env` file.
+
+    <Tip>
+      Alternatively, you can set up a [local Tinybird container](https://www.tinybird.co/docs/cli/local-container) for local development.
+    </Tip>
 
   </Step>
 
@@ -265,11 +279,11 @@ Prerequisites:
 
   <Step title="Set up database environment variables">
 
-    Add the following credentials to your `.env` file:
+    Ensure the following credientials are added to your `.env` file:
 
     ```
-    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900"
     DATABASE_URL="mysql://root:@localhost:3306/planetscale"
+    PLANETSCALE_DATABASE_URL="http://root:unused@localhost:3900/planetscale"
     ```
 
     Here, we are using the open-source [PlanetScale simulator](https://github.com/mattrobenolt/ps-http-sim) so the application can continue to use the `@planetscale/database` SDK.

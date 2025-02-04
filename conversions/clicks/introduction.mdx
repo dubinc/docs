@@ -48,24 +48,32 @@ A few use cases include:
 - You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks using a `track()` function inside your application code.
 - You need to use an unfurled URL for the platform you're sharing the link on (no short links allowed)
 
-With our [Client-side SDK](/sdks/client-side/introduction), you can do exactly that.
+With our [Client-side SDK](/sdks/client-side/introduction), you can do exactly that. Here's how you can enable client-side click-tracking for your links:
 
-Here's how you can enable client-side click-tracking for your links:
-
-### Step 1: Add a short domain to your Dub workspace
+### Step 1: Add a custom domain to your Dub workspace
 
 First, you'll need to [add a custom short link domain](https://dub.co/help/article/how-to-add-custom-domain) to your Dub workspace.
 
+This is the domain that you'll use for your short links, as well as the `shortDomain` attribute in the following steps.
+
+### Step 2: Allowlist the your site's domain
+
+Then, you'll need to allowlist your site's domain to allow the client-side click events to be ingested by Dub. To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and add your site's domain to the **Allowed Hostnames** list.
+
+<Frame>
+  <img
+    src="/images/conversions/allowed-hostnames.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
 <Tip>
-  For security reasons, the domain should be a
-  [subdomain](https://dub.co/help/article/how-to-add-custom-domain#step-2b-adding-a-subdomain)
-  of your website domain. This will prevent unauthorized domains from sending
-  click-tracking requests to your Dub workspace.
+  When testing things out locally, you can add `localhost` to the **Allowed
+  Hostnames** list temporarily. This will allow local events to be ingested by
+  Dub. Don't forget to remove it once you're ready to go live!
 </Tip>
 
-E.g. if your website domain is `example.com`, your short domain should be something like `go.example.com`.
-
-### Step 2: Install the Dub Client-side SDK
+### Step 3: Install the Dub Client-side SDK
 
 Lastly, you'll need to install the Dub [Client-side SDK](/sdks/client-side/introduction) and initialize it with the domain you added in the previous step.
 
@@ -78,7 +86,10 @@ import { Analytics as DubAnalytics } from "@dub/analytics/react";
 export default function App() {
   return (
     <Layout>
-      <DubAnalytics shortDomain="go.example.com" />
+      <DubAnalytics
+        shortDomain="go.example.com" // the custom domain you're using on Dub for your short links
+        queryParam="via" // the query parameter to listen to for client-side click-tracking (default: "via")
+      />
       {/* Your app code here */}
     </Layout>
   );
@@ -102,7 +113,7 @@ Here's the full list of parameters you can pass to the `<Analytics />` component
   <DubAnalyticsParams />
 </Accordion>
 
-### Step 3 (Optional, but recommended): Set up a reverse proxy
+### Step 4 (Optional, but recommended): Set up a reverse proxy
 
 To avoid ad-blockers from blocking your click-tracking requests, we recommend setting up a reverse proxy.
 
@@ -148,7 +159,11 @@ import { Analytics as DubAnalytics } from "@dub/analytics/react";
 export default function App() {
   return (
     <Layout>
-      <DubAnalytics apiHost="/_proxy/dub" shortDomain="go.example.com" />
+      <DubAnalytics
+        apiHost="/_proxy/dub" // the URL of your reverse proxy
+        shortDomain="go.example.com" // the custom domain you're using on Dub for your short links
+        queryParam="via" // the query parameter to listen to for client-side click-tracking (default: "via")
+      />
       {/* Your app code here */}
     </Layout>
   );
@@ -167,9 +182,16 @@ export default function App() {
 
 </CodeGroup>
 
-### Step 4: Verify your setup
+### Step 5: Verify your setup
 
-To verify that your click-tracking is working, run your website locally with the specific query parameter (e.g. `?via=jane`) and check if the following is true:
+To verify that your click-tracking is working, run your website locally and append the URL with:
+
+- The specific query parameter + you specified in [Step 3](#step-3-install-the-dub-client-side-sdk)
+- The unique key of your short link
+
+For example, if the query parameter you specified in Step 3 is `via` and your short link is `https://go.example.com/abc123`, you'll need to append `?via=abc123` to the URL.
+
+Once you've done that, check if the following is true:
 
 1. The click tracked correctly in the [**Analytics**](https://app.dub.co/analytics) tab of your Dub workspace.
 2. There is a successful `/track/click` request in your browser's **Network** tab (and no errors in the **Console** tab).

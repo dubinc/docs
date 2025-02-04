@@ -207,3 +207,18 @@ puts res.raw_response.body
 ```
 
 </CodeGroup>
+
+### 3. Leverage webhooks
+
+If you're expecting high volume, fast-changing data (e.g. thousands of clicks on your links per day) and would prefer to store the data on your end, we recommend using our [real-time webhooks feature](https://dub.co/blog/introducing-webhooks) instead.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/blog/webhook-event-logs.jpg"
+    alt="Webhook event logs"
+  />
+</Frame>
+
+[Webhooks](/concepts/webhooks/introduction) are _push-based_, meaning that Dub will send events to your webhook receiver endpoint when specific events occur, while a REST API is _pull-based_, meaning that you need to consistently poll the API endpoint to get real-time updates.
+
+Check out our [webhooks documentation](/concepts/webhooks/introduction) to learn more.
