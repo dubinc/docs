@@ -139,7 +139,7 @@
       ]
     },
     {
-      "group": "Conversion Tracking",
+      "group": "Conversions",
       "pages": [
         "api-reference/endpoint/track-lead",
         "api-reference/endpoint/track-sale"
