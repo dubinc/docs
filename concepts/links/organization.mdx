@@ -356,7 +356,7 @@ curl --request PATCH \
 
 ### Retrieve analytics by externalId
 
-You can also retrieve analytics for a link by its `externalId`.
+You can also retrieve analytics for a link by its `externalId`. This is helpful for fetching the analytics for a given link using the unique identifier from your system.
 
 <CodeGroup>
 
@@ -677,6 +677,107 @@ curl --request GET \
 
 </CodeGroup>
 
+### Retrieve analytics by tenantId
+
+You can retrieve analytics by tenantId by passing the `tenantId` prop. This is helpful for fetching the analytics for all the links under a specific tenant, or the total analytics for a tenant.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const analytics = await dub.analytics.retrieve({
+  tenantId: "12345",
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+    TenantId: dubgo.String("12345"),
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.analytics.retrieve(request={
+  "tenant_id": "12345",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  tenant_id: "12345",
+)
+
+res = s.analytics.retrieve(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+  tenantId: "12345",
+);
+
+$response = $sdk->analytics->retrieve(
+  request: $request
+);
+```
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/analytics?tenantId=12345 \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>
+
 ---
 
 ## Tags
@@ -909,7 +1010,7 @@ curl --request GET \
 
 ### Retrieve analytics by tags
 
-You can retrieve analytics for a link by its tag by passing the IDs of the tags.
+You can retrieve analytics for a tag (or multiple tags) by passing the `tagIds` prop. This is helpful for fetching the analytics for all the links under a specific tag, or the total analytics for a tag (or multiple tags).
 
 <CodeGroup>
 
@@ -921,7 +1022,7 @@ export const dub = new Dub({
 });
 
 const analytics = await dub.analytics.retrieve({
-  tagNames: ["tag1"],
+  tagIds: ["tag_xxx"],
 });
 ```
 
@@ -944,7 +1045,7 @@ func main() {
   )
 
   res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
-    TagNames: []string{"tag1"},
+    TagIds: []string{"tag_xxx"},
   })
 }
 ```
@@ -959,7 +1060,7 @@ d = dub.Dub(
 )
 
 res = dub.analytics.retrieve(request={
-  "tag_names": ["tag1"],
+  "tag_ids": ["tag_xxx"],
 })
 ```
 
@@ -974,7 +1075,7 @@ s.config_security(
 )
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
-  tag_names: ["tag1"],
+  tag_ids: ["tag_xxx"],
 )
 
 res = s.analytics.retrieve(req)
@@ -991,7 +1092,7 @@ use Dub\Models\Operations;
 $sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
 
 $request = new Operations\RetrieveAnalyticsRequest(
-  tagNames: ["tag1"],
+  tagIds: ["tag_xxx"],
 );
 
 $response = $sdk->analytics->retrieve(
@@ -1001,7 +1102,7 @@ $response = $sdk->analytics->retrieve(
 
 ```bash cURL
 curl --request GET \
-  --url https://api.dub.co/analytics?tagNames=tag1 \
+  --url https://api.dub.co/analytics?tagIds=tag_xxx \
   --header 'Authorization: Bearer <token>' \
   --header 'Content-Type: application/json'
 ```
