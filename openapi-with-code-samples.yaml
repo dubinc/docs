@@ -3975,7 +3975,7 @@ paths:
       x-speakeasy-name-override: "createLink"
       summary: "Create a link for a partner"
       x-codeSamples: [{"lang": "typescript", "label": "createPartnerLink", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.createLink();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "createPartnerLink", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Partners.CreateLink(ctx, &operations.CreatePartnerLinkRequestBody{\n        ProgramID: \"<id>\",\n        URL: \"https://necessary-brief.name\",\n        LinkProps: &operations.CreatePartnerLinkLinkProps{\n            ExternalID: dubgo.String(\"123456\"),\n            TagIds: dubgo.Pointer(operations.CreateCreatePartnerLinkTagIdsArrayOfStr(\n                []string{\n                    \"clux0rgak00011...\",\n                },\n            )),\n        },\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "createPartnerLink", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::CreatePartnerLinkRequestBody.new(\n  program_id: \"<id>\",\n  url: \"https://necessary-brief.name\",\n  link_props: ::OpenApiSDK::Operations::CreatePartnerLinkLinkProps.new(\n    external_id: \"123456\",\n    tag_ids: [\n      \"clux0rgak00011...\",\n    ],\n  ),\n)\n    \nres = s.partners.create_link(req)\n\nif ! res.link_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "createPartnerLink", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\CreatePartnerLinkRequestBody(\n    programId: '<id>',\n    url: 'https://necessary-brief.name',\n    linkProps: new Operations\\CreatePartnerLinkLinkProps(\n        externalId: '123456',\n        tagIds: [\n            'clux0rgak00011...',\n        ],\n    ),\n);\n\n$response = $sdk->partners->createLink(\n    request: $request\n);\n\nif ($response->linkSchema !== null) {\n    // handle response\n}"}, {lang: python, label: createPartnerLink, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as d_client:\n\n    res = d_client.partners.create_link(request={\n        \"program_id\": \"<id>\",\n        \"url\": \"https://necessary-brief.name\",\n        \"link_props\": {\n            \"external_id\": \"123456\",\n            \"tag_ids\": [\n                \"clux0rgak00011...\",\n            ],\n        },\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"tenantId\\\":\\\"string\\\",\\\"url\\\":\\\"string\\\",\\\"key\\\":\\\"string\\\",\\\"linkProps\\\":{\\\"externalId\\\":\\\"123456\\\",\\\"tenantId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"prefix\\\":\\\"string\\\",\\\"archived\\\":true,\\\"tagIds\\\":\\\"string\\\",\\\"tagNames\\\":\\\"string\\\",\\\"comments\\\":\\\"string\\\",\\\"expiresAt\\\":\\\"string\\\",\\\"expiredUrl\\\":\\\"string\\\",\\\"password\\\":\\\"string\\\",\\\"proxy\\\":true,\\\"title\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"video\\\":\\\"string\\\",\\\"rewrite\\\":true,\\\"ios\\\":\\\"string\\\",\\\"android\\\":\\\"string\\\",\\\"doIndex\\\":true,\\\"utm_source\\\":\\\"string\\\",\\\"utm_medium\\\":\\\"string\\\",\\\"utm_campaign\\\":\\\"string\\\",\\\"utm_term\\\":\\\"string\\\",\\\"utm_content\\\":\\\"string\\\",\\\"ref\\\":\\\"string\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners/links\")\n  .post(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
-      description: "Create a new link for a partner that is enrolled in your program"
+      description: "Create a new link for a partner that is enrolled in your program."
       tags:
         - "Partners"
       security:
@@ -4123,7 +4123,7 @@ paths:
                 - "url"
       responses:
         "201":
-          description: "The created partner"
+          description: "The created partner link"
           content:
             "application/json":
               schema: {"$ref": "#/components/schemas/LinkSchema"}
@@ -4136,6 +4136,173 @@ paths:
         "422": {"$ref": "#/components/responses/422"}
         "429": {"$ref": "#/components/responses/429"}
         "500": {"$ref": "#/components/responses/500"}
+  "/partners/links/upsert":
+    put:
+      operationId: "upsertPartnerLink"
+      x-speakeasy-name-override: "upsertLink"
+      summary: "Upsert a link for a partner"
+      description: "Upsert a link for a partner that is enrolled in your program. If a link with the same URL already exists, return it (or update it if there are any changes). Otherwise, a new link will be created."
+      tags:
+        - "Partners"
+      security:
+        - token: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: "object"
+              properties:
+                "programId":
+                  type: "string"
+                  description: "The ID of the program that the partner is enrolled in."
+                "partnerId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the partner to create a link for. Will take precedence over `tenantId` if provided."
+                "tenantId":
+                  type: "string"
+                  nullable: true
+                  description: "The ID of the partner in your system. If both `partnerId` and `tenantId` are not provided, an error will be thrown."
+                "url":
+                  type: "string"
+                  description: "The URL to shorten. Will throw an error if the domain doesn't match the program's default URL domain."
+                "key":
+                  type: "string"
+                  maxLength: 190
+                  description: "The short link slug. If not provided, a random 7-character slug will be generated."
+                "linkProps":
+                  type: "object"
+                  properties:
+                    "externalId":
+                      type: "string"
+                      nullable: true
+                      minLength: 1
+                      maxLength: 255
+                      description: "The ID of the link in your database. If set, it can be used to identify the link in future API requests (must be prefixed with 'ext_' when passed as a query parameter). This key is unique across your workspace."
+                      example: "123456"
+                    "tenantId":
+                      type: "string"
+                      nullable: true
+                      maxLength: 255
+                      description: "The ID of the tenant that created the link inside your system. If set, it can be used to fetch all links for a tenant."
+                    "partnerId":
+                      type: "string"
+                      nullable: true
+                      description: "The ID of the partner the short link is associated with."
+                    "prefix":
+                      type: "string"
+                      description: "The prefix of the short link slug for randomly-generated keys (e.g. if prefix is `/c/`, generated keys will be in the `/c/:key` format). Will be ignored if `key` is provided."
+                    "archived":
+                      type: "boolean"
+                      description: "Whether the short link is archived. Defaults to `false` if not provided."
+                    "tagIds":
+                      anyOf:
+                        - type: "string"
+                        - type: "array"
+                          items:
+                            type: "string"
+                      description: "The unique IDs of the tags assigned to the short link."
+                      example: ["clux0rgak00011..."]
+                    "tagNames":
+                      anyOf:
+                        - type: "string"
+                        - type: "array"
+                          items:
+                            type: "string"
+                      description: "The unique name of the tags assigned to the short link (case insensitive)."
+                    "comments":
+                      type: "string"
+                      nullable: true
+                      description: "The comments for the short link."
+                    "expiresAt":
+                      type: "string"
+                      nullable: true
+                      description: "The date and time when the short link will expire at."
+                    "expiredUrl":
+                      type: "string"
+                      nullable: true
+                      description: "The URL to redirect to when the short link has expired."
+                    "password":
+                      type: "string"
+                      nullable: true
+                      description: "The password required to access the destination URL of the short link."
+                    "proxy":
+                      type: "boolean"
+                      description: "Whether the short link uses Custom Social Media Cards feature. Defaults to `false` if not provided."
+                    "title":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview title (og:title). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "description":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview description (og:description). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "image":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview image (og:image). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "video":
+                      type: "string"
+                      nullable: true
+                      description: "The custom link preview video (og:video). Will be used for Custom Social Media Cards if `proxy` is true. Learn more: https://d.to/og"
+                    "rewrite":
+                      type: "boolean"
+                      description: "Whether the short link uses link cloaking. Defaults to `false` if not provided."
+                    "ios":
+                      type: "string"
+                      nullable: true
+                      description: "The iOS destination URL for the short link for iOS device targeting."
+                    "android":
+                      type: "string"
+                      nullable: true
+                      description: "The Android destination URL for the short link for Android device targeting."
+                    "doIndex":
+                      type: "boolean"
+                      description: "Allow search engines to index your short link. Defaults to `false` if not provided. Learn more: https://d.to/noindex"
+                    "utm_source":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM source of the short link. If set, this will populate or override the UTM source in the destination URL."
+                    "utm_medium":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM medium of the short link. If set, this will populate or override the UTM medium in the destination URL."
+                    "utm_campaign":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM campaign of the short link. If set, this will populate or override the UTM campaign in the destination URL."
+                    "utm_term":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM term of the short link. If set, this will populate or override the UTM term in the destination URL."
+                    "utm_content":
+                      type: "string"
+                      nullable: true
+                      description: "The UTM content of the short link. If set, this will populate or override the UTM content in the destination URL."
+                    "ref":
+                      type: "string"
+                      nullable: true
+                      description: "The referral tag of the short link. If set, this will populate or override the `ref` query parameter in the destination URL."
+                  description: "Additional properties that you can pass to the partner's short link. Will be used to override the default link properties for this partner."
+              required:
+                - "programId"
+                - "url"
+      responses:
+        "200":
+          description: "The upserted partner link"
+          content:
+            "application/json":
+              schema: {"$ref": "#/components/schemas/LinkSchema"}
+        "400": {"$ref": "#/components/responses/400"}
+        "401": {"$ref": "#/components/responses/401"}
+        "403": {"$ref": "#/components/responses/403"}
+        "404": {"$ref": "#/components/responses/404"}
+        "409": {"$ref": "#/components/responses/409"}
+        "410": {"$ref": "#/components/responses/410"}
+        "422": {"$ref": "#/components/responses/422"}
+        "429": {"$ref": "#/components/responses/429"}
+        "500": {"$ref": "#/components/responses/500"}
+      "x-codeSamples": [{"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"tenantId\\\":\\\"string\\\",\\\"url\\\":\\\"string\\\",\\\"key\\\":\\\"string\\\",\\\"linkProps\\\":{\\\"externalId\\\":\\\"123456\\\",\\\"tenantId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"prefix\\\":\\\"string\\\",\\\"archived\\\":true,\\\"tagIds\\\":\\\"string\\\",\\\"tagNames\\\":\\\"string\\\",\\\"comments\\\":\\\"string\\\",\\\"expiresAt\\\":\\\"string\\\",\\\"expiredUrl\\\":\\\"string\\\",\\\"password\\\":\\\"string\\\",\\\"proxy\\\":true,\\\"title\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"video\\\":\\\"string\\\",\\\"rewrite\\\":true,\\\"ios\\\":\\\"string\\\",\\\"android\\\":\\\"string\\\",\\\"doIndex\\\":true,\\\"utm_source\\\":\\\"string\\\",\\\"utm_medium\\\":\\\"string\\\",\\\"utm_campaign\\\":\\\"string\\\",\\\"utm_term\\\":\\\"string\\\",\\\"utm_content\\\":\\\"string\\\",\\\"ref\\\":\\\"string\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners/links/upsert\")\n  .put(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
   "/workspaces/{idOrSlug}":
     get:
       operationId: "getWorkspace"
@@ -7420,6 +7587,8 @@ components:
           properties:
             "id":
               type: "string"
+            "timestamp":
+              type: "string"
             "url":
               type: "string"
             "country":
@@ -7446,6 +7615,7 @@ components:
               type: "string"
           required:
             - "id"
+            - "timestamp"
             - "url"
             - "country"
             - "city"
@@ -8494,6 +8664,8 @@ components:
           properties:
             "id":
               type: "string"
+            "timestamp":
+              type: "string"
             "url":
               type: "string"
             "country":
@@ -8520,6 +8692,7 @@ components:
               type: "string"
           required:
             - "id"
+            - "timestamp"
             - "url"
             - "country"
             - "city"
@@ -10634,6 +10807,8 @@ components:
           properties:
             "id":
               type: "string"
+            "timestamp":
+              type: "string"
             "url":
               type: "string"
             "country":
@@ -10660,6 +10835,7 @@ components:
               type: "string"
           required:
             - "id"
+            - "timestamp"
             - "url"
             - "country"
             - "city"
@@ -11887,6 +12063,8 @@ components:
               properties:
                 "id":
                   type: "string"
+                "timestamp":
+                  type: "string"
                 "url":
                   type: "string"
                 "country":
@@ -11913,6 +12091,7 @@ components:
                   type: "string"
               required:
                 - "id"
+                - "timestamp"
                 - "url"
                 - "country"
                 - "city"
@@ -13017,6 +13196,8 @@ components:
               properties:
                 "id":
                   type: "string"
+                "timestamp":
+                  type: "string"
                 "url":
                   type: "string"
                 "country":
@@ -13043,6 +13224,7 @@ components:
                   type: "string"
               required:
                 - "id"
+                - "timestamp"
                 - "url"
                 - "country"
                 - "city"
@@ -14149,6 +14331,8 @@ components:
               properties:
                 "id":
                   type: "string"
+                "timestamp":
+                  type: "string"
                 "url":
                   type: "string"
                 "country":
@@ -14175,6 +14359,7 @@ components:
                   type: "string"
               required:
                 - "id"
+                - "timestamp"
                 - "url"
                 - "country"
                 - "city"
