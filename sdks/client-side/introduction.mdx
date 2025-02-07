@@ -52,7 +52,7 @@ However, if you are installing the script on a subdomain (e.g. **app.example.com
 
 ```html Other
 <script
-  src="https://cdn.dub.co/analytics.js"
+  src="https://www.dubcdn.com/analytics/script.js"
   data-cookie-options='{"domain": ".example.com"}'
 />
 ```
@@ -74,8 +74,75 @@ By default, the script sets the `dub_id` cookie to expire in 90 days. You can cu
 
 ```html Other
 <script
-  src="https://cdn.dub.co/analytics.js"
+  src="https://www.dubcdn.com/analytics/script.js"
   data-cookie-options='{"expiresInDays": 60}'
+/>
+```
+
+</CodeGroup>
+
+### Load the script via a reverse proxy
+
+To avoid ad-blockers from blocking the `@dub/analytics` script, it is recommended to use a reverse proxy.
+
+Depending on which backend framework you're using, there are a few different ways to do this:
+
+<CodeGroup>
+
+```javascript Next.js
+// next.config.js
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: "/_proxy/dub/script.js",
+        destination: "https://www.dubcdn.com/analytics/script.js",
+      },
+    ];
+  },
+};
+```
+
+```json Vercel
+// vercel.json
+{
+  "rewrites": [
+    {
+      "source": "/_proxy/dub/script.js",
+      "destination": "https://www.dubcdn.com/analytics/script.js"
+    }
+  ]
+}
+```
+
+</CodeGroup>
+
+Once you've set up your reverse proxy, don't forget to update the `scriptProps.src` parameter in the `<Analytics />` component to point to your proxy URL.
+
+<CodeGroup>
+
+```typescript React/Next.js
+import { Analytics as DubAnalytics } from "@dub/analytics/react";
+
+export default function App() {
+  return (
+    <Layout>
+      <DubAnalytics
+        scriptProps={{
+          src: "/_proxy/dub/script.js", // pointing to your reverse proxy
+        }}
+      />
+      {/* Your app code here */}
+    </Layout>
+  );
+}
+```
+
+```javascript Other Frameworks
+// include this script tag in your HTML Head tag
+<script
+  src="/_proxy/dub/script.js" // pointing to your reverse proxy
+  defer
 />
 ```
 
