@@ -2725,7 +2725,7 @@ paths:
                   properties:
                     "id":
                       type: "string"
-                      description: "The unique identifier of the customer in Dub."
+                      description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                     "externalId":
                       type: "string"
                       description: "Unique identifier for the customer in the client's app."
@@ -2887,7 +2887,7 @@ paths:
                 properties:
                   "id":
                     type: "string"
-                    description: "The unique identifier of the customer in Dub."
+                    description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                   "externalId":
                     type: "string"
                     description: "Unique identifier for the customer in the client's app."
@@ -3019,10 +3019,10 @@ paths:
       parameters:
         - in: "path"
           name: "id"
-          description: "The unique identifier of the customer in Dub."
+          description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           schema:
             type: "string"
-            description: "The unique identifier of the customer in Dub."
+            description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           required: true
         - in: "query"
           name: "includeExpandedFields"
@@ -3040,7 +3040,7 @@ paths:
                 properties:
                   "id":
                     type: "string"
-                    description: "The unique identifier of the customer in Dub."
+                    description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                   "externalId":
                     type: "string"
                     description: "Unique identifier for the customer in the client's app."
@@ -3171,10 +3171,10 @@ paths:
       parameters:
         - in: "path"
           name: "id"
-          description: "The unique identifier of the customer in Dub."
+          description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           schema:
             type: "string"
-            description: "The unique identifier of the customer in Dub."
+            description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           required: true
         - in: "query"
           name: "includeExpandedFields"
@@ -3215,7 +3215,7 @@ paths:
                 properties:
                   "id":
                     type: "string"
-                    description: "The unique identifier of the customer in Dub."
+                    description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                   "externalId":
                     type: "string"
                     description: "Unique identifier for the customer in the client's app."
@@ -3346,10 +3346,10 @@ paths:
       parameters:
         - in: "path"
           name: "id"
-          description: "The unique identifier of the customer in Dub."
+          description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           schema:
             type: "string"
-            description: "The unique identifier of the customer in Dub."
+            description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
           required: true
       responses:
         "200":
@@ -3361,7 +3361,7 @@ paths:
                 properties:
                   "id":
                     type: "string"
-                    description: "The unique identifier of the customer in Dub."
+                    description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                 required:
                   - "id"
         "400": {"$ref": "#/components/responses/400"}
@@ -4141,7 +4141,7 @@ paths:
       operationId: "upsertPartnerLink"
       x-speakeasy-name-override: "upsertLink"
       summary: "Upsert a link for a partner"
-      x-codeSamples: [{"lang": "typescript", "label": "upsertPartnerLink", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.upsertLink();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"tenantId\\\":\\\"string\\\",\\\"url\\\":\\\"string\\\",\\\"key\\\":\\\"string\\\",\\\"linkProps\\\":{\\\"externalId\\\":\\\"123456\\\",\\\"tenantId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"prefix\\\":\\\"string\\\",\\\"archived\\\":true,\\\"tagIds\\\":\\\"string\\\",\\\"tagNames\\\":\\\"string\\\",\\\"comments\\\":\\\"string\\\",\\\"expiresAt\\\":\\\"string\\\",\\\"expiredUrl\\\":\\\"string\\\",\\\"password\\\":\\\"string\\\",\\\"proxy\\\":true,\\\"title\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"video\\\":\\\"string\\\",\\\"rewrite\\\":true,\\\"ios\\\":\\\"string\\\",\\\"android\\\":\\\"string\\\",\\\"doIndex\\\":true,\\\"utm_source\\\":\\\"string\\\",\\\"utm_medium\\\":\\\"string\\\",\\\"utm_campaign\\\":\\\"string\\\",\\\"utm_term\\\":\\\"string\\\",\\\"utm_content\\\":\\\"string\\\",\\\"ref\\\":\\\"string\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners/links/upsert\")\n  .put(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
+      x-codeSamples: [{"lang": "typescript", "label": "upsertPartnerLink", "source": "import { Dub } from \"dub\";\n\nconst dub = new Dub({\n  token: \"DUB_API_KEY\",\n});\n\nasync function run() {\n  const result = await dub.partners.upsertLink();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"}, {"lang": "go", "label": "upsertPartnerLink", "source": "package main\n\nimport(\n\t\"context\"\n\tdubgo \"github.com/dubinc/dub-go\"\n\t\"github.com/dubinc/dub-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := dubgo.New(\n        dubgo.WithSecurity(\"DUB_API_KEY\"),\n    )\n\n    res, err := s.Partners.UpsertLink(ctx, &operations.UpsertPartnerLinkRequestBody{\n        ProgramID: \"<id>\",\n        URL: \"https://unsteady-lobster.com/\",\n        LinkProps: &operations.UpsertPartnerLinkLinkProps{\n            ExternalID: dubgo.String(\"123456\"),\n            TagIds: dubgo.Pointer(operations.CreateUpsertPartnerLinkTagIdsArrayOfStr(\n                []string{\n                    \"clux0rgak00011...\",\n                },\n            )),\n        },\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"}, {"lang": "ruby", "label": "upsertPartnerLink", "source": "require 'dub'\n\n\ns = ::OpenApiSDK::Dub.new\ns.config_security(\n  ::OpenApiSDK::Shared::Security.new(\n    token: \"DUB_API_KEY\",\n  )\n)\n\n\nreq = ::OpenApiSDK::Operations::UpsertPartnerLinkRequestBody.new(\n  program_id: \"<id>\",\n  url: \"https://unsteady-lobster.com/\",\n  link_props: ::OpenApiSDK::Operations::UpsertPartnerLinkLinkProps.new(\n    external_id: \"123456\",\n    tag_ids: [\n      \"clux0rgak00011...\",\n    ],\n  ),\n)\n    \nres = s.partners.upsert_link(req)\n\nif ! res.link_schema.nil?\n  # handle response\nend"}, {"lang": "php", "label": "upsertPartnerLink", "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Dub;\nuse Dub\\Models\\Operations;\n\n$sdk = Dub\\Dub::builder()\n    ->setSecurity(\n        'DUB_API_KEY'\n    )\n    ->build();\n\n$request = new Operations\\UpsertPartnerLinkRequestBody(\n    programId: '<id>',\n    url: 'https://unsteady-lobster.com/',\n    linkProps: new Operations\\UpsertPartnerLinkLinkProps(\n        externalId: '123456',\n        tagIds: [\n            'clux0rgak00011...',\n        ],\n    ),\n);\n\n$response = $sdk->partners->upsertLink(\n    request: $request\n);\n\nif ($response->linkSchema !== null) {\n    // handle response\n}"}, {lang: python, label: upsertPartnerLink, source: "from dub import Dub\n\nwith Dub(\n    token=\"DUB_API_KEY\",\n) as d_client:\n\n    res = d_client.partners.upsert_link(request={\n        \"program_id\": \"<id>\",\n        \"url\": \"https://unsteady-lobster.com/\",\n        \"link_props\": {\n            \"external_id\": \"123456\",\n            \"tag_ids\": [\n                \"clux0rgak00011...\",\n            ],\n        },\n    })\n\n    assert res is not None\n\n    # Handle response\n    print(res)"}, {"lang": "java", "source": "OkHttpClient client = new OkHttpClient();\n\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\\"programId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"tenantId\\\":\\\"string\\\",\\\"url\\\":\\\"string\\\",\\\"key\\\":\\\"string\\\",\\\"linkProps\\\":{\\\"externalId\\\":\\\"123456\\\",\\\"tenantId\\\":\\\"string\\\",\\\"partnerId\\\":\\\"string\\\",\\\"prefix\\\":\\\"string\\\",\\\"archived\\\":true,\\\"tagIds\\\":\\\"string\\\",\\\"tagNames\\\":\\\"string\\\",\\\"comments\\\":\\\"string\\\",\\\"expiresAt\\\":\\\"string\\\",\\\"expiredUrl\\\":\\\"string\\\",\\\"password\\\":\\\"string\\\",\\\"proxy\\\":true,\\\"title\\\":\\\"string\\\",\\\"description\\\":\\\"string\\\",\\\"image\\\":\\\"string\\\",\\\"video\\\":\\\"string\\\",\\\"rewrite\\\":true,\\\"ios\\\":\\\"string\\\",\\\"android\\\":\\\"string\\\",\\\"doIndex\\\":true,\\\"utm_source\\\":\\\"string\\\",\\\"utm_medium\\\":\\\"string\\\",\\\"utm_campaign\\\":\\\"string\\\",\\\"utm_term\\\":\\\"string\\\",\\\"utm_content\\\":\\\"string\\\",\\\"ref\\\":\\\"string\\\"}}\");\nRequest request = new Request.Builder()\n  .url(\"https://api.dub.co/partners/links/upsert\")\n  .put(body)\n  .addHeader(\"accept\", \"application/json\")\n  .addHeader(\"content-type\", \"application/json\")\n  .addHeader(\"authorization\", \"Bearer MY_TOKEN\")\n  .build();\n\nResponse response = client.newCall(request).execute();"}]
       description: "Upsert a link for a partner that is enrolled in your program. If a link with the same URL already exists, return it (or update it if there are any changes). Otherwise, a new link will be created."
       tags:
         - "Partners"
@@ -9659,7 +9659,7 @@ components:
           properties:
             "id":
               type: "string"
-              description: "The unique identifier of the customer in Dub."
+              description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
             "externalId":
               type: "string"
               description: "Unique identifier for the customer in the client's app."
@@ -10852,7 +10852,7 @@ components:
           properties:
             "id":
               type: "string"
-              description: "The unique identifier of the customer in Dub."
+              description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
             "externalId":
               type: "string"
               description: "Unique identifier for the customer in the client's app."
@@ -13083,7 +13083,7 @@ components:
               properties:
                 "id":
                   type: "string"
-                  description: "The unique identifier of the customer in Dub."
+                  description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                 "externalId":
                   type: "string"
                   description: "Unique identifier for the customer in the client's app."
@@ -14218,7 +14218,7 @@ components:
               properties:
                 "id":
                   type: "string"
-                  description: "The unique identifier of the customer in Dub."
+                  description: "The unique ID of the customer. You may use either the customer's `id` on Dub (obtained via `/customers` endpoint) or their `externalId` (unique ID within your system, prefixed with `ext_`, e.g. `ext_123`)."
                 "externalId":
                   type: "string"
                   description: "Unique identifier for the customer in the client's app."
