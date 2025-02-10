@@ -247,7 +247,7 @@
       "pages": ["sdks/cli/overview"]
     }
   ],
-  "openapi": "/openapi-with-code-samples.yaml",
+  "openapi": "https://spec.speakeasy.com/dub/dub/dub-with-code-samples",
   "redirects": [
     { "source": "/sdks", "destination": "/sdks/overview" },
     {
