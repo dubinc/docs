@@ -24,6 +24,11 @@ Here's the monorepo structure:
 apps
 ├── web
 packages
+├── cli
+├── email
+├── embeds
+├── prisma
+├── stripe-app
 ├── tailwind-config
 ├── tinybird
 ├── tsconfig
@@ -37,6 +42,11 @@ The `apps` directory contains the code for:
 
 The `packages` directory contains the code for:
 
+- `cli`: A CLI for easily shortening URLs with the Dub.co API.
+- `email`: Dub's email application with function to send emails and templates.
+- `embeds`: A package used embed Dub's referral dashboard.
+- `prisma`: Prisma Configuration for Dub's web-app.
+- `stripe-app`: The Stripe app for dub conversions.
 - `tailwind-config`: The Tailwind CSS configuration for Dub's web app.
 - `tinybird`: Dub's Tinybird configuration.
 - `tsconfig`: The TypeScript configuration for Dub's web app.
