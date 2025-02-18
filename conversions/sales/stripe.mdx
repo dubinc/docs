@@ -4,14 +4,13 @@ title: "Stripe"
 description: "Learn how to track a sale conversion event with Stripe"
 ---
 
-import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
 
 When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
 
 - Subscribing to a paid plan
 - Usage expansion (upgrading from one plan to another)
-- Purchasing a product
+- Purchasing a product via [Stripe Payment Links](#option-1-using-stripe-payment-links)
 
 <Frame>
   <img
@@ -23,22 +22,15 @@ When it comes to conversion tracking, a `sale` event happens when a user purchas
 
 In this guide, we will be focusing on tracking sale events with Stripe as the payment processor by leveraging Dub's Stripe integration.
 
-<SalesPrerequisites />
+## Installing the Dub Stripe integration
 
-<Tip>
-  Alternatively, if your setup doesn't involve an authentication step (e.g. for
-  one-time purchases / if you're using [Stripe Payment
-  Links](https://docs.stripe.com/payment-links)), you can skip the server-side
-  SDK step above and just [pass the Dub click ID to the Stripe Checkout Flow
-  (instructions
-  below)](#option-3-pass-the-dub-click-id-to-the-stripe-checkout-flow).
-</Tip>
+Dub comes with a powerful Stripe integration that automatically listens to payment events on Stripe and track them as sales on Dub.
 
-## Step 1: Install the Dub Stripe integration
+Here's how you can install the Dub Stripe integration:
 
 <Steps>
 <Step title="Find Dub on the Stripe App Marketplace">
- Navigate to the [Dub: Conversions Analytics page](https://d.to/stripe/app) on the Stripe App Marketplace.
+ Navigate to the [Dub Stripe Integration](https://d.to/stripe/app) on the Stripe App Marketplace.
  
 <Frame>
   <img
@@ -106,15 +98,175 @@ Once you click on **Authorize**, you will be redirected back to the Dub app sett
 </Step>
 
 </Steps>
-Dub's Stripe integration will automatically forward the following events to Dub:
+
+Once the integration is installed, Dub will automatically listen to the following events on Stripe and track them as sales on Dub:
 
 - `customer.created`: When a new customer is created
+- `customer.updated`: When a customer is updated
 - `checkout.session.completed`: When a customer completes a checkout session
 - `invoice.paid`: When an invoice is paid (for tracking recurring subscriptions)
+- `charge.refunded`: When a charge is refunded (for tracking refunds and updating payout commissions for [Dub Partners](https://dub.partners))
 
-## Step 2: Associate Stripe customer with your customer ID
+## Tracking sales with the Dub Stripe integration
 
-Next, we'll need to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user ID in your database (which we tracked in the [lead conversion tracking step](/conversions/leads/introduction)).
+Depending on your setup, there are a few ways you can track sales with the Dub Stripe integration.
+
+- [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
+- [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
+- [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
+
+### Option 1: Using Stripe Payment Links
+
+<Tip>
+  For this option to work, you need to [enable conversion tracking for your
+  links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
+  first.
+</Tip>
+
+If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
+
+Then, when a user clicks on the shortened link, Dub will automatically append the unique click ID as the `client_reference_id` [query parameter](https://docs.stripe.com/payment-links/url-parameters) to the payment link.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/conversions-payment-links.jpg"
+    alt="Stripe payment link with Dub click ID"
+  />
+</Frame>
+
+Finally, when the user completes the checkout flow, Dub will automatically [track the sale event](/api-reference/endpoint/track-sale) and [update the customer's `externalId`](/api-reference/endpoint/update-a-customer) with their Stripe customer ID for future reference.
+
+Alternatively, if you have a marketing site that you're redirecting your users to first, you can do this instead:
+
+1. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction), which automatically detects the `dub_id` in the URL and stores it as a first-party cookie on your site.
+2. Then, retrieve and append the `dub_id` value as the `client_reference_id` parameter to the payment links on your pricing page / CTA button (prefixed with `dub_id_`).
+
+   ```
+   https://buy.stripe.com/xxxxxx?client_reference_id=dub_id_xxxxxxxxxxxxxx
+   ```
+
+<AccordionGroup>
+
+<Accordion title="What if I'm using Stripe Pricing Tables?">
+  If you're using [Stripe Pricing Tables](https://docs.stripe.com/payments/checkout/pricing-table) – you'd want to pass the Dub click ID as a [`client-reference-id` attribute](https://docs.stripe.com/payments/checkout/pricing-table#handle-fulfillment-with-the-stripe-api) instead:
+
+  <CodeGroup>
+
+```html HTML
+<body>
+  <h1>We offer plans that help any business!</h1>
+  <!-- Paste your embed code script here. -->
+  <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+  <stripe-pricing-table
+    pricing-table-id="{{PRICING_TABLE_ID}}"
+    publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
+    client-reference-id="dub_id_xxxxxxxxxxxxxx"
+  >
+  </stripe-pricing-table>
+</body>
+```
+
+```jsx React
+import * as React from "react";
+
+function PricingPage() {
+  // Paste the stripe-pricing-table snippet in your React component
+  return (
+    <stripe-pricing-table
+      pricing-table-id="'{{PRICING_TABLE_ID}}'"
+      publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
+      client-reference-id="dub_id_xxxxxxxxxxxxxx"
+    ></stripe-pricing-table>
+  );
+}
+
+export default PricingPage;
+```
+
+  </CodeGroup>
+</Accordion>
+<Accordion title="What if I'm using Stripe's Checkout Sessions API?">
+
+If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2-using-stripe-checkout) instead.
+
+If your setup doesn't involve a [lead event](/conversions/leads/introduction) and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID (prefixed with `dub_id_`) as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id) to enable conversion tracking with Dub.
+
+  <CodeGroup>
+
+```typescript TypeScript
+const session = await stripe.checkout.sessions.create({
+  success_url: "https://example.com/success",
+  line_items: [
+    {
+      price: "price_xxxxxxxxxxxxxxxx",
+      quantity: 2,
+    },
+  ],
+  mode: "payment",
+  client_reference_id: "dub_id_xxxxxxxxxxxxxx",
+});
+```
+
+```python Python
+  stripe.checkout.Session.create(
+    success_url="https://example.com/success",
+    line_items=[{"price": "price_xxxxxxxxxxxxxxxx", "quantity": 2}],
+    mode="payment",
+    client_reference_id="dub_id_xxxxxxxxxxxxxx",
+  )
+```
+
+```go Go
+  params := &stripe.CheckoutSessionParams{
+    SuccessURL: stripe.String("https://example.com/success"),
+    LineItems: []*stripe.CheckoutSessionLineItemParams{
+      &stripe.CheckoutSessionLineItemParams{
+        Price: stripe.String("price_xxxxxxxxxxxxxxxx"),
+        Quantity: stripe.Int64(2),
+      },
+    },
+    Mode: stripe.String(string(stripe.CheckoutSessionModePayment)),
+    ClientReferenceID: stripe.String("dub_id_xxxxxxxxxxxxxx"),
+  };
+  result, err := session.New(params);
+```
+
+```php PHP
+  $stripe->checkout->sessions->create([
+    'success_url' => 'https://example.com/success',
+    'line_items' => [
+      [
+        'price' => 'price_xxxxxxxxxxxxxxxx',
+        'quantity' => 2,
+      ],
+    ],
+    'mode' => 'payment',
+    'client_reference_id' => "dub_id_xxxxxxxxxxxxxx",
+  ]);
+```
+
+```ruby Ruby
+  Stripe::Checkout::Session.create({
+    success_url: 'https://example.com/success',
+    line_items: [
+      {
+        price: 'price_xxxxxxxxxxxxxxxx',
+        quantity: 2,
+      },
+    ],
+    mode: 'payment',
+    client_reference_id: "dub_id_xxxxxxxxxxxxxx",
+  })
+```
+
+  </CodeGroup>
+
+</Accordion>
+</AccordionGroup>
+
+### Option 2: Using Stripe Checkout (recommended)
+
+If you have a custom checkout flow that uses Stripe's `checkout.sessions.create` API, you'd want to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user's unique ID in your database (which we tracked in the [lead conversion tracking step](/conversions/leads/introduction)).
 
 This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
 
@@ -122,11 +274,11 @@ This will allow Dub to automatically listen for purchase events from Stripe and 
 
 Remember in the [lead conversion tracking guide](/conversions/leads/introduction), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
 
-```typescript
+```typescript TypeScript
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
-  externalId: user.id,
+  externalId: user.id, // the unique user ID of the customer in your database
   customerName: user.name,
   customerEmail: user.email,
   customerAvatar: user.image,
@@ -139,17 +291,15 @@ Then, when the user makes a purchase, Dub will automatically associate the check
 
 </Accordion>
 
-There are 3 ways to associate the Stripe customer object with the user ID in your database:
+First, you'll need to complete the following prerequisites:
 
-1. [Include your customer's unique user ID in checkout sessions](#option-1-include-your-customers-unique-user-id-in-checkout-sessions)
-2. [Pass the user ID and the click event ID in the Stripe customer creation flow](#option-2-pass-the-user-id-and-the-click-event-id-in-the-stripe-customer-creation-flow)
-3. [Pass the Dub click ID to the Stripe Checkout Flow](#option-3-pass-the-dub-click-id-to-the-stripe-checkout-flow)
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+3. [Install the Dub server-side SDK](/conversions/quickstart#step-3-install-the-dub-server-side-sdk)
 
-### Option 1: Include your customer's unique user ID in checkout sessions
+Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
 
-When you [create checkout sessions](https://docs.stripe.com/api/checkout/sessions/create) for your users, pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
-
-```typescript app/api/upgrade/route.ts
+```typescript TypeScript
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -174,11 +324,18 @@ const stripeSession = await stripe.checkout.sessions.create({
 
 This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
 
-### Option 2: Pass the user ID and the click event ID in the Stripe customer creation flow
+### Option 3: Using Stripe Customers
 
-Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
+Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
 
-```typescript app/api/create-customer/route.ts
+First, you'll need to complete the following prerequisites:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+
+Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+
+```typescript TypeScript
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -199,142 +356,29 @@ await stripe.customers.create({
 });
 ```
 
+Alternatively, you can also pass the `dubCustomerId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
+
+```typescript TypeScript
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const dub_id = req.headers.get("dub_id");
+
+await stripe.customers.update(user.id, {
+  metadata: {
+    dubCustomerId: user.id,
+    dubClickId: dub_id,
+  },
+});
+```
+
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
-
-### Option 3: Pass the Dub click ID to the Stripe Checkout Flow
-
-If your setup doesn't involve a [lead event](/conversions/leads/introduction) and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID as the `client_reference_id` parameter to enable conversion tracking with Dub.
-
-<Tip>
-  When passing the Dub click ID as the `client_reference_id` parameter to
-  Stripe, remember to **prefix it with `dub_id_`** to allow Dub to detect the
-  conversion event.
-</Tip>
-
-- For [Stripe Payment Links](https://docs.stripe.com/payment-links) – pass it as a [query parameter](https://docs.stripe.com/payment-links/url-parameters):
-
-  ```
-  https://buy.stripe.com/xxxxxx?client_reference_id=dub_id_xxxxxxxxxxxxxx
-  ```
-
-- For [Stripe Pricing Tables](https://docs.stripe.com/payments/checkout/pricing-table) – pass it as a [`client-reference-id` attribute](https://docs.stripe.com/payments/checkout/pricing-table#handle-fulfillment-with-the-stripe-api):
-
-  <CodeGroup>
-
-  ```html HTML
-  <body>
-    <h1>We offer plans that help any business!</h1>
-    <!-- Paste your embed code script here. -->
-    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-    <stripe-pricing-table
-      pricing-table-id="{{PRICING_TABLE_ID}}"
-      publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
-      client-reference-id="dub_id_xxxxxxxxxxxxxx"
-    >
-    </stripe-pricing-table>
-  </body>
-  ```
-
-  ```jsx React
-  import * as React from "react";
-
-  function PricingPage() {
-    // Paste the stripe-pricing-table snippet in your React component
-    return (
-      <stripe-pricing-table
-        pricing-table-id="'{{PRICING_TABLE_ID}}'"
-        publishable-key="pk_test_51ODHJvFacAXKeDpJsgWLQJSzBIDtCUFN6MoB4IIXKJDfWdFmiEO4JuvAU1A0Y2Ri4m4q1egIfwYy3s72cUBRCwXC00GQhEZuXa"
-        client-reference-id="dub_id_xxxxxxxxxxxxxx"
-      ></stripe-pricing-table>
-    );
-  }
-
-  export default PricingPage;
-  ```
-
-  </CodeGroup>
-
-- For [Stripe Checkout Sessions](https://docs.stripe.com/api/checkout/sessions/object) – pass it as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id):
-
-  <CodeGroup>
-
-  ```typescript TypeScript
-  const session = await stripe.checkout.sessions.create({
-    success_url: "https://example.com/success",
-    line_items: [
-      {
-        price: "price_xxxxxxxxxxxxxxxx",
-        quantity: 2,
-      },
-    ],
-    mode: "payment",
-    client_reference_id: "dub_id_xxxxxxxxxxxxxx",
-  });
-  ```
-
-  ```python Python
-    stripe.checkout.Session.create(
-      success_url="https://example.com/success",
-      line_items=[{"price": "price_xxxxxxxxxxxxxxxx", "quantity": 2}],
-      mode="payment",
-      client_reference_id="dub_id_xxxxxxxxxxxxxx",
-    )
-  ```
-
-  ```go Go
-    params := &stripe.CheckoutSessionParams{
-      SuccessURL: stripe.String("https://example.com/success"),
-      LineItems: []*stripe.CheckoutSessionLineItemParams{
-        &stripe.CheckoutSessionLineItemParams{
-          Price: stripe.String("price_xxxxxxxxxxxxxxxx"),
-          Quantity: stripe.Int64(2),
-        },
-      },
-      Mode: stripe.String(string(stripe.CheckoutSessionModePayment)),
-      ClientReferenceID: stripe.String("dub_id_xxxxxxxxxxxxxx"),
-    };
-    result, err := session.New(params);
-  ```
-
-  ```php PHP
-    $stripe->checkout->sessions->create([
-      'success_url' => 'https://example.com/success',
-      'line_items' => [
-        [
-          'price' => 'price_xxxxxxxxxxxxxxxx',
-          'quantity' => 2,
-        ],
-      ],
-      'mode' => 'payment',
-      'client_reference_id' => "dub_id_xxxxxxxxxxxxxx",
-    ]);
-  ```
-
-  ```ruby Ruby
-    Stripe::Checkout::Session.create({
-      success_url: 'https://example.com/success',
-      line_items: [
-        {
-          price: 'price_xxxxxxxxxxxxxxxx',
-          quantity: 2,
-        },
-      ],
-      mode: 'payment',
-      client_reference_id: "dub_id_xxxxxxxxxxxxxx",
-    })
-  ```
-
-  </CodeGroup>
-
-Behind the scenes, Dub will automatically detect when the user completes the checkout flow and track the customer as a [lead](/conversions/leads/introduction) and the purchase event as a [sale](/conversions/sales/introduction).
-
-In this case, we will also [update the customer's `externalId`](/api-reference/endpoint/update-a-customer) with their Stripe customer ID for future reference.
-
-## Step 3: View conversion results
-
-And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
-
-<ViewConversions />
+This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 
 ## Currency support
 
@@ -365,6 +409,12 @@ If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/che
   }
 }
 ```
+
+## View conversion results
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
+
+<ViewConversions />
 
 ## Example Apps
 
