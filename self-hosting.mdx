@@ -1,20 +1,20 @@
 ---
-title: "Self-hosting Dub.co"
-"og:title": "How to self-host Dub.co in 8 easy steps"
-description: "An end-to-end guide on how to self-host Dub.co – the open-source link management platform."
+title: "Self-hosting Dub"
+"og:title": "How to self-host Dub in 8 easy steps"
+description: "An end-to-end guide on how to self-host Dub – the open-source link management platform."
 icon: server
 ---
 
 <Frame>
   <img
     src="/images/logo-background-gradient.png"
-    alt="Dub.co Logo on a gradient background"
+    alt="Dub Logo on a gradient background"
     width="1200"
     height="630"
   />
 </Frame>
 
-You can self-host Dub.co on your own servers and cloud infrastructure for greater control over your data and design. This guide will walk you through the entire process of setting up Dub.co on your own servers.
+You can self-host Dub on your own servers and cloud infrastructure for greater control over your data and design. This guide will walk you through the entire process of setting up Dub on your own servers.
 
 ## Prerequisites
 
@@ -27,13 +27,13 @@ Before you begin, make sure you have the following:
 - A [Vercel](https://vercel.com/) account
 - Either a [Cloudflare](https://www.cloudflare.com/) or [AWS](https://aws.com) account
 
-You'll also need a custom domain that you will be using for your Dub.co instance, with an optional custom short domain for your links.
+You'll also need a custom domain that you will be using for your Dub instance, with an optional custom short domain for your links.
 
 In this guide, we'll use `acme.com` as a placeholder for your custom domain, and `ac.me` as a placeholder for your custom short domain.
 
 ## Step 1: Local setup
 
-First, you'll need to clone the Dub.co repo and install the dependencies.
+First, you'll need to clone the Dub repo and install the dependencies.
 
 <Steps>
 
@@ -104,7 +104,7 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
   <Step title="Install Tinybird CLI and authenticate">
 
-In your newly-cloned Dub.co repo, navigate to the `packages/tinybird` directory.
+In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
     Install the Tinybird CLI with `pip install tinybird-cli` (requires Python >= 3.8).
 
@@ -228,7 +228,7 @@ Next, you'll need to set up a [PlanetScale](https://planetscale.com/)-compatible
 
   <Step title="Generate Prisma client and create database tables">
 
-In your Dub.co codebase, navigate to `apps/web/prisma/schema.prisma` and replace all the columns in the `DefaultDomains` model to the normalized version of your custom short domain (removing the `.` character).
+In your Dub codebase, navigate to `apps/web/prisma/schema.prisma` and replace all the columns in the `DefaultDomains` model to the normalized version of your custom short domain (removing the `.` character).
 
 For example, if your custom short domain is `ac.me`, your `DefaultDomains` model should look like this:
 
@@ -259,7 +259,7 @@ For example, if your custom short domain is `ac.me`, your `DefaultDomains` model
 
 ## Step 5: Set up GitHub OAuth
 
-Next, [create a new GitHub App](https://github.com/settings/applications/new). This will allow you to sign in to Dub.co with your GitHub account.
+Next, [create a new GitHub App](https://github.com/settings/applications/new). This will allow you to sign in to Dub with your GitHub account.
 
 Don't forget to set the following Callback URLs:
 
@@ -281,7 +281,7 @@ Dub stores user-generated assets in either S3 or S3-compatible services like [Cl
 - User avatars
 - [Custom Social Media Cards](https://dub.co/help/article/custom-link-previews) images
 
-We recommend using [Cloudflare R2](https://cloudflare.com/r2) for self-hosting Dub.co, as it's a more cost-effective solution compared to AWS S3. Here's how you can set it up:
+We recommend using [Cloudflare R2](https://cloudflare.com/r2) for self-hosting Dub, as it's a more cost-effective solution compared to AWS S3. Here's how you can set it up:
 
 <Steps>
 
@@ -442,13 +442,13 @@ Add both the `NEXT_PUBLIC_APP_DOMAIN` and `NEXT_PUBLIC_APP_SHORT_DOMAIN` as doma
 
 ## Caveats
 
-This guide is meant to be a starting point for self-hosting Dub.co. It currently depends on the following services to work:
+This guide is meant to be a starting point for self-hosting Dub. It currently depends on the following services to work:
 
 - [Tinybird](https://www.tinybird.co/) for the analytics database
 - [Upstash](https://upstash.com/) for the Redis database
 - [PlanetScale](https://planetscale.com/) for the MySQL database
 - [Vercel](https://vercel.com/) for hosting & [Edge Middleware](https://vercel.com/docs/functions/edge-middleware)
 
-In the future, we plan to make it easier to self-host Dub.co by making these dependencies optional by swapping them out for native databases (e.g. mysql, redis, clickhouse, [GeoLite2](https://github.com/GitSquared/node-geolite2-redist) etc.)
+In the future, we plan to make it easier to self-host Dub by making these dependencies optional by swapping them out for native databases (e.g. mysql, redis, clickhouse, [GeoLite2](https://github.com/GitSquared/node-geolite2-redist) etc.)
 
 Also, Docker is currently not supported, but we have a few [open](https://github.com/dubinc/dub/issues/25) [issues](https://github.com/dubinc/dub/issues/378) and [PRs](https://github.com/dubinc/dub/pull/391) for it.

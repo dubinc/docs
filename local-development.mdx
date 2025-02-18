@@ -1,14 +1,14 @@
 ---
 title: "Local Development"
-"og:title": "How to setup Dub.co for Local Development (6 steps)"
-description: "A guide on how to run Dub.co's codebase locally."
+"og:title": "How to setup Dub for Local Development (6 steps)"
+description: "A guide on how to run Dub's codebase locally."
 icon: code
 ---
 
 <Frame>
   <img
     src="/images/logo-background-gradient.png"
-    alt="Dub.co Logo on a gradient background"
+    alt="Dub Logo on a gradient background"
     width="1200"
     height="630"
   />
@@ -42,7 +42,7 @@ The `apps` directory contains the code for:
 
 The `packages` directory contains the code for:
 
-- `cli`: A CLI for easily shortening URLs with the Dub.co API.
+- `cli`: A CLI for easily shortening URLs with the Dub API.
 - `email`: Dub's email application with function to send emails and templates.
 - `embeds`: A package used embed Dub's referral dashboard.
 - `prisma`: Prisma Configuration for Dub's web-app.
@@ -75,7 +75,7 @@ Here's the code that powers link redirects: [`main`/apps/web/lib/middleware/link
 
 ## Running Dub locally
 
-To run Dub.co locally, you'll need to set up the following:
+To run Dub locally, you'll need to set up the following:
 
 - A [Tinybird](https://www.tinybird.co/) account
 - An [Upstash](https://upstash.com/) account
@@ -96,13 +96,13 @@ Watch this video from our friends at Tinybird to learn how to set up Dub locally
 
 ## Step 1: Local setup
 
-First, you'll need to clone the Dub.co repo and install the dependencies.
+First, you'll need to clone the Dub repo and install the dependencies.
 
 <Steps>
 
   <Step title="Clone the repo">
 
-First, clone the [Dub.co repo](https://d.to/github) into a public GitHub repository.
+First, clone the [Dub repo](https://d.to/github) into a public GitHub repository.
 
     ```bash Terminal
     git clone https://github.com/dubinc/dub.git
@@ -164,7 +164,7 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
   <Step title="Install Tinybird CLI and authenticate">
 
-In your newly-cloned Dub.co repo, navigate to the `packages/tinybird` directory.
+In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
     Install the Tinybird CLI with `pip install tinybird-cli` (requires Python >= 3.8).
 
