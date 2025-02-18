@@ -352,33 +352,6 @@ await stripe.customers.create({
 
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 
----
-
-Alternatively, if you don't use Stripe's checkout session creation flow, you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
-
-```typescript app/api/create-customer/route.ts
-import { stripe } from "@/lib/stripe";
-
-const user = {
-  id: "user_123",
-  email: "user@example.com",
-  teamId: "team_xxxxxxxxx",
-};
-
-const dub_id = req.headers.get("dub_id");
-
-await stripe.customers.create({
-  email: user.email,
-  name: user.name,
-  metadata: {
-    dubCustomerId: user.id,
-    dubClickId: dub_id,
-  },
-});
-```
-
-This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
-
 ## Currency support
 
 For simplicity, Dub records all sales in the native currency of the Stripe account. For example, if you're using USD for your Stripe account, Dub will record all sales in USD.
