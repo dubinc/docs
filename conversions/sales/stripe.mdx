@@ -4,7 +4,6 @@ title: "Stripe"
 description: "Learn how to track a sale conversion event with Stripe"
 ---
 
-import SalesPrerequisites from "/snippets/sales-prerequisites.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
 
 When it comes to conversion tracking, a `sale` event happens when a user purchases your product or service. Examples include:
@@ -113,7 +112,7 @@ Once the integration is installed, Dub will automatically listen to the followin
 Depending on your setup, there are a few ways you can track sales with the Dub Stripe integration.
 
 - [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
-- [Option 2: Using Stripe Checkout](#option-2-using-stripe-checkout)
+- [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
 - [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
 
 ### Option 1: Using Stripe Payment Links
@@ -265,7 +264,7 @@ const session = await stripe.checkout.sessions.create({
 </Accordion>
 </AccordionGroup>
 
-### Option 2: Using Stripe Checkout
+### Option 2: Using Stripe Checkout (recommended)
 
 If you have a custom checkout flow that uses Stripe's `checkout.sessions.create` API, you'd want to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user's unique ID in your database (which we tracked in the [lead conversion tracking step](/conversions/leads/introduction)).
 
@@ -275,7 +274,7 @@ This will allow Dub to automatically listen for purchase events from Stripe and 
 
 Remember in the [lead conversion tracking guide](/conversions/leads/introduction), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
 
-```typescript
+```typescript TypeScript
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
@@ -300,7 +299,7 @@ First, you'll need to complete the following prerequisites:
 
 Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
 
-```typescript app/api/upgrade/route.ts
+```typescript TypeScript
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -327,9 +326,16 @@ This way, when the customer completes their checkout session, Dub will automatic
 
 ### Option 3: Using Stripe Customers
 
-Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create):
+Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
 
-```typescript app/api/create-customer/route.ts
+First, you'll need to complete the following prerequisites:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+
+Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+
+```typescript TypeScript
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -350,6 +356,28 @@ await stripe.customers.create({
 });
 ```
 
+Alternatively, you can also pass the `dubCustomerId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
+
+```typescript TypeScript
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const dub_id = req.headers.get("dub_id");
+
+await stripe.customers.update(user.id, {
+  metadata: {
+    dubCustomerId: user.id,
+    dubClickId: dub_id,
+  },
+});
+```
+
+This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 
 ## Currency support
