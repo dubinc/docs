@@ -1,6 +1,6 @@
 <ParamField body="apiHost" type="url" default="https://api.dub.co">
   The base URL for the Dub API. This is useful for [setting up reverse
-  proxies](/conversions/clicks/introduction#step-3-optional-but-recommended-set-up-a-reverse-proxy)
+  proxies](/conversions/clicks/introduction#step-4-optional-but-recommended-set-up-a-reverse-proxy)
   to avoid adblockers.
 </ParamField>
 
@@ -40,19 +40,37 @@
   </Expandable>
 </ParamField>
 
-<ParamField body="shortDomain" type="string[]">
-  The custom domain you're using on Dub for your short links.
+<ParamField body="domainsConfig" type="JSON-stringified object">
+  Configure the domains that Dub will track. The following properties are available:
+
+  <Expandable title="properties">
+    <ParamField body="refer" type="string">
+      The Dub short domain for referral program client-side click tracking
+      (previously `shortDomain`).
+      Example: `refer.dub.co`
+    </ParamField>
+    <ParamField body="site" type="string">
+      The Dub short domain for tracking site visits.
+      Example: `site.dub.co`
+    </ParamField>
+    <ParamField body="outbound" type="string | string[]">
+      An array of domains for cross-domain tracking. When configured, the existing
+      `dub_id` cookie will be automatically appended to all outbound links
+      targeting these domains to enable cross-domain tracking across different
+      applications.
+      Example: `["dub.sh", "git.new"]`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="shortDomain" type="string" deprecated>
+  [Deprecated: Use `domainsConfig.refer` instead. The custom domain you're using
+  on Dub for your short links.
 </ParamField>
 
 <ParamField body="queryParam" type="string" default="via">
   The query parameter to listen to for client-side click-tracking (e.g.
   `?via=abc123`).
-</ParamField>
-
-<ParamField body="outboundDomains" type="string">
-  An array of domains for cross-domain tracking. When configured, a `dub_id`
-  query parameter will be automatically appended to all outbound links targeting
-  these domains to enable cross-domain tracking across different applications.
 </ParamField>
 
 <ParamField body="scriptProps" type="HTMLScriptElement Object">
