@@ -1,0 +1,140 @@
+---
+title: Script Variants
+description: Learn more about the different variants of the @dub/analytics script.
+icon: filter-list
+---
+
+Inspired by [Plausible](https://plausible.io/), our script is split into multiple variants to help you optimize your script for different use cases.
+
+This allows us to keep the base variant of the script as lightweight as possible (~1kb) while still allowing you to use the script in more complex use cases.
+
+## Syntax
+
+The base script is available on [`script.js`](https://www.dubcdn.com/analytics/script.js), and all variants are available on `script.[variant].js`.
+
+For instance, the `outbound-domains` variant is available on [`script.outbound-domains.js`](https://www.dubcdn.com/analytics/script.outbound-domains.js).
+
+You can also mix and match variants. For example, you can use the `site-visit` and `outbound-domains` variants together with this script: [`script.site-visit.outbound-domains.js`](https://www.dubcdn.com/analytics/script.site-visit.outbound-domains.js).
+
+## List of variants
+
+Here's a list of all the variants available:
+
+- [Base Variant](#base-variant-script-js)
+- [Site Visit Variant](#site-visit-variant-script-site-visit-js)
+- [Outbound Domains Variant](#outbound-domains-variant-script-outbound-domains-js)
+- [Combined Variant](#combined-variant)
+
+### Base Variant (`script.js`)
+
+The base variant of the script is the most lightweight variant of the script. It supports the following features:
+
+- Detecting the `dub_id` query parameter and storing it as a first-party cookie.
+- Tracking [client-side click events for referral programs](/conversions/clicks/introduction#client-side-click-tracking).
+- Setting [custom cookie window](/sdks/client-side/introduction#custom-cookie-window) and [attribution models](/sdks/client-side/introduction#param-data-attribution-model)
+
+Here's how you can use the base variant:
+
+<CodeGroup>
+
+```typescript React
+<DubAnalytics />
+```
+
+```html Other
+<script src="https://www.dubcdn.com/analytics/script.js"></script>
+```
+
+</CodeGroup>
+
+### Site Visit Variant (`script.site-visit.js`)
+
+<Note>`@dub/analytics` site visit feature is still in beta.</Note>
+
+The site visit variant of the script is a variant of the script that supports tracking site visits.
+
+On top of the features supported by the base variant, it also supports tracking the first entry page of a user, which is useful for measuring SEO and Google Ads performance.
+
+Here's how you can use the site visit variant:
+
+<CodeGroup>
+
+```typescript React
+// the DubAnalytics component automatically detects the `domainsConfig.site` prop
+// and applies the site-visit script variant for you
+<DubAnalytics domainsConfig={{ site: "site.dub.co" }} />
+```
+
+```html Other
+<script
+  src="https://www.dubcdn.com/analytics/script.site-visit.js"
+  data-domains='{"site": "site.dub.co"}'
+/>
+```
+
+</CodeGroup>
+
+### Outbound Domains Variant (`script.outbound-domains.js`)
+
+The outbound domains variant of the script is a variant of the script that supports [cross-domain tracking](/sdks/client-side/introduction#cross-domain-tracking) across different applications.
+
+On top of the features supported by the base variant, it also supports appending the `dub_id` cookie to all outbound links targeting the domains you configure.
+
+Here's how you can use the outbound domains variant:
+
+<CodeGroup>
+
+```typescript React
+// the DubAnalytics component automatically detects the `domainsConfig.outbound` prop
+// and applies the outbound-domains script variant for you
+<DubAnalytics domainsConfig={{ outbound: ["example.com", "example.sh"] }} />
+```
+
+```html Other
+<script
+  src="https://www.dubcdn.com/analytics/script.outbound-domains.js"
+  data-domains='{"outbound": ["example.com", "example.sh"]}'
+/>
+```
+
+</CodeGroup>
+
+### Combined Variant
+
+You can also mix and match variants. For example, you can use the `site-visit` and `outbound-domains` variants together with this script: [`script.site-visit.outbound-domains.js`](https://www.dubcdn.com/analytics/script.site-visit.outbound-domains.js).
+
+Here's how you can use the combined variant:
+
+<CodeGroup>
+
+```typescript React
+// the DubAnalytics component automatically detects the `domainsConfig` prop
+// and applies the combined script variant for you
+<DubAnalytics
+  domainsConfig={{
+    site: "site.dub.co",
+    outbound: ["example.com", "example.sh"],
+  }}
+/>
+```
+
+```html Other
+<script
+  src="https://www.dubcdn.com/analytics/script.site-visit.outbound-domains.js"
+  data-domains='{"site": "site.dub.co", "outbound": ["example.com", "example.sh"]}'
+/>
+```
+
+</CodeGroup>
+
+## `DubAnalytics` React Component
+
+If you're using a React application, we recommend using the `DubAnalytics` component to automatically apply the correct script variant for you.
+
+For example, if you want to use the `outbound-domains` variant, you can do the following:
+
+```typescript React
+<DubAnalytics domainsConfig={{ outbound: ["example.com", "example.sh"] }} />
+```
+
+The `DubAnalytics` component will automatically detect the `domainsConfig` prop and apply the correct script variant for you.

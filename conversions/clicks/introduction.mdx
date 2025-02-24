@@ -87,8 +87,10 @@ export default function App() {
   return (
     <Layout>
       <DubAnalytics
-        shortDomain="go.example.com" // the custom domain you're using on Dub for your short links
-        queryParam="via" // the query parameter to listen to for client-side click-tracking (default: "via")
+        domainsConfig={{
+          refer: "go.example.com", // the custom domain you're using on Dub for your short links
+        }}
+        queryParam="via" // optional: query parameter to listen to for client-side click-tracking (default: "via")
       />
       {/* Your app code here */}
     </Layout>
@@ -100,7 +102,7 @@ export default function App() {
 // include this script tag in your HTML Head tag
 <script
   src="https://www.dubcdn.com/analytics/script.js"
-  data-short-domain="go.example.com"
+  data-domains='{"refer": "go.example.com"}'
   defer
 />
 ```
@@ -127,8 +129,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/_proxy/dub/track/click",
-        destination: "https://api.dub.co/track/click",
+        source: "/_proxy/dub/track/:path",
+        destination: "https://api.dub.co/track/:path",
       },
     ];
   },
@@ -140,8 +142,8 @@ module.exports = {
 {
   "rewrites": [
     {
-      "source": "/_proxy/dub/track/click",
-      "destination": "https://api.dub.co/track/click"
+      "source": "/_proxy/dub/track/:path",
+      "destination": "https://api.dub.co/track/:path"
     }
   ]
 }
@@ -161,8 +163,10 @@ export default function App() {
     <Layout>
       <DubAnalytics
         apiHost="/_proxy/dub" // the URL of your reverse proxy
-        shortDomain="go.example.com" // the custom domain you're using on Dub for your short links
-        queryParam="via" // the query parameter to listen to for client-side click-tracking (default: "via")
+        domainsConfig={{
+          refer: "go.example.com", // the custom domain you're using on Dub for your short links
+        }}
+        queryParam="via" // optional: query parameter to listen to for client-side click-tracking (default: "via")
       />
       {/* Your app code here */}
     </Layout>
@@ -175,7 +179,7 @@ export default function App() {
 <script
   src="https://www.dubcdn.com/analytics/script.js"
   data-api-host="/_proxy/dub"
-  data-short-domain="go.example.com"
+  data-domains='{"refer": "go.example.com"}'
   defer
 />
 ```

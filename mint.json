@@ -227,6 +227,7 @@
       "icon": "js",
       "pages": [
         "sdks/client-side/introduction",
+        "sdks/client-side/variants",
         {
           "group": "Installation Guides",
           "icon": "download",

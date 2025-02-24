@@ -7,7 +7,7 @@ icon: code
 import DubClientInstall from "/snippets/dub-client-install.mdx";
 import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 
-`@dub/analytics` is a lightweight (\<1kb), [open-source](https://github.com/dubinc/analytics) client-side script used for tracking conversions with [Dub Conversions](https://dub.co/help/article/dub-conversions).
+`@dub/analytics` is a lightweight (~1kb), [open-source](https://github.com/dubinc/analytics) client-side script used for tracking conversions with [Dub Conversions](https://dub.co/help/article/dub-conversions).
 
 The script handles the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
@@ -69,18 +69,27 @@ This means that if you have the script installed on a separate domain (e.g. **ex
 ```typescript React
 // install this script on both domains
 <DubAnalytics
-  outboundDomains={["example.com", "example.sh"]}
+  domainsConfig={{
+    outbound: ["example.com", "example.sh"],
+  }}
 />
 ```
 
 ```html Other
 <script
-  src="https://www.dubcdn.com/analytics/script.js"
-  data-outbound-domains="example.com,example.sh"
+  src="https://www.dubcdn.com/analytics/script.outbound-domains.js"
+  data-domains='{"outbound": ["example.com", "example.sh"]}'
 />
 ```
 
 </CodeGroup>
+
+<Tip>
+  For outbound-domains support, you'll need to use the
+  [`script.outbound-domains.js`](/sdks/client-side/variants#outbound-domains-variant-script-outbound-domains-js)
+  variant of the script. Learn more about [how script variants
+  work](/sdks/client-side/variants).
+</Tip>
 
 ### Custom cookie window
 
