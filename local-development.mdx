@@ -132,7 +132,7 @@ First, clone the [Dub repo](https://d.to/github) into a public GitHub repository
 
   <Step title="Set up environment variables">
 
-    Copy the `.env.example` file from `./apps/web` to `.env`:
+    Copy the `.env.example` file from `./apps/web` to `.env` by executing the following command from `apps/web`:
 
     ```bash Terminal
     cp ./apps/web/.env.example .env
@@ -166,9 +166,9 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
 In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
-    Install the Tinybird CLI with `pip install tinybird-cli` (requires Python >= 3.8).
+    If you have `brew`, install `pipx` by running `brew install pipx`. If not, you can check [installation guide](https://pipx.pypa.io/stable/installation/) for other options. After that, install the Tinybird CLI with `pipx install tinybird-cli` (requires Python >= 3.8).
 
-    Run `tb auth` and paste your `admin` Auth Token.
+    Run `tb auth --interactive` and paste your `admin` Auth Token.
 
   </Step>
 
@@ -417,7 +417,11 @@ To view emails sent from your application during local development, you'll need 
 
 </Steps>
 
-## Step 6: Start the development server
+## Step 6: Set NextAuth secret
+
+Generate a secret by visiting https://generate-secret.vercel.app/32. Set the value of `NEXTAUTH_SECRET` in `.env` to this value.
+
+## Step 7: Start the development server
 
 Finally, you can start the development server. This will build the packages + start the app servers.
 
