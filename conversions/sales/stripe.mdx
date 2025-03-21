@@ -383,11 +383,9 @@ await stripe.customers.update(user.id, {
 
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 
-## Currency support
+## Currency conversion support
 
-For simplicity, Dub records all sales in the native currency of the Stripe account. For example, if you're using USD for your Stripe account, Dub will record all sales in USD.
-
-If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will still record the sale amount using the currency of your Stripe account:
+If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will record the sale amount using the currency of your Stripe account:
 
 ```json checkout.session.completed
 // Stripe checkout.session.completed event payload
@@ -412,6 +410,31 @@ If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/che
   }
 }
 ```
+
+If you're not using Stripe Adaptive Pricing, Dub will record the sale amount in the default currency of your Dub workspace. This means that if you pass a different currency, it will be automatically converted to USD for reporting consistency – using the latest foreign exchange rates.
+
+```json checkout.session.completed
+// Stripe checkout.session.completed event payload
+{
+  "id": "{{EVENT_ID}}",
+  "object": "event",
+  "type": "checkout.session.completed",
+  "data": {
+    "object": {
+      "id": "{{SESSION_ID}}",
+      "object": "checkout.session",
+      "currency": "cad",
+      "amount_subtotal": 2055,
+      "amount_total": 2055 // this will be converted from CAD to USD
+    }
+  }
+}
+```
+
+<Note>
+  The default currency for all Dub workspaces is currently set to `USD`. We will
+  add the ability to customize that in the future.
+</Note>
 
 ## View conversion results
 
