@@ -155,6 +155,16 @@
       ]
     },
     {
+      "group": "Partners",
+      "pages": [
+        "api-reference/endpoint/create-a-partner",
+        "api-reference/endpoint/create-a-partner-link",
+        "api-reference/endpoint/upsert-a-partner-link",
+        "api-reference/endpoint/retrieve-a-partners-links",
+        "api-reference/endpoint/retrieve-a-partners-analytics"
+      ]
+    },
+    {
       "group": "Tags",
       "pages": [
         "api-reference/endpoint/create-a-new-tag",
