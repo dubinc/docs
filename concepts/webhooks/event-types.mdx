@@ -30,6 +30,7 @@ These events are triggered in the context of your entire workspace:
 - [`link.deleted`](#link-deleted)
 - [`lead.created`](#lead-created)
 - [`sale.created`](#sale-created)
+- [`partner.enrolled`](#partner-enrolled)
 
 ### `link.created`
 
@@ -379,6 +380,57 @@ Here's an example payload:
       "paymentProcessor": "stripe",
       "invoiceId": null
     }
+  }
+}
+```
+</Accordion>
+
+### `partner.enrolled`
+
+This event is triggered when a [new partner is enrolled](/api-reference/endpoint/create-a-partner) in your partner program. The event payload contains the following:
+
+- `partner`: Details about the partner that was enrolled.
+- `links`: An array of referral links.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json partner.enrolled
+{
+  "id": "evt_ovabfqva8oqZzmLPN1JnwIfdt",
+  "event": "partner.enrolled",
+  "createdAt": "2025-04-08T17:11:56.492Z",
+  "data": {
+    "id": "pn_1JRB6678XHGBZE95R5PH5QVGS",
+    "name": "Asleep Pink Mammal",
+    "email": "chosen.blush.barracuda@dub-internal-test.com",
+    "image": null,
+    "description": null,
+    "country": null,
+    "payoutsEnabledAt": null,
+    "createdAt": "2025-04-08T17:11:56.446Z",
+    "status": "approved",
+    "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
+    "tenantId": null,
+    "links": [
+      {
+        "id": "link_1JRB6677YXQB49RC1HKH7TPJE",
+        "domain": "getacme.link",
+        "key": "uvYO5pMIpctKdUVJlL3jIL4o",
+        "shortLink": "https://getacme.link/uvYO5pMIpctKdUVJlL3jIL4o",
+        "url": "https://acme.com",
+        "clicks": 0,
+        "leads": 0,
+        "sales": 0,
+        "saleAmount": 0
+      }
+    ],
+    "clicks": 0,
+    "leads": 0,
+    "sales": 0,
+    "saleAmount": 0,
+    "earnings": 0,
+    "applicationId": null
   }
 }
 ```
