@@ -135,7 +135,7 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
   </Step>
 
   <Step title="Refresh the access token">
-    Dub access tokens are short-lived, depending on the `expires_in` value. Dub will respond with `401 Unauthorized` if you try to use an expired access token.
+    Dub access tokens are short-lived, depending on the `expires_in` value (the default value is `7200 seconds`, or **2 hours**). Dub will respond with `401 Unauthorized` if you try to use an expired access token.
 
     To refresh the access token, you need to make a POST request to the Dub OAuth token URL with the `refresh_token` you obtained when exchanging the code for an `access_token`.
 
