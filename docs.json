@@ -141,8 +141,7 @@
               {
                 "group": "Embedded Dashboards",
                 "pages": ["sdks/embed/referrals", "sdks/embed/analytics"]
-              },
-              "sdks/cli"
+              }
             ]
           },
           {
