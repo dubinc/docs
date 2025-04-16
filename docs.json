@@ -99,86 +99,127 @@
         "icon": "rectangle-terminal",
         "groups": [
           {
-            "group": "API Reference",
+            "group": "Overview",
             "pages": [
               "api-reference/introduction",
               "api-reference/tokens",
-              "api-reference/rate-limits",
-              "api-reference/pagination",
-              "api-reference/errors"
+              "api-reference/rate-limits"
             ]
           },
           {
-            "group": "Links",
+            "group": "SDKs",
             "pages": [
-              "api-reference/endpoint/create-a-new-link",
-              "api-reference/endpoint/update-a-link",
-              "api-reference/endpoint/upsert-a-link",
-              "api-reference/endpoint/delete-a-link",
-              "api-reference/endpoint/retrieve-a-link",
-              "api-reference/endpoint/retrieve-a-list-of-links",
-              "api-reference/endpoint/retrieve-number-of-links",
-              "api-reference/endpoint/bulk-create-links",
-              "api-reference/endpoint/bulk-update-links",
-              "api-reference/endpoint/bulk-delete-links",
-              "api-reference/endpoint/retrieve-a-qr-code"
+              "sdks/overview",
+              {
+                "group": "Server-side SDKs",
+                "pages": [
+                  "sdks/typescript",
+                  "sdks/python",
+                  "sdks/ruby",
+                  "sdks/php",
+                  "sdks/go"
+                ]
+              },
+              {
+                "group": "Client-side SDK",
+                "pages": [
+                  "sdks/client-side/introduction",
+                  "sdks/client-side/variants",
+                  {
+                    "group": "Installation Guides",
+                    "pages": [
+                      "sdks/client-side/installation-guides/react",
+                      "sdks/client-side/installation-guides/manual",
+                      "sdks/client-side/installation-guides/webflow",
+                      "sdks/client-side/installation-guides/wordpress",
+                      "sdks/client-side/installation-guides/framer",
+                      "sdks/client-side/installation-guides/shopify"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Embedded Dashboards",
+                "pages": ["sdks/embed/referrals", "sdks/embed/analytics"]
+              },
+              "sdks/cli"
             ]
           },
           {
-            "group": "Analytics",
+            "group": "API",
             "pages": [
-              "api-reference/endpoint/retrieve-analytics",
-              "api-reference/endpoint/retrieve-a-list-of-events"
-            ]
-          },
-          {
-            "group": "Conversions",
-            "pages": [
-              "api-reference/endpoint/track-lead",
-              "api-reference/endpoint/track-sale"
-            ]
-          },
-          {
-            "group": "Customers",
-            "pages": [
-              "api-reference/endpoint/retrieve-a-customer",
-              "api-reference/endpoint/retrieve-a-list-of-customers",
-              "api-reference/endpoint/update-a-customer",
-              "api-reference/endpoint/delete-a-customer"
-            ]
-          },
-          {
-            "group": "Partners",
-            "pages": [
-              "api-reference/endpoint/create-a-partner",
-              "api-reference/endpoint/create-a-partner-link",
-              "api-reference/endpoint/upsert-a-partner-link",
-              "api-reference/endpoint/retrieve-a-partners-links",
-              "api-reference/endpoint/retrieve-partner-analytics"
-            ]
-          },
-          {
-            "group": "Tags",
-            "pages": [
-              "api-reference/endpoint/create-a-new-tag",
-              "api-reference/endpoint/retrieve-a-list-of-tags",
-              "api-reference/endpoint/update-a-tag"
-            ]
-          },
-          {
-            "group": "Domains",
-            "pages": [
-              "api-reference/endpoint/create-a-domain",
-              "api-reference/endpoint/update-a-domain",
-              "api-reference/endpoint/delete-a-domain",
-              "api-reference/endpoint/retrieve-a-list-of-domains"
-            ]
-          },
-          {
-            "group": "Workspaces",
-            "pages": [
-              "api-reference/endpoint/retrieve-a-workspace",
-              "api-reference/endpoint/update-a-workspace"
+              {
+                "group": "Links API",
+                "pages": [
+                  "api-reference/endpoint/create-a-new-link",
+                  "api-reference/endpoint/update-a-link",
+                  "api-reference/endpoint/upsert-a-link",
+                  "api-reference/endpoint/delete-a-link",
+                  "api-reference/endpoint/retrieve-a-link",
+                  "api-reference/endpoint/retrieve-a-list-of-links",
+                  "api-reference/endpoint/retrieve-number-of-links",
+                  "api-reference/endpoint/bulk-create-links",
+                  "api-reference/endpoint/bulk-update-links",
+                  "api-reference/endpoint/bulk-delete-links",
+                  "api-reference/endpoint/retrieve-a-qr-code"
+                ]
+              },
+              {
+                "group": "Analytics API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-analytics",
+                  "api-reference/endpoint/retrieve-a-list-of-events"
+                ]
+              },
+              {
+                "group": "Conversions API",
+                "pages": [
+                  "api-reference/endpoint/track-lead",
+                  "api-reference/endpoint/track-sale"
+                ]
+              },
+              {
+                "group": "Customers API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-a-customer",
+                  "api-reference/endpoint/retrieve-a-list-of-customers",
+                  "api-reference/endpoint/update-a-customer",
+                  "api-reference/endpoint/delete-a-customer"
+                ]
+              },
+              {
+                "group": "Partners API",
+                "pages": [
+                  "api-reference/endpoint/create-a-partner",
+                  "api-reference/endpoint/create-a-partner-link",
+                  "api-reference/endpoint/upsert-a-partner-link",
+                  "api-reference/endpoint/retrieve-a-partners-links",
+                  "api-reference/endpoint/retrieve-partner-analytics"
+                ]
+              },
+              {
+                "group": "Tags API",
+                "pages": [
+                  "api-reference/endpoint/create-a-new-tag",
+                  "api-reference/endpoint/retrieve-a-list-of-tags",
+                  "api-reference/endpoint/update-a-tag"
+                ]
+              },
+              {
+                "group": "Domains API",
+                "pages": [
+                  "api-reference/endpoint/create-a-domain",
+                  "api-reference/endpoint/update-a-domain",
+                  "api-reference/endpoint/delete-a-domain"
+                ]
+              },
+              {
+                "group": "Workspaces API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-a-workspace",
+                  "api-reference/endpoint/update-a-workspace"
+                ]
+              }
             ]
           }
         ]
@@ -186,81 +227,7 @@
       {
         "anchor": "Changelog",
         "icon": "rectangle-history",
-        "groups": [
-          {
-            "group": "SDKs",
-            "pages": ["sdks/overview"]
-          },
-          {
-            "group": "Quickstarts",
-            "pages": [
-              {
-                "group": "Typescript",
-                "icon": "js",
-                "pages": [
-                  "sdks/quickstart/typescript",
-                  "sdks/quickstart/nextjs",
-                  "sdks/quickstart/remix",
-                  "sdks/quickstart/nuxt",
-                  "sdks/quickstart/express"
-                ]
-              },
-              {
-                "group": "Go",
-                "icon": "golang",
-                "pages": ["sdks/quickstart/go"]
-              },
-              {
-                "group": "Python",
-                "icon": "python",
-                "pages": [
-                  "sdks/quickstart/python",
-                  "sdks/quickstart/flask",
-                  "sdks/quickstart/django"
-                ]
-              },
-              {
-                "group": "Ruby",
-                "icon": "gem",
-                "pages": [
-                  "sdks/quickstart/ruby",
-                  "sdks/quickstart/rails",
-                  "sdks/quickstart/sinatra"
-                ]
-              },
-              {
-                "group": "PHP",
-                "icon": "php",
-                "pages": ["sdks/quickstart/php", "sdks/quickstart/laravel"]
-              }
-            ]
-          },
-          {
-            "group": "Client-side SDKs",
-            "icon": "js",
-            "pages": [
-              "sdks/client-side/introduction",
-              "sdks/client-side/variants",
-              {
-                "group": "Installation Guides",
-                "icon": "download",
-                "pages": [
-                  "sdks/client-side/installation-guides/react",
-                  "sdks/client-side/installation-guides/manual",
-                  "sdks/client-side/installation-guides/webflow",
-                  "sdks/client-side/installation-guides/wordpress",
-                  "sdks/client-side/installation-guides/framer",
-                  "sdks/client-side/installation-guides/shopify"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "CLI",
-            "icon": "terminal",
-            "pages": ["sdks/cli/overview"]
-          }
-        ]
+        "href": "https://dub.co/changelog"
       }
     ]
   },
@@ -309,6 +276,14 @@
     {
       "source": "/sdks",
       "destination": "/sdks/overview"
+    },
+    {
+      "source": "/sdks/typescript/:path*",
+      "destination": "/sdks/typescript"
+    },
+    {
+      "source": "/sdks/cli/overview",
+      "destination": "/sdks/cli"
     },
     {
       "source": "/sdks/js-client/overview",
@@ -441,6 +416,14 @@
     {
       "source": "/api-reference/endpoint/add-a-domain",
       "destination": "/api-reference/endpoint/create-a-domain"
+    },
+    {
+      "source": "/api-reference/pagination",
+      "destination": "/api-reference/introduction#pagination"
+    },
+    {
+      "source": "/api-reference/errors",
+      "destination": "/api-reference/introduction#error-handling"
     }
   ]
 }
