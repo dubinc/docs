@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
-  "name": "Dub Docs",
+  "name": "Dub Documentation",
   "colors": {
     "primary": "#eb5611",
     "light": "#eb5611",
@@ -9,9 +9,9 @@
   },
   "favicon": "/logos/favicon.png",
   "navigation": {
-    "tabs": [
+    "anchors": [
       {
-        "tab": "Documentation",
+        "anchor": "Documentation",
         "groups": [
           {
             "group": "Getting Started",
@@ -22,7 +22,6 @@
             "pages": [
               {
                 "group": "Links",
-                "icon": "link",
                 "pages": [
                   "concepts/links/introduction",
                   "concepts/links/organization",
@@ -32,7 +31,6 @@
               "concepts/analytics",
               {
                 "group": "Webhooks",
-                "icon": "webhook",
                 "pages": [
                   "concepts/webhooks/introduction",
                   "concepts/webhooks/event-types",
@@ -47,12 +45,10 @@
               "conversions/quickstart",
               {
                 "group": "Clicks",
-                "icon": "arrow-pointer",
                 "pages": ["conversions/clicks/introduction"]
               },
               {
                 "group": "Leads",
-                "icon": "user-plus",
                 "pages": [
                   "conversions/leads/introduction",
                   "conversions/leads/clerk",
@@ -64,7 +60,6 @@
               },
               {
                 "group": "Sales",
-                "icon": "money-bill",
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/stripe",
@@ -80,7 +75,6 @@
               "integrations/quickstart",
               {
                 "group": "List of integrations",
-                "icon": "list",
                 "pages": [
                   "integrations/zapier",
                   "integrations/make",
@@ -101,7 +95,8 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "anchor": "APIs and SDKs",
+        "icon": "rectangle-terminal",
         "groups": [
           {
             "group": "API Reference",
@@ -189,7 +184,8 @@
         ]
       },
       {
-        "tab": "SDKs",
+        "anchor": "Changelog",
+        "icon": "rectangle-history",
         "groups": [
           {
             "group": "SDKs",
@@ -293,7 +289,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://d.to/try"
+      "href": "https://app.dub.co/register"
     }
   },
   "footer": {
