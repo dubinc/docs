@@ -40,7 +40,7 @@ If you need to create a lot of links within a short period of time, try our [bul
 
 <CodeGroup>
 
-```typescript TypeScript
+```javascript Node.js
 await dub.links.createMany([
   {
     url: "https://google.com",
@@ -111,7 +111,7 @@ If you're using our [Analytics API](/api-reference/endpoint/retrieve-analytics),
 
 <CodeGroup>
 
-```typescript TypeScript
+```javascript Node.js
 await dub.analytics.retrieve({
   groupBy: "top_links",
   start: "4 hours ago", // we support natural language for start/end params

@@ -1,5 +1,5 @@
 <a href="https://dub.co">
-  <img alt="Dub is the open-source link management infrastructure for modern marketing teams." src="https://github.com/user-attachments/assets/66749065-928d-4501-bae0-7e2b4c456f7d" />
+  <img alt="Dub is the open-source link attribution platform for modern marketing teams." src="https://github.com/user-attachments/assets/66749065-928d-4501-bae0-7e2b4c456f7d" />
 </a>
 
 <h3 align="center">dubinc/docs</h3>

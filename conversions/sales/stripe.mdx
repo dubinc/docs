@@ -195,7 +195,7 @@ If your setup doesn't involve a [lead event](/conversions/leads/introduction) an
 
   <CodeGroup>
 
-```typescript TypeScript
+```javascript Node.js
 const session = await stripe.checkout.sessions.create({
   success_url: "https://example.com/success",
   line_items: [
@@ -276,7 +276,7 @@ This will allow Dub to automatically listen for purchase events from Stripe and 
 
 Remember in the [lead conversion tracking guide](/conversions/leads/introduction), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
 
-```typescript TypeScript
+```javascript Node.js
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
@@ -302,7 +302,7 @@ First, you'll need to complete the following prerequisites:
 
 Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
 
-```typescript TypeScript
+```javascript Node.js
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -339,7 +339,7 @@ First, you'll need to complete the following prerequisites:
 
 Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
 
-```typescript TypeScript
+```javascript Node.js
 import { stripe } from "@/lib/stripe";
 
 const user = {
@@ -362,7 +362,7 @@ await stripe.customers.create({
 
 Alternatively, you can also pass the `dubCustomerId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
 
-```typescript TypeScript
+```javascript Node.js
 import { stripe } from "@/lib/stripe";
 
 const user = {
