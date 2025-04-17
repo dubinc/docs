@@ -3,6 +3,8 @@ title: "Ruby SDK"
 description: "Learn how to integrate Dub with Ruby."
 ---
 
+import SdkUsageExamples from "/snippets/sdk-usage-examples.mdx";
+
 ## Installation
 
 ```bash
@@ -45,11 +47,7 @@ analytics_res = dub.analytics.retrieve(analytics_req)
 puts analytics_res.raw_response.body # e.g. [{ "start": "2024-01-01", "clicks": 100 }]
 ```
 
-For more usage examples:
-
-1. [Organizing links by external ID, tenant ID, tags, etc](/concepts/links/organization)
-2. [Bulk link actions (create, update, delete)](/concepts/links/bulk-actions)
-3. [Retrieving link analytics](/concepts/analytics)
+<SdkUsageExamples />
 
 ## Frameworks
 
