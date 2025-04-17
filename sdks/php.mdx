@@ -3,10 +3,101 @@ title: "PHP SDK"
 description: "Learn how to integrate Dub with PHP."
 ---
 
+## Installation
+
+```bash
+composer require dub/dub-php
+```
+
+## Basic Usage
+
+Here's how you can use the Dub PHP SDK to create a link and retrieve click analytics in timeseries format for it:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub\Dub;
+use Dub\Models\Operations;
+
+// Initialize the Dub SDK with your API key
+$dub = Dub::builder()
+    ->setSecurity(getenv('DUB_API_KEY')) // optional, defaults to DUB_API_KEY
+    ->build();
+
+// Create a new link
+$request = new Operations\CreateLinkRequestBody(
+    url: 'https://google.com',
+);
+
+try {
+    $response = $dub->links->create($request);
+
+    if ($response->linkSchema !== null) {
+        echo $response->linkSchema->shortLink; // e.g. https://dub.sh/abc123
+    }
+
+    // Get analytics for the link
+    $analyticsRequest = new Operations\RetrieveAnalyticsRequest();
+    $analyticsRequest->linkId = $response->linkSchema->id;
+    $analyticsRequest->interval = Operations\Interval::ThirtyD;
+    $analyticsRequest->groupBy = Operations\GroupBy::Timeseries;
+
+    $analyticsResponse = $dub->analytics->retrieve($analyticsRequest);
+
+    if ($analyticsResponse->oneOf !== null) {
+        print_r($analyticsResponse->oneOf); // e.g. [{ start: "2024-01-01", clicks: 100 }]
+    }
+} catch (Throwable $e) {
+    // handle exception
+}
+```
+
+For more usage examples:
+
+1. [Organizing links by external ID, tenant ID, tags, etc](/concepts/links/organization)
+2. [Bulk link actions (create, update, delete)](/concepts/links/bulk-actions)
+3. [Retrieving link analytics](/concepts/analytics)
+
 ## Frameworks
 
 You can use the Dub PHP SDK with any PHP framework:
 
 1. [Usage with Laravel](/sdks/quickstart/laravel)
+2. [Usage with Symfony](/sdks/quickstart/symfony)
+3. [Usage with Slim](/sdks/quickstart/slim)
 
 If you're using a different PHP framework, you can refer to the [PHP SDK quickstart](/sdks/quickstart/php) for a basic example.
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="Packagist" icon="php" href="https://d.to/php/sdk">
+    Download and install the Dub PHP SDK on Packagist
+  </Card>
+  <Card
+    title="Source Code"
+    icon="github"
+    href="https://github.com/dubinc/dub-php"
+  >
+    View the complete source code for the Dub PHP SDK
+  </Card>
+  <Card
+    title="Examples"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/php"
+  >
+    Quickstart examples with the PHP SDK
+  </Card>
+  <Card
+    title="SDK Reference"
+    icon="book"
+    iconType="solid"
+    href="https://github.com/dubinc/dub-php/blob/main/README.md"
+  >
+    View the complete SDK reference documentation
+  </Card>
+</CardGroup>

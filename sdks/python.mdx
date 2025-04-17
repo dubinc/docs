@@ -3,11 +3,84 @@ title: "Python SDK"
 description: "Learn how to integrate Dub with Python."
 ---
 
+## Installation
+
+```bash
+pip install dub
+```
+
+## Basic Usage
+
+Here's how you can use the Dub Python SDK to create a link and retrieve click analytics in timeseries format for it:
+
+```python
+import os
+import dub
+from dub.models import operations
+
+# Initialize the Dub SDK with your API key
+d = dub.Dub(
+    token=os.environ['DUB_API_KEY'], # optional, defaults to DUB_API_KEY
+)
+
+# Create a new link
+res = d.links.create(request={
+    "url": "https://google.com",
+})
+
+print(res.short_link) # e.g. https://dub.sh/abc123
+
+# Get analytics for the link
+analytics = d.analytics.retrieve(request={
+    "link_id": res.id,
+    "interval": "30d",
+    "group_by": "timeseries",
+})
+
+print(analytics) # e.g. [{ "start": "2024-01-01", "clicks": 100 }]
+```
+
+For more usage examples:
+
+1. [Organizing links by external ID, tenant ID, tags, etc](/concepts/links/organization)
+2. [Bulk link actions (create, update, delete)](/concepts/links/bulk-actions)
+3. [Retrieving link analytics](/concepts/analytics)
+
 ## Frameworks
 
-You can use the Dub TypeScript SDK with any Python framework:
+You can use the Dub Python SDK with any Python framework:
 
 1. [Usage with Flask](/sdks/quickstart/flask)
 2. [Usage with Django](/sdks/quickstart/django)
 
 If you're using a different Python framework, you can refer to the [Python SDK quickstart](/sdks/quickstart/python) for a basic example.
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="PyPI Package" icon="python" href="https://d.to/python/sdk">
+    Download and install the Dub Python SDK on PyPI
+  </Card>
+  <Card
+    title="Source Code"
+    icon="github"
+    href="https://github.com/dubinc/dub-python"
+  >
+    View the complete source code for the Dub Python SDK
+  </Card>
+  <Card
+    title="Examples"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/python"
+  >
+    Quickstart examples with the Python SDK
+  </Card>
+  <Card
+    title="SDK Reference"
+    icon="book"
+    iconType="solid"
+    href="https://github.com/dubinc/dub-python/blob/main/README.md"
+  >
+    View the complete SDK reference documentation
+  </Card>
+</CardGroup>
