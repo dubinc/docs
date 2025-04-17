@@ -5,11 +5,56 @@ description: "Learn how to integrate Dub with TypeScript."
 
 ## Installation
 
-```bash
-npm install dub-ts
+<CodeGroup>
+
+```bash npm
+npm install dub
 ```
 
-Usage guide for
+```bash pnpm
+pnpm add dub
+```
+
+```bash yarn
+yarn add dub zod # zod is a peer dependency
+```
+
+</CodeGroup>
+
+## Basic Usage
+
+Here's how you can use the Dub TypeScript SDK to create a link and retrieve click analytics in timeseries format for it:
+
+```typescript
+import { Dub } from "dub";
+
+// Initialize the Dub SDK with your API key
+const dub = new Dub({
+  token: process.env.DUB_API_KEY, // optional, defaults to DUB_API_KEY
+});
+
+// Create a new link
+const link = await dub.links.create({
+  url: "https://google.com",
+});
+
+console.log(link.shortLink); // e.g. https://dub.sh/abc123
+
+// Get analytics for the link
+const analytics = await dub.analytics.retrieve({
+  link_id: link.id,
+  groupBy: "timeseries",
+  interval: "30d",
+});
+
+console.log(analytics); // e.g. [{ start: "2024-01-01", clicks: 100 }]
+```
+
+For more usage examples:
+
+1. [Organizing links by external ID, tenant ID, tags, etc](/concepts/links/organization)
+2. [Bulk link actions (create, update, delete)](/concepts/links/bulk-actions)
+3. [Retrieving link analytics](/concepts/analytics)
 
 ## Frameworks
 
