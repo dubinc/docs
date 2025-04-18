@@ -139,6 +139,8 @@ curl --request POST \
 
 </CodeGroup>
 
+Check out the [full API reference for the link creation endpoint](/api-reference/endpoint/create-a-link).
+
 ## Update a link
 
 An existing link can be updated by providing the `id` to the `update` method. This method returns the updated link as a response.
@@ -250,6 +252,8 @@ curl --request PATCH \
 
 </CodeGroup>
 
+Check out the [full API reference for the link update endpoint](/api-reference/endpoint/update-a-link).
+
 ## Upsert a link
 
 Upserting a link is a combination of creating and updating a link. If a link with the same URL already exists, return it (or update it if there are any changes). Otherwise, a new link will be created.
@@ -359,3 +363,5 @@ curl --request POST \
 ```
 
 </CodeGroup>
+
+Check out the [full API reference for the link upsert endpoint](/api-reference/endpoint/upsert-a-link).

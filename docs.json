@@ -15,10 +15,10 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "data-model", "examples"]
+            "pages": ["introduction", "examples"]
           },
           {
-            "group": "Fundamentals",
+            "group": "Concepts",
             "pages": [
               {
                 "group": "Links",
@@ -28,7 +28,25 @@
                   "concepts/links/bulk-actions"
                 ]
               },
-              "concepts/analytics",
+              {
+                "group": "Analytics",
+                "pages": [
+                  "concepts/analytics/introduction",
+                  "concepts/analytics/geolocation",
+                  "concepts/analytics/device",
+                  "concepts/analytics/referrers",
+                  "concepts/analytics/utm",
+                  "concepts/analytics/events"
+                ]
+              },
+              {
+                "group": "Conversions",
+                "pages": [
+                  "conversions/quickstart",
+                  "conversions/leads/introduction",
+                  "conversions/sales/introduction"
+                ]
+              },
               {
                 "group": "Webhooks",
                 "pages": [
@@ -40,32 +58,11 @@
             ]
           },
           {
-            "group": "Conversions",
+            "group": "Use Cases",
             "pages": [
-              "conversions/quickstart",
-              {
-                "group": "Clicks",
-                "pages": ["conversions/clicks/introduction"]
-              },
-              {
-                "group": "Leads",
-                "pages": [
-                  "conversions/leads/introduction",
-                  "conversions/leads/clerk",
-                  "conversions/leads/next-auth",
-                  "conversions/leads/supabase",
-                  "conversions/leads/auth0",
-                  "conversions/leads/appwrite"
-                ]
-              },
-              {
-                "group": "Sales",
-                "pages": [
-                  "conversions/sales/introduction",
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify"
-                ]
-              }
+              "use-cases/link-shortening",
+              "use-cases/conversion-tracking",
+              "use-cases/referral-programs"
             ]
           },
           {
@@ -76,14 +73,13 @@
               {
                 "group": "List of integrations",
                 "pages": [
-                  "integrations/zapier",
-                  "integrations/make",
-                  "integrations/stripe",
-                  "integrations/shopify",
-                  "integrations/segment",
-                  "integrations/wordpress",
-                  "integrations/raycast",
-                  "integrations/slack"
+                  "conversions/sales/stripe",
+                  "conversions/sales/shopify",
+                  "conversions/leads/clerk",
+                  "conversions/leads/next-auth",
+                  "conversions/leads/supabase",
+                  "conversions/leads/auth0",
+                  "conversions/leads/appwrite"
                 ]
               }
             ]
@@ -178,15 +174,6 @@
                 ]
               },
               {
-                "group": "Customers API",
-                "pages": [
-                  "api-reference/endpoint/retrieve-a-customer",
-                  "api-reference/endpoint/retrieve-a-list-of-customers",
-                  "api-reference/endpoint/update-a-customer",
-                  "api-reference/endpoint/delete-a-customer"
-                ]
-              },
-              {
                 "group": "Partners API",
                 "pages": [
                   "api-reference/endpoint/create-a-partner",
@@ -194,6 +181,15 @@
                   "api-reference/endpoint/upsert-a-partner-link",
                   "api-reference/endpoint/retrieve-a-partners-links",
                   "api-reference/endpoint/retrieve-partner-analytics"
+                ]
+              },
+              {
+                "group": "Customers API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-a-customer",
+                  "api-reference/endpoint/retrieve-a-list-of-customers",
+                  "api-reference/endpoint/update-a-customer",
+                  "api-reference/endpoint/delete-a-customer"
                 ]
               },
               {
@@ -210,13 +206,6 @@
                   "api-reference/endpoint/create-a-domain",
                   "api-reference/endpoint/update-a-domain",
                   "api-reference/endpoint/delete-a-domain"
-                ]
-              },
-              {
-                "group": "Workspaces API",
-                "pages": [
-                  "api-reference/endpoint/retrieve-a-workspace",
-                  "api-reference/endpoint/update-a-workspace"
                 ]
               }
             ]
@@ -295,6 +284,14 @@
     {
       "source": "/integrations/webhooks",
       "destination": "/concepts/webhooks/introduction"
+    },
+    {
+      "source": "/integrations/:path*",
+      "destination": "https://dub.co/integrations/:path*"
+    },
+    {
+      "source": "/concepts/analytics",
+      "destination": "/concepts/analytics/introduction"
     },
     {
       "source": "/conversions/leads/supabase-auth",
