@@ -53,33 +53,44 @@
                 "group": "Conversion tracking",
                 "pages": [
                   "conversions/quickstart",
-                  "conversions/leads/introduction",
-                  "conversions/sales/introduction"
+                  {
+                    "group": "Tracking lead events",
+                    "pages": [
+                      "conversions/leads/introduction",
+                      "conversions/leads/clerk",
+                      "conversions/leads/next-auth",
+                      "conversions/leads/supabase",
+                      "conversions/leads/auth0",
+                      "conversions/leads/appwrite"
+                    ]
+                  },
+                  {
+                    "group": "Tracking sale events",
+                    "pages": [
+                      "conversions/sales/introduction",
+                      "conversions/sales/stripe",
+                      "conversions/sales/shopify"
+                    ]
+                  }
                 ]
               }
             ]
           },
           {
-            "group": "Partners",
-            "pages": ["partners/introduction"]
+            "group": "Dub Partners",
+            "pages": [
+              "partners/quickstart",
+              "partners/dual-sided-incentives",
+              "partners/cross-domain-tracking",
+              "partners/non-monetary-rewards",
+              "partners/white-labeled-referral-dashboard"
+            ]
           },
           {
             "group": "Integrations",
             "pages": [
               "integrations",
               "integrations/quickstart",
-              {
-                "group": "Integration guides",
-                "pages": [
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify",
-                  "conversions/leads/clerk",
-                  "conversions/leads/next-auth",
-                  "conversions/leads/supabase",
-                  "conversions/leads/auth0",
-                  "conversions/leads/appwrite"
-                ]
-              },
               {
                 "group": "Webhooks",
                 "pages": [
