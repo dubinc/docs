@@ -15,55 +15,53 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "examples"]
-          },
-          {
-            "group": "Concepts",
             "pages": [
+              "introduction",
               {
-                "group": "Links",
+                "group": "Use cases",
                 "pages": [
-                  "concepts/links/introduction",
-                  "concepts/links/organization",
-                  "concepts/links/bulk-actions"
-                ]
-              },
-              {
-                "group": "Analytics",
-                "pages": [
-                  "concepts/analytics/introduction",
-                  "concepts/analytics/geolocation",
-                  "concepts/analytics/device",
-                  "concepts/analytics/referrers",
-                  "concepts/analytics/utm",
-                  "concepts/analytics/events"
-                ]
-              },
-              {
-                "group": "Conversions",
-                "pages": [
-                  "conversions/quickstart",
-                  "conversions/leads/introduction",
-                  "conversions/sales/introduction"
-                ]
-              },
-              {
-                "group": "Webhooks",
-                "pages": [
-                  "concepts/webhooks/introduction",
-                  "concepts/webhooks/event-types",
-                  "concepts/webhooks/verify-webhook-requests"
+                  "use-cases/link-shortening",
+                  "use-cases/conversion-tracking",
+                  "use-cases/referral-programs"
                 ]
               }
             ]
           },
           {
-            "group": "Use Cases",
+            "group": "Links",
             "pages": [
-              "use-cases/link-shortening",
-              "use-cases/conversion-tracking",
-              "use-cases/referral-programs"
+              "concepts/links/introduction",
+              "concepts/links/bulk-actions",
+              "concepts/links/organization"
             ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "concepts/analytics/introduction",
+              {
+                "group": "Filtering and aggregation",
+                "pages": [
+                  "concepts/analytics/geolocation",
+                  "concepts/analytics/device",
+                  "concepts/analytics/referrers",
+                  "concepts/analytics/utm"
+                ]
+              },
+              "concepts/analytics/events",
+              {
+                "group": "Conversion tracking",
+                "pages": [
+                  "conversions/quickstart",
+                  "conversions/leads/introduction",
+                  "conversions/sales/introduction"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Partners",
+            "pages": ["partners/introduction"]
           },
           {
             "group": "Integrations",
@@ -71,7 +69,7 @@
               "integrations",
               "integrations/quickstart",
               {
-                "group": "List of integrations",
+                "group": "Integration guides",
                 "pages": [
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
@@ -80,6 +78,14 @@
                   "conversions/leads/supabase",
                   "conversions/leads/auth0",
                   "conversions/leads/appwrite"
+                ]
+              },
+              {
+                "group": "Webhooks",
+                "pages": [
+                  "concepts/webhooks/introduction",
+                  "concepts/webhooks/event-types",
+                  "concepts/webhooks/verify-webhook-requests"
                 ]
               }
             ]

@@ -13,7 +13,7 @@ These are the integrations that are officially supported and actively maintained
 <CardGroup cols={2}>
   <Card
     title="Zapier"
-    href="/integrations/zapier"
+    href="https://dub.co/integrations/zapier"
     icon={
       <div className="h-8 w-8">
         <img
@@ -28,7 +28,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Make.com"
-    href="/integrations/make"
+    href="https://dub.co/integrations/make"
     icon={
       <div className="h-8 w-8">
         <img
@@ -43,7 +43,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Stripe"
-    href="/integrations/stripe"
+    href="https://dub.co/integrations/stripe"
     icon={
       <div className="h-8 w-8">
         <img
@@ -58,7 +58,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Shopify"
-    href="/integrations/shopify"
+    href="https://dub.co/integrations/shopify"
     icon={
       <div className="h-8 w-8">
         <img
@@ -73,7 +73,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Segment"
-    href="/integrations/segment"
+    href="https://dub.co/integrations/segment"
     icon={
       <div className="h-8 w-8">
         <img
@@ -88,7 +88,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Wordpress"
-    href="/integrations/wordpress"
+    href="https://dub.co/integrations/wordpress"
     icon={
       <div className="h-8 w-8">
         <img
@@ -103,7 +103,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Raycast"
-    href="/integrations/raycast"
+    href="https://dub.co/integrations/raycast"
     icon={
       <div className="h-8 w-8">
         <img
@@ -118,6 +118,7 @@ These are the integrations that are officially supported and actively maintained
   </Card>
   <Card
     title="Slack"
+    href="https://dub.co/integrations/slack"
     icon={
       <div className="h-8 w-8">
         <img
@@ -127,7 +128,6 @@ These are the integrations that are officially supported and actively maintained
         />
       </div>
     }
-    href="/integrations/slack"
   >
     Integrate Dub with Slack
   </Card>
@@ -139,19 +139,18 @@ You can build your own integrations with Dub's link infrastructure using our [AP
 
 1. Read the documentation on how to [create links](/api-reference/endpoint/create-a-new-link) or [track sale conversions](/api-reference/endpoint/track-sale).
 2. Learn how to [integrate Dub into your application](/integrations/quickstart).
-3. [Reach out to us](mailto:support@dub.co?subject=New%20Dub.co%20Integration) to feature your integration in the integrations marketplace.
+3. [Reach out to us](https://dub.co/contact/support) to feature your integration in the integrations marketplace.
 
-## No-code Resources
+## Integration webhooks
 
-If you're looking to integrate with Dub using no-code tools like Make.com and Smartsuite, here are some resources to help you get started:
+Dub also supports webhooks for integrations. You can learn more about them in the [webhooks](/concepts/webhooks/introduction) documentation.
 
-<iframe
-  width="100%"
-  className="aspect-video"
-  src="https://www.youtube.com/embed/KQU3qqhuj3Q"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen
-/>
+Here's a list of the webhooks that Dub supports:
+
+- [`link.created`](/concepts/webhooks/event-types#link-created) – when a new link is created
+- [`link.updated`](/concepts/webhooks/event-types#link-updated) – when a link is updated
+- [`link.deleted`](/concepts/webhooks/event-types#link-deleted) – when a link is deleted
+- [`link.clicked`](/concepts/webhooks/event-types#link-clicked) – when a link is clicked
+- [`lead.created`](/concepts/webhooks/event-types#lead-created) – when a new lead is created
+- [`sale.created`](/concepts/webhooks/event-types#sale-created) – when a new sale is created
+- [`partner.enrolled`](/concepts/webhooks/event-types#partner-enrolled) – when a new partner is enrolled in your program

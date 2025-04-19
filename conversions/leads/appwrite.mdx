@@ -9,6 +9,8 @@ import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
 import LeadsAttributes from "/snippets/leads-attributes.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
 
+TODO: rephrase in the context of integration guides
+
 <LeadsIntro />
 
 In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Appwrite for user authentication.
@@ -17,15 +19,14 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 ## Configure Appwrite
 
-
 Next, configure Appwrite to track lead conversion events during the sign up process.
 
 <Steps>
 
   <Step title="Create an Appwrite Cloud project">
 
-    Head to [Appwrite Cloud](https://apwr.dev/appwrite-dub) and create a new project. 
-    
+    Head to [Appwrite Cloud](https://apwr.dev/appwrite-dub) and create a new project.
+
     <Frame>
 
       <img
@@ -54,7 +55,7 @@ Next, configure Appwrite to track lead conversion events during the sign up proc
     ```bash
     npm i node-appwrite
     ```
-  
+
   </Step>
 
   <Step title="Add environment variables">
@@ -140,6 +141,7 @@ Next, configure Appwrite to track lead conversion events during the sign up proc
       };
     }
     ```
+
   </Step>
 
   <Step title="Set up Dub SDK">
@@ -227,6 +229,7 @@ Next, configure Appwrite to track lead conversion events during the sign up proc
       );
     }
     ```
+
   </Step>
 
 </Steps>

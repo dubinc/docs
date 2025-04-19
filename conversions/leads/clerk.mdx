@@ -9,6 +9,8 @@ import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
 import LeadsAttributes from "/snippets/leads-attributes.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
 
+TODO: rephrase in the context of integration guides
+
 <LeadsIntro />
 
 In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Clerk for user authentication.
@@ -144,7 +146,7 @@ Here's a quick summary of the steps:
     import { dub } from "@/lib/dub";
     import { clerkClient } from "@clerk/nextjs/server";
     import { cookies } from "next/headers";
-    
+
     export async function trackLead({
       id,
       name,
@@ -159,7 +161,7 @@ Here's a quick summary of the steps:
       try {
         const cookieStore = await cookies();
         const dubId = cookieStore.get("dub_id")?.value;
-    
+
         if (dubId) {
           // Send lead event to Dub
           await dub.track.lead({
@@ -170,20 +172,20 @@ Here's a quick summary of the steps:
             customerEmail: email,
             customerAvatar: avatar,
           });
-    
+
           // Delete the dub_id cookie
           cookieStore.set("dub_id", "", {
             expires: new Date(0),
           });
         }
-    
+
         const clerk = await clerkClient();
         await clerk.users.updateUser(id, {
           publicMetadata: {
             dubClickId: dubId || "n/a",
           },
         });
-    
+
         return { ok: true };
       } catch (error) {
         console.error("Error in trackLead:", error);
