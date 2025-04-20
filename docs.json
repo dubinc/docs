@@ -48,7 +48,6 @@
                   "concepts/analytics/utm"
                 ]
               },
-              "concepts/analytics/events",
               {
                 "group": "Conversion tracking",
                 "pages": [
@@ -81,7 +80,6 @@
             "pages": [
               "partners/quickstart",
               "partners/dual-sided-incentives",
-              "partners/cross-domain-tracking",
               "partners/non-monetary-rewards",
               "partners/white-labeled-referral-dashboard"
             ]
@@ -137,7 +135,6 @@
                 "group": "Client-side SDK",
                 "pages": [
                   "sdks/client-side/introduction",
-                  "sdks/client-side/variants",
                   {
                     "group": "Installation Guides",
                     "pages": [
@@ -148,7 +145,17 @@
                       "sdks/client-side/installation-guides/framer",
                       "sdks/client-side/installation-guides/shopify"
                     ]
-                  }
+                  },
+                  {
+                    "group": "Features",
+                    "pages": [
+                      "sdks/client-side/features/conversion-tracking",
+                      "sdks/client-side/features/client-side-click-tracking",
+                      "sdks/client-side/features/cross-domain-tracking",
+                      "sdks/client-side/features/reverse-proxy-support"
+                    ]
+                  },
+                  "sdks/client-side/variants"
                 ]
               },
               {
@@ -309,6 +316,10 @@
     {
       "source": "/concepts/analytics",
       "destination": "/concepts/analytics/introduction"
+    },
+    {
+      "source": "/conversions/clicks/introduction",
+      "destination": "/sdks/client-side/features/client-side-click-tracking"
     },
     {
       "source": "/conversions/leads/supabase-auth",

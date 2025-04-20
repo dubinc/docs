@@ -1,7 +1,20 @@
 ---
 title: "Quickstart"
-description: "Set up Dub Partners"
+description: "Learn how to set up your referral/affiliate program with Dub Partners."
 ---
+
+<Note>
+  Dub Partners require a [Business plan](https://dub.co/pricing) subscription or
+  higher.
+</Note>
+
+[Dub Partners](https://dub.co/help/article/dub-partners) lets you build powerful, scalable referral and affiliate programs with 1-click global payouts and white-labeling functionality.
+
+<Frame>
+  <img src="https://assets.dub.co/cms/dub-partners.jpg" alt="Dub Partners" />
+</Frame>
+
+In this guide, we'll walk you through the steps to get started with Dub Partners:
 
 1. install dub client-side sdk
 2. track lead events
@@ -9,3 +22,21 @@ description: "Set up Dub Partners"
 4. determine commission rate
 5. create referral links
 6.
+
+cross-domain tracking
+
+## Step 1: Install the `@dub/analytics` client-side SDK
+
+First, you'll need to install the [@dub/analytics client-side SDK](/sdks/client-side/introduction).
+
+This will handle the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-click-event.png"
+    alt="A diagram showing how click events are tracked in the conversion funnel"
+  />
+</Frame>
+
+<DubClientInstall />
