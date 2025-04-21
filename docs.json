@@ -295,12 +295,36 @@
       "destination": "/concepts/webhooks/introduction"
     },
     {
-      "source": "/integrations/quickstart",
-      "destination": "/integrations/custom-integration"
+      "source": "/integrations/zapier",
+      "destination": "https://dub.co/integrations/zapier"
     },
     {
-      "source": "/integrations/:path*",
-      "destination": "https://dub.co/integrations/:path*"
+      "source": "/integrations/make",
+      "destination": "https://dub.co/integrations/make"
+    },
+    {
+      "source": "/integrations/stripe",
+      "destination": "https://dub.co/integrations/stripe"
+    },
+    {
+      "source": "/integrations/shopify",
+      "destination": "https://dub.co/integrations/shopify"
+    },
+    {
+      "source": "/integrations/segment",
+      "destination": "https://dub.co/integrations/segment"
+    },
+    {
+      "source": "/integrations/wordpress",
+      "destination": "https://dub.co/integrations/wordpress"
+    },
+    {
+      "source": "/integrations/raycast",
+      "destination": "https://dub.co/integrations/raycast"
+    },
+    {
+      "source": "/integrations/slack",
+      "destination": "https://dub.co/integrations/slack"
     },
     {
       "source": "/concepts/links/bulk-actions",
