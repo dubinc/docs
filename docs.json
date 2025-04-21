@@ -15,17 +15,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": [
-              "introduction",
-              {
-                "group": "Use cases",
-                "pages": [
-                  "use-cases/link-shortening",
-                  "use-cases/conversion-tracking",
-                  "use-cases/referral-programs"
-                ]
-              }
-            ]
+            "pages": ["introduction", "data-model"]
           },
           {
             "group": "Links",

@@ -1,7 +1,13 @@
 ---
 title: "Quickstart"
 description: "Learn how to set up your referral/affiliate program with Dub Partners."
+"og:image": "https://assets.dub.co/cms/dub-partners.jpg"
 ---
+
+import DubClientInstall from "/snippets/dub-client-install.mdx";
+import AuthProviders from "/snippets/auth-providers.mdx";
+import LeadAttributes from "/snippets/leads-attributes.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
 
 <Note>
   Dub Partners require a [Business plan](https://dub.co/pricing) subscription or
@@ -9,10 +15,6 @@ description: "Learn how to set up your referral/affiliate program with Dub Partn
 </Note>
 
 [Dub Partners](https://dub.co/help/article/dub-partners) lets you build powerful, scalable referral and affiliate programs with 1-click global payouts and white-labeling functionality.
-
-<Frame>
-  <img src="https://assets.dub.co/cms/dub-partners.jpg" alt="Dub Partners" />
-</Frame>
 
 In this guide, we'll walk you through the steps to get started with Dub Partners:
 
@@ -29,7 +31,7 @@ cross-domain tracking
 
 First, you'll need to install the [@dub/analytics client-side SDK](/sdks/client-side/introduction).
 
-This will handle the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+This script detects the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
 <Frame>
   <img
@@ -39,4 +41,146 @@ This will handle the detection of the `dub_id` query parameter and storing it as
   />
 </Frame>
 
+On top of that, it also:
+
+- lets you [track clicks on the client-side](/sdks/client-side/features/client-side-click-tracking) using query parameters (e.g. `?via=john`)
+- [automatically fetch the partner and discount data](/sdks/client-side/features/client-side-click-tracking#automatically-fetching-partner-and-discount-data) for a given link – which is helpful for displaying [dual-sided incentives](/partners/dual-sided-incentives)
+
 <DubClientInstall />
+
+## Step 2: Install the Dub server-side SDK + track conversion events
+
+<Tip>
+  If you are using Shopify, you can skip this step since our Shopify app will
+  automatically track conversions for you. Read the [Shopify integration
+  guide](https://dub.co/docs/conversions/sales/shopify) for more information.
+</Tip>
+
+Dub uses server-side event tracking to track conversions, which is more reliable than client-side tracking. Depending on which framework you're using, you can use our [native SDKs](/sdks/overview):
+
+<CardGroup>
+  <Card title="TypeScript" icon="npm" href="/sdks/typescript" horizontal>
+    TypeScript library for the Dub API
+  </Card>
+  <Card
+    title="Go"
+    icon="golang"
+    href="/sdks/quickstart/go"
+    iconType="brands"
+    horizontal
+  >
+    Go library for the Dub API
+  </Card>
+  <Card title="Python" icon="python" href="/sdks/quickstart/python" horizontal>
+    Python library for the Dub API
+  </Card>
+  <Card title="Ruby" icon="gem" href="/sdks/quickstart/ruby" horizontal>
+    Ruby library for the Dub API
+  </Card>
+</CardGroup>
+
+If you're using a framework that isn't listed, you can use the Dub REST API to track events on the server-side:
+
+- [`POST /track/lead`](https://dub.co/docs/api-reference/endpoint/track-lead)
+- [`POST /track/sale`](https://dub.co/docs/api-reference/endpoint/track-sale)
+
+Once you install the SDKs, you can start tracking conversion events.
+
+### Tracking lead events
+
+The first event you'll want to track is a `lead` event. This happens when a user performs an action that indicates interest in your product or service. This could be anything from:
+
+- Signing up for an account
+- Adding a product to cart
+- Joining a mailing list
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-lead-event.png"
+    alt="A diagram showing how lead events are tracked in the conversion funnel"
+  />
+</Frame>
+
+Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
+
+<AuthProviders />
+
+The lead event will serve as the source of truth for the customer's identity and which link they came from. This means that all subsequent actions performed by the customer (e.g. upgrading their plan, purchasing a product) will automatically be attributed to the original link.
+
+To learn more about tracking lead events with Dub, refer to the following resources:
+
+<CardGroup cols={2}>
+  <Card
+    title="Tracking lead events"
+    icon="book-open"
+    href="/conversions/leads/introduction"
+  >
+    Read the full guide on tracking lead events with Dub
+  </Card>
+  <Card
+    title="Attributes for /track/lead"
+    icon="code"
+    href="/api-reference/endpoint/track-lead"
+  >
+    View the full list of attributes you can pass when sending a lead event
+  </Card>
+</CardGroup>
+
+### Tracking sale events
+
+The second event you'll want to send is a `sale` event. This happens when a user purchases your product or service. This could be anything from:
+
+- Subscribing to a paid plan
+- Usage expansion (upgrading from one plan to another)
+- Purchasing a product
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/conversion-sale-event.png"
+    alt="A diagram showing how sale events are tracked in the conversion funnel"
+  />
+</Frame>
+
+Depending on which payment processor you're using, we offer native integrations for the following:
+
+<CardGroup cols={1}>
+  <Card
+    title="Stripe"
+    icon="stripe"
+    href="/conversions/sales/stripe"
+    horizontal
+  >
+    Tracking sale conversion events with Stripe and the Dub SDK
+  </Card>
+  <Card
+    title="Shopify"
+    icon="shopify"
+    href="/conversions/sales/shopify"
+    horizontal
+  >
+    Tracking sale conversion events with Shopify and the Dub SDK
+  </Card>
+</CardGroup>
+
+Alternatively, you can also send sale events manually using [our SDKs](/sdks/overview) or the [`POST /track/sale` API endpoint](https://dub.co/docs/api-reference/endpoint/track-sale).
+
+To learn more about tracking sale events with Dub, refer to the following resources:
+
+<CardGroup cols={2}>
+  <Card
+    title="Tracking sale events"
+    icon="book-open"
+    href="/conversions/sales/introduction"
+  >
+    Read the full guide on tracking sale events with Dub
+  </Card>
+  <Card
+    title="Attributes for /track/sale"
+    icon="code"
+    href="/api-reference/endpoint/track-sale"
+  >
+    View the full list of attributes you can pass when sending a sale event
+  </Card>
+</CardGroup>

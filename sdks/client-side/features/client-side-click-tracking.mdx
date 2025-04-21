@@ -116,23 +116,7 @@ Once you've done that, check if the following is true:
 
 </Steps>
 
-## Manually tracking clicks with the `trackClick()` function
-
-This is helpful for tracking clicks on:
-
-- Dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149))
-- Dynamic user-generated content/webpages – examples:
-  - Dub's public analytics dashboards (e.g. d.to/stats/try)
-  - Cal.com's booking pages (e.g. cal.com/peer)
-  - Product Hunt's launch pages (e.g. producthunt.com/posts/dub)
-
-Here's how you can do it:
-
-```typescript
-
-```
-
-## Bonus: Fetching partner and discount data
+## Automatically fetching partner and discount data
 
 If you're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](/partners/dual-sided-incentives), the script will automatically fetch the partner and discount data for you when someone lands on your site via a valid referral link.
 
@@ -154,6 +138,22 @@ This data will be stored as a JSON-stringified object in the `dub_partner_data` 
   }
 }
 ```
+
+## Manually tracking clicks with the `trackClick()` function
+
+This is helpful for tracking clicks on:
+
+- Dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149))
+- Dynamic user-generated content/webpages:
+  - Dub's public analytics dashboards (e.g. [app.dub.co/share/:slug](https://app.dub.co/share/dash_6NSA6vNm017MZwfzt8SubNSZ))
+  - Cal.com's booking pages (e.g. [cal.com/steven](https://cal.com/steven))
+  - Tella's video pages (e.g. [tella.tv/video/:slug](https://www.tella.tv/video/cluvcfcfi00tw0fjrgizr4pw2))
+
+<Tip>
+
+Coming soon!
+
+</Tip>
 
 ## Differences from server-side click-tracking
 

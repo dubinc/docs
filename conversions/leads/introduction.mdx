@@ -22,14 +22,26 @@ Depending on which authentication framework you're using, we have a few pre-buil
 
 <AuthProviders />
 
+<Tip>
+  If you're using the [Remix framework](https://remix.run/), you might run into an [issue](https://github.com/remix-run/remix/discussions/7922) where you get an empty/null value for the `dub_id` cookie. In that case, try using a library like [`cookie`](https://github.com/jshttp/cookie) instead:
+
+```typescript
+import cookie from "cookie";
+
+const cookies = cookie.parse(request.headers.get("cookie") ?? "");
+const dubId = cookies.dub_id;
+```
+
+</Tip>
+
 If you're not using any of the frameworks listed above, you can use the following steps to track lead events:
 
 1. Within the sign-up API request, retrieve the `dub_id` cookie that was created by the [`@dub/analytics` client-SDK](/sdks/client-side/introduction).
 2. Send an event to the Dub API with the `dub_id` value, as well as your customer's ID and any other relevant information (email, name, avatar, etc.)
 
 <Tip>
-  If you don't have a customer ID, you can also use the `email` or `phone` as
-  the customer ID.
+  If you don't have a customer ID, you can also use the customer's `email`
+  instead.
 </Tip>
 
 ## Code examples
