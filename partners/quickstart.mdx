@@ -18,14 +18,9 @@ import SaleAttributes from "/snippets/sale-attributes.mdx";
 
 In this guide, we'll walk you through the steps to get started with Dub Partners:
 
-1. install dub client-side sdk
-2. track lead events
-3. track sale events
-4. determine commission rate
-5. create referral links
-6.
-
-cross-domain tracking
+1. [Install the `@dub/analytics` client-side SDK](#step-1-install-the-dub-analytics-client-side-sdk)
+2. [Install the Dub server-side SDK + track conversion events](#step-2-install-the-dub-server-side-sdk--track-conversion-events)
+3.
 
 ## Step 1: Install the `@dub/analytics` client-side SDK
 
@@ -145,23 +140,19 @@ The second event you'll want to send is a `sale` event. This happens when a user
 
 Depending on which payment processor you're using, we offer native integrations for the following:
 
-<CardGroup cols={1}>
+<CardGroup cols={2}>
   <Card
     title="Stripe"
     icon="stripe"
-    href="/conversions/sales/stripe"
+    href="https://dub.co/docs/conversions/sales/stripe"
     horizontal
-  >
-    Tracking sale conversion events with Stripe and the Dub SDK
-  </Card>
+  />
   <Card
     title="Shopify"
     icon="shopify"
-    href="/conversions/sales/shopify"
+    href="https://dub.co/docs/conversions/sales/shopify"
     horizontal
-  >
-    Tracking sale conversion events with Shopify and the Dub SDK
-  </Card>
+  />
 </CardGroup>
 
 Alternatively, you can also send sale events manually using [our SDKs](/sdks/overview) or the [`POST /track/sale` API endpoint](https://dub.co/docs/api-reference/endpoint/track-sale).
