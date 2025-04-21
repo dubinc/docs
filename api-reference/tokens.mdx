@@ -1,7 +1,6 @@
 ---
-title: "API Keys"
+title: "API keys"
 description: "Learn how API keys work on Dub."
-icon: key
 ---
 
 API keys on Dub allow you to access your workspace programmatically. This is useful for integrating Dub into your application or with other tools and services.
@@ -82,11 +81,11 @@ You can create an API key by following these steps:
 
 When creating a secret key, you can select the permissions it has, which will give the key access to certain (or all) resources on Dub. Here are the different permission options:
 
-| Permission          | Description                                                                                                                                                                                                                                                                                  |
-| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **All permissions** | This API key will have full access to all resources.                                                                                                                                                                                                                                         |
-| **Read only**       | This API key will have read-only access to all resources.                                                                                                                                                                                                                                    |
-| **Restricted**      | This API key will have restricted access to some resources: <ul><li>[Links](/data-model#links)</li><li>[Analytics](/api-reference/endpoint/retrieve-analytics)</li><li>[Workspaces](/data-model#workspace)</li><li>[Domains](/data-model#domains)</li><li>[Tags](/data-model#tags)</li></ul> |
+| Permission          | Description                                                                                                                                                                                                                                      |
+| :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **All permissions** | This API key will have full access to all resources.                                                                                                                                                                                             |
+| **Read only**       | This API key will have read-only access to all resources.                                                                                                                                                                                        |
+| **Restricted**      | This API key will have restricted access to some resources: <ul><li>[Links](/data-model#links)</li><li>[Analytics](/api-reference/endpoint/retrieve-analytics)</li><li>[Domains](/data-model#domains)</li><li>[Tags](/data-model#tags)</li></ul> |
 
 Depending on your use case, you might want to use one of these 3 options to limit the scope of the API key and improve security. When making API calls, if your API key has insufficient permissions, the error should tell you which permissions you need.
 

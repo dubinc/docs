@@ -1,13 +1,12 @@
 ---
 title: Introduction
 description: Learn more about the @dub/analytics script and how to install it.
-icon: code
 ---
 
 import DubClientInstall from "/snippets/dub-client-install.mdx";
 import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 
-`@dub/analytics` is a lightweight (~1kb), [open-source](https://github.com/dubinc/analytics) client-side script used for tracking conversions with [Dub Conversions](https://dub.co/help/article/dub-conversions).
+`@dub/analytics` is a lightweight (~1kb), [open-source](https://github.com/dubinc/analytics) client-side script for [tracking conversion events](https://dub.co/help/article/dub-conversions) with Dub.
 
 The script handles the detection of the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
 
@@ -19,166 +18,26 @@ The script handles the detection of the `dub_id` query parameter and storing it 
   />
 </Frame>
 
-With the script, you can also [track clicks on the client-side](/conversions/clicks/introduction#client-side-click-tracking) using query parameters (e.g. `?via=john`). This gives you the flexibility to track clicks directly on your website or app, without needing to rely on link redirects.
+If you're using Dub Partners, this script also lets you [track clicks on the client-side](/sdks/client-side/features/client-side-click-tracking) using query parameters (e.g. `?via=john`). This gives you the flexibility to track clicks directly on your website or app, without needing to rely on link redirects.
 
 ## Installation guides
 
 <DubClientInstall />
 
-## Concepts
+## Features
+
+The `@dub/analytics` script comes with the following features:
+
+- [Conversion-tracking](/sdks/client-side/features/conversion-tracking)
+- [Client-side click-tracking](/sdks/client-side/features/client-side-click-tracking)
+- [Cross-domain tracking](/sdks/client-side/features/cross-domain-tracking)
+- [Reverse-proxy support](/sdks/client-side/features/reverse-proxy-support)
+
+## Properties
 
 You can pass the following props to the `@dub/analytics` script to customize its behavior:
 
 <DubAnalyticsParams />
-
-## Examples
-
-Here are some code examples to learn how to use the script:
-
-### Cross-domain tracking
-
-By default, the script already sets the `dub_id` cookie on a **cross-domain level**.
-
-This means that if you have the script installed on your marketing site (e.g. **example.com**), the cookie will also be accessible when your user signs up for your app (e.g. **app.example.com**).
-
-However, if you are installing the script on a subdomain (e.g. **app.example.com**), you will need to set the following option to make sure the cookie is accessible on the apex domain as well (e.g. **example.com**):
-
-<CodeGroup>
-```typescript React
-<DubAnalytics
-  cookieOptions={{
-    domain: ".example.com",
-  }}
-/>
-```
-
-```html Other
-<script
-  src="https://www.dubcdn.com/analytics/script.js"
-  data-cookie-options='{"domain": ".example.com"}'
-/>
-```
-
-</CodeGroup>
-
-The script also supports conversion tracking across _entirely different domains_.
-
-This means that if you have the script installed on a separate domain (e.g. **example.sh**), you can use the `outboundDomains` prop to ensure that the `dub_id` cookie value is automatically appended to all outbound links targeting your main domain (e.g. **example.com**).
-
-<CodeGroup>
-```typescript React
-// install this script on both domains
-<DubAnalytics
-  domainsConfig={{
-    outbound: ["example.com", "example.sh"],
-  }}
-/>
-```
-
-```html Other
-<script
-  src="https://www.dubcdn.com/analytics/script.outbound-domains.js"
-  data-domains='{"outbound": ["example.com", "example.sh"]}'
-/>
-```
-
-</CodeGroup>
-
-<Tip>
-  For outbound-domains support, you'll need to use the
-  [`script.outbound-domains.js`](/sdks/client-side/variants#outbound-domains-variant-script-outbound-domains-js)
-  variant of the script. Learn more about [how script variants
-  work](/sdks/client-side/variants).
-</Tip>
-
-### Custom cookie window
-
-By default, the script sets the `dub_id` cookie to expire in 90 days. You can customize this behavior by passing the `cookieOptions` prop to the script:
-
-<CodeGroup>
-```typescript React
-<DubAnalytics
-  cookieOptions={{
-    expiresInDays: 60, // setting the cookie to expire in 60 days
-  }}
-/>
-```
-
-```html Other
-<script
-  src="https://www.dubcdn.com/analytics/script.js"
-  data-cookie-options='{"expiresInDays": 60}'
-/>
-```
-
-</CodeGroup>
-
-### Load the script via a reverse proxy
-
-To avoid ad-blockers from blocking the `@dub/analytics` script, it is recommended to use a reverse proxy.
-
-Depending on which backend framework you're using, there are a few different ways to do this:
-
-<CodeGroup>
-
-```javascript Next.js
-// next.config.js
-module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: "/_proxy/dub/script.js",
-        destination: "https://www.dubcdn.com/analytics/script.js",
-      },
-    ];
-  },
-};
-```
-
-```json Vercel
-// vercel.json
-{
-  "rewrites": [
-    {
-      "source": "/_proxy/dub/script.js",
-      "destination": "https://www.dubcdn.com/analytics/script.js"
-    }
-  ]
-}
-```
-
-</CodeGroup>
-
-Once you've set up your reverse proxy, don't forget to update the `scriptProps.src` parameter in the `<Analytics />` component to point to your proxy URL.
-
-<CodeGroup>
-
-```typescript React/Next.js
-import { Analytics as DubAnalytics } from "@dub/analytics/react";
-
-export default function App() {
-  return (
-    <Layout>
-      <DubAnalytics
-        scriptProps={{
-          src: "/_proxy/dub/script.js", // pointing to your reverse proxy
-        }}
-      />
-      {/* Your app code here */}
-    </Layout>
-  );
-}
-```
-
-```javascript Other Frameworks
-// include this script tag in your HTML Head tag
-<script
-  src="/_proxy/dub/script.js" // pointing to your reverse proxy
-  defer
-/>
-```
-
-</CodeGroup>
 
 ## Open-source examples
 

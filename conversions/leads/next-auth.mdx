@@ -1,6 +1,6 @@
 ---
 title: "NextAuth.js"
-"og:title": "NextAuth.js Lead Tracking – Dub Conversions"
+"og:title": "NextAuth.js Lead Tracking"
 description: "Learn how to track lead conversion events with NextAuth.js and Dub"
 ---
 
@@ -97,6 +97,15 @@ export const getOptions = (req: NextApiRequest): NextAuthOptions => ({
 ```
 
 </CodeGroup>
+
+<Tip>
+  In NextAuth.js, the `isNewUser` flag will [only be available if you're using
+  `next-auth`'s database
+  implementation](https://next-auth.js.org/configuration/options#callbacks)
+  (otherwise it'll return `undefined`). In that case, you should move the logic
+  above to the [`signIn`
+  `callback`](https://next-auth.js.org/configuration/callbacks) instead.
+</Tip>
 
 <LeadsAttributes />
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
-  "name": "Dub Docs",
+  "name": "Dub Documentation",
   "colors": {
     "primary": "#eb5611",
     "light": "#eb5611",
@@ -9,69 +9,66 @@
   },
   "favicon": "/logos/favicon.png",
   "navigation": {
-    "tabs": [
+    "anchors": [
       {
-        "tab": "Documentation",
+        "anchor": "Documentation",
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "data-model", "examples"]
+            "pages": ["introduction"]
           },
           {
-            "group": "Concepts",
+            "group": "Links",
             "pages": [
+              "concepts/links/introduction",
+              "concepts/links/bulk-operations",
+              "concepts/links/organization"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "concepts/analytics/introduction",
               {
-                "group": "Links",
-                "icon": "link",
+                "group": "Filtering and aggregation",
                 "pages": [
-                  "concepts/links/introduction",
-                  "concepts/links/organization",
-                  "concepts/links/bulk-actions"
+                  "concepts/analytics/location",
+                  "concepts/analytics/device",
+                  "concepts/analytics/referrers",
+                  "concepts/analytics/utm",
+                  "concepts/analytics/tags"
                 ]
               },
-              "concepts/analytics",
               {
-                "group": "Webhooks",
-                "icon": "webhook",
+                "group": "Conversion tracking",
                 "pages": [
-                  "concepts/webhooks/introduction",
-                  "concepts/webhooks/event-types",
-                  "concepts/webhooks/verify-webhook-requests"
+                  "conversions/quickstart",
+                  {
+                    "group": "Tracking lead events",
+                    "pages": [
+                      "conversions/leads/introduction",
+                      "conversions/leads/clerk",
+                      "conversions/leads/next-auth",
+                      "conversions/leads/supabase",
+                      "conversions/leads/auth0",
+                      "conversions/leads/appwrite"
+                    ]
+                  },
+                  {
+                    "group": "Tracking sale events",
+                    "pages": [
+                      "conversions/sales/introduction",
+                      "conversions/sales/stripe",
+                      "conversions/sales/shopify"
+                    ]
+                  }
                 ]
               }
             ]
           },
           {
-            "group": "Conversions",
-            "pages": [
-              "conversions/quickstart",
-              {
-                "group": "Clicks",
-                "icon": "arrow-pointer",
-                "pages": ["conversions/clicks/introduction"]
-              },
-              {
-                "group": "Leads",
-                "icon": "user-plus",
-                "pages": [
-                  "conversions/leads/introduction",
-                  "conversions/leads/clerk",
-                  "conversions/leads/next-auth",
-                  "conversions/leads/supabase",
-                  "conversions/leads/auth0",
-                  "conversions/leads/appwrite"
-                ]
-              },
-              {
-                "group": "Sales",
-                "icon": "money-bill",
-                "pages": [
-                  "conversions/sales/introduction",
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify"
-                ]
-              }
-            ]
+            "group": "Dub Partners",
+            "pages": ["partners/quickstart", "partners/white-labeling"]
           },
           {
             "group": "Integrations",
@@ -79,17 +76,11 @@
               "integrations",
               "integrations/quickstart",
               {
-                "group": "List of integrations",
-                "icon": "list",
+                "group": "Webhooks",
                 "pages": [
-                  "integrations/zapier",
-                  "integrations/make",
-                  "integrations/stripe",
-                  "integrations/shopify",
-                  "integrations/segment",
-                  "integrations/wordpress",
-                  "integrations/raycast",
-                  "integrations/slack"
+                  "concepts/webhooks/introduction",
+                  "concepts/webhooks/event-types",
+                  "concepts/webhooks/verify-webhook-requests"
                 ]
               }
             ]
@@ -101,170 +92,139 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "anchor": "APIs and SDKs",
+        "icon": "rectangle-terminal",
         "groups": [
           {
-            "group": "API Reference",
+            "group": "Overview",
             "pages": [
               "api-reference/introduction",
               "api-reference/tokens",
-              "api-reference/rate-limits",
-              "api-reference/pagination",
-              "api-reference/errors"
+              "api-reference/rate-limits"
             ]
           },
           {
-            "group": "Links",
+            "group": "SDKs",
             "pages": [
-              "api-reference/endpoint/create-a-new-link",
-              "api-reference/endpoint/update-a-link",
-              "api-reference/endpoint/upsert-a-link",
-              "api-reference/endpoint/delete-a-link",
-              "api-reference/endpoint/retrieve-a-link",
-              "api-reference/endpoint/retrieve-a-list-of-links",
-              "api-reference/endpoint/retrieve-number-of-links",
-              "api-reference/endpoint/bulk-create-links",
-              "api-reference/endpoint/bulk-update-links",
-              "api-reference/endpoint/bulk-delete-links",
-              "api-reference/endpoint/retrieve-a-qr-code"
+              "sdks/overview",
+              {
+                "group": "Server-side SDKs",
+                "pages": [
+                  "sdks/typescript",
+                  "sdks/python",
+                  "sdks/ruby",
+                  "sdks/php",
+                  "sdks/go"
+                ]
+              },
+              {
+                "group": "Client-side SDK",
+                "pages": [
+                  "sdks/client-side/introduction",
+                  {
+                    "group": "Installation Guides",
+                    "pages": [
+                      "sdks/client-side/installation-guides/react",
+                      "sdks/client-side/installation-guides/manual",
+                      "sdks/client-side/installation-guides/webflow",
+                      "sdks/client-side/installation-guides/wordpress",
+                      "sdks/client-side/installation-guides/framer",
+                      "sdks/client-side/installation-guides/shopify"
+                    ]
+                  },
+                  {
+                    "group": "Features",
+                    "pages": [
+                      "sdks/client-side/features/conversion-tracking",
+                      "sdks/client-side/features/client-side-click-tracking",
+                      "sdks/client-side/features/cross-domain-tracking",
+                      "sdks/client-side/features/reverse-proxy-support"
+                    ]
+                  },
+                  "sdks/client-side/variants"
+                ]
+              },
+              {
+                "group": "Embedded Dashboards",
+                "pages": ["sdks/embed/referrals", "sdks/embed/analytics"]
+              }
             ]
           },
           {
-            "group": "Analytics",
+            "group": "APIs",
             "pages": [
-              "api-reference/endpoint/retrieve-analytics",
-              "api-reference/endpoint/retrieve-a-list-of-events"
-            ]
-          },
-          {
-            "group": "Conversions",
-            "pages": [
-              "api-reference/endpoint/track-lead",
-              "api-reference/endpoint/track-sale"
-            ]
-          },
-          {
-            "group": "Customers",
-            "pages": [
-              "api-reference/endpoint/retrieve-a-customer",
-              "api-reference/endpoint/retrieve-a-list-of-customers",
-              "api-reference/endpoint/update-a-customer",
-              "api-reference/endpoint/delete-a-customer"
-            ]
-          },
-          {
-            "group": "Partners",
-            "pages": [
-              "api-reference/endpoint/create-a-partner",
-              "api-reference/endpoint/create-a-partner-link",
-              "api-reference/endpoint/upsert-a-partner-link",
-              "api-reference/endpoint/retrieve-a-partners-links",
-              "api-reference/endpoint/retrieve-partner-analytics"
-            ]
-          },
-          {
-            "group": "Tags",
-            "pages": [
-              "api-reference/endpoint/create-a-new-tag",
-              "api-reference/endpoint/retrieve-a-list-of-tags",
-              "api-reference/endpoint/update-a-tag"
-            ]
-          },
-          {
-            "group": "Domains",
-            "pages": [
-              "api-reference/endpoint/create-a-domain",
-              "api-reference/endpoint/update-a-domain",
-              "api-reference/endpoint/delete-a-domain",
-              "api-reference/endpoint/retrieve-a-list-of-domains"
-            ]
-          },
-          {
-            "group": "Workspaces",
-            "pages": [
-              "api-reference/endpoint/retrieve-a-workspace",
-              "api-reference/endpoint/update-a-workspace"
+              {
+                "group": "Links API",
+                "pages": [
+                  "api-reference/endpoint/create-a-new-link",
+                  "api-reference/endpoint/update-a-link",
+                  "api-reference/endpoint/upsert-a-link",
+                  "api-reference/endpoint/delete-a-link",
+                  "api-reference/endpoint/retrieve-a-link",
+                  "api-reference/endpoint/retrieve-a-list-of-links",
+                  "api-reference/endpoint/retrieve-number-of-links",
+                  "api-reference/endpoint/bulk-create-links",
+                  "api-reference/endpoint/bulk-update-links",
+                  "api-reference/endpoint/bulk-delete-links"
+                ]
+              },
+              {
+                "group": "Analytics API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-analytics",
+                  "api-reference/endpoint/retrieve-a-list-of-events"
+                ]
+              },
+              {
+                "group": "Conversions API",
+                "pages": [
+                  "api-reference/endpoint/track-lead",
+                  "api-reference/endpoint/track-sale"
+                ]
+              },
+              {
+                "group": "Partners API",
+                "pages": [
+                  "api-reference/endpoint/create-a-partner",
+                  "api-reference/endpoint/create-a-partner-link",
+                  "api-reference/endpoint/upsert-a-partner-link",
+                  "api-reference/endpoint/retrieve-a-partners-links",
+                  "api-reference/endpoint/retrieve-partner-analytics"
+                ]
+              },
+              {
+                "group": "Customers API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-a-customer",
+                  "api-reference/endpoint/retrieve-a-list-of-customers",
+                  "api-reference/endpoint/update-a-customer",
+                  "api-reference/endpoint/delete-a-customer"
+                ]
+              },
+              {
+                "group": "Tags API",
+                "pages": [
+                  "api-reference/endpoint/create-a-new-tag",
+                  "api-reference/endpoint/retrieve-a-list-of-tags",
+                  "api-reference/endpoint/update-a-tag"
+                ]
+              },
+              {
+                "group": "Domains API",
+                "pages": [
+                  "api-reference/endpoint/create-a-domain",
+                  "api-reference/endpoint/update-a-domain",
+                  "api-reference/endpoint/delete-a-domain"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "SDKs",
-        "groups": [
-          {
-            "group": "SDKs",
-            "pages": ["sdks/overview"]
-          },
-          {
-            "group": "Quickstarts",
-            "pages": [
-              {
-                "group": "Typescript",
-                "icon": "js",
-                "pages": [
-                  "sdks/quickstart/typescript",
-                  "sdks/quickstart/nextjs",
-                  "sdks/quickstart/remix",
-                  "sdks/quickstart/nuxt",
-                  "sdks/quickstart/express"
-                ]
-              },
-              {
-                "group": "Go",
-                "icon": "golang",
-                "pages": ["sdks/quickstart/go"]
-              },
-              {
-                "group": "Python",
-                "icon": "python",
-                "pages": [
-                  "sdks/quickstart/python",
-                  "sdks/quickstart/flask",
-                  "sdks/quickstart/django"
-                ]
-              },
-              {
-                "group": "Ruby",
-                "icon": "gem",
-                "pages": [
-                  "sdks/quickstart/ruby",
-                  "sdks/quickstart/rails",
-                  "sdks/quickstart/sinatra"
-                ]
-              },
-              {
-                "group": "PHP",
-                "icon": "php",
-                "pages": ["sdks/quickstart/php", "sdks/quickstart/laravel"]
-              }
-            ]
-          },
-          {
-            "group": "Client-side SDKs",
-            "icon": "js",
-            "pages": [
-              "sdks/client-side/introduction",
-              "sdks/client-side/variants",
-              {
-                "group": "Installation Guides",
-                "icon": "download",
-                "pages": [
-                  "sdks/client-side/installation-guides/react",
-                  "sdks/client-side/installation-guides/manual",
-                  "sdks/client-side/installation-guides/webflow",
-                  "sdks/client-side/installation-guides/wordpress",
-                  "sdks/client-side/installation-guides/framer",
-                  "sdks/client-side/installation-guides/shopify"
-                ]
-              }
-            ]
-          },
-          {
-            "group": "CLI",
-            "icon": "terminal",
-            "pages": ["sdks/cli/overview"]
-          }
-        ]
+        "anchor": "Changelog",
+        "icon": "rectangle-history",
+        "href": "https://dub.co/changelog"
       }
     ]
   },
@@ -293,7 +253,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://d.to/try"
+      "href": "https://app.dub.co/register"
     }
   },
   "footer": {
@@ -315,6 +275,14 @@
       "destination": "/sdks/overview"
     },
     {
+      "source": "/sdks/typescript/:path*",
+      "destination": "/sdks/typescript"
+    },
+    {
+      "source": "/sdks/cli/overview",
+      "destination": "/sdks/cli"
+    },
+    {
       "source": "/sdks/js-client/overview",
       "destination": "/sdks/client-side/installation-guides/react"
     },
@@ -325,6 +293,50 @@
     {
       "source": "/integrations/webhooks",
       "destination": "/concepts/webhooks/introduction"
+    },
+    {
+      "source": "/integrations/zapier",
+      "destination": "https://dub.co/integrations/zapier"
+    },
+    {
+      "source": "/integrations/make",
+      "destination": "https://dub.co/integrations/make"
+    },
+    {
+      "source": "/integrations/stripe",
+      "destination": "https://dub.co/integrations/stripe"
+    },
+    {
+      "source": "/integrations/shopify",
+      "destination": "https://dub.co/integrations/shopify"
+    },
+    {
+      "source": "/integrations/segment",
+      "destination": "https://dub.co/integrations/segment"
+    },
+    {
+      "source": "/integrations/wordpress",
+      "destination": "https://dub.co/integrations/wordpress"
+    },
+    {
+      "source": "/integrations/raycast",
+      "destination": "https://dub.co/integrations/raycast"
+    },
+    {
+      "source": "/integrations/slack",
+      "destination": "https://dub.co/integrations/slack"
+    },
+    {
+      "source": "/concepts/links/bulk-actions",
+      "destination": "/concepts/links/bulk-operations"
+    },
+    {
+      "source": "/concepts/analytics",
+      "destination": "/concepts/analytics/introduction"
+    },
+    {
+      "source": "/conversions/clicks/introduction",
+      "destination": "/sdks/client-side/features/client-side-click-tracking"
     },
     {
       "source": "/conversions/leads/supabase-auth",
@@ -445,6 +457,14 @@
     {
       "source": "/api-reference/endpoint/add-a-domain",
       "destination": "/api-reference/endpoint/create-a-domain"
+    },
+    {
+      "source": "/api-reference/pagination",
+      "destination": "/api-reference/introduction#pagination"
+    },
+    {
+      "source": "/api-reference/errors",
+      "destination": "/api-reference/introduction#error-handling"
     }
   ]
 }

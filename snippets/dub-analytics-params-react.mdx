@@ -1,7 +1,7 @@
 <ParamField body="apiHost" type="url" default="https://api.dub.co">
   The base URL for the Dub API. This is useful for [setting up reverse
-  proxies](/conversions/clicks/introduction#step-4-optional-but-recommended-set-up-a-reverse-proxy)
-  to avoid adblockers.
+  proxies](/sdks/client-side/features/reverse-proxy-support) to avoid
+  adblockers.
 </ParamField>
 
 <ParamField
@@ -61,11 +61,6 @@
       Example: `["dub.sh", "git.new"]`
     </ParamField>
   </Expandable>
-</ParamField>
-
-<ParamField body="shortDomain" type="string" deprecated>
-  [Deprecated: Use `domainsConfig.refer` instead] The Dub custom domain for
-  [referral program client-side click tracking](http://d.to/clicks/refer).
 </ParamField>
 
 <ParamField body="queryParam" type="string" default="via">

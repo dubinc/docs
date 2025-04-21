@@ -1,7 +1,6 @@
 ---
 title: Script Variants
 description: Learn more about the different variants of the @dub/analytics script.
-icon: filter-list
 ---
 
 Inspired by [Plausible](https://plausible.io/), our script is split into multiple variants to help you optimize your script for different use cases.
@@ -30,7 +29,7 @@ Here's a list of all the variants available:
 The base variant of the script is the most lightweight variant of the script. It supports the following features:
 
 - Detecting the `dub_id` query parameter and storing it as a first-party cookie.
-- Tracking [client-side click events for referral programs](/conversions/clicks/introduction#client-side-click-tracking).
+- Tracking [client-side click events for referral programs](/sdks/client-side/features/client-side-click-tracking).
 - Setting [custom cookie window](/sdks/client-side/introduction#custom-cookie-window) and [attribution models](/sdks/client-side/introduction#param-data-attribution-model)
 
 Here's how you can use the base variant:
@@ -68,7 +67,7 @@ Here's how you can use the site visit variant:
 ```html Other
 <script
   src="https://www.dubcdn.com/analytics/script.site-visit.js"
-  data-domains='{"site": "site.dub.co"}'
+  data-domains="{'site': 'site.dub.co'}"
 />
 ```
 
@@ -93,7 +92,7 @@ Here's how you can use the outbound domains variant:
 ```html Other
 <script
   src="https://www.dubcdn.com/analytics/script.outbound-domains.js"
-  data-domains='{"outbound": ["example.com", "example.sh"]}'
+  data-domains="{'outbound': ['example.com', 'example.sh']}"
 />
 ```
 
@@ -121,7 +120,7 @@ Here's how you can use the combined variant:
 ```html Other
 <script
   src="https://www.dubcdn.com/analytics/script.site-visit.outbound-domains.js"
-  data-domains='{"site": "site.dub.co", "outbound": ["example.com", "example.sh"]}'
+  data-domains="{'site': 'site.dub.co', 'outbound': ['example.com', 'example.sh']}"
 />
 ```
 

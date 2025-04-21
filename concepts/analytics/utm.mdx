@@ -1,0 +1,615 @@
+---
+title: UTM data
+---
+
+<Note>
+  Analytics endpoints require a [Pro plan](https://dub.co/pricing) subscription
+  or higher.
+</Note>
+
+UTM data allows you to analyze the effectiveness of your marketing campaigns by tracking the source, medium, campaign, term, and content parameters.
+
+## UTM source analytics
+
+The top UTM sources by event count.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "utm_sources",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "utm_sources",
+        "linkId": "clux0rgak00011...",
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'utm_sources',
+    linkId: 'clux0rgak00011...',
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("utm_sources"),
+        LinkID: dubgo.String("clux0rgak00011..."),
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "utm_sources",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+## UTM medium analytics
+
+The top UTM mediums by event count.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "utm_mediums",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "utm_mediums",
+        "linkId": "clux0rgak00011...",
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'utm_mediums',
+    linkId: 'clux0rgak00011...',
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("utm_mediums"),
+        LinkID: dubgo.String("clux0rgak00011..."),
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "utm_mediums",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+## UTM campaign analytics
+
+The top UTM campaigns by event count.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "utm_campaigns",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "utm_campaigns",
+        "linkId": "clux0rgak00011...",
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'utm_campaigns',
+    linkId: 'clux0rgak00011...',
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("utm_campaigns"),
+        LinkID: dubgo.String("clux0rgak00011..."),
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "utm_campaigns",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+## UTM term analytics
+
+The top UTM terms by event count.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "utm_terms",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "utm_terms",
+        "linkId": "clux0rgak00011...",
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'utm_terms',
+    linkId: 'clux0rgak00011...',
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("utm_terms"),
+        LinkID: dubgo.String("clux0rgak00011..."),
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "utm_terms",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+## UTM content analytics
+
+The top UTM contents by event count.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "utm_contents",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "utm_contents",
+        "linkId": "clux0rgak00011...",
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'utm_contents',
+    linkId: 'clux0rgak00011...',
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("utm_contents"),
+        LinkID: dubgo.String("clux0rgak00011..."),
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "utm_contents",
+  linkId: "clux0rgak00011...",
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>

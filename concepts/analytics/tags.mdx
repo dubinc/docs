@@ -1,0 +1,136 @@
+---
+title: Tags data
+description: "Learn how to retrieve analytics data on Dub by tags"
+---
+
+## Filter analytics by tags
+
+You can filter analytics data by tags by passing the `tagIds` parameter to the `retrieve` function.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "top_links",
+  tagIds: ["tag_12345", "tag_67890"],
+  interval: "30d",
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "clicks",
+        "groupBy": "top_links",
+        "tagIds": ["tag_12345", "tag_67890"],
+        "interval": "30d",
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'clicks',
+    groupBy: 'top_links',
+    tagIds: ['tag_12345', 'tag_67890'],
+    interval: '30d',
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("clicks"),
+        GroupBy: dubgo.String("top_links"),
+        TagIDs: []string{"tag_12345", "tag_67890"},
+        Interval: dubgo.String("30d"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "clicks",
+  groupBy: "top_links",
+  tagIds: ["tag_12345", "tag_67890"],
+  interval: "30d",
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+## Top tags by event
+
+<Note>
+  This feature is coming soon. If you'd like early access, please [contact
+  us](https://dub.co/contact/support).
+</Note>
+
+## Tag analytics
+
+The top links by event count, filtered by tags.

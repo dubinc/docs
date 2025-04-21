@@ -2,7 +2,6 @@
 title: "Rate limits"
 "og:title": "What are Dub's API rate limits?"
 description: "Learn about Dub's API rate limits."
-icon: clock
 ---
 
 Dub's API rate limiting is in conformance with the [IETF standard](https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-ratelimit-headers):
@@ -24,12 +23,12 @@ You'll receive a `429 Too Many Requests` response code if the rate limit is exce
 
 Depending on your Dub plan, you can expect the following rate limits:
 
-| Plan                                                  | Rate limit                                                           |
-| ----------------------------------------------------- | -------------------------------------------------------------------- |
-| Free                                                  | 60 requests per minute                                               |
-| [Pro](https://dub.co/help/article/pro-plan)           | 600 requests per minute                                              |
-| [Business](https://dub.co/help/article/business-plan) | 3,000 requests per minute                                            |
-| [Enterprise](https://dub.co/enterprise)               | Custom – [reach out to sales](https://dub.co/enterprise) for details |
+| Plan                                                  | Rate limit                                                              |
+| ----------------------------------------------------- | ----------------------------------------------------------------------- |
+| Free                                                  | 60 requests per minute                                                  |
+| [Pro](https://dub.co/help/article/pro-plan)           | 600 requests per minute                                                 |
+| [Business](https://dub.co/help/article/business-plan) | 3,000 requests per minute                                               |
+| [Enterprise](https://dub.co/enterprise)               | Custom – [reach out to sales](https://dub.co/contact/sales) for details |
 
 ## How to comply with rate limits
 
@@ -41,7 +40,7 @@ If you need to create a lot of links within a short period of time, try our [bul
 
 <CodeGroup>
 
-```typescript TypeScript
+```javascript Node.js
 await dub.links.createMany([
   {
     url: "https://google.com",
@@ -112,7 +111,7 @@ If you're using our [Analytics API](/api-reference/endpoint/retrieve-analytics),
 
 <CodeGroup>
 
-```typescript TypeScript
+```javascript Node.js
 await dub.analytics.retrieve({
   groupBy: "top_links",
   start: "4 hours ago", // we support natural language for start/end params

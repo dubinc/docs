@@ -1,0 +1,89 @@
+---
+title: "Ruby SDK"
+description: "Learn how to integrate Dub with Ruby."
+---
+
+import SdkUsageExamples from "/snippets/sdk-usage-examples.mdx";
+
+## Installation
+
+```bash
+gem install dub
+```
+
+## Basic Usage
+
+Here's how you can use the Dub Ruby SDK to create a link and retrieve click analytics in timeseries format for it:
+
+```ruby
+require 'dub'
+
+# Initialize the Dub SDK with your API key
+dub = ::OpenApiSDK::Dub.new
+dub.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: ENV['DUB_API_KEY'], # optional, defaults to DUB_API_KEY
+  )
+)
+
+# Create a new link
+req = ::OpenApiSDK::Operations::CreateLinkRequest.new(
+  request_body: ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
+    url: "https://google.com"
+  )
+)
+
+res = dub.links.create(req)
+puts res.raw_response.body # e.g. { "shortLink": "https://dub.sh/abc123" }
+
+# Get analytics for the link
+analytics_req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  link_id: res.raw_response.body["id"],
+  interval: ::OpenApiSDK::Operations::Interval::THIRTYD,
+  group_by: ::OpenApiSDK::Operations::GroupBy::TIMESERIES
+)
+
+analytics_res = dub.analytics.retrieve(analytics_req)
+puts analytics_res.raw_response.body # e.g. [{ "start": "2024-01-01", "clicks": 100 }]
+```
+
+<SdkUsageExamples />
+
+## Frameworks
+
+You can use the Dub Ruby SDK with any Ruby framework:
+
+1. [Usage with Rails](/sdks/quickstart/rails)
+2. [Usage with Sinatra](/sdks/quickstart/sinatra)
+
+If you're using a different Ruby framework, you can refer to the [Ruby SDK quickstart](/sdks/quickstart/ruby) for a basic example.
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="RubyGems Package" icon="gem" href="https://d.to/ruby/sdk">
+    Download and install the Dub Ruby SDK on RubyGems
+  </Card>
+  <Card
+    title="Source Code"
+    icon="github"
+    href="https://github.com/dubinc/dub-ruby"
+  >
+    View the complete source code for the Dub Ruby SDK
+  </Card>
+  <Card
+    title="Examples"
+    icon="github"
+    href="https://github.com/dubinc/examples/tree/main/ruby"
+  >
+    Quickstart examples with the Ruby SDK
+  </Card>
+  <Card
+    title="SDK Reference"
+    icon="book"
+    iconType="solid"
+    href="https://github.com/dubinc/dub-ruby/blob/main/README.md"
+  >
+    View the complete SDK reference documentation
+  </Card>
+</CardGroup>

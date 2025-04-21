@@ -2,7 +2,6 @@
 title: "Introduction"
 "og:title": "Dub API Reference - Introduction"
 description: "Fundamental concepts of Dub's API."
-icon: webhook
 ---
 
 <Info>
@@ -25,21 +24,254 @@ https://api.dub.co
 Authentication to Dub's API is performed via the Authorization header with a Bearer token. To authenticate, you need to include the Authorization header with the word `Bearer` followed by your API key in your requests like so:
 
 ```bash Terminal
-Authorization: Bearer <Your-Token>
+Authorization: Bearer dub_xxxxxx
 ```
+
+Here are examples of how to authenticate with Dub's API in different programming languages:
+
+<CodeGroup>
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/links \
+  --header 'Authorization: Bearer dub_xxxxxx'
+```
+
+```javascript Node.js
+import { Dub } from "dub";
+
+const dub = new Dub({
+  token: "dub_xxxxxx",
+});
+
+// Make API calls
+const links = await dub.links.list();
+```
+
+```python Python
+from dub import Dub
+
+client = Dub(api_key="dub_xxxxxx")
+
+# Make API calls
+links = client.links.list()
+```
+
+```go Go
+import (
+  "context"
+  "github.com/dubinc/dub-go"
+)
+
+client := dub.NewClient("dub_xxxxxx")
+
+// Make API calls
+ctx := context.Background()
+links, err := client.Links.List(ctx)
+```
+
+```ruby Ruby
+require 'dub'
+
+client = Dub::Client.new(api_key: "dub_xxxxxx")
+
+# Make API calls
+links = client.links.list
+```
+
+```php PHP
+use Dub\Client;
+
+$client = new Client([
+    'api_key' => 'dub_xxxxxx'
+]);
+
+// Make API calls
+$links = $client->links->list();
+```
+
+</CodeGroup>
 
 Learn more about [how to get your API key](/api-reference/tokens).
 
-## Response Codes
+## Native SDKs
 
-The API returns standard HTTP response codes to indicate the success or failure of an API request. Here are a few examples:
+Dub offers native SDKs in some of the most popular programming languages:
 
-| Code  | Description                                                                                    |
-| ----- | ---------------------------------------------------------------------------------------------- |
-| `200` | The request was successful.                                                                    |
-| `400` | The request was invalid or cannot be served.                                                   |
-| `401` | The request requires user authentication.                                                      |
-| `403` | The server understood the request, but refuses to authorize it.                                |
-| `404` | The requested resource could not be found.                                                     |
-| `429` | Too many requests.                                                                             |
-| `500` | The server encountered an unexpected condition which prevented it from fulfilling the request. |
+- [TypeScript SDK](/sdks/typescript)
+- [Python SDK](/sdks/python)
+- [Ruby SDK](/sdks/ruby)
+- [PHP SDK](/sdks/php)
+- [Go SDK](/sdks/go)
+
+You can find the full list of SDKs [here](/sdks/overview).
+
+## Error Handling
+
+Dub API returns machine readable error codes, human readable error messages and a link to the docs for more information.
+
+Here is how an error response looks like:
+
+```json
+{
+  "error": {
+    "code": "not_found",
+    "message": "The requested resource was not found.",
+    "doc_url": "https://dub.co/docs/api-reference/errors#not-found"
+  }
+}
+```
+
+Here is a list of all error codes Dub API returns:
+
+<AccordionGroup>
+
+<Accordion title="bad_request ">
+
+- **Status:** 400
+- **Problem:** The request is malformed, either missing required fields, using wrong datatypes, or being syntactically incorrect.
+- **Solution:** Check the request and make sure it is properly formatted.
+
+</Accordion>
+
+<Accordion title="unauthorized">
+
+- **Status:** 401
+- **Problem:** The request has not been applied because it lacks valid authentication credentials for the target resource.
+- **Solution:** Make sure you are using the correct API key or access token.
+
+</Accordion>
+
+<Accordion title="forbidden">
+
+- **Status:** 403
+- **Problem:** The server understood the request, but is refusing to fulfill it because the client lacks proper permission.
+- **Solution:** Make sure you have the necessary permissions to access the resource.
+
+</Accordion>
+
+<Accordion title="not_found">
+
+- **Status:** 404
+- **Problem:** The server has not found anything matching the request URI.
+- **Solution:** Check the request and make sure the resource exists.
+
+</Accordion>
+
+<Accordion title="conflict">
+
+- **Status:** 409
+- **Problem:** Another resource already uses the same identifier. For example, workspace slug must be unique.
+- **Solution:** Change the identifier to a unique value.
+
+</Accordion>
+
+<Accordion title="invite_expired">
+
+- **Status:** 410
+- **Problem:** The invite has expired.
+- **Solution:** Generate a new invite.
+
+</Accordion>
+
+<Accordion title="unprocessable_entity">
+
+- **Status:** 422
+- **Problem:** The server was unable to process the request because it contains invalid data.
+- **Solution:** Check the request and make sure input data is valid.
+
+</Accordion>
+
+<Accordion title="rate_limit_exceeded">
+
+- **Status:** 429
+- **Problem:** The request has been rate limited.
+- **Solution:** Wait for a while and try again.
+
+</Accordion>
+
+<Accordion title="internal_server_error">
+
+- **Status:** 500
+- **Problem:** The server encountered an unexpected condition that prevented it from fulfilling the request.
+- **Solution:** Try again later. If the problem persists, contact support.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Pagination
+
+Dub's API supports pagination. This is useful when you have a large number of resources and you want to retrieve them in smaller chunks.
+
+These list API methods share a common set of parameters that allow you to control the number of items returned and the page number. For example, you can:
+
+- [retrieve a list of links](/api-reference/endpoint/retrieve-a-list-of-links)
+- [retrieve a list of domains](/api-reference/endpoint/retrieve-a-list-of-domains)
+- [retrieve a list of events](/api-reference/endpoint/retrieve-a-list-of-events)
+
+### Parameters
+
+<ParamField body="page" type="string" default="1">
+  The page number to retrieve. By default, the first page is returned.
+</ParamField>
+
+<ParamField body="pageSize" type="string">
+  The number of items to retrieve per page. The default value varies by
+  endpoint. Maximum value is 100.
+</ParamField>
+
+<ParamField body="sortBy" type="string">
+  The field to sort the results by.
+</ParamField>
+
+<ParamField body="sortOrder" type="string">
+  The order to sort the results by. Can be `asc` or `desc`.
+</ParamField>
+
+### Example
+
+The following example demonstrates how to retrieve the first page of 10 links:
+
+<CodeGroup>
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/links?page=1&pageSize=10 \
+  --header 'Authorization: Bearer <token>'
+```
+
+```javascript Node.js
+const res = await dub.links.list({
+  page: 1,
+  pageSize: 10,
+});
+```
+
+```python Python
+res = s.links.list(request={
+  "page": 1,
+  "page_size": 10,
+})
+```
+
+```go Go
+request := operations.GetLinksRequest{
+  Page: dubgo.Float64(1),
+  PageSize: dubgo.Float64(10),
+}
+
+ctx := context.Background()
+res, err := s.Links.List(ctx, request)
+```
+
+```ruby Ruby
+req = ::OpenApiSDK::Operations::GetLinksRequest.new(
+  page: 1,
+  page_size: 10,
+)
+
+res = s.links.list(req)
+```
+
+</CodeGroup>

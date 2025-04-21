@@ -1,6 +1,6 @@
 ---
 title: "Clerk"
-"og:title": "Clerk Lead Tracking – Dub Conversions"
+"og:title": "Clerk Lead Tracking"
 description: "Learn how to track lead conversion events with Clerk and Dub"
 ---
 
@@ -144,7 +144,7 @@ Here's a quick summary of the steps:
     import { dub } from "@/lib/dub";
     import { clerkClient } from "@clerk/nextjs/server";
     import { cookies } from "next/headers";
-    
+
     export async function trackLead({
       id,
       name,
@@ -159,7 +159,7 @@ Here's a quick summary of the steps:
       try {
         const cookieStore = await cookies();
         const dubId = cookieStore.get("dub_id")?.value;
-    
+
         if (dubId) {
           // Send lead event to Dub
           await dub.track.lead({
@@ -170,20 +170,20 @@ Here's a quick summary of the steps:
             customerEmail: email,
             customerAvatar: avatar,
           });
-    
+
           // Delete the dub_id cookie
           cookieStore.set("dub_id", "", {
             expires: new Date(0),
           });
         }
-    
+
         const clerk = await clerkClient();
         await clerk.users.updateUser(id, {
           publicMetadata: {
             dubClickId: dubId || "n/a",
           },
         });
-    
+
         return { ok: true };
       } catch (error) {
         console.error("Error in trackLead:", error);

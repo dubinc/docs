@@ -1,0 +1,193 @@
+---
+title: Client-side click-tracking
+description: Track clicks on the client-side using query parameters
+---
+
+import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
+import VerifyTrackClick from "/snippets/verify-track-click.mdx";
+
+With the [`@dub/analytics` script](/sdks/client-side/introduction), you can track clicks on the client-side using query parameters (e.g. `?via=john`, `?ref=jane`).
+
+A few use cases include:
+
+- You're using [Dub Partners](https://dub.co/help/article/dub-partners) with [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives) and want to display a banner that says: _"John referred you to Acme and gave you 25% off"_
+- You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks [using a `trackClick()` function](#manually-tracking-clicks-with-the-trackclick-function) inside your application code.
+- You are migrating from an existing affiliate management platform (e.g. [Rewardful](https://dub.co/help/article/migrating-from-rewardful)) that uses query parameters to track conversions.
+
+## Quickstart
+
+Here's how you can enable client-side click-tracking with the `@dub/analytics` script:
+
+<Steps>
+
+<Step title="Add a custom domain to your Dub workspace">
+
+First, you'll need to [add a custom short link domain](https://dub.co/help/article/how-to-add-custom-domain) to your Dub workspace. You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` for free.
+
+This is the domain that you'll use for your short links on Dub.
+
+</Step>
+
+<Step title="Allowlist your site's domain">
+
+Then, you'll need to allowlist your site's domain to allow the client-side click events to be ingested by Dub. To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and add your site's domain to the **Allowed Hostnames** list.
+
+<Frame>
+  <img
+    src="/images/conversions/allowed-hostnames.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+<Tip>
+  When testing things out locally, you can add `localhost` to the **Allowed
+  Hostnames** list temporarily. This will allow local events to be ingested by
+  Dub. Don't forget to remove it once you're ready to go live!
+</Tip>
+
+</Step>
+
+<Step title="Install the Dub client-side SDK">
+
+Next, install the Dub [client-side SDK](/sdks/client-side/introduction) and initialize it with the domain you added in the previous step.
+
+<CodeGroup>
+
+```typescript React/Next.js
+// install the package (e.g. npm install @dub/analytics)
+import { Analytics as DubAnalytics } from "@dub/analytics/react";
+
+export default function App() {
+  return (
+    <Layout>
+      <DubAnalytics
+        domainsConfig={{
+          refer: "go.example.com", // the custom domain you're using on Dub for your short links
+        }}
+      />
+      {/* Your app code here */}
+    </Layout>
+  );
+}
+```
+
+```javascript Other Frameworks
+// include this script tag in your HTML Head tag
+<script
+  src="https://www.dubcdn.com/analytics/script.js"
+  data-domains="{'refer': 'go.example.com'}"
+  defer
+/>
+```
+
+</CodeGroup>
+
+Here's the full list of parameters you can pass to the script:
+
+<Accordion title="Parameters">
+  <DubAnalyticsParams />
+</Accordion>
+
+</Step>
+
+<Step title="(Optional, but recommended): Set up a reverse proxy">
+
+To avoid ad-blockers from blocking your click-tracking requests, we recommend setting up a reverse proxy.
+
+Refer to the [Reverse-proxy support](/sdks/client-side/features/reverse-proxy-support) guide to learn how to set one up.
+
+</Step>
+
+<Step title="Verify your setup">
+
+To verify that your click-tracking is working, run your website locally and append the URL with the unique key of your short link
+
+For example, if your short link is `https://go.example.com/abc123`, you'll need to append `?via=abc123` to the URL.
+
+Once you've done that, check if the following is true:
+
+<VerifyTrackClick />
+
+</Step>
+
+</Steps>
+
+## Automatically fetching partner and discount data
+
+If you're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives), the script will automatically fetch the partner and discount data for you when someone lands on your site via a valid referral link.
+
+This data will be stored as a JSON-stringified object in the `dub_partner_data` cookie in the following format:
+
+```json
+{
+  "clickId": "xxx", // unique ID of the click event
+  "partner": {
+    "id": "pn_xxx", // unique ID of the partner on Dub
+    "name": "John Doe", // name of the partner
+    "image": "https://example.com/john.png" // avatar of the partner
+  },
+  "discount": {
+    "id": "disc_xxx", // unique ID of the discount on Dub
+    "amount": 25, // discount amount (either a percentage or a fixed amount)
+    "type": "percentage", // type of the discount (either "percentage" or "fixed")
+    "maxDuration": 3 // maximum duration of the discount in months
+  }
+}
+```
+
+To access this cookie data, we recommend using a cookie library like [`js-cookie`](https://github.com/js-cookie/js-cookie) – here's an example:
+
+```js
+import Cookies from "js-cookie";
+
+const dubPartnerData = Cookies.get("dub_partner_data");
+const { partner, discount } = dubPartnerData ? JSON.parse(dubPartnerData) : {};
+
+// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
+
+return (
+  <div className="flex items-center gap-2">
+    <img src={image} alt={name} className="size-6 rounded-full" />
+    <p>
+      {name} referred you to Acme and gave you {amount} {type} off
+    </p>
+  </div>
+);
+```
+
+## Manually tracking clicks with the `trackClick()` function
+
+This is helpful for tracking clicks on:
+
+- Dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149))
+- Dynamic user-generated content/webpages:
+  - Dub's public analytics dashboards (e.g. [app.dub.co/share/:slug](https://app.dub.co/share/dash_6NSA6vNm017MZwfzt8SubNSZ))
+  - Cal.com's booking pages (e.g. [cal.com/steven](https://cal.com/steven))
+  - Tella's video pages (e.g. [tella.tv/video/:slug](https://www.tella.tv/video/cluvcfcfi00tw0fjrgizr4pw2))
+
+<Note>
+  This feature is coming soon. If you'd like early access, please [contact
+  us](https://dub.co/contact/support).
+</Note>
+
+## Differences from server-side click-tracking
+
+Server-side click-tracking is enabled by default for all Dub links and come with the following attributes:
+
+| Attribute    | Type    | Description                                                                                      |
+| :----------- | :------ | :----------------------------------------------------------------------------------------------- |
+| `timestamp`  | string  | The timestamp of the click event                                                                 |
+| `id`         | string  | The unique ID of the click event                                                                 |
+| `url`        | string  | The destination URL that the link resolved to – this can vary if geo/device-targeting is enabled |
+| `continent`  | string  | The continent of the user who clicked the link                                                   |
+| `country`    | string  | The country of the user who clicked the link                                                     |
+| `city`       | string  | The city of the user who clicked the link                                                        |
+| `device`     | string  | The device of the user who clicked the link                                                      |
+| `browser`    | string  | The browser of the user who clicked the link                                                     |
+| `os`         | string  | The operating system of the user who clicked the link                                            |
+| `referer`    | string  | The referrer of the user who clicked the link                                                    |
+| `refererUrl` | string  | The full referrer URL of the user who clicked the link                                           |
+| `qr`         | boolean | Whether the click event was triggered by a QR code scan                                          |
+| `ip`         | string  | The IP address of the user who clicked the link (non-EU users only)                              |
+
+These events happen on the server-side and cannot be blocked by browser extensions or ad-blockers, which improves the accuracy of your analytics data.
