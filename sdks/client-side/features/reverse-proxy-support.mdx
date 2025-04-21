@@ -3,6 +3,8 @@ title: Reverse-proxy support
 description: Track clicks on the client-side using a reverse proxy
 ---
 
+## Tracking clicks via a reverse proxy
+
 To avoid ad-blockers from blocking your click-tracking requests, we recommend setting up a reverse proxy.
 
 Depending on which backend framework you're using, there are a few different ways to do this:
@@ -72,7 +74,7 @@ export default function App() {
 
 </CodeGroup>
 
-### Load the script via a reverse proxy
+## Loading the script via a reverse proxy
 
 To avoid ad-blockers from blocking the `@dub/analytics` script, it is recommended to use a reverse proxy.
 
