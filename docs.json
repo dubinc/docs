@@ -15,13 +15,13 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction", "data-model"]
+            "pages": ["introduction"]
           },
           {
             "group": "Links",
             "pages": [
               "concepts/links/introduction",
-              "concepts/links/bulk-actions",
+              "concepts/links/bulk-operations",
               "concepts/links/organization"
             ]
           },
@@ -32,10 +32,11 @@
               {
                 "group": "Filtering and aggregation",
                 "pages": [
-                  "concepts/analytics/geolocation",
+                  "concepts/analytics/location",
                   "concepts/analytics/device",
                   "concepts/analytics/referrers",
-                  "concepts/analytics/utm"
+                  "concepts/analytics/utm",
+                  "concepts/analytics/tags"
                 ]
               },
               {
@@ -164,8 +165,7 @@
                   "api-reference/endpoint/retrieve-number-of-links",
                   "api-reference/endpoint/bulk-create-links",
                   "api-reference/endpoint/bulk-update-links",
-                  "api-reference/endpoint/bulk-delete-links",
-                  "api-reference/endpoint/retrieve-a-qr-code"
+                  "api-reference/endpoint/bulk-delete-links"
                 ]
               },
               {
@@ -297,6 +297,10 @@
     {
       "source": "/integrations/:path*",
       "destination": "https://dub.co/integrations/:path*"
+    },
+    {
+      "source": "/concepts/links/bulk-actions",
+      "destination": "/concepts/links/bulk-operations"
     },
     {
       "source": "/concepts/analytics",

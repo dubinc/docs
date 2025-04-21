@@ -1,5 +1,5 @@
 ---
-title: UTM data
+title: Location data
 ---
 
 <Note>
@@ -7,11 +7,11 @@ title: UTM data
   or higher.
 </Note>
 
-UTM data allows you to analyze the effectiveness of your marketing campaigns by tracking the source, medium, campaign, term, and content parameters.
+Location data allows you to analyze how users interact with your links across different geographical locations.
 
-## UTM source analytics
+## Country analytics
 
-The top UTM sources by event count.
+The top countries by event count, including ISO 3166-1 alpha-2 country codes.
 
 <CodeGroup>
 
@@ -24,7 +24,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "clicks",
-  groupBy: "utm_sources",
+  groupBy: "countries",
   linkId: "clux0rgak00011...",
   interval: "30d",
 });
@@ -38,7 +38,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "clicks",
-        "groupBy": "utm_sources",
+        "groupBy": "countries",
         "linkId": "clux0rgak00011...",
         "interval": "30d",
     })
@@ -59,7 +59,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'clicks',
-    groupBy: 'utm_sources',
+    groupBy: 'countries',
     linkId: 'clux0rgak00011...',
     interval: '30d',
 );
@@ -92,7 +92,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("clicks"),
-        GroupBy: dubgo.String("utm_sources"),
+        GroupBy: dubgo.String("countries"),
         LinkID: dubgo.String("clux0rgak00011..."),
         Interval: dubgo.String("30d"),
     })
@@ -116,7 +116,7 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "clicks",
-  groupBy: "utm_sources",
+  groupBy: "countries",
   linkId: "clux0rgak00011...",
   interval: "30d",
 )
@@ -130,9 +130,9 @@ end
 
 </CodeGroup>
 
-## UTM medium analytics
+## City analytics
 
-The top UTM mediums by event count.
+The top cities by event count, including city names and ISO 3166-1 alpha-2 country codes.
 
 <CodeGroup>
 
@@ -145,7 +145,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "clicks",
-  groupBy: "utm_mediums",
+  groupBy: "cities",
   linkId: "clux0rgak00011...",
   interval: "30d",
 });
@@ -159,7 +159,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "clicks",
-        "groupBy": "utm_mediums",
+        "groupBy": "cities",
         "linkId": "clux0rgak00011...",
         "interval": "30d",
     })
@@ -180,7 +180,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'clicks',
-    groupBy: 'utm_mediums',
+    groupBy: 'cities',
     linkId: 'clux0rgak00011...',
     interval: '30d',
 );
@@ -213,7 +213,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("clicks"),
-        GroupBy: dubgo.String("utm_mediums"),
+        GroupBy: dubgo.String("cities"),
         LinkID: dubgo.String("clux0rgak00011..."),
         Interval: dubgo.String("30d"),
     })
@@ -237,7 +237,7 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "clicks",
-  groupBy: "utm_mediums",
+  groupBy: "cities",
   linkId: "clux0rgak00011...",
   interval: "30d",
 )
@@ -251,9 +251,9 @@ end
 
 </CodeGroup>
 
-## UTM campaign analytics
+## Continent analytics
 
-The top UTM campaigns by event count.
+The top continents by event count, using 2-letter ISO continent codes.
 
 <CodeGroup>
 
@@ -266,7 +266,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "clicks",
-  groupBy: "utm_campaigns",
+  groupBy: "continents",
   linkId: "clux0rgak00011...",
   interval: "30d",
 });
@@ -280,7 +280,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "clicks",
-        "groupBy": "utm_campaigns",
+        "groupBy": "continents",
         "linkId": "clux0rgak00011...",
         "interval": "30d",
     })
@@ -301,7 +301,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'clicks',
-    groupBy: 'utm_campaigns',
+    groupBy: 'continents',
     linkId: 'clux0rgak00011...',
     interval: '30d',
 );
@@ -334,7 +334,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("clicks"),
-        GroupBy: dubgo.String("utm_campaigns"),
+        GroupBy: dubgo.String("continents"),
         LinkID: dubgo.String("clux0rgak00011..."),
         Interval: dubgo.String("30d"),
     })
@@ -358,7 +358,7 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "clicks",
-  groupBy: "utm_campaigns",
+  groupBy: "continents",
   linkId: "clux0rgak00011...",
   interval: "30d",
 )
@@ -372,9 +372,9 @@ end
 
 </CodeGroup>
 
-## UTM term analytics
+## Region analytics
 
-The top UTM terms by event count.
+The top regions by event count, including region codes and ISO 3166-1 alpha-2 country codes.
 
 <CodeGroup>
 
@@ -387,7 +387,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "clicks",
-  groupBy: "utm_terms",
+  groupBy: "regions",
   linkId: "clux0rgak00011...",
   interval: "30d",
 });
@@ -401,7 +401,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "clicks",
-        "groupBy": "utm_terms",
+        "groupBy": "regions",
         "linkId": "clux0rgak00011...",
         "interval": "30d",
     })
@@ -422,7 +422,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'clicks',
-    groupBy: 'utm_terms',
+    groupBy: 'regions',
     linkId: 'clux0rgak00011...',
     interval: '30d',
 );
@@ -455,7 +455,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("clicks"),
-        GroupBy: dubgo.String("utm_terms"),
+        GroupBy: dubgo.String("regions"),
         LinkID: dubgo.String("clux0rgak00011..."),
         Interval: dubgo.String("30d"),
     })
@@ -479,128 +479,7 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "clicks",
-  groupBy: "utm_terms",
-  linkId: "clux0rgak00011...",
-  interval: "30d",
-)
-
-res = s.analytics.retrieve(req)
-
-if ! res.one_of.nil?
-  # handle response
-end
-```
-
-</CodeGroup>
-
-## UTM content analytics
-
-The top UTM contents by event count.
-
-<CodeGroup>
-
-```javascript Node.js
-import { Dub } from "dub";
-
-export const dub = new Dub({
-  token: process.env.DUB_API_KEY,
-});
-
-const result = await dub.analytics.retrieve({
-  event: "clicks",
-  groupBy: "utm_contents",
-  linkId: "clux0rgak00011...",
-  interval: "30d",
-});
-```
-
-```python Python
-from dub import Dub
-
-with Dub(
-    token="DUB_API_KEY",
-) as d_client:
-    res = d_client.analytics.retrieve(request={
-        "event": "clicks",
-        "groupBy": "utm_contents",
-        "linkId": "clux0rgak00011...",
-        "interval": "30d",
-    })
-    print(res)
-```
-
-```php PHP
-declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use Dub;
-use Dub\Models\Operations;
-
-$sdk = Dub\Dub::builder()
-    ->setSecurity('DUB_API_KEY')
-    ->build();
-
-$request = new Operations\RetrieveAnalyticsRequest(
-    event: 'clicks',
-    groupBy: 'utm_contents',
-    linkId: 'clux0rgak00011...',
-    interval: '30d',
-);
-
-$response = $sdk->analytics->retrieve(
-    request: $request
-);
-
-if ($response->oneOf !== null) {
-    // handle response
-}
-```
-
-```go Go
-package main
-
-import(
-    "context"
-    dubgo "github.com/dubinc/dub-go"
-    "github.com/dubinc/dub-go/models/operations"
-    "log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := dubgo.New(
-        dubgo.WithSecurity("DUB_API_KEY"),
-    )
-
-    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
-        Event: dubgo.String("clicks"),
-        GroupBy: dubgo.String("utm_contents"),
-        LinkID: dubgo.String("clux0rgak00011..."),
-        Interval: dubgo.String("30d"),
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-```ruby Ruby
-require 'dub'
-
-s = ::OpenApiSDK::Dub.new(
-      security: ::OpenApiSDK::Shared::Security.new(
-        token: "DUB_API_KEY",
-      ),
-    )
-
-req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
-  event: "clicks",
-  groupBy: "utm_contents",
+  groupBy: "regions",
   linkId: "clux0rgak00011...",
   interval: "30d",
 )

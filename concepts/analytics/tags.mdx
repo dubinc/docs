@@ -1,0 +1,34 @@
+---
+title: Tags data
+description: "Learn how to retrieve analytics data on Dub by tags"
+---
+
+## Filter analytics by tags
+
+You can filter analytics data by tags by passing the `tagIds` parameter to the `retrieve` function.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "clicks",
+  groupBy: "top_links",
+  tagIds: ["tag_12345", "tag_67890"],
+  interval: "30d",
+});
+```
+
+</CodeGroup>
+
+## Top tags by event
+
+<Note>
+  This feature is coming soon. If you'd like early access, please [contact
+  us](https://dub.co/contact/support).
+</Note>
