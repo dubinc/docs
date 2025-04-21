@@ -10,7 +10,7 @@ With the [`@dub/analytics` script](/sdks/client-side/introduction), you can trac
 
 A few use cases include:
 
-- You're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](/partners/dual-sided-incentives) and want to display a banner that says: _"John referred you to Acme and gave you 25% off"_
+- You're using [Dub Partners](https://dub.co/help/article/dub-partners) with [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives) and want to display a banner that says: _"John referred you to Acme and gave you 25% off"_
 - You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks [using a `trackClick()` function](#manually-tracking-clicks-with-the-trackclick-function) inside your application code.
 - You are migrating from an existing affiliate management platform (e.g. [Rewardful](https://dub.co/help/article/migrating-from-rewardful)) that uses query parameters to track conversions.
 
@@ -108,13 +108,13 @@ Once you've done that, check if the following is true:
 
 <VerifyTrackClick />
 
-   </Step>
+</Step>
 
 </Steps>
 
 ## Automatically fetching partner and discount data
 
-If you're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](/partners/dual-sided-incentives), the script will automatically fetch the partner and discount data for you when someone lands on your site via a valid referral link.
+If you're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives), the script will automatically fetch the partner and discount data for you when someone lands on your site via a valid referral link.
 
 This data will be stored as a JSON-stringified object in the `dub_partner_data` cookie in the following format:
 
@@ -133,6 +133,26 @@ This data will be stored as a JSON-stringified object in the `dub_partner_data` 
     "maxDuration": 3 // maximum duration of the discount in months
   }
 }
+```
+
+To access this cookie data, we recommend using a cookie library like [`js-cookie`](https://github.com/js-cookie/js-cookie) – here's an example:
+
+```js
+import Cookies from "js-cookie";
+
+const dubPartnerData = Cookies.get("dub_partner_data");
+const { partner, discount } = dubPartnerData ? JSON.parse(dubPartnerData) : {};
+
+// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
+
+return (
+  <div className="flex items-center gap-2">
+    <img src={image} alt={name} className="size-6 rounded-full" />
+    <p>
+      {name} referred you to Acme and gave you {amount} {type} off
+    </p>
+  </div>
+);
 ```
 
 ## Manually tracking clicks with the `trackClick()` function

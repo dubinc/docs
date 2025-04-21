@@ -67,11 +67,7 @@
           },
           {
             "group": "Dub Partners",
-            "pages": [
-              "partners/quickstart",
-              "partners/dual-sided-incentives",
-              "partners/white-labeled-referral-dashboard"
-            ]
+            "pages": ["partners/quickstart", "partners/white-labeling"]
           },
           {
             "group": "Integrations",

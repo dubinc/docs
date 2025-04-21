@@ -1,0 +1,327 @@
+With [Dub Partners](/partners/quickstart), you can build a white-labeled referral dashboard that lives directly inside your app in just a few lines of code.
+
+This way, your users can automatically enroll in your partner program **without needing to leave your app and sign up on a third-party platform**.
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="https://assets.dub.co/help/dub-referrals-demo.png"
+    alt="A screenshot of the Dub Referrals Embed"
+  />
+</Frame>
+
+In this guide, we'll walk you through the steps to get started with the Dub Referrals Embed.
+
+## Step 1: Generate embed token
+
+First, you need to create a server API route that generates a public token, which will be used by the Dub Referrals Embed to fetch real-time conversions and earnings data from the client-side.
+
+If you're using our [server-side SDKs](/sdks/overview), you can generate an embed token using the `embedToken.referrals` method.
+
+<CodeGroup>
+
+```ts TypeScript
+const { publicToken } = await dub.embedToken.referrals({
+  programId: "prog_xxx", // program ID from your Dub dashboard (in the URL)
+  tenantId: user.id, // the user's ID within your application
+  partner: {
+    name: user.name, // the user's name
+    email: user.email, // the user's email
+    image: user.image, // the user's image/avatar
+    tenantId: user.id, // the user's ID within your application
+  },
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.embed_tokens.referrals(request={
+        "program_id": "prog_xxx",  # program ID from your Dub dashboard
+        "tenant_id": user.id,  # the user's ID within your application
+        "partner": {
+            "name": user.name,  # the user's name
+            "email": user.email,  # the user's email
+            "image": user.image,  # the user's image/avatar
+            "tenant_id": user.id,  # the user's ID within your application
+        },
+    })
+
+    # Handle response
+    print(res.public_token)
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.EmbedTokens.Referrals(ctx, &operations.CreateReferralsEmbedTokenRequestBody{
+        ProgramID: "prog_xxx", // program ID from your Dub dashboard
+        TenantID: user.ID, // the user's ID within your application
+        Partner: &operations.Partner{
+            Name: user.Name, // the user's name
+            Email: user.Email, // the user's email
+            Image: user.Image, // the user's image/avatar
+            TenantID: user.ID, // the user's ID within your application
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // Handle response
+        log.Printf("Public token: %s", res.PublicToken)
+    }
+}
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\CreateReferralsEmbedTokenRequestBody(
+    programId: 'prog_xxx', // program ID from your Dub dashboard
+    tenantId: $user->id, // the user's ID within your application
+    partner: new Operations\Partner(
+        name: $user->name, // the user's name
+        email: $user->email, // the user's email
+        image: $user->image, // the user's image/avatar
+        tenantId: $user->id, // the user's ID within your application
+    ),
+);
+
+$response = $sdk->embedTokens->referrals(
+    request: $request
+);
+
+if ($response->object !== null) {
+    // Handle response
+    echo $response->object->publicToken;
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+    security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+    ),
+)
+
+req = ::OpenApiSDK::Operations::CreateReferralsEmbedTokenRequestBody.new(
+    program_id: "prog_xxx", # program ID from your Dub dashboard
+    tenant_id: user.id, # the user's ID within your application
+    partner: ::OpenApiSDK::Operations::Partner.new(
+        name: user.name, # the user's name
+        email: user.email, # the user's email
+        image: user.image, # the user's image/avatar
+        tenant_id: user.id, # the user's ID within your application
+    ),
+)
+
+res = s.embed_tokens.referrals(req)
+
+if !res.object.nil?
+    # Handle response
+    puts res.object.public_token
+end
+```
+
+</CodeGroup>
+
+If you're not using our server-side SDKs, you can generate an embed token using our REST API instead (via the [`POST /tokens/embed/referrals`](/api-reference/endpoint/create-referrals-embed-token) endpoint).
+
+```js JavaScript
+const response = await fetch("https://api.dub.co/tokens/embed/referrals", {
+  method: "POST",
+  body: JSON.stringify({
+    programId: "prog_xxx", // program ID from your Dub dashboard
+    tenantId: user.id, // the user's ID within your application
+    partner: {
+      name: user.name, // the user's name
+      email: user.email, // the user's email
+      image: user.image, // the user's image/avatar
+      tenantId: user.id, // the user's ID within your application
+    },
+  }),
+});
+
+const data = await response.json();
+
+const { publicToken } = data;
+```
+
+Refer to the [full API reference](/api-reference/endpoint/create-referrals-embed-token) to learn more about the `POST /tokens/embed/referrals` endpoint.
+
+## Step 2: Install the embed
+
+Then, with the `publicToken` from Step 1, you can install and initialize the Dub Referrals Embed. There are two ways to do this:
+
+### React component
+
+First, install the [NPM package](https://www.npmjs.com/package/@dub/embed-react):
+
+<CodeGroup>
+
+```bash npm
+npm install @dub/embed-react
+```
+
+```bash yarn
+yarn add @dub/embed-react
+```
+
+```bash pnpm
+pnpm add @dub/embed-react
+```
+
+```bash bun
+bun add @dub/embed-react
+```
+
+</CodeGroup>
+
+Then use the component in your React application:
+
+```tsx
+import { useState, useEffect } from "react";
+import { DubEmbed } from "@dub/embed-react";
+
+export default function App() {
+  const [publicToken, setPublicToken] = useState("");
+
+  useEffect(() => {
+    const fetchPublicToken = async () => {
+      // fetching from the server API route you created in Step 1
+      const response = await fetch("/api/embed-token");
+      const data = await response.json();
+      setPublicToken(data.publicToken);
+    };
+
+    fetchPublicToken();
+  }, []);
+
+  if (!publicToken) {
+    return <div>Loading...</div>;
+  }
+
+  return <DubEmbed data="referrals" token={publicToken} />;
+}
+```
+
+### Iframe embed
+
+Alternatively, if you're not using React (or you're not on React `v18.2.0` or higher), you can add the iframe directly to your HTML:
+
+```tsx
+import { useState, useEffect } from "react";
+
+export default function App() {
+  const [publicToken, setPublicToken] = useState("");
+
+  useEffect(() => {
+    const fetchPublicToken = async () => {
+      const response = await fetch("/api/embed-token");
+      const data = await response.json();
+      setPublicToken(data.publicToken);
+    };
+
+    fetchPublicToken();
+  }, []);
+
+  if (!publicToken) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <iframe
+      src={`https://app.dub.co/embed/referrals?token=${publicToken}`}
+      allow="clipboard-write"
+      class="h-screen w-full"
+    />
+  );
+}
+```
+
+## Embed options
+
+The Dub Referrals Embed supports the following options for styling and behavior:
+
+<ParamField body="data" type="referrals | analytics" required>
+  The type of embed to use. In this case, we're using the `referrals` type.
+</ParamField>
+
+<ParamField body="theme" type="light | dark | system" default="light">
+  The theme of the embed.
+</ParamField>
+
+<ParamField body="themeOptions" type="JSON-stringified object">
+  Available options:
+
+    - `backgroundColor`: The background color of the embed.
+
+</ParamField>
+
+Depending on the embed type, you can use the following examples to initialize the embed options:
+
+<CodeGroup>
+
+```tsx React component
+import { DubEmbed } from "@dub/embed-react";
+
+const publicToken = "...";
+
+<DubEmbed
+  data="referrals"
+  token={publicToken}
+  theme="light"
+  themeOptions={{
+    backgroundColor: "#F5F5F5",
+  }}
+/>;
+```
+
+```tsx iFrame embed
+const publicToken = "...";
+
+const iframeUrl = "https://app.dub.co/embed/referrals";
+
+const iframeParams = new URLSearchParams({
+  token: publicToken,
+  theme: "light",
+  themeOptions: JSON.stringify({ backgroundColor: "#F5F5F5" }),
+});
+
+<iframe
+  src={`${iframeUrl}?${iframeParams.toString()}`}
+  allow="clipboard-write"
+  class="h-screen w-full"
+/>;
+```
+
+</CodeGroup>
