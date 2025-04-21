@@ -295,6 +295,10 @@
       "destination": "/concepts/webhooks/introduction"
     },
     {
+      "source": "/integrations/quickstart",
+      "destination": "/integrations/custom-integration"
+    },
+    {
       "source": "/integrations/:path*",
       "destination": "https://dub.co/integrations/:path*"
     },
