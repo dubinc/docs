@@ -1,0 +1,60 @@
+<ResponseField name="id" type="string" required>
+  The unique identifier of the domain.
+</ResponseField>
+
+<ResponseField name="slug" type="string" required>
+  The domain name.
+</ResponseField>
+
+<ResponseField name="verified" type="boolean" default={false} required>
+  Whether the domain is verified.
+</ResponseField>
+
+<ResponseField name="primary" type="boolean" default={false} required>
+  Whether the domain is the primary domain for the workspace.
+</ResponseField>
+
+<ResponseField name="archived" type="boolean" default={false} required>
+  Whether the domain is archived.
+</ResponseField>
+
+<ResponseField
+  name="placeholder"
+  type="string"
+  default="https://dub.co/help/article/what-is-dub"
+  required
+>
+  Provide context to your teammates in the link creation modal by showing them
+  an example of a link to be shortened.
+</ResponseField>
+
+<ResponseField name="expiredUrl" type="string | null" required>
+  The URL to redirect to when a link under this domain has expired.
+</ResponseField>
+
+<ResponseField name="notFoundUrl" type="string | null" required>
+  The URL to redirect to when a link under this domain doesn't exist.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required>
+  The date the domain was created.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required>
+  The date the domain was last updated.
+</ResponseField>
+
+<ResponseField name="registeredDomain" type="object | null" required>
+  The registered domain record.
+  <Expandable title="properties">
+    <ResponseField name="id" type="string" required>
+      The ID of the registered domain record.
+    </ResponseField>
+    <ResponseField name="createdAt" type="string" required>
+      The date the domain was created.
+    </ResponseField>
+    <ResponseField name="expiresAt" type="string" required>
+      The date the domain expires.
+    </ResponseField>
+  </Expandable>
+</ResponseField>

@@ -47,4 +47,31 @@
     ```
 
   </Step>
+
+  <Step title="Optional: Set up client-side click tracking">
+
+    If you're using [Dub Partners](/partners/quickstart) for affiliate management,  you will also need to set up the `domainsConfig.refer` property to enable [client-side click-tracking](/sdks/client-side/features/client-side-click-tracking).
+
+    ```jsx app/layout.tsx
+    import { Analytics as DubAnalytics } from '@dub/analytics/react';
+
+    export default function RootLayout({
+      children,
+    }: Readonly<{
+      children: React.ReactNode;
+    }>) {
+      return (
+        <html lang="en">
+          <body>{children}</body>
+          <DubAnalytics domainsConfig={{
+            refer: "yourcompany.link"
+          }} />
+        </html>
+      );
+    }
+    ```
+
+    Read the [client-side click-tracking guide](/sdks/client-side/features/client-side-click-tracking) for more information.
+
+  </Step>
 </Steps>

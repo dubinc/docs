@@ -4,6 +4,7 @@ description: Track clicks on the client-side using query parameters
 ---
 
 import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
+import VerifyTrackClick from "/snippets/verify-track-click.mdx";
 
 With the [`@dub/analytics` script](/sdks/client-side/introduction), you can track clicks on the client-side using query parameters (e.g. `?via=john`, `?ref=jane`).
 
@@ -21,7 +22,7 @@ Here's how you can enable client-side click-tracking with the `@dub/analytics` s
 
 <Step title="Add a custom domain to your Dub workspace">
 
-First, you'll need to [add a custom short link domain](https://dub.co/help/article/how-to-add-custom-domain) to your Dub workspace.
+First, you'll need to [add a custom short link domain](https://dub.co/help/article/how-to-add-custom-domain) to your Dub workspace. You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` for free.
 
 This is the domain that you'll use for your short links on Dub.
 
@@ -74,7 +75,7 @@ export default function App() {
 // include this script tag in your HTML Head tag
 <script
   src="https://www.dubcdn.com/analytics/script.js"
-  data-domains='{"refer": "go.example.com"}'
+  data-domains="{'refer': 'go.example.com'}"
   defer
 />
 ```
@@ -99,20 +100,15 @@ Refer to the [Reverse-proxy support](/sdks/client-side/features/reverse-proxy-su
 
 <Step title="Verify your setup">
 
-To verify that your click-tracking is working, run your website locally and append the URL with:
+To verify that your click-tracking is working, run your website locally and append the URL with the unique key of your short link
 
-- The specific query parameter + you specified in [Step 3](#install-the-dub-client-side-sdk)
-- The unique key of your short link
-
-For example, if the query parameter you specified in Step 3 is `via` and your short link is `https://go.example.com/abc123`, you'll need to append `?via=abc123` to the URL.
+For example, if your short link is `https://go.example.com/abc123`, you'll need to append `?via=abc123` to the URL.
 
 Once you've done that, check if the following is true:
 
-1. The click tracked correctly in the [**Events**](https://app.dub.co/events) tab of your Dub workspace.
-2. There is a successful `/track/click` request in your browser's **Network** tab (and no errors in the **Console** tab).
-3. The `dub_id` cookie is being set in your browser upon a successful click-tracking request.
+<VerifyTrackClick />
 
-</Step>
+   </Step>
 
 </Steps>
 
