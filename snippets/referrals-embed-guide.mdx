@@ -24,6 +24,8 @@ First, you need to create a server API route that generates a public token, whic
   />
 </Frame>
 
+### Using server-side SDKs
+
 If you're using our [server-side SDKs](/sdks/overview), you can generate an embed token using the `dub.embedToken.referrals` method.
 
 <CodeGroup>
@@ -162,6 +164,8 @@ end
 
 </CodeGroup>
 
+### Using REST API
+
 If you're not using our server-side SDKs, you can generate an embed token using our REST API instead (via the [`POST /tokens/embed/referrals`](/api-reference/endpoint/create-referrals-embed-token) endpoint).
 
 ```js JavaScript
@@ -254,6 +258,7 @@ export default function App() {
 
   useEffect(() => {
     const fetchPublicToken = async () => {
+      // fetching from the server API route you created in Step 1
       const response = await fetch("/api/embed-token");
       const data = await response.json();
       setPublicToken(data.publicToken);
