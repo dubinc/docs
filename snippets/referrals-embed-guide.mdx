@@ -26,12 +26,12 @@ First, you need to create a server API route that generates a public token, whic
 
 ### Using server-side SDKs
 
-If you're using our [server-side SDKs](/sdks/overview), you can generate an embed token using the `dub.embedToken.referrals` method.
+If you're using our [server-side SDKs](/sdks/overview), you can generate an embed token using the `dub.embedTokens.referrals` method.
 
 <CodeGroup>
 
 ```ts TypeScript
-const { publicToken } = await dub.embedToken.referrals({
+const { publicToken } = await dub.embedTokens.referrals({
   programId: "prog_xxx", // program ID from your Dub dashboard (in the URL)
   tenantId: user.id, // the user's ID within your application
   partner: {
