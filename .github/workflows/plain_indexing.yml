@@ -19,11 +19,11 @@ jobs:
         run: npm install -g @team-plain/cli@latest
         
       - name: Index Docs
-        run: plain index-docs-sitemap https://dub.co/docs/sitemap.xml
+        run: plain index-sitemap https://dub.co/docs/sitemap.xml
         env:
           PLAIN_API_KEY: ${{ secrets.PLAIN_API_KEY }}
           
       - name: Index Help Articles
-        run: plain index-docs-sitemap https://dub.co/sitemap.xml
+        run: plain index-sitemap https://dub.co/sitemap.xml
         env:
           PLAIN_API_KEY: ${{ secrets.PLAIN_API_KEY }}
