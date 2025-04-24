@@ -116,9 +116,9 @@ Once the integration is installed, Dub will automatically listen to the followin
 
 Depending on your setup, there are a few ways you can track sales with the Dub Stripe integration.
 
-- [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
-- [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
-- [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
+- [Option 1: Using Stripe Payment Links](#option-1%3A-using-stripe-payment-links)
+- [Option 2: Using Stripe Checkout (recommended)](#option-2%3A-using-stripe-checkout-recommended)
+- [Option 3: Using Stripe Customers](#option-3%3A-using-stripe-customers)
 
 ### Option 1: Using Stripe Payment Links
 
@@ -194,7 +194,7 @@ export default PricingPage;
 </Accordion>
 <Accordion title="What if I'm using Stripe's Checkout Sessions API?">
 
-If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2-using-stripe-checkout) instead.
+If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2%3A-using-stripe-checkout-recommended) instead.
 
 If your setup doesn't involve a [lead event](/conversions/leads/introduction) and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID (prefixed with `dub_id_`) as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id) to enable conversion tracking with Dub.
 
@@ -334,7 +334,7 @@ This way, when the customer completes their checkout session, Dub will automatic
 
 ### Option 3: Using Stripe Customers
 
-Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
+Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2%3A-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
 
 First, you'll need to complete the following prerequisites:
 
