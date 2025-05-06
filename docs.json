@@ -157,7 +157,7 @@
               {
                 "group": "Links API",
                 "pages": [
-                  "api-reference/endpoint/create-a-new-link",
+                  "api-reference/endpoint/create-a-link",
                   "api-reference/endpoint/update-a-link",
                   "api-reference/endpoint/upsert-a-link",
                   "api-reference/endpoint/delete-a-link",
@@ -203,9 +203,18 @@
                 ]
               },
               {
+                "group": "Folders API",
+                "pages": [
+                  "api-reference/endpoint/create-a-folder",
+                  "api-reference/endpoint/update-a-folder",
+                  "api-reference/endpoint/delete-a-folder",
+                  "api-reference/endpoint/retrieve-a-list-of-folders"
+                ]
+              },
+              {
                 "group": "Tags API",
                 "pages": [
-                  "api-reference/endpoint/create-a-new-tag",
+                  "api-reference/endpoint/create-a-tag",
                   "api-reference/endpoint/retrieve-a-list-of-tags",
                   "api-reference/endpoint/update-a-tag"
                 ]
@@ -342,6 +351,14 @@
     {
       "source": "/conversions/leads/supabase-auth",
       "destination": "/conversions/leads/supabase"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-new-link",
+      "destination": "/api-reference/endpoint/create-a-link"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-new-tag",
+      "destination": "/api-reference/endpoint/create-a-tag"
     },
     {
       "source": "/api-reference/endpoint/create-a-customer",
