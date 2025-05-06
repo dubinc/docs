@@ -1,0 +1,48 @@
+---
+title: "Better-Auth"
+"og:title": "Better-Auth Lead Tracking"
+description: "Learn how to track lead conversion events with Better-Auth and Dub"
+---
+
+import LeadsIntro from "/snippets/leads-intro.mdx";
+import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
+import LeadsAttributes from "/snippets/leads-attributes.mdx";
+import LeadsOutro from "/snippets/leads-outro.mdx";
+
+<LeadsIntro />
+
+In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Better-Auth for user authentication.
+
+<LeadsPrerequisites />
+
+## Install the Dub Better-Auth plugin
+
+To get started, simply install the `@dub/better-auth` plugin:
+
+```bash
+npm install @dub/better-auth
+```
+
+## Configure the plugin
+
+Then, add the plugin to your better-auth config file:
+
+```ts auth.ts
+import { dubAnalytics } from "@dub/better-auth";
+import { betterAuth } from "better-auth";
+
+const dub = new Dub({
+  apiKey: "your-api-key",
+});
+
+const betterAuth = betterAuth({
+  plugins: [
+    dubAnalytics({
+      dubClient: dub,
+      leadEventName: "Sign Up", // default: "Sign Up"
+    }),
+  ],
+});
+```
+
+<LeadsOutro />
