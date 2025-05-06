@@ -57,11 +57,10 @@ const dub = new Dub({
   apiKey: "your-api-key",
 });
 
-const betterAuth = betterAuth({
+export const auth = betterAuth({
   plugins: [
     dubAnalytics({
       dubClient: dub,
-      leadEventName: "Sign Up", // default: "Sign Up"
     }),
   ],
 });
