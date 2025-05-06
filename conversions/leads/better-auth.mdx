@@ -19,26 +19,26 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 <Steps>
 
-<Step title="Install the @dub/Better Auth plugin">
+<Step title="Install the @dub/better-auth plugin">
 
-To get started, simply install the `@dub/Better Auth` plugin via your preferred package manager:
+To get started, simply install the `@dub/better-auth` plugin via your preferred package manager:
 
 <CodeGroup>
 
 ```bash npm
-npm install @dub/Better Auth
+npm install @dub/better-auth
 ```
 
 ```bash yarn
-yarn add @dub/Better Auth
+yarn add @dub/better-auth
 ```
 
 ```bash pnpm
-pnpm add @dub/Better Auth
+pnpm add @dub/better-auth
 ```
 
 ```bash bun
-bun add @dub/Better Auth
+bun add @dub/better-auth
 ```
 
 </CodeGroup>
@@ -47,11 +47,11 @@ bun add @dub/Better Auth
 
 <Step title="Configure the plugin">
 
-Then, add the plugin to your Better Auth config file:
+Then, add the plugin to your better-auth config file:
 
 ```ts auth.ts
-import { dubAnalytics } from "@dub/Better Auth";
-import { betterAuth } from "Better Auth";
+import { dubAnalytics } from "@dub/better-auth";
+import { betterAuth } from "better-auth";
 
 const dub = new Dub({
   apiKey: "your-api-key",
