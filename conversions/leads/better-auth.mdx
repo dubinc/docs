@@ -54,9 +54,7 @@ Then, add the plugin to your better-auth config file:
 import { dubAnalytics } from "@dub/better-auth";
 import { betterAuth } from "better-auth";
 
-const dub = new Dub({
-  apiKey: "your-api-key",
-});
+const dub = new Dub();
 
 export const auth = betterAuth({
   plugins: [
