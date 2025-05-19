@@ -71,6 +71,24 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     POST https://api.dub.co/oauth/token
     ```
 
+    Here's an example using the fetch API:
+
+    ```js
+    await fetch("https://api.dub.co/oauth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        code: "YOUR_AUTHORIZATION_CODE",
+        client_id: "YOUR_CLIENT_ID",
+        client_secret: "YOUR_CLIENT_SECRET",
+        redirect_uri: "YOUR_REDIRECT_URI",
+        grant_type: "authorization_code",
+      }),
+    });
+    ```
+
     <Warning>
       The `Content-Type` header should be set to `application/x-www-form-urlencoded`.
     </Warning>
