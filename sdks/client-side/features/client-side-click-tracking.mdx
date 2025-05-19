@@ -135,7 +135,14 @@ This data will be stored as a JSON-stringified object in the `dub_partner_data` 
 }
 ```
 
-To access this cookie data, we recommend using a cookie library like [`js-cookie`](https://github.com/js-cookie/js-cookie) – here's an example:
+<Note>
+  The `name` and `image` fields in the partner data are URL-encoded when stored
+  in the cookie. Make sure to decode these values using `decodeURIComponent()`
+  when accessing them from the cookie. However, if you're using `js-cookie` as
+  shown in the example below, the decoding is handled automatically for you.
+</Note>
+
+To access this cookie data, we recommend using a cookie library like [`js-cookie`](https://github.com/js-cookie/js-cookie) – here's an example:
 
 ```js
 import Cookies from "js-cookie";
@@ -187,7 +194,7 @@ Server-side click-tracking is enabled by default for all Dub links and come with
 | :----------- | :------ | :----------------------------------------------------------------------------------------------- |
 | `timestamp`  | string  | The timestamp of the click event                                                                 |
 | `id`         | string  | The unique ID of the click event                                                                 |
-| `url`        | string  | The destination URL that the link resolved to – this can vary if geo/device-targeting is enabled |
+| `url`        | string  | The destination URL that the link resolved to – this can vary if geo/device-targeting is enabled |
 | `continent`  | string  | The continent of the user who clicked the link                                                   |
 | `country`    | string  | The country of the user who clicked the link                                                     |
 | `city`       | string  | The city of the user who clicked the link                                                        |
