@@ -203,6 +203,13 @@
                 ]
               },
               {
+                "group": "Commissions API",
+                "pages": [
+                  "api-reference/endpoint/retrieve-a-list-of-commissions",
+                  "api-reference/endpoint/update-a-commission"
+                ]
+              },
+              {
                 "group": "Folders API",
                 "pages": [
                   "api-reference/endpoint/create-a-folder",
