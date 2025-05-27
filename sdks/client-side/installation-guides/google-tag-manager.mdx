@@ -7,48 +7,86 @@ import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
 import ClientSideClickTrackingAddendum from "/snippets/client-side-click-tracking-addendum.mdx";
 
-You can use Google Tag Manager to add Dub Analytics to your site.
+This guide will walk you through the process of integrating Dub Analytics with Google Tag Manager (GTM). By following these steps, you'll be able to track analytics data across your website.
 
-In your Google Tag Manager account, add a new tag.
+## Prerequisites
 
-Choose **Custom HTML** for the tag type.
+- A Google Tag Manager account
+- Access to your GTM container
+- Your Dub Analytics configuration details
+
+## Installation Steps
+
+### 1. Create a New Tag
+
+First, navigate to your Google Tag Manager account and create a new tag:
+
+1. Click on **Tags** in the left sidebar
+2. Click the **New** button
+3. Select **Custom HTML** as the tag type
 
 <img
   src="/images/google-tag-manager/gtm-add-custom-html.png"
   alt="Add custom HTML tag in Google Tag Manager"
 />
 
-Paste your Dub Analytics snippet in the **HTML** field within the **Custom HTML** section.
+### 2. Add the Dub Analytics Script
+
+In the Custom HTML section, you'll need to add the Dub Analytics script. Copy and paste the following code into the **HTML** field:
 
 ```js
 <script>
   var script = document.createElement("script");
-  script.defer = true;
+  script.defer = true; 
   script.src = "https://www.dubcdn.com/analytics/script.js";
-  script.dataset.domains = JSON.stringify({ refer: "refer.dub.co" });
   document.getElementsByTagName("head")[0].appendChild(script);
 </script>
 ```
-
-Copy the snippet above and paste it into the **HTML** field.
 
 <img
   src="/images/google-tag-manager/gtm-add-dub-script.png"
   alt="Add dub analytics script"
 />
 
-If you're using [Dub Partners](/partners/quickstart) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/sdks/client-side/features/client-side-click-tracking).
+If you're using [Dub Partners](/partners/quickstart) for affiliate management, you'll need to configure the `data-domains` property to enable [client-side click tracking](/sdks/client-side/features/client-side-click-tracking). The script above already includes this configuration with the default domain.
 
-Add a trigger to make this tag fire on all pages.
+### 3. Configure the Trigger
+
+To ensure the analytics script loads on all pages:
+
+1. Click on the **Triggering** section
+2. Select **All Pages** as the trigger type
+3. This will make the tag fire on every page load
 
 <img
   src="/images/google-tag-manager/gtm-add-trigger.png"
   alt="Add trigger to make this tag fire on all pages"
 />
 
+### 4. Save and Publish
 
-Read the [client-side click-tracking guide](/sdks/client-side/features/client-side-click-tracking) for more information.
+1. Name your tag **Dub Analytics**
+2. Click **Save** to store your changes
+3. Click **Submit** to create a new version
+4. Finally, click **Publish** to activate the tag on your website
+
+If you're using [Dub Partners](/partners/quickstart) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/sdks/client-side/features/client-side-click-tracking).
+
+```js
+<script>
+  ...
+  var script = document.createElement("script");
+  script.defer = true;
+  script.src = "https://www.dubcdn.com/analytics/script.js";
+  script.dataset.domains = JSON.stringify({ refer: "refer.dub.co" }); // Add this line
+  document.getElementsByTagName("head")[0].appendChild(script);
+</script>
+```
 
 <DubClientInstallVerify />
+
+## Concepts
+
+You can pass the following props to the `@dub/analytics` script to customize its behavior:
 
 <DubAnalyticsParams />
