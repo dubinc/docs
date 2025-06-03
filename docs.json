@@ -231,7 +231,9 @@
                 "pages": [
                   "api-reference/endpoint/create-a-domain",
                   "api-reference/endpoint/update-a-domain",
-                  "api-reference/endpoint/delete-a-domain"
+                  "api-reference/endpoint/delete-a-domain",
+                  "api-reference/endpoint/register-a-domain",
+                  "api-reference/endpoint/check-a-domain-availability"
                 ]
               }
             ]
