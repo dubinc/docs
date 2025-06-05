@@ -50,6 +50,21 @@ Once the script is installed, make sure to verify that [client-side click tracki
 
 <VerifyTrackClick />
 
+In case you missed it, you'll also need to allowlist your site's domain to ensure the client-side click events are ingested by Dub. To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and add your site's domain to the **Allowed Hostnames** list.
+
+<Frame>
+  <img
+    src="/images/conversions/allowed-hostnames.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+<Tip>
+  When testing things out locally, you can add `localhost` to the **Allowed
+  Hostnames** list temporarily. This will allow local events to be ingested by
+  Dub. Don't forget to remove it once you're ready to go live!
+</Tip>
+
 ## Step 2: Install the Dub server-side SDK + track conversion events
 
 <InstallServerSdksTrackConversions />
