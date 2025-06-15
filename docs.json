@@ -130,7 +130,8 @@
                       "sdks/client-side/installation-guides/webflow",
                       "sdks/client-side/installation-guides/wordpress",
                       "sdks/client-side/installation-guides/framer",
-                      "sdks/client-side/installation-guides/shopify"
+                      "sdks/client-side/installation-guides/shopify",
+                      "sdks/client-side/installation-guides/google-tag-manager"
                     ]
                   },
                   {
