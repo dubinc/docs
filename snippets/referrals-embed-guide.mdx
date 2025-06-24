@@ -32,7 +32,6 @@ If you're using our [server-side SDKs](/sdks/overview), you can generate an embe
 
 ```ts TypeScript
 const { publicToken } = await dub.embedTokens.referrals({
-  programId: "prog_xxx", // program ID from your Dub dashboard (in the URL)
   tenantId: user.id, // the user's ID within your application
   partner: {
     name: user.name, // the user's name
@@ -50,7 +49,6 @@ with Dub(
     token="DUB_API_KEY",
 ) as d_client:
     res = d_client.embed_tokens.referrals(request={
-        "program_id": "prog_xxx",  # program ID from your Dub dashboard
         "tenant_id": user.id,  # the user's ID within your application
         "partner": {
             "name": user.name,  # the user's name
@@ -82,7 +80,6 @@ func main() {
     )
 
     res, err := s.EmbedTokens.Referrals(ctx, &operations.CreateReferralsEmbedTokenRequestBody{
-        ProgramID: "prog_xxx", // program ID from your Dub dashboard
         TenantID: user.ID, // the user's ID within your application
         Partner: &operations.Partner{
             Name: user.Name, // the user's name
@@ -114,7 +111,6 @@ $sdk = Dub\Dub::builder()
     ->build();
 
 $request = new Operations\CreateReferralsEmbedTokenRequestBody(
-    programId: 'prog_xxx', // program ID from your Dub dashboard
     tenantId: $user->id, // the user's ID within your application
     partner: new Operations\Partner(
         name: $user->name, // the user's name
@@ -144,7 +140,6 @@ s = ::OpenApiSDK::Dub.new(
 )
 
 req = ::OpenApiSDK::Operations::CreateReferralsEmbedTokenRequestBody.new(
-    program_id: "prog_xxx", # program ID from your Dub dashboard
     tenant_id: user.id, # the user's ID within your application
     partner: ::OpenApiSDK::Operations::Partner.new(
         name: user.name, # the user's name
@@ -172,7 +167,6 @@ If you're not using our server-side SDKs, you can generate an embed token using 
 const response = await fetch("https://api.dub.co/tokens/embed/referrals", {
   method: "POST",
   body: JSON.stringify({
-    programId: "prog_xxx", // program ID from your Dub dashboard
     tenantId: user.id, // the user's ID within your application
     partner: {
       name: user.name, // the user's name
