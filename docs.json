@@ -38,31 +38,31 @@
                   "concepts/analytics/utm",
                   "concepts/analytics/tags"
                 ]
+              }
+            ]
+          },
+          {
+            "group": "Conversion tracking",
+            "pages": [
+              "conversions/quickstart",
+              {
+                "group": "Tracking lead events",
+                "pages": [
+                  "conversions/leads/introduction",
+                  "conversions/leads/clerk",
+                  "conversions/leads/better-auth",
+                  "conversions/leads/next-auth",
+                  "conversions/leads/supabase",
+                  "conversions/leads/auth0",
+                  "conversions/leads/appwrite"
+                ]
               },
               {
-                "group": "Conversion tracking",
+                "group": "Tracking sale events",
                 "pages": [
-                  "conversions/quickstart",
-                  {
-                    "group": "Tracking lead events",
-                    "pages": [
-                      "conversions/leads/introduction",
-                      "conversions/leads/clerk",
-                      "conversions/leads/better-auth",
-                      "conversions/leads/next-auth",
-                      "conversions/leads/supabase",
-                      "conversions/leads/auth0",
-                      "conversions/leads/appwrite"
-                    ]
-                  },
-                  {
-                    "group": "Tracking sale events",
-                    "pages": [
-                      "conversions/sales/introduction",
-                      "conversions/sales/stripe",
-                      "conversions/sales/shopify"
-                    ]
-                  }
+                  "conversions/sales/introduction",
+                  "conversions/sales/stripe",
+                  "conversions/sales/shopify"
                 ]
               }
             ]
