@@ -54,7 +54,8 @@
                   "conversions/leads/next-auth",
                   "conversions/leads/supabase",
                   "conversions/leads/auth0",
-                  "conversions/leads/appwrite"
+                  "conversions/leads/appwrite",
+                  "conversions/leads/segment"
                 ]
               },
               {
@@ -62,7 +63,8 @@
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/stripe",
-                  "conversions/sales/shopify"
+                  "conversions/sales/shopify",
+                  "conversions/sales/segment"
                 ]
               }
             ]
