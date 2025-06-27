@@ -42,8 +42,9 @@ export const authOptions: NextAuthOptions = {
     async signIn(message) {
       // if it's a new sign up
       if (message.isNewUser) {
+        const cookieStore = await cookies();
         // check if dub_id cookie is present
-        const dub_id = cookies().get("dub_id")?.value;
+        const dub_id = cookieStore.get("dub_id")?.value;
         if (dub_id) {
           // send lead event to Dub
           await dub.track.lead({
@@ -54,10 +55,9 @@ export const authOptions: NextAuthOptions = {
             customerEmail: user.email,
             customerAvatar: user.image,
           });
-          // delete the dub_id cookie
-          cookies().set("dub_id", "", {
-            expires: new Date(0),
-          });
+          // delete the cookies
+          cookieStore.delete("dub_id");
+          cookieStore.delete("dub_partner_data");
         }
       }
     },
