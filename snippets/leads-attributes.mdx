@@ -1,10 +1,10 @@
 Here's the full list of attributes you can pass when sending a lead event:
 
-| Property         | Required | Description                                                                                                              |
-| :--------------- | :------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `clickId`        | **Yes**  | The unique `dub_id` parameter that the lead conversion event is attributed to.                                           |
-| `eventName`      | **Yes**  | The name of the event. Example: "Sign up".                                                                               |
-| `externalId`     | **Yes**  | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. |
-| `customerEmail`  | No       | The email address of the customer. If not passed, a random email address will be generated.                              |
-| `customerName`   | No       | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       |
-| `customerAvatar` | No       | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    |
+| Property             | Required | Description                                                                                                              |
+| :------------------- | :------- | :----------------------------------------------------------------------------------------------------------------------- |
+| `clickId`            | **Yes**  | The unique `dub_id` parameter that the lead conversion event is attributed to.                                           |
+| `eventName`          | **Yes**  | The name of the event. Example: "Sign up".                                                                               |
+| `customerExternalId` | **Yes**  | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer. |
+| `customerEmail`      | No       | The email address of the customer. If not passed, a random email address will be generated.                              |
+| `customerName`       | No       | The name of the customer. If not passed, a random name will be generated (e.g. "Big Red Caribou").                       |
+| `customerAvatar`     | No       | The avatar URL of the customer. If not passed, a random avatar URL will be generated.                                    |

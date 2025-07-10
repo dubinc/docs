@@ -60,7 +60,7 @@ if (dubId) {
   await dub.track.lead({
     clickId: dubId,
     eventName: "Sign Up",
-    externalId: customer.id,
+    customerExternalId: customer.id,
     customerName: customer.name,
     customerEmail: customer.email,
     customerAvatar: customer.avatar,
@@ -110,7 +110,7 @@ if err == nil {
     _, err = d.Track.Lead(context.Background(), &operations.TrackLeadRequest{
         ClickId:         dubId.Value,
         EventName:       "Sign Up",
-        ExternalId:      customer.ID,
+        customerExternalId:      customer.ID,
         CustomerName:    customer.Name,
         CustomerEmail:   customer.Email,
         CustomerAvatar:  customer.Avatar,
@@ -165,7 +165,7 @@ if ($dubId) {
     $request = new Operations\TrackLeadRequest();
     $request->clickId = $dubId;
     $request->eventName = 'Sign Up';
-    $request->externalId = $customer->id;
+    $request->customerExternalId = $customer->id;
     $request->customerName = $customer->name;
     $request->customerEmail = $customer->email;
     $request->customerAvatar = $customer->avatar;

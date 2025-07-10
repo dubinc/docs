@@ -1,11 +1,11 @@
 Here are the properties you can include when sending a sale event:
 
-| Property           | Required | Description                                                                                                                      |
-| :----------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| `externalId`       | **Yes**  | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer.         |
-| `amount`           | **Yes**  | The amount of the sale in cents.                                                                                                 |
-| `paymentProcessor` | **Yes**  | The payment processor that processed the sale. (E.g. [Stripe](/conversions/sales/stripe), [Shopify](/conversions/sales/shopify)) |
-| `eventName`        | No       | The name of the event. Defaults to "Purchase".                                                                                   |
-| `invoiceId`        | No       | The invoice ID of the sale. Can be used as a idempotency key – only one sale event can be recorded for a given invoice ID.       |
-| `currency`         | No       | The currency of the sale. Defaults to "usd".                                                                                     |
-| `metadata`         | No       | An object containing additional information about the sale.                                                                      |
+| Property             | Required | Description                                                                                                                      |
+| :------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| `customerExternalId` | **Yes**  | The unique ID of the customer in your system. Will be used to identify and attribute all future events to this customer.         |
+| `amount`             | **Yes**  | The amount of the sale in cents.                                                                                                 |
+| `paymentProcessor`   | **Yes**  | The payment processor that processed the sale. (E.g. [Stripe](/conversions/sales/stripe), [Shopify](/conversions/sales/shopify)) |
+| `eventName`          | No       | The name of the event. Defaults to "Purchase".                                                                                   |
+| `invoiceId`          | No       | The invoice ID of the sale. Can be used as a idempotency key – only one sale event can be recorded for a given invoice ID.       |
+| `currency`           | No       | The currency of the sale. Defaults to "usd".                                                                                     |
+| `metadata`           | No       | An object containing additional information about the sale.                                                                      |

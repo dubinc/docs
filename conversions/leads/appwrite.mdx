@@ -158,7 +158,7 @@ Next, configure Appwrite to track lead conversion events during the sign up proc
       dub.track.lead({
         clickId: dub_id,
         eventName: 'Sign Up',
-        externalId: user.$id,
+        customerExternalId: user.$id,
         customerName: user.name,
         customerEmail: user.email
       });

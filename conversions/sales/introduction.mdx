@@ -64,7 +64,7 @@ import { Dub } from "dub";
 const dub = new Dub();
 
 await dub.track.sale({
-  externalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  customerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
   amount: 100,
   paymentProcessor: "stripe",
   eventName: "E-book purchase",
@@ -102,7 +102,7 @@ d := dub.New(
 )
 
 _, err := d.Track.Sale(context.Background(), &operations.TrackSaleRequest{
-    ExternalId:       "cus_RBfbD57HDzPKpduI8elr5qHA",
+    CustomerExternalId:       "cus_RBfbD57HDzPKpduI8elr5qHA",
     Amount:          100,
     PaymentProcessor: "stripe",
     EventName:       "E-book purchase",
@@ -144,7 +144,7 @@ use Dub\Models\Operations;
 $dub = Dub::builder()->setSecurity($_ENV["DUB_API_KEY"])->build();
 
 $request = new Operations\TrackSaleRequest();
-$request->externalId = 'cus_RBfbD57HDzPKpduI8elr5qHA';
+$request->customerExternalId = 'cus_RBfbD57HDzPKpduI8elr5qHA';
 $request->amount = 100;
 $request->paymentProcessor = 'stripe';
 $request->eventName = 'E-book purchase';
@@ -170,7 +170,7 @@ For simplicity, Dub records all sales in the default currency of your Dub worksp
 
 ```typescript TypScript
 await dub.track.sale({
-  externalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  customerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
   amount: 15480, // this will be converted from PLN to USD
   currency: "pln",
   paymentProcessor: "stripe",

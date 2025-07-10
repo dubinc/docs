@@ -141,7 +141,7 @@ Then, when a user clicks on the shortened link, Dub will automatically append th
   />
 </Frame>
 
-Finally, when the user completes the checkout flow, Dub will automatically [track the sale event](/api-reference/endpoint/track-sale) and [update the customer's `externalId`](/api-reference/endpoint/update-a-customer) with their Stripe customer ID for future reference.
+Finally, when the user completes the checkout flow, Dub will automatically [track the sale event](/api-reference/endpoint/track-sale) and [update the customer's `customerExternalId`](/api-reference/endpoint/update-a-customer) with their Stripe customer ID for future reference.
 
 Alternatively, if you have a marketing site that you're redirecting your users to first, you can do this instead:
 
@@ -285,7 +285,7 @@ Remember in the [lead conversion tracking guide](/conversions/leads/introduction
 await dub.track.lead({
   clickId,
   eventName: "Sign Up",
-  externalId: user.id, // the unique user ID of the customer in your database
+  customerExternalId: user.id, // the unique user ID of the customer in your database
   customerName: user.name,
   customerEmail: user.email,
   customerAvatar: user.image,
