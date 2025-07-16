@@ -39,6 +39,11 @@ Then, you'll need to allowlist your site's domain to allow the client-side click
   />
 </Frame>
 
+You can group your hostnames when adding them to the allow list:
+
+- `example.com`: Tracks traffic **only** from `example.com`.
+- `*.example.com`: Tracks traffic from **all subdomains** of `example.com`, but **not** from `example.com` itself.
+
 <Tip>
   When testing things out locally, you can add `localhost` to the **Allowed
   Hostnames** list temporarily. This will allow local events to be ingested by
