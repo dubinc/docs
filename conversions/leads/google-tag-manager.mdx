@@ -75,6 +75,9 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
     2. Select the **Dub Conversion Tag** template from **Custom**
     3. Name the tag "Dub Lead Tracking" (or any descriptive name)
     4. Configure the tag settings:
+
+       > You can use GTM variables to dynamically map values from the incoming event data objects to the fields in the Dub Conversion Tag. For example, you might use a variable like `{{Event Data - customerExternalId}}` to populate the Customer External ID field.
+
        - **Dub API Key**: Enter your Dub API key (starts with `dub_`)
        - **Event**: Select "Track lead"
        - **Click ID**: Map to the `clickId` from the Dub Server Client event data
