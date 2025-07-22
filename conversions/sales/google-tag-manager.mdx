@@ -1,0 +1,145 @@
+---
+title: "Google Tag Manager"
+"og:title": "Google Tag Manager Sales Tracking"
+description: "Learn how to track sales conversion events with Google Tag Manager and Dub"
+---
+
+import SalesIntro from "/snippets/sales-intro.mdx";
+import SalesAttributes from "/snippets/sales-attributes.mdx";
+import SalesOutro from "/snippets/sales-outro.mdx";
+
+<SalesIntro />
+
+In this guide, we will be focusing on tracking sales events for a SaaS application that uses Google Tag Manager to collect customer data.
+
+## Prerequisites
+
+Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+
+## Configure Google Tag Manager Server-Side
+
+To track sales conversion events with Google Tag Manager, you'll need to set up a server container and configure a custom client to handle Dub conversion events.
+
+<Steps>
+
+  <Step title="Set up Server Container">
+
+    In Google Tag Manager, you'll need to use an existing server container or create a new one. Server containers are the foundation for server-side tracking and allow you to process events before they reach their final destinations.
+
+    - If you already have a server container set up, you can use that
+    - If not, create a new server container in your GTM workspace
+
+  </Step>
+
+  <Step title="Import Dub GTM Server Client Template">
+
+    <Note>
+      If you've already set up the Dub GTM Server Client for lead tracking, you can skip this step and the next step.
+    </Note>
+
+    Add a new Client Template using the import option:
+
+    1. In your server container, go to **Client Templates** → **New**
+    2. Click **Import** and upload the [Dub GTM Server Client template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20GTM%20Server%20Client.tpl)
+
+  </Step>
+
+  <Step title="Create Dub Server Client">
+
+    <Note>
+      If you've already set up the Dub GTM Server Client for lead tracking, you can skip this step.
+    </Note>
+
+    Next, create a new Client using the imported template:
+
+    1. In your server container, go to **Clients** → **New**
+    2. Select the **Dub GTM Server Client** template from **Custom**
+    3. Name the client "Dub Server Client" (or any descriptive name)
+    4. Set the **Request Path** to `/dub/track`
+    5. Optionally enable debug logging for troubleshooting
+
+    **Note:** Clients in GTM Server are adapters that act as bridges between the software running on a user's device and your server container. They receive requests and transform them into events that can be processed by tags.
+
+  </Step>
+
+  <Step title="Import Dub Conversion Tag Template">
+
+    <Note>
+      If you've already imported the Dub Conversion Tag template for lead tracking, you can skip this step.
+    </Note>
+
+    Next, import the Dub Conversion Tag template to handle sales tracking:
+
+    1. In your server container, go to **Tags** → **New**
+    2. Click **Import** and upload the [Dub Conversion Tag template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20Conversion%20Tag.tpl)
+    3. This template is specifically designed to send conversion events directly to Dub
+
+  </Step>
+
+  <Step title="Add Sales Tracking Tag">
+
+    Next, create a new tag for sales tracking with proper mapping:
+
+    1. In your server container, go to **Tags** → **New**
+    2. Select the **Dub Conversion Tag** template from **Custom**
+    3. Name the tag "Dub Sales Tracking" (or any descriptive name)
+    4. Configure the tag settings:
+       - **Dub API Key**: Enter your Dub API key (starts with `dub_`)
+       - **Event**: Select "Track sale"
+       - **Customer External ID**: Map to the `customerExternalId` from the event data
+       - **Amount**: Map to the `amount` from the event data (in cents)
+       - **Currency**: Map to the `currency` from the event data (e.g., "usd")
+       - **Event Name**: Map to the `eventName` from the event data (e.g., "Purchase")
+       - **Payment Processor**: Map to the `paymentProcessor` from the event data (e.g., "stripe")
+       - **Invoice ID**: Map to the `invoiceId` from the event data (optional)
+       - **Lead Event Name**: Map to the `leadEventName` from the event data (optional)
+       - **Metadata**: Map to the `metadata` from the event data (optional)
+
+    5. **Triggering**: Configure when the tag should fire:
+       - Click **Triggering** in the tag configuration
+       - Click **+** to add a new trigger
+       - Select **Custom Event** as the trigger type
+       - Set the **Event Name** to match the event name from the Dub Server Client. Default is `dub_conversion`
+       - Add a condition to filter for sales events:
+         - **Variable**: Select a variable that contains the event type
+         - **Operator**: Equals
+         - **Value**: "Purchase"
+       - Name the trigger "Dub Sales Event Trigger" and save it
+
+  </Step>
+
+</Steps>
+
+<SalesAttributes />
+
+## Testing Your Setup
+
+You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
+
+```bash
+curl "https://server-side-tagging-xxx-uc.a.run.app/dub/track/sale?\
+customerExternalId=user_1K0RN3SDNAC0C1WCW4BGRS3EW&\
+amount=1000&\
+currency=usd&\
+eventName=Purchase&\
+paymentProcessor=stripe&\
+invoiceId=inv_123456789&\
+leadEventName=Sign%20Up"
+```
+
+## Download Templates
+
+To learn more about how to track sales with Google Tag Manager, check out the following templates:
+
+<Card
+  title="Google Tag Manager Templates"
+  icon="github"
+  href="https://github.com/dubinc/gtm-templates"
+>
+  Download Templates
+</Card>
+
+<SalesOutro />
