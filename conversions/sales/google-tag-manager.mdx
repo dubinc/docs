@@ -45,6 +45,15 @@ To track sales conversion events with Google Tag Manager, you'll need to set up 
     1. In your server container, go to **Client Templates** → **New**
     2. Click **Import** and upload the [Dub GTM Server Client template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20GTM%20Server%20Client.tpl)
 
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-client-template.png"
+        alt="GTM Server Client Template"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
   </Step>
 
   <Step title="Create Dub Server Client">
@@ -61,6 +70,15 @@ To track sales conversion events with Google Tag Manager, you'll need to set up 
     4. Set the **Request Path** to `/dub/track`
     5. Optionally enable debug logging for troubleshooting
 
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-client.png"
+        alt="GTM Server Client"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
     **Note:** Clients in GTM Server are adapters that act as bridges between the software running on a user's device and your server container. They receive requests and transform them into events that can be processed by tags.
 
   </Step>
@@ -76,6 +94,15 @@ To track sales conversion events with Google Tag Manager, you'll need to set up 
     1. In your server container, go to **Tags** → **New**
     2. Click **Import** and upload the [Dub Conversion Tag template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20Conversion%20Tag.tpl)
     3. This template is specifically designed to send conversion events directly to Dub
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-tag-template.png"
+        alt="GTM Conversion Tag Template"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
 
   </Step>
 
@@ -110,6 +137,15 @@ To track sales conversion events with Google Tag Manager, you'll need to set up 
          - **Operator**: Equals
          - **Value**: "Purchase"
        - Name the trigger "Dub Sales Event Trigger" and save it
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-track-sale-tag.png"
+        alt="GTM Sales Tracking Tag"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
 
   </Step>
 
