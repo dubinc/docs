@@ -22,7 +22,16 @@
             "pages": [
               "concepts/links/introduction",
               "concepts/links/bulk-operations",
-              "concepts/links/organization"
+              "concepts/links/organization",
+              {
+                "group": "Deep links",
+                "pages": [
+                  "concepts/links/deeplinks/introduction",
+                  "concepts/links/deeplinks/deferred-deep-linking",
+                  "concepts/links/deeplinks/attribution",
+                  "concepts/links/deeplinks/migrating-from-firebase"
+                ]
+              }
             ]
           },
           {
