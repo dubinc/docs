@@ -6,7 +6,7 @@ description: "Learn how to track sales conversion events with Google Tag Manager
 
 import SalesIntro from "/snippets/sales-intro.mdx";
 import SalesAttributes from "/snippets/sales-attributes.mdx";
-import SalesOutro from "/snippets/sales-outro.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
 
 <SalesIntro />
 
@@ -16,10 +16,10 @@ In this guide, we will be focusing on tracking sales events for a SaaS applicati
 
 Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
 
-1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
-2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK via GTM](/sdks/client-side/installation-guides/google-tag-manager)
 
-## Configure Google Tag Manager Server-Side
+## Configure Google Tag Manager server-side tracking
 
 To track sales conversion events with Google Tag Manager, you'll need to set up a server container and configure a custom client to handle Dub conversion events.
 
@@ -153,7 +153,7 @@ To track sales conversion events with Google Tag Manager, you'll need to set up 
 
 <SalesAttributes />
 
-## Testing Your Setup
+## Testing your setup
 
 You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
 
@@ -168,16 +168,20 @@ invoiceId=inv_123456789&\
 leadEventName=Sign%20Up"
 ```
 
-## Download Templates
+## Download GTM templates
 
 To learn more about how to track sales with Google Tag Manager, check out the following templates:
 
 <Card
   title="Google Tag Manager Templates"
   icon="github"
-  href="https://github.com/dubinc/gtm-templates"
+  href="https://github.com/dubinc/gtm-server-tag-template"
 >
   Download Templates
 </Card>
 
-<SalesOutro />
+## View conversion results
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
+
+<ViewConversions />

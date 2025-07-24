@@ -45,7 +45,19 @@ This guide will walk you through the process of integrating Dub Analytics with G
       />
     </Frame>
 
-    If you're using [Dub Partners](/partners/quickstart) for affiliate management, you'll need to configure the `data-domains` property to enable [client-side click tracking](/sdks/client-side/features/client-side-click-tracking). The script above already includes this configuration with the default domain.
+
+    If you're using [Dub Partners](/partners/quickstart) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/sdks/client-side/features/client-side-click-tracking).
+
+    ```js
+    <script>
+      ...
+      var script = document.createElement("script");
+      script.defer = true;
+      script.src = "https://www.dubcdn.com/analytics/script.js";
+      script.dataset.domains = JSON.stringify({ refer: "refer.yourdomain.com" }); // Add this line to match the short domain you're using for your referral links
+      document.getElementsByTagName("head")[0].appendChild(script);
+    </script>
+    ```
 
   </Step>
 
@@ -63,19 +75,6 @@ This guide will walk you through the process of integrating Dub Analytics with G
     - Click **Save** to store your changes
     - Click **Submit** to create a new version
     - Finally, click **Publish** to activate the tag on your website
-
-    If you're using [Dub Partners](/partners/quickstart) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/sdks/client-side/features/client-side-click-tracking).
-
-    ```js
-    <script>
-      ...
-      var script = document.createElement("script");
-      script.defer = true;
-      script.src = "https://www.dubcdn.com/analytics/script.js";
-      script.dataset.domains = JSON.stringify({ refer: "refer.yourdomain.com" }); // Add this line to match your refer domains
-      document.getElementsByTagName("head")[0].appendChild(script);
-    </script>
-    ```
 
   </Step>
 </Steps>

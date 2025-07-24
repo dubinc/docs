@@ -16,10 +16,10 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
 
-1. [Enable conversion tracking for your links](/conversions/quickstart#step-1-enable-conversion-tracking-for-your-links)
-2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK via GTM](/sdks/client-side/installation-guides/google-tag-manager)
 
-## Configure Google Tag Manager Server-Side
+## Configure Google Tag Manager server-side tracking
 
 To track lead conversion events with Google Tag Manager, you'll need to set up a server container and configure a custom client to handle Dub conversion events.
 
@@ -49,6 +49,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
         height="1024"
       />
     </Frame>
+
   </Step>
 
   <Step title="Create Dub Server Client">
@@ -90,6 +91,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
         height="1024"
       />
     </Frame>
+
   </Step>
 
   <Step title="Add Lead Tracking Tag">
@@ -138,7 +140,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
 
 <LeadsAttributes />
 
-## Testing Your Setup
+## Testing your setup
 
 You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
 
@@ -154,14 +156,14 @@ eventQuantity=1&\
 mode=async"
 ```
 
-## Download Templates
+## Download GTM templates
 
 To learn more about how to track leads with Google Tag Manager, check out the following templates:
 
 <Card
   title="Google Tag Manager Templates"
   icon="github"
-  href="https://github.com/dubinc/gtm-templates"
+  href="https://github.com/dubinc/gtm-server-tag-template"
 >
   Download Templates
 </Card>
