@@ -55,7 +55,8 @@
                   "conversions/leads/supabase",
                   "conversions/leads/auth0",
                   "conversions/leads/appwrite",
-                  "conversions/leads/segment"
+                  "conversions/leads/segment",
+                  "conversions/leads/google-tag-manager"
                 ]
               },
               {
@@ -64,7 +65,8 @@
                   "conversions/sales/introduction",
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
-                  "conversions/sales/segment"
+                  "conversions/sales/segment",
+                  "conversions/sales/google-tag-manager"
                 ]
               }
             ]
@@ -132,7 +134,8 @@
                       "sdks/client-side/installation-guides/webflow",
                       "sdks/client-side/installation-guides/wordpress",
                       "sdks/client-side/installation-guides/framer",
-                      "sdks/client-side/installation-guides/shopify"
+                      "sdks/client-side/installation-guides/shopify",
+                      "sdks/client-side/installation-guides/google-tag-manager"
                     ]
                   },
                   {
