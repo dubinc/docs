@@ -39,7 +39,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
     Add a new Client Template using the import option:
 
     1. In your server container, go to **Client Templates** → **New**
-    2. Click **Import** and upload the [Dub GTM Server Client template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20GTM%20Server%20Client.tpl)
+    2. Click **Import** and upload the [Dub GTM Server Client template](https://github.com/dubinc/gtm-server-client-template)
 
     <Frame>
       <img
@@ -75,18 +75,18 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
 
   </Step>
 
-  <Step title="Import Dub Conversion Tag Template">
+  <Step title="Import Dub GTM Server Tag Template">
 
-    Next, import the Dub Conversion Tag template to handle lead tracking:
+    Next, import the Dub GTM Server Tag template to handle lead tracking:
 
     1. In your server container, go to **Tags** → **New**
-    2. Click **Import** and upload the [Dub Conversion Tag template](https://github.com/dubinc/gtm-templates/blob/main/Dub%20Conversion%20Tag.tpl)
+    2. Click **Import** and upload the [Dub GTM Server Tag template](https://github.com/dubinc/gtm-server-tag-template)
     3. This template is specifically designed to send conversion events directly to Dub
 
     <Frame>
       <img
         src="/images/conversions/google-tag-manager/gtm-server-tag-template.png"
-        alt="GTM Conversion Tag Template"
+        alt="Dub GTM Server Tag Template"
         width="1440"
         height="1024"
       />
@@ -103,7 +103,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
     3. Name the tag "Dub Lead Tracking" (or any descriptive name)
     4. Configure the tag settings:
 
-       - **Dub API Key**: Enter your Dub API key (starts with `dub_`)
+       - **Dub API Key**: Enter your [Dub API key](https://dub.co/docs/api-reference/tokens) (starts with `dub_`)
        - **Event**: Select "Track lead"
        - **Click ID**: Map to the `clickId` from the Dub Server Client event data
        - **Customer External ID**: Map to the `customerExternalId` from the event data
@@ -160,12 +160,23 @@ mode=async"
 
 To learn more about how to track leads with Google Tag Manager, check out the following templates:
 
-<Card
-  title="Google Tag Manager Templates"
-  icon="github"
-  href="https://github.com/dubinc/gtm-server-tag-template"
->
-  Download Templates
-</Card>
+<CardGroup cols={2}>
+  <Card
+    title="Dub GTM Server Client Template"
+    icon="github"
+    href="https://github.com/dubinc/gtm-server-client-template"
+  >
+    A GTM server-side client template for receiving lead and sale conversion
+    events from web containers
+  </Card>
+  <Card
+    title="Dub GTM Server Tag Template"
+    icon="github"
+    href="https://github.com/dubinc/gtm-server-tag-template"
+  >
+    A GTM server-side tag template for sending lead and sale conversion events
+    from your GTM server container to Dub
+  </Card>
+</CardGroup>
 
 <LeadsOutro />
