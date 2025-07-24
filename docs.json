@@ -64,7 +64,8 @@
                   "conversions/leads/supabase",
                   "conversions/leads/auth0",
                   "conversions/leads/appwrite",
-                  "conversions/leads/segment"
+                  "conversions/leads/segment",
+                  "conversions/leads/google-tag-manager"
                 ]
               },
               {
@@ -73,7 +74,8 @@
                   "conversions/sales/introduction",
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
-                  "conversions/sales/segment"
+                  "conversions/sales/segment",
+                  "conversions/sales/google-tag-manager"
                 ]
               }
             ]
@@ -141,7 +143,8 @@
                       "sdks/client-side/installation-guides/webflow",
                       "sdks/client-side/installation-guides/wordpress",
                       "sdks/client-side/installation-guides/framer",
-                      "sdks/client-side/installation-guides/shopify"
+                      "sdks/client-side/installation-guides/shopify",
+                      "sdks/client-side/installation-guides/google-tag-manager"
                     ]
                   },
                   {
@@ -198,6 +201,7 @@
                 "group": "Partners API",
                 "pages": [
                   "api-reference/endpoint/create-a-partner",
+                  "api-reference/endpoint/retrieve-a-list-of-partners",
                   "api-reference/endpoint/create-a-partner-link",
                   "api-reference/endpoint/upsert-a-partner-link",
                   "api-reference/endpoint/retrieve-a-partners-links",

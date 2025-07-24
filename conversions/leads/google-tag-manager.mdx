@@ -1,0 +1,182 @@
+---
+title: "Google Tag Manager"
+"og:title": "Google Tag Manager Lead Tracking"
+description: "Learn how to track lead conversion events with Google Tag Manager and Dub"
+---
+
+import LeadsIntro from "/snippets/leads-intro.mdx";
+import LeadsAttributes from "/snippets/leads-attributes.mdx";
+import LeadsOutro from "/snippets/leads-outro.mdx";
+
+<LeadsIntro />
+
+In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Google Tag Manager to track conversions.
+
+## Prerequisites
+
+Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK via GTM](/sdks/client-side/installation-guides/google-tag-manager)
+
+## Configure Google Tag Manager server-side tracking
+
+To track lead conversion events with Google Tag Manager, you'll need to set up a server container and configure a custom client to handle Dub conversion events.
+
+<Steps>
+
+  <Step title="Set up Server Container">
+
+    In Google Tag Manager, you'll need to use an existing server container or create a new one. Server containers are the foundation for server-side tracking and allow you to process events before they reach their final destinations.
+
+    - If you already have a server container set up, you can use that
+    - If not, create a new server container in your GTM workspace
+
+  </Step>
+
+  <Step title="Import Dub GTM Server Client Template">
+
+    Add a new Client Template using the import option:
+
+    1. In your server container, go to **Client Templates** → **New**
+    2. Click **Import** and upload the [Dub GTM Server Client template](https://github.com/dubinc/gtm-server-client-template)
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-client-template.png"
+        alt="GTM Server Client Template"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
+  </Step>
+
+  <Step title="Create Dub Server Client">
+
+    Next, create a new Client using the imported template:
+
+    1. In your server container, go to **Clients** → **New**
+    2. Select the **Dub GTM Server Client** template from **Custom**
+    3. Name the client "Dub Server Client" (or any descriptive name)
+    4. Set the **Request Path** to `/dub/track`
+    5. Optionally enable debug logging for troubleshooting
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-client.png"
+        alt="GTM Server Client"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
+    **Note:** Clients in GTM Server are adapters that act as bridges between the software running on a user's device and your server container. They receive requests and transform them into events that can be processed by tags.
+
+  </Step>
+
+  <Step title="Import Dub GTM Server Tag Template">
+
+    Next, import the Dub GTM Server Tag template to handle lead tracking:
+
+    1. In your server container, go to **Tags** → **New**
+    2. Click **Import** and upload the [Dub GTM Server Tag template](https://github.com/dubinc/gtm-server-tag-template)
+    3. This template is specifically designed to send conversion events directly to Dub
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-server-tag-template.png"
+        alt="Dub GTM Server Tag Template"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
+  </Step>
+
+  <Step title="Add Lead Tracking Tag">
+
+    Next, create a new tag for lead tracking with proper mapping:
+
+    1. In your server container, go to **Tags** → **New**
+    2. Select the **Dub Conversion Tag** template from **Custom**
+    3. Name the tag "Dub Lead Tracking" (or any descriptive name)
+    4. Configure the tag settings:
+
+       - **Dub API Key**: Enter your [Dub API key](https://dub.co/docs/api-reference/tokens) (starts with `dub_`)
+       - **Event**: Select "Track lead"
+       - **Click ID**: Map to the `clickId` from the Dub Server Client event data
+       - **Customer External ID**: Map to the `customerExternalId` from the event data
+       - **Event Name**: Map to the `eventName` from the event data (e.g., "Sign Up")
+       - **Customer Name**: Map to the `customerName` from the event data
+       - **Customer Email**: Map to the `customerEmail` from the event data
+       - **Customer Avatar**: Map to the `customerAvatar` from the event data (optional)
+       - **Event Quantity**: Map to the `eventQuantity` from the event data (default: 1)
+       - **Mode**: Set to "async" for non-blocking requests
+
+    5. **Triggering**: Configure when the tag should fire:
+       - Click **Triggering** in the tag configuration
+       - Click **+** to add a new trigger
+       - Select **Custom Event** as the trigger type
+       - Set the **Event Name** to match the event name from the Dub Server Client. Default is `dub_conversion`
+       - Add a condition to filter for lead events:
+         - **Variable**: Select a variable that contains the event type
+         - **Operator**: Equals
+         - **Value**: "Sign Up"
+       - Name the trigger "Dub Lead Event Trigger" and save it
+
+    <Frame>
+      <img
+        src="/images/conversions/google-tag-manager/gtm-track-lead-tag.png"
+        alt="GTM Lead Tracking Tag"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
+
+  </Step>
+
+</Steps>
+
+<LeadsAttributes />
+
+## Testing your setup
+
+You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
+
+```bash
+curl "https://server-side-tagging-xxx-uc.a.run.app/dub/track/lead?\
+dub_id=pAzVZ3jzwZXcLMDT&\
+eventName=Sign%20Up&\
+customerExternalId=user_1K0RN3SDNAC0C1WCW4BGRS3EW&\
+customerName=John%20Doe&\
+customerEmail=john@example.com&\
+customerAvatar=https://example.com/avatar.jpg&\
+eventQuantity=1&\
+mode=async"
+```
+
+## Download GTM templates
+
+To learn more about how to track leads with Google Tag Manager, check out the following templates:
+
+<CardGroup cols={2}>
+  <Card
+    title="Dub GTM Server Client Template"
+    icon="github"
+    href="https://github.com/dubinc/gtm-server-client-template"
+  >
+    A GTM server-side client template for receiving lead and sale conversion
+    events from web containers
+  </Card>
+  <Card
+    title="Dub GTM Server Tag Template"
+    icon="github"
+    href="https://github.com/dubinc/gtm-server-tag-template"
+  >
+    A GTM server-side tag template for sending lead and sale conversion events
+    from your GTM server container to Dub
+  </Card>
+</CardGroup>
+
+<LeadsOutro />
