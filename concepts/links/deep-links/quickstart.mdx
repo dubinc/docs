@@ -333,58 +333,9 @@ async function trackDeepLinkClick(domain, key) {
 
 ### Scenario 2: User doesn't have your app installed
 
-When your app isn't installed, the user will be redirected to the App Store or Google Play Store. After they install and open your app, you'll need to use [deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) to retrieve the original destination URL.
+When your app isn't installed, the user will be redirected to the App Store or Google Play Store if you've enabled [device targeting](https://dub.co/help/article/device-targeting) for the deep links.
 
-<Steps>
-
-<Step title="Check for deferred deep link">
-
-When your app opens for the first time after installation, check if the user came from a deep link:
-
-<CodeGroup>
-
-```swift AppDelegate.swift
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Check for deferred deep link
-    checkForDeferredDeepLink()
-    return true
-}
-
-func checkForDeferredDeepLink() {
-    // Use a deferred deep linking service or check Google Play Store Install Referrer
-    // See the deferred deep linking guide for implementation details
-}
-```
-
-```kotlin MainActivity.kt
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    // Check for deferred deep link using Install Referrer API
-    checkForDeferredDeepLink()
-}
-
-private fun checkForDeferredDeepLink() {
-    // Implement deferred deep linking logic
-    // See the deferred deep linking guide for implementation details
-}
-```
-
-</CodeGroup>
-
-</Step>
-
-<Step title="Follow Scenario 1 flow">
-
-Once you retrieve the original deep link URL through deferred deep linking, follow the same process as Scenario 1:
-
-1. Extract the domain and key from the URL
-2. Call the `/track/open` endpoint
-3. Navigate to the destination using the returned URL
-
-</Step>
-
-</Steps>
+After they install and open your app, you'll need to use [deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) to retrieve the original destination URL.
 
 <Note>
   For detailed implementation of deferred deep linking, including how to use the
@@ -392,9 +343,45 @@ Once you retrieve the original deep link URL through deferred deep linking, foll
   Deep Linking](/concepts/links/deep-links/deferred-deep-linking) guide.
 </Note>
 
+## Test your deep links
+
+Before deploying your deep links to production, test them thoroughly using emulators to ensure they work correctly.
+
+<Steps>
+
+<Step title="Test on Android emulator">
+
+Use the Android Debug Bridge (adb) to test your deep links on an Android emulator:
+
+```bash
+adb shell am start -W -a android.intent.action.VIEW -d "https://yourdomain.link/your-short-link" com.yourpackage.name
+```
+
+</Step>
+
+<Step title="Test on iOS simulator">
+
+Use the `xcrun` command to test your deep links on an iOS simulator:
+
+```bash
+xcrun simctl openurl booted "https://yourdomain.link/your-short-link"
+```
+
+</Step>
+
+<Step title="Test on your device">
+
+You can also test your deep links by opening them from a messaging app on your device:
+
+1. Open a messaging app (like Messages, WhatsApp, or Telegram) on your device
+2. Send yourself a message containing your deep link URL
+3. Tap on the link in the message
+4. The link should either open your app directly or redirect to the appropriate app store
+
+</Step>
+
+</Steps>
+
 ### Troubleshooting
 
-- **App not opening from deep link**: Verify your deep link configuration files are properly set up and accessible
-- **Tracking endpoint errors**: Check that your domain and key are correctly extracted from the URL
-- **Navigation issues**: Ensure your app can handle the destination URL format and parameters
-- **Deferred deep linking not working**: Verify your deferred deep linking implementation and check the [deferred deep linking guide](/concepts/links/deep-links/deferred-deep-linking) for common issues
+TODO: Add troubleshooting section.
