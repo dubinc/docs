@@ -11,7 +11,95 @@ description: "Learn how to use Dub to create deep links."
 
 ## Step 1: Configure your deep link domains on Dub
 
-Repurpose content from https://dub.co/help/article/custom-domain-deep-links
+Before you can create deep links, you need to configure your deep link domains in your Dub workspace. This involves adding a custom domain that will be used for your deep links and configuring your deep link configuration files.
+
+<Steps>
+
+<Step title="Add a custom domain">
+
+First, you'll need to add a custom domain to your Dub workspace. Navigate to your [workspace's Domains settings page](https://app.dub.co/settings/domains) and click **Add Domain**.
+
+You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` and usen it as your short link domain.
+
+</Step>
+
+<Step title="Set up your deep link configuration files">
+
+Once you've set up your custom domain, you'll need to upload your deep link configuration files to Dub, which we'll host under the `/.well-known/` directory of your domain.
+
+To do that, go to your [workspace domain settings](https://app.dub.co/settings/domains) page and click on the edit button for your custom domain:
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/update-domain-button.png"
+    alt="Deep link configuration files"
+  />
+</Frame>
+
+In the domain modal, click on **Show advanced settings**, which will open up the Deep Link Configuration settings fields.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/domain-modal-advanced-settings.png"
+    alt="Deep link configuration settings"
+  />
+</Frame>
+
+**iOS (apple-app-site-association)**
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "YOUR_APP_ID",
+        "paths": []
+      }
+    ]
+  }
+}
+```
+
+**Android (assetlinks.json)**
+
+For Android apps, upload your AssetLinks file to enable Android deep links:
+
+```json
+[
+  {
+    "target": {
+      "namespace": "android_app",
+      "package_name": "YOUR_PACKAGE_NAME",
+      "sha256_cert_fingerprints": []
+    },
+    "relation": ["delegate_permission/common.handle_all_urls"]
+  }
+]
+```
+
+</Step>
+
+<Step title="Verify that your configuration files are set up correctly">
+
+Once you've set up your deep link configuration files, you can go to their respective URLs to verify that they've been configured correctly:
+
+**iOS:** `yourdomain.link/.well-known/apple-app-site-association` [(example)](https://getacme.link/.well-known/apple-app-site-association)
+
+**Android:** `yourdomain.link/.well-known/assetlinks.json` [(example)](https://getacme.link/.well-known/assetlinks.json)
+
+</Step>
+
+<Step title="Whitelist your deep link domain in your app">
+Last but not least, you'll need to whitelist your short link domain in your apps to allow them to redirect straight into a page within your app.
+
+**For iOS apps**, you'll need to [allow websites to link to your apps](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content/).
+
+**For Android apps**, you'll need to [verify your Android app links](https://developer.android.com/training/app-links/verify-android-applinks).
+
+</Step>
+
+</Steps>
 
 ## Step 2: Create your deep links on Dub
 
