@@ -15,7 +15,7 @@ This guide walks you through replacing [Firebase Dynamic Links](https://firebase
 
 Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-2%3A-create-your-deep-links-on-dub) in your Dub workspace. This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
 
-## For Android apps
+## Migrating Android apps
 
 <Steps>
 
@@ -104,6 +104,7 @@ private fun trackDeepLinkClick(domain: String, key: String) {
 ```
 
 In a nutshell, this code:
+
 - Extracts the domain and key from the deep link URL
 - Sends the data to Dub’s tracking endpoint `https://api.dub.co/track/open`
 - Retrieves the final destination URL
@@ -113,4 +114,100 @@ In a nutshell, this code:
 
 </Steps>
 
-## For iOS apps
+## Migrating iOS apps
+
+<Steps>
+
+<Step title="Remove Firebase Dynamic Links SDK">
+
+If you have the Firebase Dynamic Links SDK installed, remove it from your `Podfile`:
+
+```ruby
+pod 'Firebase/DynamicLinks'
+```
+
+Remove any Firebase imports like:
+
+```swift
+import FirebaseDynamicLinks
+```
+
+</Step>
+
+<Step title="Update Associated Domains">
+
+If you're using the same domain for both Firebase Dynamic Links and Dub (e.g., yourapp.com), no changes are needed — you can skip this section.
+
+However, if you were using Firebase’s branded domain (e.g., yourapp.page.link), you’ll need to replace it with your Dub domain in your iOS project setup.
+
+To enable Universal Links with Dub, update your Associated Domains in Xcode:
+
+1. Open your Xcode project.
+2. Select your app target → **Signing & Capabilities**
+3. Under **Associated Domains**, replace the old Firebase domain with your Dub domain:
+
+No changes to your app’s `Info.plist` are required unless you had other Firebase-specific deep link configurations.
+
+```swift
+import Foundation
+import UIKit
+
+func handleDubDeepLink(\_ url: URL) {
+let domain = url.host ?? ""
+let key = url.lastPathComponent
+
+let payload: [String: Any] = [
+  "domain": domain,
+  "key": key,
+]
+
+guard let requestURL = URL(string: "https://api.dub.co/track/open"),
+  let httpBody = try? JSONSerialization.data(withJSONObject: payload) else {
+    print("Invalid request setup")
+    return
+}
+
+var request = URLRequest(url: requestURL)
+request.httpMethod = "POST"
+request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+request.httpBody = httpBody
+
+// Send the request
+URLSession.shared.dataTask(with: request) { data, response, error in
+    if let error = error {
+        print("Failed to track deep link: \(error)")
+        return
+    }
+
+    guard let data = data,
+          let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+          let destination = json["url"] as? String else {
+        print("Invalid response from /track/open")
+        return
+    }
+
+    print("Resolved destination: \(destination)")
+
+    DispatchQueue.main.async {
+        // Navigate to the destination URL or handle it in-app
+        navigateToScreen(from: destination)
+    }
+  }.resume()
+}
+
+
+func navigateToScreen(from url: String) {
+  print("Navigating to in-app destination: \(url)")
+  // Add your navigation logic here
+}
+```
+
+In a nutshell, this code:
+- Extracts the domain and key from the deep link URL
+- Sends the data to Dub's tracking endpoint `https://api.dub.co/track/open`
+- Retrieves the final destination URL
+- Navigates to the destination URL in the app
+
+</Step>
+
+</Steps>
