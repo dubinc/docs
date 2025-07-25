@@ -254,11 +254,6 @@
             ]
           }
         ]
-      },
-      {
-        "anchor": "Changelog",
-        "icon": "rectangle-history",
-        "href": "https://dub.co/changelog"
       }
     ]
   },
@@ -277,7 +272,7 @@
     "links": [
       {
         "label": "Contact support",
-        "href": "mailto:support@dub.co"
+        "href": "https://dub.co/contact/support"
       },
       {
         "label": "Help Center",
