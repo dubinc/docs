@@ -17,11 +17,9 @@ Before you can create deep links, you need to configure your deep link domains i
 
 <Step title="Add a custom domain">
 
-First, you'll need to add a custom domain to your Dub workspace. Navigate to your [workspace's Domains settings page](https://app.dub.co/settings/domains) and click **Add Domain**.
+First, you'll need to add a custom domain to your Dub workspace. Navigate to your workspace's [Domains settings page](https://app.dub.co/settings/domains) and click **Add Domain**.
 
 You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` and usen it as your short link domain.
-
-This replaces Firebase’s `*.page.link` domain with your own branded deep link domain.
 
 </Step>
 
@@ -136,10 +134,10 @@ Under the Short Link field, you can either:
 
 For example, you can set a short link slug like `apple-macbook` to open the product detail screen for `Apple-MacBook`.
 
-<Note>
+<Tip>
   This step is optional. If you don't enter a short link slug, Dub will generate
-  one for you.
-</Note>
+  a random 7-character slug for you.
+</Tip>
 
 </Step>
 
@@ -185,7 +183,46 @@ Your app will receive the deep link URL when it opens. The URL will be in the fo
 
 <CodeGroup>
 
-```swift AppDelegate.swift
+```javascript React Native
+// App.js
+import { useEffect } from "react";
+import { Linking } from "react-native";
+
+useEffect(() => {
+  const handleDeepLink = (url) => {
+    try {
+      // Parse the URL to extract domain and key
+      const urlObj = new URL(url);
+      const domain = urlObj.host;
+      const key = urlObj.pathname.split("/").pop();
+
+      // Call the tracking endpoint
+      trackDeepLinkClick(domain, key);
+    } catch (error) {
+      console.error("Error parsing deep link URL:", error);
+    }
+  };
+
+  // Handle deep link when app is already running
+  const subscription = Linking.addEventListener("url", (event) => {
+    handleDeepLink(event.url);
+  });
+
+  // Handle deep link when app is opened from a deep link
+  Linking.getInitialURL().then((url) => {
+    if (url) {
+      handleDeepLink(url);
+    }
+  });
+
+  return () => {
+    subscription?.remove();
+  };
+}, []);
+```
+
+```swift iOS
+// AppDelegate.swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     handleDeepLink(url: url)
     return true
@@ -201,7 +238,8 @@ func handleDeepLink(url: URL) {
 }
 ```
 
-```kotlin MainActivity.kt
+```kotlin Android
+// MainActivity.kt
 override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     intent?.data?.let { uri ->
@@ -224,9 +262,9 @@ private fun handleDeepLink(uri: Uri) {
 
 <Step title="Track the deep link open">
 
-Once you’ve detected and parsed the deep link, you should track the open event and retrieve the final destination URL.
+Once you’ve detected and parsed the deep link, you should track the open event using Dub's API, which will return the final destination URL in the API response.
 
-To do this, make a POST request to the endpoint `https://api.dub.co/track/open` with the following body:
+To do this, make a `POST` request to the endpoint `https://api.dub.co/track/open` with the following body:
 
 ```json
 {
@@ -240,15 +278,51 @@ The response will be a JSON object with the following structure if the request i
 ```json
 {
   "clickId": "ASltDhoxBiBqKH00",
-  "url": "https://yourapp.com/product/Apple-MacBook"
+  "link": {
+    "id": "link_1K9XQTLF7OSH3Z48DKQ5WSRVY",
+    "domain": "yourdomain.link",
+    "key": "short-link-slug",
+    "url": "https://yourapp.com/product/Apple-MacBook"
+  }
 }
 ```
 
-Now you've got the destination URL, you can navigate to it in your app.
+Now you've got the destination URL (via `link.url`), you can navigate the user to the correct screen in your app.
+
+Here's the full example code for React Native, iOS, and Android.
 
 <CodeGroup>
 
-```swift DeepLinkTracker.swift
+```javascript React Native
+// DeepLinkTracker.js
+async function trackDeepLinkClick(domain, key) {
+  try {
+    const response = await fetch(`https://api.dub.co/track/open`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        domain: domain,
+        key: key,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const destinationUrl = data.link.url;
+
+      // Navigate to the destination URL in your app
+      navigateToDestination(destinationUrl);
+    }
+  } catch (error) {
+    console.error("Error tracking deep link:", error);
+  }
+}
+```
+
+```swift iOS
+// DeepLinkTracker.swift
 func trackDeepLinkClick(domain: String, key: String) {
     let url = URL(string: "https://api.dub.co/track/open")!
     var request = URLRequest(url: url)
@@ -265,7 +339,8 @@ func trackDeepLinkClick(domain: String, key: String) {
     URLSession.shared.dataTask(with: request) { data, response, error in
         if let data = data,
            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let destinationUrl = json["url"] as? String {
+           let link = json["link"] as? [String: Any],
+           let destinationUrl = link["url"] as? String {
             DispatchQueue.main.async {
                 self.navigateToDestination(destinationUrl)
             }
@@ -274,7 +349,8 @@ func trackDeepLinkClick(domain: String, key: String) {
 }
 ```
 
-```kotlin DeepLinkTracker.kt
+```kotlin Android
+// DeepLinkTracker.kt
 private fun trackDeepLinkClick(domain: String, key: String) {
     val url = URL("https://api.dub.co/track/open")
     val connection = url.openConnection() as HttpURLConnection
@@ -294,38 +370,12 @@ private fun trackDeepLinkClick(domain: String, key: String) {
 
     val response = connection.inputStream.bufferedReader().use { it.readText() }
     val jsonResponse = JSONObject(response)
-    val destinationUrl = jsonResponse.getString("url")
+    val link = jsonResponse.getJSONObject("link")
+    val destinationUrl = link.getString("url")
 
     runOnUiThread {
         navigateToDestination(destinationUrl)
     }
-}
-```
-
-```javascript DeepLinkTracker.js
-async function trackDeepLinkClick(domain, key) {
-  try {
-    const response = await fetch(`https://api.dub.co/track/open`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        domain: domain,
-        key: key,
-      }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const destinationUrl = data.url;
-
-      // Navigate to the destination URL in your app
-      navigateToDestination(destinationUrl);
-    }
-  } catch (error) {
-    console.error("Error tracking deep link:", error);
-  }
 }
 ```
 
