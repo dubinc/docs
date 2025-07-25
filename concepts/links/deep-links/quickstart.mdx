@@ -167,8 +167,234 @@ For example, you can set custom destination URLs for different devices using the
 
 ## Step 3: Handling deep link redirects in your app
 
-When user opens app from a deep link:
+When a user opens your app from a deep link, you need to handle two main scenarios:
 
-1. check if the referrer URL is present. if it is not present, you might need to check the [Google Play Store Install Referrer API](https://developer.android.com/google/play/installreferrer) to see if the user came from a short link before downloading the app. See the [Deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) guide for more information.
+### Scenario 1: User has your app installed
 
-2. take the domain + key of the referrer URL and fire off /track/open request. this tracks the click + returns the main destination URL from step 2, which is the URL that the user will be redirected to.
+When your app is already installed, the deep link will open your app directly. Here's how to handle it:
+
+<Steps>
+
+<Step title="Detect the deep link">
+
+Your app will receive the deep link URL when it opens. The URL will be in the format: `https://yourdomain.link/short-link-slug`
+
+<CodeGroup>
+
+```swift AppDelegate.swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    handleDeepLink(url: url)
+    return true
+}
+
+func handleDeepLink(url: URL) {
+    // Extract domain and key from the URL
+    let domain = url.host ?? ""
+    let key = url.lastPathComponent
+
+    // Call the tracking endpoint
+    trackDeepLinkClick(domain: domain, key: key)
+}
+```
+
+```kotlin MainActivity.kt
+override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    intent?.data?.let { uri ->
+        handleDeepLink(uri)
+    }
+}
+
+private fun handleDeepLink(uri: Uri) {
+    val domain = uri.host ?: ""
+    val key = uri.lastPathSegment ?: ""
+
+    // Call the tracking endpoint
+    trackDeepLinkClick(domain, key)
+}
+```
+
+</CodeGroup>
+
+</Step>
+
+<Step title="Track the deep link open">
+
+Once you’ve detected and parsed the deep link, you should track the open event and retrieve the final destination URL.
+
+To do this, make a POST request to the endpoint `https://api.dub.co/track/open` with the following body:
+
+```json
+{
+  "domain": "yourdomain.link",
+  "key": "short-link-slug"
+}
+```
+
+The response will be a JSON object with the following structure if the request is successful:
+
+```json
+{
+  "clickId": "ASltDhoxBiBqKH00",
+  "url": "https://yourapp.com/product/Apple-MacBook"
+}
+```
+
+Now you've got the destination URL, you can navigate to it in your app.
+
+<CodeGroup>
+
+```swift DeepLinkTracker.swift
+func trackDeepLinkClick(domain: String, key: String) {
+    let url = URL(string: "https://api.dub.co/track/open")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    let body = [
+        "domain": domain,
+        "key": key,
+    ]
+
+    request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+    URLSession.shared.dataTask(with: request) { data, response, error in
+        if let data = data,
+           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let destinationUrl = json["url"] as? String {
+            DispatchQueue.main.async {
+                self.navigateToDestination(destinationUrl)
+            }
+        }
+    }.resume()
+}
+```
+
+```kotlin DeepLinkTracker.kt
+private fun trackDeepLinkClick(domain: String, key: String) {
+    val url = URL("https://api.dub.co/track/open")
+    val connection = url.openConnection() as HttpURLConnection
+
+    connection.requestMethod = "POST"
+    connection.setRequestProperty("Content-Type", "application/json")
+    connection.doOutput = true
+
+    val body = JSONObject().apply {
+        put("domain", domain)
+        put("key", key)
+    }
+
+    connection.outputStream.use { os ->
+        os.write(body.toString().toByteArray())
+    }
+
+    val response = connection.inputStream.bufferedReader().use { it.readText() }
+    val jsonResponse = JSONObject(response)
+    val destinationUrl = jsonResponse.getString("url")
+
+    runOnUiThread {
+        navigateToDestination(destinationUrl)
+    }
+}
+```
+
+```javascript DeepLinkTracker.js
+async function trackDeepLinkClick(domain, key) {
+  try {
+    const response = await fetch(`https://api.dub.co/track/open`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        domain: domain,
+        key: key,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const destinationUrl = data.url;
+
+      // Navigate to the destination URL in your app
+      navigateToDestination(destinationUrl);
+    }
+  } catch (error) {
+    console.error("Error tracking deep link:", error);
+  }
+}
+```
+
+</CodeGroup>
+
+</Step>
+
+</Steps>
+
+### Scenario 2: User doesn't have your app installed
+
+When your app isn't installed, the user will be redirected to the App Store or Google Play Store. After they install and open your app, you'll need to use [deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) to retrieve the original destination URL.
+
+<Steps>
+
+<Step title="Check for deferred deep link">
+
+When your app opens for the first time after installation, check if the user came from a deep link:
+
+<CodeGroup>
+
+```swift AppDelegate.swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Check for deferred deep link
+    checkForDeferredDeepLink()
+    return true
+}
+
+func checkForDeferredDeepLink() {
+    // Use a deferred deep linking service or check Google Play Store Install Referrer
+    // See the deferred deep linking guide for implementation details
+}
+```
+
+```kotlin MainActivity.kt
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    // Check for deferred deep link using Install Referrer API
+    checkForDeferredDeepLink()
+}
+
+private fun checkForDeferredDeepLink() {
+    // Implement deferred deep linking logic
+    // See the deferred deep linking guide for implementation details
+}
+```
+
+</CodeGroup>
+
+</Step>
+
+<Step title="Follow Scenario 1 flow">
+
+Once you retrieve the original deep link URL through deferred deep linking, follow the same process as Scenario 1:
+
+1. Extract the domain and key from the URL
+2. Call the `/track/open` endpoint
+3. Navigate to the destination using the returned URL
+
+</Step>
+
+</Steps>
+
+<Note>
+  For detailed implementation of deferred deep linking, including how to use the
+  Google Play Store Install Referrer API and other services, see our [Deferred
+  Deep Linking](/concepts/links/deep-links/deferred-deep-linking) guide.
+</Note>
+
+### Troubleshooting
+
+- **App not opening from deep link**: Verify your deep link configuration files are properly set up and accessible
+- **Tracking endpoint errors**: Check that your domain and key are correctly extracted from the URL
+- **Navigation issues**: Ensure your app can handle the destination URL format and parameters
+- **Deferred deep linking not working**: Verify your deferred deep linking implementation and check the [deferred deep linking guide](/concepts/links/deep-links/deferred-deep-linking) for common issues
