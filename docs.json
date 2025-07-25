@@ -26,10 +26,10 @@
               {
                 "group": "Deep links",
                 "pages": [
-                  "concepts/links/deep-links/quickstart",
-                  "concepts/links/deep-links/deferred-deep-linking",
-                  "concepts/links/deep-links/attribution",
-                  "concepts/links/deep-links/migrating-from-firebase"
+                  "concepts/deep-links/quickstart",
+                  "concepts/deep-links/deferred-deep-linking",
+                  "concepts/deep-links/attribution",
+                  "concepts/deep-links/migrating-from-firebase"
                 ]
               }
             ]
