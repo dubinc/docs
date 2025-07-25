@@ -27,15 +27,16 @@ If you have the Firebase Dynamic Links SDK installed, remove it from your `build
 implementation 'com.google.firebase:firebase-dynamic-links:21.1.0'
 ```
 
-Remove any Firebase imports like:
+Remove any Firebase imports from your Kotlin/Java files:
 
 ```java
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.DynamicLink
 ```
 
 </Step>
 
-<Step title="Add intent filters to AndroidManifest.xml">
+<Step title="2. Update AndroidManifest.xml">
 
 If you’re using the same domain for both Firebase Dynamic Links and Dub (e.g., yourapp.com), no changes are needed — you can skip this section.
 
@@ -49,14 +50,14 @@ However, if you were previously using Firebase’s branded domain (e.g., yourapp
     <category android:name="android.intent.category.BROWSABLE" />
     <data
       android:scheme="https"
-      android:host="yourapp.page.link" /> # Replace with your Dub deep link domain
+      android:host="yourapp.page.link" /> <!-- Replace with your Dub deep link domain -->
   </intent-filter>
 </activity>
 ```
 
 </Step>
 
-<Step title="Handle deep link opens in your app">
+<Step title="3. Implement Deep Link Handling">
 
 Override `onNewIntent` in your main activity to handle deep link opens:
 
@@ -203,6 +204,7 @@ func navigateToScreen(from url: String) {
 ```
 
 In a nutshell, this code:
+
 - Extracts the domain and key from the deep link URL
 - Sends the data to Dub's tracking endpoint `https://api.dub.co/track/open`
 - Retrieves the final destination URL
