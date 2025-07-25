@@ -1,0 +1,30 @@
+---
+title: Introduction
+og:title: "Deep links – Introduction"
+description: "Learn how to use Dub to create deep links."
+---
+
+<Note>
+  Deep links require a [Pro plan](https://dub.co/pricing) subscription or
+  higher.
+</Note>
+
+## Step 1: Configure your deep link domains on Dub
+
+Repurpose content from https://dub.co/help/article/custom-domain-deep-links
+
+## Step 2: Create your deep links on Dub
+
+main destination URL containing information about individual product screen
+
+device targeting to handle cases where the user doesn't have the app installed (redirect to app store)
+
+- link to deferred deep linking guide
+
+## Step 3: Handling deep link redirects in your app
+
+When user opens app from a deep link:
+
+1. check if the referrer URL is present. if it is not present, you might need to check the [Google Play Store Install Referrer API](https://developer.android.com/google/play/installreferrer) to see if the user came from a short link before downloading the app. See the [Deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) guide for more information.
+
+2. take the domain + key of the referrer URL and fire off /track/open request. this tracks the click + returns the main destination URL from step 2, which is the URL that the user will be redirected to.
