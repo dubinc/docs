@@ -13,9 +13,9 @@ This guide walks you through replacing [Firebase Dynamic Links](https://firebase
 
 ## Prerequisites
 
-Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-1%3A-configure-your-deep-link-domains-on-dub) in your Dub workspace. This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
+Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-1%3A-configure-your-deep-link-domains-on-dub) to your Dub workspace. You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` and use it as your deep link domain.
 
-This replaces Firebase’s `*.page.link` domain with your own branded deep link domain.
+This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
 
 ## Migrating Android apps
 
@@ -38,7 +38,7 @@ import com.google.firebase.dynamiclinks.DynamicLink
 
 </Step>
 
-<Step title="2. Update AndroidManifest.xml">
+<Step title="Update AndroidManifest.xml">
 
 If you’re using the same domain for both Firebase Dynamic Links and Dub (e.g., yourapp.com), no changes are needed — you can skip this section.
 
@@ -59,7 +59,7 @@ However, if you were previously using Firebase’s branded domain (e.g., yourapp
 
 </Step>
 
-<Step title="3. Implement Deep Link Handling">
+<Step title="Implement Deep Link Handling">
 
 Override `onNewIntent` in your main activity to handle deep link opens:
 
