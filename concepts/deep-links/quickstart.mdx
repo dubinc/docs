@@ -203,15 +203,10 @@ import { Linking } from "react-native";
 useEffect(() => {
   const handleDeepLink = (url) => {
     try {
-      // Parse the URL to extract domain and key
-      const urlObj = new URL(url);
-      const domain = urlObj.host;
-      const key = urlObj.pathname.split("/").pop();
-
-      // Call the tracking endpoint
-      trackDeepLinkClick(domain, key);
+      // Call the tracking endpoint with the full deep link URL
+      trackDeepLinkClick(url);
     } catch (error) {
-      console.error("Error parsing deep link URL:", error);
+      console.error("Error handling deep link URL:", error);
     }
   };
 
@@ -241,12 +236,8 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 }
 
 func handleDeepLink(url: URL) {
-    // Extract domain and key from the URL
-    let domain = url.host ?? ""
-    let key = url.lastPathComponent
-
-    // Call the tracking endpoint
-    trackDeepLinkClick(domain: domain, key: key)
+    // Call the tracking endpoint with the full deep link URL
+    trackDeepLinkClick(deepLink: url.absoluteString)
 }
 ```
 
@@ -260,11 +251,8 @@ override fun onNewIntent(intent: Intent?) {
 }
 
 private fun handleDeepLink(uri: Uri) {
-    val domain = uri.host ?: ""
-    val key = uri.lastPathSegment ?: ""
-
-    // Call the tracking endpoint
-    trackDeepLinkClick(domain, key)
+    // Call the tracking endpoint with the full deep link URL
+    trackDeepLinkClick(uri.toString())
 }
 ```
 
@@ -280,8 +268,7 @@ To do this, make a `POST` request to the endpoint `https://api.dub.co/track/open
 
 ```json
 {
-  "domain": "yourdomain.link",
-  "key": "short-link-slug"
+  "deepLink": "https://yourdomain.link/short-link-slug"
 }
 ```
 
@@ -307,7 +294,7 @@ Here's the full example code for React Native, iOS, and Android.
 
 ```javascript React Native
 // DeepLinkTracker.js
-async function trackDeepLinkClick(domain, key) {
+async function trackDeepLinkClick(deepLink) {
   try {
     const response = await fetch(`https://api.dub.co/track/open`, {
       method: "POST",
@@ -315,8 +302,7 @@ async function trackDeepLinkClick(domain, key) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        domain: domain,
-        key: key,
+        deepLink,
       }),
     });
 
@@ -335,15 +321,14 @@ async function trackDeepLinkClick(domain, key) {
 
 ```swift iOS
 // DeepLinkTracker.swift
-func trackDeepLinkClick(domain: String, key: String) {
+func trackDeepLinkClick(deepLink: String) {
     let url = URL(string: "https://api.dub.co/track/open")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
     let body = [
-        "domain": domain,
-        "key": key,
+        "deepLink": deepLink,
     ]
 
     request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -363,7 +348,7 @@ func trackDeepLinkClick(domain: String, key: String) {
 
 ```kotlin Android
 // DeepLinkTracker.kt
-private fun trackDeepLinkClick(domain: String, key: String) {
+private fun trackDeepLinkClick(deepLink: String) {
     val url = URL("https://api.dub.co/track/open")
     val connection = url.openConnection() as HttpURLConnection
 
@@ -372,8 +357,7 @@ private fun trackDeepLinkClick(domain: String, key: String) {
     connection.doOutput = true
 
     val body = JSONObject().apply {
-        put("domain", domain)
-        put("key", key)
+        put("deepLink", deepLink)
     }
 
     connection.outputStream.use { os ->

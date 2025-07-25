@@ -26,6 +26,334 @@ Here is how it works in a nutshell:
 5. App track the open using the [`/track/open`](/concepts/links/deep-links/quickstart#track-the-deep-link-open) endpoint
 6. Redirect the user to the appropriate screen using the destination URL returned by the `/track/open` endpoint
 
+### Step 1: Add the Install Referrer dependency
+
+First, you'll need to add the Google Play Install Referrer library to your project.
+
+<CodeGroup>
+
+```javascript React Native
+// package.json
+{
+  "dependencies": {
+    "@react-native-community/install-referrer": "^2.2.0"
+  }
+}
+```
+
+```kotlin Android
+// app/build.gradle
+dependencies {
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+}
+```
+
+</CodeGroup>
+
+### Step 2: Implement the Install Referrer logic
+
+Now you'll need to implement the logic to read the install referrer and track the deep link open.
+
+<CodeGroup>
+
+```javascript React Native
+// InstallReferrerTracker.js
+import InstallReferrer from "@react-native-community/install-referrer";
+
+class InstallReferrerTracker {
+  constructor() {
+    this.isFirstLaunch = true;
+  }
+
+  async trackInstallReferrer() {
+    try {
+      // Check if this is the first launch
+      if (!this.isFirstLaunch) {
+        return;
+      }
+
+      // Get the install referrer
+      const referrerDetails = await InstallReferrer.getReferrerDetails();
+
+      if (referrerDetails.referrerUrl) {
+        // Track the deep link open with the full referrer URL
+        await this.trackDeepLinkOpen(referrerDetails.referrerUrl);
+      }
+
+      this.isFirstLaunch = false;
+    } catch (error) {
+      console.error("Error tracking install referrer:", error);
+    }
+  }
+
+  async trackDeepLinkOpen(deepLink) {
+    try {
+      const response = await fetch("https://api.dub.co/track/open", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deepLink,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const destinationUrl = data.link.url;
+
+        // Navigate to the destination URL in your app
+        this.navigateToDestination(destinationUrl);
+      }
+    } catch (error) {
+      console.error("Error tracking deep link open:", error);
+    }
+  }
+
+  navigateToDestination(destinationUrl) {
+    // Implement your navigation logic here
+    // This will depend on your navigation library (React Navigation, etc.)
+    console.log("Navigating to:", destinationUrl);
+  }
+}
+
+export default InstallReferrerTracker;
+```
+
+```kotlin Android
+// InstallReferrerTracker.kt
+import android.content.Context
+import com.android.installreferrer.api.InstallReferrerClient
+import com.android.installreferrer.api.InstallReferrerResponse
+import com.android.installreferrer.api.ReferrerDetails
+import com.android.installreferrer.api.InstallReferrerStateListener
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
+
+class InstallReferrerTracker(private val context: Context) {
+    private var isFirstLaunch = true
+
+    fun trackInstallReferrer() {
+        if (!isFirstLaunch) {
+            return
+        }
+
+        val referrerClient = InstallReferrerClient.newBuilder(context).build()
+
+        referrerClient.startConnection(object : InstallReferrerStateListener {
+            override fun onInstallReferrerSetupFinished(responseCode: Int) {
+                when (responseCode) {
+                    InstallReferrerResponse.OK -> {
+                        val response: ReferrerDetails = referrerClient.installReferrer
+                        val referrerUrl = response.installReferrer
+
+                        if (!referrerUrl.isNullOrEmpty()) {
+                            parseAndTrackDeepLink(referrerUrl)
+                        }
+                    }
+                    InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
+                        // API not available on the current Play Store app
+                        println("Install Referrer API not supported")
+                    }
+                    InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
+                        // Connection couldn't be established
+                        println("Install Referrer service unavailable")
+                    }
+                }
+                referrerClient.endConnection()
+            }
+
+            override fun onInstallReferrerServiceDisconnected() {
+                // Try to restart the connection on the next request
+            }
+        })
+    }
+
+    private fun parseAndTrackDeepLink(referrerUrl: String) {
+        try {
+            // Track the deep link open with the full referrer URL
+            trackDeepLinkOpen(referrerUrl)
+        } catch (e: Exception) {
+            println("Error handling referrer URL: ${e.message}")
+        }
+    }
+
+    private fun trackDeepLinkOpen(deepLink: String) {
+        Thread {
+            try {
+                val url = URL("https://api.dub.co/track/open")
+                val connection = url.openConnection() as HttpURLConnection
+
+                connection.requestMethod = "POST"
+                connection.setRequestProperty("Content-Type", "application/json")
+                connection.doOutput = true
+
+                val body = JSONObject().apply {
+                    put("deepLink", deepLink)
+                }
+
+                connection.outputStream.use { os ->
+                    os.write(body.toString().toByteArray())
+                }
+
+                val responseCode = connection.responseCode
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val response = connection.inputStream.bufferedReader().use { it.readText() }
+                    val jsonResponse = JSONObject(response)
+                    val link = jsonResponse.getJSONObject("link")
+                    val destinationUrl = link.getString("url")
+
+                    // Navigate to the destination URL on the main thread
+                    navigateToDestination(destinationUrl)
+                }
+            } catch (e: Exception) {
+                println("Error tracking deep link open: ${e.message}")
+            }
+        }.start()
+    }
+
+    private fun navigateToDestination(destinationUrl: String) {
+        // Implement your navigation logic here
+        // This will depend on your navigation library (Navigation Component, etc.)
+        println("Navigating to: $destinationUrl")
+    }
+}
+```
+
+</CodeGroup>
+
+### Step 3: Initialize the tracker in your app
+
+Now you need to initialize the Install Referrer tracker when your app starts.
+
+<CodeGroup>
+
+```javascript React Native
+// App.js
+import React, { useEffect } from 'react';
+import InstallReferrerTracker from './InstallReferrerTracker';
+
+const App = () => {
+  useEffect(() => {
+    const tracker = new InstallReferrerTracker();
+
+    // Track install referrer on app launch
+    tracker.trackInstallReferrer();
+  }, []);
+
+  return (
+    // Your app components
+  );
+};
+
+export default App;
+```
+
+```kotlin Android
+// MainActivity.kt
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Initialize and track install referrer
+        val tracker = InstallReferrerTracker(this)
+        tracker.trackInstallReferrer()
+    }
+}
+```
+
+</CodeGroup>
+
+### Step 4: Handle the navigation
+
+Finally, implement the navigation logic to redirect users to the appropriate screen based on the destination URL.
+
+<CodeGroup>
+
+```javascript React Native
+// InstallReferrerTracker.js (navigation method)
+navigateToDestination(destinationUrl) {
+  // Parse the destination URL to determine which screen to navigate to
+  const url = new URL(destinationUrl);
+  const path = url.pathname;
+
+  // Example navigation logic
+  if (path.includes('/product/')) {
+    const productId = path.split('/product/')[1];
+    // Navigate to product detail screen
+    navigation.navigate('ProductDetail', { productId });
+  } else if (path.includes('/category/')) {
+    const categoryId = path.split('/category/')[1];
+    // Navigate to category screen
+    navigation.navigate('Category', { categoryId });
+  } else {
+    // Navigate to home screen
+    navigation.navigate('Home');
+  }
+}
+```
+
+```kotlin Android
+// InstallReferrerTracker.kt (navigation method)
+import android.content.Intent
+import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+
+private fun navigateToDestination(destinationUrl: String) {
+    Handler(Looper.getMainLooper()).post {
+        try {
+            val uri = Uri.parse(destinationUrl)
+            val path = uri.path ?: ""
+
+            // Example navigation logic
+            when {
+                path.contains("/product/") -> {
+                    val productId = path.split("/product/").lastOrNull()
+                    // Navigate to product detail screen
+                    val intent = Intent(context, ProductDetailActivity::class.java).apply {
+                        putExtra("productId", productId)
+                    }
+                    context.startActivity(intent)
+                }
+                path.contains("/category/") -> {
+                    val categoryId = path.split("/category/").lastOrNull()
+                    // Navigate to category screen
+                    val intent = Intent(context, CategoryActivity::class.java).apply {
+                        putExtra("categoryId", categoryId)
+                    }
+                    context.startActivity(intent)
+                }
+                else -> {
+                    // Navigate to home screen
+                    val intent = Intent(context, HomeActivity::class.java)
+                    context.startActivity(intent)
+                }
+            }
+        } catch (e: Exception) {
+            println("Error navigating to destination: ${e.message}")
+        }
+    }
+}
+```
+
+</CodeGroup>
+
+### Important Notes
+
+1. **First Launch Detection**: The install referrer is only available on the first launch after installation. Make sure to track this properly to avoid duplicate tracking.
+
+2. **Network Operations**: The tracking API calls should be made on a background thread to avoid blocking the UI.
+
+3. **Error Handling**: Always implement proper error handling for network requests and URL parsing.
+
+4. **Testing**: Test your implementation thoroughly using the Google Play Console's internal testing track.
+
 To get started, we recommend using the [quickstart guide](/concepts/deep-links/quickstart) to set up your deep links on Dub.
 
 ## iOS App Store

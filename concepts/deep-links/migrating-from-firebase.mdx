@@ -73,14 +73,11 @@ override fun onNewIntent(intent: Intent?) {
 }
 
 private fun handleDeepLink(uri: Uri) {
-    val domain = uri.host ?: ""
-    val key = uri.lastPathSegment ?: ""
-
     // Track the deep link open and get destination URL
-    trackDeepLinkClick(domain, key)
+    trackDeepLinkClick(uri.toString())
 }
 
-private fun trackDeepLinkClick(domain: String, key: String) {
+private fun trackDeepLinkClick(deepLink: String) {
     val url = URL("https://api.dub.co/track/open")
     val connection = url.openConnection() as HttpURLConnection
 
@@ -89,8 +86,7 @@ private fun trackDeepLinkClick(domain: String, key: String) {
     connection.doOutput = true
 
     val body = JSONObject().apply {
-        put("domain", domain)
-        put("key", key)
+        put("deepLink", deepLink)
     }
 
     connection.outputStream.use { os ->
@@ -109,7 +105,7 @@ private fun trackDeepLinkClick(domain: String, key: String) {
 
 In a nutshell, this code:
 
-- Extracts the domain and key from the deep link URL
+- Sends the deep link URL to Dub's tracking endpoint
 - Sends the data to Dub’s tracking endpoint `https://api.dub.co/track/open`
 - Retrieves the final destination URL
 - Navigates to the destination URL in the app
@@ -157,12 +153,8 @@ import Foundation
 import UIKit
 
 func handleDubDeepLink(\_ url: URL) {
-let domain = url.host ?? ""
-let key = url.lastPathComponent
-
 let payload: [String: Any] = [
-  "domain": domain,
-  "key": key,
+  "deepLink": url.absoluteString,
 ]
 
 guard let requestURL = URL(string: "https://api.dub.co/track/open"),
@@ -208,8 +200,7 @@ func navigateToScreen(from url: String) {
 
 In a nutshell, this code:
 
-- Extracts the domain and key from the deep link URL
-- Sends the data to Dub's tracking endpoint `https://api.dub.co/track/open`
+- Sends the deep link URL to Dub's tracking endpoint `https://api.dub.co/track/open`
 - Retrieves the final destination URL
 - Navigates to the destination URL in the app
 
