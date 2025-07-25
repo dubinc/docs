@@ -4,4 +4,50 @@ sidebarTitle: Migrating from Firebase
 description: "Learn how to migrate from Firebase Dynamic Links to Dub."
 ---
 
-repurpose content from /introduction.mdx
+<Note>
+  Deep links require a [Pro plan](https://dub.co/pricing) subscription or
+  higher.
+</Note>
+
+This guide walks you through replacing [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links) with Dub for deep link creation, click tracking, and routing across platforms.
+
+## Prerequisites
+
+Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-2%3A-create-your-deep-links-on-dub) in your Dub workspace.
+
+This replaces Firebase’s `*.page.link` domain with your own branded deep link domain.
+
+## For Android apps
+
+1. Remove Firebase Dynamic Links SDK (if present).
+
+2. Add intent filters to `AndroidManifest.xml` for handling Dub deep links:
+
+```xml
+<intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW" />
+  <category android:name="android.intent.category.DEFAULT" />
+  <category android:name="android.intent.category.BROWSABLE" />
+  <data android:scheme="https"
+    android:host="yourdomain.link" # Replace with your Dub deep link domain
+    android:pathPrefix="/"/>
+</intent-filter>
+```
+
+3. Track and resolve deep links in your app:
+
+Use Dub’s tracking API to log the deep link open and get the final destination:
+
+```
+POST https://api.dub.co/track/open
+Content-Type: application/json
+
+{
+  "domain": "yourdomain.link",
+  "key": "short-link-slug"
+}
+```
+
+Use this to programmatically navigate the user to the correct screen in-app.
+
+## For iOS apps
