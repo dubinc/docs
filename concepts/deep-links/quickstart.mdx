@@ -385,7 +385,7 @@ private fun trackDeepLinkClick(deepLink: String) {
 
 When your app isn't installed, the user will be redirected to the App Store or Google Play Store since you've enabled [device targeting](https://dub.co/help/article/device-targeting) in Step 2 above.
 
-After they install and open your app, you'll need to use [deferred deep linking](/concepts/links/deep-links/deferred-deep-linking) to:
+After they install and open your app, you'll need to use [deferred deep linking](/concepts/deep-links/deferred-deep-linking) to:
 
 1. Retrieve the short link that brought the user to the app store
 2. Track the open event via `/track/open`
@@ -394,7 +394,7 @@ After they install and open your app, you'll need to use [deferred deep linking]
 <Note>
   For detailed implementation of deferred deep linking, including how to use the
   Google Play Store Install Referrer API and other services, see our [Deferred
-  Deep Linking](/concepts/links/deep-links/deferred-deep-linking) guide.
+  Deep Linking](/concepts/deep-links/deferred-deep-linking) guide.
 </Note>
 
 ## Test your deep links
