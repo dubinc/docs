@@ -103,11 +103,67 @@ Last but not least, you'll need to whitelist your short link domain in your apps
 
 ## Step 2: Create your deep links on Dub
 
-main destination URL containing information about individual product screen
+Now that you've configured your deep link domains, you can create deep links that will redirect users to specific content within your app.
 
-device targeting to handle cases where the user doesn't have the app installed (redirect to app store)
+<Steps>
 
-- link to deferred deep linking guide
+<Step title="Enter your destination URL">
+
+Go to your [Dub dashboard](https://app.dub.co) and click **Create Link** in the top navigation bar.
+
+Enter your destination URL in the "Destination URL" field. You can enter the URL with or without the `https://` protocol – behind the scenes, Dub will automatically make sure it's formatted correctly.
+
+This is the URL that opens a specific screen or piece of content within your app. For example `https://yourapp.com/product/Apple-MacBook` opens the product detail screen for `Apple-MacBook`.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/dub-link-builder.jpg"
+    alt="Deep link builder"
+  />
+</Frame>
+
+</Step>
+
+<Step title="Set a short link slug">
+
+Under the Short Link field, you can either:
+
+1. Enter your own short link slug
+2. Generate a random short link slug
+3. Generate a short link slug with AI.
+
+For example, you can set a short link slug like `apple-macbook` to open the product detail screen for `Apple-MacBook`.
+
+<Note>
+  This step is optional. If you don't enter a short link slug, Dub will generate
+  one for you.
+</Note>
+
+</Step>
+
+<Step title="Add device targeting">
+
+[Device Targeting](https://dub.co/help/article/device-targeting) enables you to redirect users to the App Store or Google Play Store if your app isn’t installed.
+
+For example, you can set custom destination URLs for different devices using the link builder — use the **iOS Targeting** input for iOS devices, and the **Android Targeting** input for Android devices.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/help/device-targeting.png"
+    alt="Deep link device targeting configuration"
+  />
+</Frame>
+
+</Step>
+
+</Steps>
+
+<Note>
+  Dub's link builder offers many additional features like UTM builder, password
+  protection, expiration dates, geo targeting, and more. [Learn more about
+  creating links on Dub](https://dub.co/help/article/how-to-create-link) to
+  explore all available options.
+</Note>
 
 ## Step 3: Handling deep link redirects in your app
 
