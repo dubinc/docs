@@ -14,9 +14,11 @@ This guide walks you through replacing [Firebase Dynamic Links](https://firebase
 
 ## Prerequisites
 
-Before you begin, make sure to add a [deep link domain](/concepts/deep-links/quickstart#step-1%3A-configure-your-deep-link-domains-on-dub) to your Dub workspace. You can use a domain you already own, or leverage our [free .link domain offer](https://dub.co/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` and use it as your deep link domain.
+Before you begin, make sure to follow the [quickstart guide](/concepts/deep-links/quickstart) to set up deep links on Dub by completing the following steps:
 
-This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
+1. Configure your [deep link domain](/concepts/deep-links/quickstart#step-1%3A-configure-your-deep-link-domains-on-dub) on Dub. This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
+2. [Create your deep links](/concepts/deep-links/quickstart#step-2%3A-create-your-deep-links-on-dub) on Dub.
+3. [Handle deep link redirects inside your app](/concepts/deep-links/quickstart#step-3%3A-handling-deep-link-redirects-in-your-app) (more details below).
 
 ## Migrating Android apps
 
@@ -105,7 +107,7 @@ private fun trackDeepLinkClick(deepLink: String) {
 
 In a nutshell, this code:
 
-- Sends the deep link URL to Dub's tracking endpoint
+- Extracts the domain and key from the deep link URL
 - Sends the data to Dub’s tracking endpoint `https://api.dub.co/track/open`
 - Retrieves the final destination URL
 - Navigates to the destination URL in the app
@@ -153,8 +155,12 @@ import Foundation
 import UIKit
 
 func handleDubDeepLink(\_ url: URL) {
+let domain = url.host ?? ""
+let key = url.lastPathComponent
+
 let payload: [String: Any] = [
-  "deepLink": url.absoluteString,
+  "domain": domain,
+  "key": key,
 ]
 
 guard let requestURL = URL(string: "https://api.dub.co/track/open"),
