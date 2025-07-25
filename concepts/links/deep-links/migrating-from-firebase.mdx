@@ -13,41 +13,104 @@ This guide walks you through replacing [Firebase Dynamic Links](https://firebase
 
 ## Prerequisites
 
-Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-2%3A-create-your-deep-links-on-dub) in your Dub workspace.
-
-This replaces Firebase’s `*.page.link` domain with your own branded deep link domain.
+Before you begin, make sure to add a [deep link domain](/concepts/links/deep-links/quickstart#step-2%3A-create-your-deep-links-on-dub) in your Dub workspace. This replaces Firebase's `*.page.link` domain with your own branded deep link domain.
 
 ## For Android apps
 
-1. Remove Firebase Dynamic Links SDK (if present).
+<Steps>
 
-2. Add intent filters to `AndroidManifest.xml` for handling Dub deep links:
+<Step title="Remove Firebase Dynamic Links SDK">
+
+If you have the Firebase Dynamic Links SDK installed, remove it from your `build.gradle` file:
+
+```gradle
+implementation 'com.google.firebase:firebase-dynamic-links:21.1.0'
+```
+
+Remove any Firebase imports like:
+
+```java
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+```
+
+</Step>
+
+<Step title="Add intent filters to AndroidManifest.xml">
+
+If you’re using the same domain for both Firebase Dynamic Links and Dub (e.g., yourapp.com), no changes are needed — you can skip this section.
+
+However, if you were previously using Firebase’s branded domain (e.g., yourapp.page.link), you’ll need to replace it with your custom Dub domain in your app’s configuration.
 
 ```xml
-<intent-filter android:autoVerify="true">
-  <action android:name="android.intent.action.VIEW" />
-  <category android:name="android.intent.category.DEFAULT" />
-  <category android:name="android.intent.category.BROWSABLE" />
-  <data android:scheme="https"
-    android:host="yourdomain.link" # Replace with your Dub deep link domain
-    android:pathPrefix="/"/>
-</intent-filter>
+<activity android:name=".MainActivity">
+  <intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data
+      android:scheme="https"
+      android:host="yourapp.page.link" /> # Replace with your Dub deep link domain
+  </intent-filter>
+</activity>
 ```
 
-3. Track and resolve deep links in your app:
+</Step>
 
-Use Dub’s tracking API to log the deep link open and get the final destination:
+<Step title="Handle deep link opens in your app">
 
-```
-POST https://api.dub.co/track/open
-Content-Type: application/json
+Override `onNewIntent` in your main activity to handle deep link opens:
 
-{
-  "domain": "yourdomain.link",
-  "key": "short-link-slug"
+```kotlin
+override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    intent?.data?.let { uri ->
+        handleDeepLink(uri)
+    }
+}
+
+private fun handleDeepLink(uri: Uri) {
+    val domain = uri.host ?: ""
+    val key = uri.lastPathSegment ?: ""
+
+    // Track the deep link open and get destination URL
+    trackDeepLinkClick(domain, key)
+}
+
+private fun trackDeepLinkClick(domain: String, key: String) {
+    val url = URL("https://api.dub.co/track/open")
+    val connection = url.openConnection() as HttpURLConnection
+
+    connection.requestMethod = "POST"
+    connection.setRequestProperty("Content-Type", "application/json")
+    connection.doOutput = true
+
+    val body = JSONObject().apply {
+        put("domain", domain)
+        put("key", key)
+    }
+
+    connection.outputStream.use { os ->
+        os.write(body.toString().toByteArray())
+    }
+
+    val response = connection.inputStream.bufferedReader().use { it.readText() }
+    val jsonResponse = JSONObject(response)
+    val destinationUrl = jsonResponse.getString("url")
+
+    runOnUiThread {
+        navigateToDestination(destinationUrl)
+    }
 }
 ```
 
-Use this to programmatically navigate the user to the correct screen in-app.
+In a nutshell, this code:
+- Extracts the domain and key from the deep link URL
+- Sends the data to Dub’s tracking endpoint `https://api.dub.co/track/open`
+- Retrieves the final destination URL
+- Navigates to the destination URL in the app
+
+</Step>
+
+</Steps>
 
 ## For iOS apps
