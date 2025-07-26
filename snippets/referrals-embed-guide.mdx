@@ -2,15 +2,33 @@ With [Dub Partners](https://dub.co/partners), you can build a white-labeled refe
 
 This way, your users can automatically enroll in your partner program **without needing to leave your app and sign up on a third-party platform**.
 
+In this guide, we'll walk you through the steps to get started with the Dub Referrals Embed.
+
+## Example App
+
+Before we dive in, here's an open-source example app showing the Dub Referrals Embed in action: [acme.dub.sh](https://acme.dub.sh)
+
 <Frame>
-  <img
-    className="rounded-lg border border-gray-100"
-    src="https://assets.dub.co/help/dub-referrals-demo.png"
-    alt="A screenshot of the Dub Referrals Embed"
+  <video
+    src="https://github.com/user-attachments/assets/67e7c51c-db5b-4f37-b050-6963957d5315"
+    autoPlay
+    loop
+    muted
+    controls
+    playsInline
   />
 </Frame>
 
-In this guide, we'll walk you through the steps to get started with the Dub Referrals Embed.
+You can also view the source code for the example app on [GitHub](https://github.com/dubinc/examples/tree/main/embed/referrals):
+
+<Card
+  title="Dub Referrals Embed Demo App"
+  icon="github"
+  href="https://github.com/dubinc/examples/tree/main/embed/referrals"
+  color="#333333"
+>
+  View the source code for [acme.dub.sh](https://acme.dub.sh) on GitHub.
+</Card>
 
 ## Step 1: Generate embed token
 
@@ -18,7 +36,6 @@ First, you need to create a server API route that generates a public token, whic
 
 <Frame>
   <img
-    className="rounded-lg border border-gray-100"
     src="/images/embed-token-diagram.png"
     alt="A diagram of the embed token flow"
   />
@@ -332,16 +349,3 @@ const iframeParams = new URLSearchParams({
 ```
 
 </CodeGroup>
-
-## Example Apps
-
-<CardGroup cols={2}>
-  <Card
-    title="Dub Referrals Embed Demo App"
-    icon="github"
-    href="https://github.com/dubinc/examples/tree/main/embed/referrals"
-    color="#333333"
-  >
-    See the full example on GitHub.
-  </Card>
-</CardGroup>
