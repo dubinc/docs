@@ -150,6 +150,7 @@ Here is a quick example of how you can display a discount banner using the `useA
 <CodeGroup>
 
 ```typescript React/Next.js
+// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
 import { useAnalytics } from "@dub/analytics/react";
 
 function DiscountBanner() {
@@ -176,6 +177,7 @@ function DiscountBanner() {
 ```
 
 ```javascript Other Frameworks
+// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
 dubAnalytics("ready", function () {
   if (DubAnalytics.partner && DubAnalytics.discount) {
     const banner = document.createElement("div");
