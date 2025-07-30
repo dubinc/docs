@@ -143,32 +143,55 @@ This data will be stored as a JSON-stringified object in the `dub_partner_data` 
 }
 ```
 
-<Note>
-  The `name` and `image` fields in the partner data are URL-encoded when stored
-  in the cookie. Make sure to decode these values using `decodeURIComponent()`
-  when accessing them from the cookie. However, if you're using `js-cookie` as
-  shown in the example below, the decoding is handled automatically for you.
-</Note>
+You can access partner and discount data in your application code using the `useAnalytics()` hook. If you’re working in a non-React environment, you can use the `DubAnalytics` object directly.
 
-To access this cookie data, we recommend using a cookie library like [`js-cookie`](https://github.com/js-cookie/js-cookie) – here's an example:
+Here is a quick example of how you can display a discount banner using the `useAnalytics()` hook:
 
-```js
-import Cookies from "js-cookie";
+<CodeGroup>
 
-const dubPartnerData = Cookies.get("dub_partner_data");
-const { partner, discount } = dubPartnerData ? JSON.parse(dubPartnerData) : {};
+```typescript React/Next.js
+import { useAnalytics } from "@dub/analytics/react";
 
-// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
+function DiscountBanner() {
+  const { partner, discount } = useAnalytics();
 
-return (
-  <div className="flex items-center gap-2">
-    <img src={image} alt={name} className="size-6 rounded-full" />
-    <p>
-      {name} referred you to Acme and gave you {amount} {type} off
-    </p>
-  </div>
-);
+  if (!partner || !discount) {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center gap-2">
+      <img
+        src={partner.image}
+        alt={partner.name}
+        className="size-6 rounded-full"
+      />
+      <p>
+        {partner.name} referred you to Acme and gave you {discount.amount}{" "}
+        {discount.type} off
+      </p>
+    </div>
+  );
+}
 ```
+
+```javascript Other Frameworks
+dubAnalytics("ready", function () {
+  if (DubAnalytics.partner && DubAnalytics.discount) {
+    const banner = document.createElement("div");
+
+    banner.innerHTML = `
+      <div class="flex items-center gap-2">
+        <img src="${DubAnalytics.partner.image}" alt="${DubAnalytics.partner.name}" class="size-6 rounded-full" />
+        <p>${DubAnalytics.partner.name} referred you to Acme and gave you ${DubAnalytics.discount.amount} ${DubAnalytics.discount.type} off</p>
+      </div>
+    `;
+    document.body.appendChild(banner);
+  }
+});
+```
+
+</CodeGroup>
 
 Here's an example of how the discount banner will look like:
 
@@ -189,10 +212,64 @@ This is helpful for tracking clicks on:
   - Cal.com's booking pages (e.g. [cal.com/steven](https://cal.com/steven))
   - Tella's video pages (e.g. [tella.tv/video/:slug](https://www.tella.tv/video/cluvcfcfi00tw0fjrgizr4pw2))
 
-<Note>
-  This feature is coming soon. If you'd like early access, please [contact
-  us](https://dub.co/contact/support).
-</Note>
+The `trackClick()` function allows you to manually trigger click events from your application code. This is useful when you want to track clicks that happen programmatically.
+
+The `trackClick()` function accepts an object with the following parameters:
+
+<ParamField body="domain" type="string" required>
+  The domain of the short link (e.g. `getacme.link`)
+</ParamField>
+
+<ParamField body="key" type="string" required>
+  The short link slug (e.g. `john`)
+</ParamField>
+
+Here's how you can use the `trackClick()` function in your application:
+
+<CodeGroup>
+
+```typescript React/Next.js
+import { useAnalytics } from "@dub/analytics/react";
+import { useRouter } from "next/router";
+
+function BookingPage() {
+  const router = useRouter();
+  const { trackClick } = useAnalytics();
+
+  // Extract the key from the URL path (e.g., /john -> john)
+  const { slug: key } = router.query;
+
+  useEffect(() => {
+    if (key) {
+      trackClick({
+        domain: "getacme.link",
+        key,
+      });
+    }
+  }, [key, trackClick]);
+
+  return <></>;
+}
+```
+
+```javascript Other Frameworks
+document.addEventListener("DOMContentLoaded", function () {
+  // Extract the key from the URL path (e.g., /john -> john)
+  const pathSegments = window.location.pathname.split("/");
+  const key = pathSegments[1];
+
+  if (key) {
+    dubAnalytics.trackClick({
+      domain: "getacme.link",
+      key,
+    });
+  }
+});
+
+// This will track clicks for URLs like cal.com/john
+```
+
+</CodeGroup>
 
 ## Differences from server-side click-tracking
 
