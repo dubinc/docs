@@ -43,7 +43,7 @@ First, you'll need to add the Google Play Install Referrer library to your proje
 // package.json
 {
   "dependencies": {
-    "@react-native-community/install-referrer": "^2.2.0"
+    "react-native-play-install-referrer": "latest"
   }
 }
 ```
@@ -65,32 +65,37 @@ Now you'll need to implement the logic to read the install referrer and track th
 
 ```javascript React Native
 // InstallReferrerTracker.js
-import InstallReferrer from "@react-native-community/install-referrer";
+import { PlayInstallReferrer } from "react-native-play-install-referrer";
 
 class InstallReferrerTracker {
   constructor() {
     this.isFirstLaunch = true;
   }
 
-  async trackInstallReferrer() {
-    try {
-      // Check if this is the first launch
-      if (!this.isFirstLaunch) {
-        return;
-      }
+  trackInstallReferrer() {
+    // Check if this is the first launch
+    if (!this.isFirstLaunch) {
+      return;
+    }
 
-      // Get the install referrer
-      const referrerDetails = await InstallReferrer.getReferrerDetails();
+    PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {
+      if (!error) {
+        console.log(
+          "Install referrer = " + installReferrerInfo.installReferrer
+        );
 
-      if (referrerDetails.referrerUrl) {
-        // Track the deep link open with the full referrer URL
-        await this.trackDeepLinkOpen(referrerDetails.referrerUrl);
+        if (installReferrerInfo.installReferrer) {
+          // Track the deep link open with the full referrer URL
+          this.trackDeepLinkOpen(installReferrerInfo.installReferrer);
+        }
+      } else {
+        console.log("Failed to get install referrer info!");
+        console.log("Response code: " + error.responseCode);
+        console.log("Message: " + error.message);
       }
 
       this.isFirstLaunch = false;
-    } catch (error) {
-      console.error("Error tracking install referrer:", error);
-    }
+    });
   }
 
   async trackDeepLinkOpen(deepLink) {
