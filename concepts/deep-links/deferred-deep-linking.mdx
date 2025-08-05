@@ -30,8 +30,24 @@ Here is how it works in a nutshell:
 2. Dub redirects the user to the App Store or Play Store by using [device targeting](https://dub.co/help/article/device-targeting)
 3. User installs your app from the app store
 4. App reads the install referrer on first launch
-5. App track the open using the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint
+5. App extracts the deep link from the referrer URL and tracks the deep link open event using the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint
 6. Redirect the user to the appropriate screen using the destination URL returned by the `/track/open` endpoint
+
+### Understanding the Referrer URL Structure
+
+When Dub redirects users to the Play Store, the referrer URL contains the deep link information in a nested structure. The referrer URL looks like this:
+
+```
+https://play.google.com/store/apps/details?id=com.example.app&referrer=deepLink%3Dhttps%253A%252F%252Fdub.sh%252Fgps
+```
+
+To extract the original deep link, you need to:
+
+1. Parse the `referrer` parameter from the Play Store URL
+2. URL decode it to get the `deepLink` parameter
+3. URL decode the `deepLink` value to get the actual deep link
+
+The code examples below show how to implement this extraction process.
 
 ### Step 1: Add the Install Referrer dependency
 
@@ -59,7 +75,7 @@ dependencies {
 
 ### Step 2: Implement the Install Referrer logic
 
-Now you'll need to implement the logic to read the install referrer and track the deep link open.
+Now you'll need to implement the logic to read the install referrer, extract the deep link, and track the deep link open.
 
 <CodeGroup>
 
@@ -85,8 +101,14 @@ class InstallReferrerTracker {
         );
 
         if (installReferrerInfo.installReferrer) {
-          // Track the deep link open with the full referrer URL
-          this.trackDeepLinkOpen(installReferrerInfo.installReferrer);
+          // Extract the deep link from the referrer URL
+          const deepLink = this.extractDeepLinkFromReferrer(
+            installReferrerInfo.installReferrer
+          );
+          if (deepLink) {
+            // Track the deep link open with the extracted URL
+            this.trackDeepLinkOpen(deepLink);
+          }
         }
       } else {
         console.log("Failed to get install referrer info!");
@@ -96,6 +118,21 @@ class InstallReferrerTracker {
 
       this.isFirstLaunch = false;
     });
+  }
+
+  extractDeepLinkFromReferrer(referrerUrl) {
+    try {
+      // Parse the referrer URL to extract the deep link
+      // e.g. for referrer=deepLink%3Dhttps%253A%252F%252Fdub.sh%252Fgps
+      // the deep link is https://dub.sh/gps
+      const referrerUrlObj = new URL(referrerUrl);
+      const deepLinkParam = referrerUrlObj.searchParams.get("deepLink");
+      return decodeURIComponent(deepLinkParam);
+      return null;
+    } catch (error) {
+      console.error("Error extracting deep link from referrer:", error);
+      return null;
+    }
   }
 
   async trackDeepLinkOpen(deepLink) {
@@ -161,7 +198,12 @@ class InstallReferrerTracker(private val context: Context) {
                         val referrerUrl = response.installReferrer
 
                         if (!referrerUrl.isNullOrEmpty()) {
-                            parseAndTrackDeepLink(referrerUrl)
+                            // Extract the deep link from the referrer URL
+                            val deepLink = extractDeepLinkFromReferrer(referrerUrl)
+                            if (!deepLink.isNullOrEmpty()) {
+                                // Track the deep link open with the extracted URL
+                                trackDeepLinkOpen(deepLink)
+                            }
                         }
                     }
                     InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
@@ -182,12 +224,30 @@ class InstallReferrerTracker(private val context: Context) {
         })
     }
 
-    private fun parseAndTrackDeepLink(referrerUrl: String) {
-        try {
-            // Track the deep link open with the full referrer URL
-            trackDeepLinkOpen(referrerUrl)
+        private fun extractDeepLinkFromReferrer(referrerUrl: String): String? {
+        return try {
+            // e.g. for referrer=deepLink%3Dhttps%253A%252F%252Fdub.sh%252Fgps
+            // the deep link is https://dub.sh/gps
+            val referrerUrlObj = java.net.URL(referrerUrl)
+            val query = referrerUrlObj.query ?: return null
+
+            // Parse query parameters
+            val params = query.split("&").associate { param ->
+                val keyValue = param.split("=", limit = 2)
+                if (keyValue.size == 2) {
+                    keyValue[0] to keyValue[1]
+                } else {
+                    keyValue[0] to ""
+                }
+            }
+
+            val deepLinkParam = params["deepLink"] ?: return null
+
+            // URL decode the deepLinkParam value to get the actual deep link
+            java.net.URLDecoder.decode(deepLinkParam, "UTF-8")
         } catch (e: Exception) {
-            println("Error handling referrer URL: ${e.message}")
+            println("Error extracting deep link from referrer: ${e.message}")
+            null
         }
     }
 
@@ -360,11 +420,13 @@ private fun navigateToDestination(destinationUrl: String) {
 
 1. **First Launch Detection**: The install referrer is only available on the first launch after installation. Make sure to track this properly to avoid duplicate tracking.
 
-2. **Network Operations**: The tracking API calls should be made on a background thread to avoid blocking the UI.
+2. **URL Decoding**: The referrer URL is URL-encoded multiple times. Make sure to properly decode it to extract the original deep link.
 
-3. **Error Handling**: Always implement proper error handling for network requests and URL parsing.
+3. **Network Operations**: The tracking API calls should be made on a background thread to avoid blocking the UI.
 
-4. **Testing**: Test your implementation thoroughly using the Google Play Console's internal testing track.
+4. **Error Handling**: Always implement proper error handling for network requests and URL parsing.
+
+5. **Testing**: Test your implementation thoroughly using the Google Play Console's internal testing track.
 
 To get started, we recommend using the [quickstart guide](/concepts/deep-links/quickstart) to set up your deep links on Dub.
 
