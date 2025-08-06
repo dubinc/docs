@@ -13,6 +13,7 @@ There are a few ways to do this, depending on your data structure:
 | [External ID](#external-id) | One-to-one   | A unique identifier for a link within your system. | Associating referral links with users in your system.                                                 |
 | [Tenant ID](#tenant-id)     | One-to-many  | The ID of the tenant that created the link.        | Grouping all links created by a user/team in your system.                                             |
 | [Tags](#tags)               | Many-to-many | Grouping links by tags                             | Organizing links by campaign / user / various for flexible, multi-dimensional filtering and reporting |
+| [Folders](#folders)         | One-to-many  | The ID of the folder that contains the link.       | Organizing links into hierarchical folder structures for better organization.                         |
 
 ## External ID
 
@@ -1104,6 +1105,337 @@ $response = $sdk->analytics->retrieve(
 ```bash cURL
 curl --request GET \
   --url https://api.dub.co/analytics?tagIds=tag_xxx \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>
+
+---
+
+## Folders
+
+Folders are a hierarchical way to organize your links on Dub.
+
+With folders, you can:
+
+- Organize your links into directories
+- [Filter your links by folder](#retrieve-links-by-folders) and get a shareable link to the filtered results.
+- [Filter your analytics by folder](#retrieve-analytics-by-folders) to see how your campaigns are performing.
+
+### Create link with folderId
+
+You can use the folder ID to create a link with a folder.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const link = await dub.links.create({
+  url: "https://example.com",
+  folderId: "clux0rgak00011...",
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.Create(ctx, &operations.CreateLinkRequestBody{
+    URL: "https://example.com",
+    FolderId: "clux0rgak00011...",
+  })
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res != nil {
+    // handle response
+  }
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = d.links.create(request={
+  "url": "https://example.com",
+  "folder_id": "clux0rgak00011...",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::CreateLinkRequestBody.new(
+  url: "https://example.com",
+  folder_id: "clux0rgak00011...",
+)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\CreateLinkRequestBody(
+  url: 'https://example.com',
+  folderId: 'clux0rgak00011...',
+);
+
+$response = $sdk->links->create(
+  request: $request
+);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.dub.co/links \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "url": "https://example.com",
+    "folderId": "clux0rgak00011..."
+  }'
+```
+
+</CodeGroup>
+
+### Retrieve links by folderId
+
+Here is how to retrieve links by folder ID:
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.links.list({
+  folderId: "clux0rgak00011...",
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Links.List(ctx, operations.GetLinksRequest{
+    FolderId: dubgo.String("clux0rgak00011..."),
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = s.links.list(request={
+  "folder_id": "clux0rgak00011...",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::GetLinksRequest.new(
+  folder_id: "clux0rgak00011...",
+)
+
+res = s.links.list(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\GetLinksRequest(
+  folderId: "clux0rgak00011...",
+);
+
+$responses = $sdk->links->list(
+  request: $request
+);
+
+```
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/links?folderId=clux0rgak00011... \
+  --header 'Authorization: Bearer <token>' \
+  --header 'Content-Type: application/json'
+```
+
+</CodeGroup>
+
+### Retrieve analytics by folderId
+
+You can retrieve analytics by folderId by passing the `folderId` prop. This is helpful for fetching the analytics for all the links under a specific folder, or the total analytics for a folder.
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const analytics = await dub.analytics.retrieve({
+  folderId: "clux0rgak00011...",
+});
+```
+
+```go Go
+package main
+
+import(
+  "context"
+  dubgo "github.com/dubinc/dub-go"
+  "github.com/dubinc/dub-go/models/operations"
+  "log"
+  "os"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := dubgo.New(
+    dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
+  )
+
+  res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+    FolderId: dubgo.String("clux0rgak00011..."),
+  })
+}
+```
+
+```python Python
+import os
+import dub
+from dub.models import operations
+
+d = dub.Dub(
+  token=os.environ['DUB_API_KEY'],
+)
+
+res = dub.analytics.retrieve(request={
+  "folder_id": "clux0rgak00011...",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new
+s.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: "DUB_API_KEY",
+  )
+)
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  folder_id: "clux0rgak00011...",
+)
+
+res = s.analytics.retrieve(req)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+  folderId: "clux0rgak00011...",
+);
+
+$response = $sdk->analytics->retrieve(
+  request: $request
+);
+```
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/analytics?folderId=clux0rgak00011... \
   --header 'Authorization: Bearer <token>' \
   --header 'Content-Type: application/json'
 ```

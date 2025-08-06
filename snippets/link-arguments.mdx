@@ -12,14 +12,33 @@
   generated.
 </ParamField>
 
+<ParamField body="keyLength" type="number">
+  The length of the short link slug. Defaults to 7 if not provided. When used
+  with `prefix`, the total length of the key will be `prefix.length +
+  keyLength`.
+</ParamField>
+
 <ParamField body="externalId" type="string | null">
-  This is the ID of the link in your database. If set, it can be used to
-  identify the link in the future.
+  The ID of the link in your database. If set, it can be used to identify the
+  link in future API requests (must be prefixed with 'ext_' when passed as a
+  query parameter). This key is unique across your workspace.
 </ParamField>
 
 <ParamField body="tenantId" type="string | null">
   The ID of the tenant that created the link inside your system. If set, it can
   be used to fetch all links for a tenant.
+</ParamField>
+
+<ParamField body="programId" type="string | null">
+  The ID of the program the short link is associated with.
+</ParamField>
+
+<ParamField body="partnerId" type="string | null">
+  The ID of the partner the short link is associated with.
+</ParamField>
+
+<ParamField body="folderId" type="string | null">
+  The unique ID of an existing folder to assign the short link to.
 </ParamField>
 
 <ParamField body="prefix" type="string">
@@ -29,7 +48,8 @@
 </ParamField>
 
 <ParamField body="trackConversion" type="boolean" default={false}>
-  Whether to track conversions for the short link.
+  Whether to track conversions for the short link. Defaults to `false` if not
+  provided.
 </ParamField>
 
 <ParamField body="identifier" type="string | null">
@@ -38,14 +58,15 @@
 </ParamField>
 
 <ParamField body="archived" type="boolean" default={false}>
-  Whether the short link is archived.
+  Whether the short link is archived. Defaults to `false` if not provided.
 </ParamField>
 
 <ParamField body="publicStats" type="boolean" default={false}>
-  Whether the short link's stats are publicly accessible.
+  Deprecated: Use `dashboard` instead. Whether the short link's stats are
+  publicly accessible. Defaults to `false` if not provided.
 </ParamField>
 
-<ParamField body="tagIds" type="string">
+<ParamField body="tagIds" type="string | string[]">
   The unique IDs of the tags assigned to the short link.
 </ParamField>
 
@@ -70,31 +91,33 @@
 </ParamField>
 
 <ParamField body="proxy" type="boolean" default={false}>
-  Whether the short link uses Custom Social Media Cards feature.
+  Whether the short link uses Custom Link Previews feature. Defaults to `false`
+  if not provided.
 </ParamField>
 
 <ParamField body="title" type="string | null">
-  The title of the short link generated via `api.dub.co/metatags`. Will be used
-  for Custom Social Media Cards if proxy is true.
+  The custom link preview title (og:title). Will be used for Custom Link
+  Previews if `proxy` is true. Learn more: https://d.to/og
 </ParamField>
 
 <ParamField body="description" type="string | null">
-  The description of the short link generated via `api.dub.co/metatags`. Will be
-  used for Custom Social Media Cards if proxy is true.
+  The custom link preview description (og:description). Will be used for Custom
+  Link Previews if `proxy` is true. Learn more: https://d.to/og
 </ParamField>
 
 <ParamField body="image" type="string | null">
-  The image of the short link generated via `api.dub.co/metatags`. Will be used
-  for Custom Social Media Cards if proxy is true.
+  The custom link preview image (og:image). Will be used for Custom Link
+  Previews if `proxy` is true. Learn more: https://d.to/og
 </ParamField>
 
 <ParamField body="video" type="string | null">
-  The custom link preview video (og:video). Will be used for Custom Social Media
-  Cards if `proxy` is true. Learn more: https://d.to/og
+  The custom link preview video (og:video). Will be used for Custom Link
+  Previews if `proxy` is true. Learn more: https://d.to/og
 </ParamField>
 
 <ParamField body="rewrite" type="boolean" default={false}>
-  Whether the short link uses link cloaking.
+  Whether the short link uses link cloaking. Defaults to `false` if not
+  provided.
 </ParamField>
 
 <ParamField body="ios" type="string | null">
@@ -103,6 +126,11 @@
 
 <ParamField body="android" type="string | null">
   The Android destination URL for the short link for Android device targeting.
+</ParamField>
+
+<ParamField body="geo" type="object">
+  Geographic targeting for the short link. Allows you to redirect users based on
+  their location.
 </ParamField>
 
 <ParamField body="doIndex" type="boolean" default={false}>
@@ -140,11 +168,25 @@
   `ref` query parameter in the destination URL.
 </ParamField>
 
-<ParamField body="programId" type="string | null">
-  The ID of the program the short link is associated with.
-</ParamField>
-
 <ParamField body="webhookIds" type="string[] | null">
   An array of webhook IDs to trigger when the link is clicked. These webhooks
   will receive click event data.
+</ParamField>
+
+<ParamField body="testVariants" type="object[]">
+  An array of A/B test URLs and the percentage of traffic to send to each URL.
+  Requires 2-4 variants with percentages between 10-90.
+</ParamField>
+
+<ParamField body="testStartedAt" type="string | null">
+  The date and time when the tests started.
+</ParamField>
+
+<ParamField body="testCompletedAt" type="string | null">
+  The date and time when the tests were or will be completed.
+</ParamField>
+
+<ParamField body="tagId" type="string | null">
+  Deprecated: Use `tagIds` instead. The unique ID of the tag assigned to the
+  short link.
 </ParamField>
