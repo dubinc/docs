@@ -26,7 +26,7 @@ To track lead conversion events with Google Tag Manager, you'll need to set up a
 
 ### 1. Set up GTM Server Container
 
-In Google Tag Manager, you'll need to use an existing server container or [create a new one](https://developers.google.com/tag-platform/learn/sst-fundamentals/4-sst-setup-container). Server containers are the foundation for server-side tracking and allow you to process events before they reach their final destinations.
+In Google Tag Manager, you'll need to use an existing server container or [create a new one](https://youtu.be/waqBSk3vkko). Server containers are the foundation for server-side tracking and allow you to process events before they reach their final destinations.
 
 - If you already have a server container set up, you can use that
 - If not, [create a new server container in your GTM workspace](https://developers.google.com/tag-platform/learn/sst-fundamentals/4-sst-setup-container)
@@ -219,7 +219,9 @@ Under the **Triggering** section, configure when the tag should fire:
 
 You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
 
-```bash
+<CodeGroup>
+
+```bash cURL
 curl "https://server-side-tagging-xxx-uc.a.run.app/dub/track/lead?\
 dub_id=pAzVZ3jzwZXcLMDT&\
 eventName=Sign%20Up&\
@@ -230,6 +232,8 @@ customerAvatar=https://example.com/avatar.jpg&\
 eventQuantity=1&\
 mode=async"
 ```
+
+</CodeGroup>
 
 ## Download GTM templates
 
