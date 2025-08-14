@@ -430,15 +430,133 @@ private fun navigateToDestination(destinationUrl: String) {
 
 To get started, we recommend using the [quickstart guide](/concepts/deep-links/quickstart) to set up your deep links on Dub.
 
-## iOS App Store
-
-<Note>
-  This feature is coming soon. If you'd like early access, please [contact
-  us](https://dub.co/contact/support).
-</Note>
-
-## Related Resources
+### Related Resources
 
 - [Google Play Install Referrer API Documentation](https://developer.android.com/google/play/installreferrer)
 - [Android Deep Linking Guide](https://developer.android.com/training/app-links)
 - [Dub API Documentation](/api-reference/introduction)
+
+## iOS App Store
+
+Unlike Android, iOS doesn't provide a built-in install referrer API. Dub implements a hybrid approach combining **probabilistic tracking** (IP-based) and **deterministic tracking** (clipboard-based) to ensure reliable deferred deep linking on iOS.
+
+### How Dub's iOS Deferred Deep Linking Works
+
+Dub's iOS deferred deep linking solution provides two complementary tracking methods:
+
+1. **Probabilistic Tracking**: Uses IP address to match users from the web to the app
+2. **Deterministic Tracking**: Leverages iOS clipboard functionality for precise link attribution
+
+This dual approach ensures reliable attribution while giving users full control over their privacy.
+
+### IP-based tracking
+
+Dub automatically tracks user IP addresses when they click your deep links. This information is stored along the click event and used to match users after app installation.
+
+Here is how it works in a nutshell:
+
+1. The user taps a deep link on a device without your app installed.
+2. Dub captures the user’s IP address and tracks the click event.
+3. The user is redirected to the App Store to download your app.
+4. After installation, app calls the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint with the `dubDomain` parameter (your short link domain).
+5. Dub matches the device’s IP address and returns the destination URL.
+6. The app redirects the user to the appropriate screen using the destination URL returned by the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint.
+
+<Note>
+  We recommend clipboard-based tracking over IP-based tracking because it
+  provides more reliable attribution accuracy and works consistently across
+  different network environments, including corporate networks and VPNs.
+</Note>
+
+### Clipboard-based tracking
+
+For enhanced accuracy, Dub provides a clipboard-based tracking solution that gives users complete control over their experience.
+
+Here is how it works in a nutshell:
+
+1. The user taps a deep link on a device without your app installed.
+2. Dub displays a custom landing page with a **Get the App** button.
+3. When the user taps the **Get the App** button, they are taken to the App Store to download your app.
+4. After installation, your app checks the clipboard for the Dub deep link and uses the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint to get the destination URL.
+5. The app redirects the user to the appropriate screen using the destination URL returned by the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint.
+
+[TODO: Add screenshot]
+
+### Step 1: Configure Dub for iOS Deferred Deep Linking
+
+First, enable deferred deep linking for your iOS app in the Dub dashboard:
+
+1. Go to your Dub workspace settings
+2. Navigate to the "Deep Links" section
+3. Enable "iOS Deferred Deep Linking"
+4. Configure your iOS app's bundle identifier
+5. Set up your App Store URL
+
+### Step 2: Implement Probabilistic Tracking
+
+Add the probabilistic tracking logic to your iOS app:
+
+<CodeGroup>
+
+```swift iOS
+// DeferredDeepLinkTracker.swift
+```
+
+```objective-c iOS
+// DeferredDeepLinkTracker.h
+```
+
+</CodeGroup>
+
+### Step 3: Implement Deterministic Tracking
+
+Add clipboard-based tracking for enhanced accuracy:
+
+<CodeGroup>
+
+```swift iOS
+// ClipboardDeepLinkTracker.swift
+
+```
+
+```objective-c iOS
+//
+```
+
+</CodeGroup>
+
+### Step 4: Initialize Both Tracking Methods
+
+Initialize both tracking methods in your app delegate or scene delegate:
+
+<CodeGroup>
+
+```swift iOS
+// AppDelegate.swift
+```
+
+```objective-c iOS
+// AppDelegate.h
+```
+
+</CodeGroup>
+
+### Important Notes
+
+1. **Privacy Compliance**: Dub's clipboard-based tracking respects user privacy by only reading clipboard content that matches Dub deep link patterns.
+
+2. **First Launch Detection**: Both tracking methods should only run on the first app launch after installation to avoid duplicate tracking.
+
+3. **Network Operations**: All API calls are made on background threads to ensure smooth app performance.
+
+4. **Error Handling**: Implement proper error handling for network requests and URL parsing.
+
+5. **Testing**: Test your implementation using TestFlight and the Dub dashboard's testing tools.
+
+6. **App Store Guidelines**: Ensure your app complies with Apple's App Store guidelines regarding clipboard access and user privacy.
+
+### Related Resources
+
+- [iOS Deep Linking Guide](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content)
+- [Dub API Documentation](/api-reference/introduction)
+- [Dub Deep Links Quickstart](/concepts/deep-links/quickstart)
