@@ -482,8 +482,6 @@ This method relies on matching the user’s device IP address from the initial c
 
 ### Track the deep link open
 
-Add the `trackOpen()` call in your SwiftUI app’s root view `.onAppear`, as shown below.
-
 The following logic determines whether to use clipboard-based tracking or IP-based tracking:
 
 - Clipboard-based tracking: Used when a deep link is found in the clipboard (e.g., `acme.link`). The app sends the `deepLink` parameter in the request body.
