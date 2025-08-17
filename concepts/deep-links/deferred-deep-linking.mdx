@@ -420,7 +420,7 @@ private fun navigateToDestination(destinationUrl: String) {
 
 1. **First Launch Detection**: The install referrer is only available on the first launch after installation. Make sure to track this properly to avoid duplicate tracking.
 2. **URL Decoding**: The referrer URL is URL-encoded multiple times. Make sure to properly decode it to extract the original deep link.
-3. **Network Operations**: The tracking API calls should be made on a background thread to avoid blocking the UI.
+3. **Network Operations**: Ensure that all API calls are made in background threads to avoid blocking the main thread and ensure smooth app performance.
 4. **Error Handling**: Always implement proper error handling for network requests and URL parsing.
 5. **Testing**: Test your implementation thoroughly using the Google Play Console's internal testing track.
 
@@ -615,7 +615,7 @@ struct DetailView: View {
 ### Important Notes
 
 1. **IP-based Tracking Limitations**: IP-based tracking relies on the device’s network IP, which can be less reliable in environments like corporate networks, VPNs, or shared Wi-Fi.
-2. **Network Operations**: All API calls are made on background threads to ensure smooth app performance.
+2. **Network Operations**: Ensure that all API calls are made in background threads to avoid blocking the main thread and ensure smooth app performance.
 3. **Error Handling**: Implement proper error handling for network requests, clipboard access to ensure the app behaves gracefully under failures.
 4. **Testing**: Test thoroughly using TestFlight or an internal distribution build to confirm the flow works for both clipboard-based and IP-based tracking scenarios.
 5. **App Store Guidelines**: Ensure your app complies with Apple's App Store guidelines regarding clipboard access and user privacy.
