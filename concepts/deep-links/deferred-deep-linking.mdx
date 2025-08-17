@@ -30,7 +30,7 @@ Here is how it works in a nutshell:
 2. Dub redirects the user to the App Store or Play Store by using [device targeting](https://dub.co/help/article/device-targeting)
 3. User installs your app from the app store
 4. App reads the install referrer on first launch
-5. App extracts the deep link from the referrer URL and tracks the deep link open event using the [`/track/open`](/concepts/deep-links/quickstart#track-the-deep-link-open) endpoint
+5. App extracts the deep link from the referrer URL and tracks the deep link open event using the [`/track/open` endpoint](/api-reference/endpoint/track-open)
 6. Redirect the user to the appropriate screen using the destination URL returned by the `/track/open` endpoint
 
 ### Understanding the Referrer URL Structure
@@ -416,29 +416,319 @@ private fun navigateToDestination(destinationUrl: String) {
 
 </CodeGroup>
 
-### Important Notes
+### Important notes
 
 1. **First Launch Detection**: The install referrer is only available on the first launch after installation. Make sure to track this properly to avoid duplicate tracking.
-
 2. **URL Decoding**: The referrer URL is URL-encoded multiple times. Make sure to properly decode it to extract the original deep link.
-
-3. **Network Operations**: The tracking API calls should be made on a background thread to avoid blocking the UI.
-
+3. **Network Operations**: Ensure that all API calls are made in background threads to avoid blocking the main thread and ensure smooth app performance.
 4. **Error Handling**: Always implement proper error handling for network requests and URL parsing.
-
 5. **Testing**: Test your implementation thoroughly using the Google Play Console's internal testing track.
 
 To get started, we recommend using the [quickstart guide](/concepts/deep-links/quickstart) to set up your deep links on Dub.
 
-## iOS App Store
-
-<Note>
-  This feature is coming soon. If you'd like early access, please [contact
-  us](https://dub.co/contact/support).
-</Note>
-
-## Related Resources
+### Related resources
 
 - [Google Play Install Referrer API Documentation](https://developer.android.com/google/play/installreferrer)
 - [Android Deep Linking Guide](https://developer.android.com/training/app-links)
 - [Dub API Documentation](/api-reference/introduction)
+
+## iOS App Store
+
+Unlike Android, iOS doesn't provide a built-in install referrer API. Dub implements a hybrid approach combining **deterministic tracking** (clipboard-based) and **probabilistic tracking** (IP-based) to ensure reliable deferred deep linking on iOS.
+
+### How iOS deferred deep linking works on Dub
+
+Dub's iOS deferred deep linking solution provides two tracking approaches:
+
+1. **Deterministic clipboard-based tracking**: Uses iOS clipboard data to reliably identify and open the exact deep link the user interacted with.
+2. **Probabilistic IP-based tracking**: Matches users from the web to the app based on their IP address.
+
+For the deterministic approach, when an iOS user who doesn't have your app installed clicks on your deep link, Dub redirects them to a custom landing page:
+
+<Frame>
+  <img
+    src="/images/ios-ddl-landing-page.jpg"
+    alt="iOS deferred deep linking landing page"
+  />
+</Frame>
+
+This page displays two options:
+
+- **Get the App**: Copies the deep link to the clipboard before redirecting to the App Store.
+- **Get the App without Copying**: Redirects directly to the App Store without copying the deep link to the clipboard.
+
+After the user installs your app, the deep link resolution method depends on the button they clicked.
+
+#### 1. Deterministic clipboard-based tracking
+
+This method uses the iOS clipboard to pass the deep link into your app after installation, ensuring reliable and direct link resolution.
+
+Here is how it works in a nutshell:
+
+1. User taps **Get the App** button on the landing page.
+2. Dub copies the deep link URL to the clipboard.
+3. The user is redirected to the App Store to download your app.
+4. After installation, your app reads the clipboard to retrieve the deep link.
+5. Your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `deepLink` parameter in the request body.
+6. Dub returns the destination URL, and your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
+
+#### 2. Probabilistic IP-based tracking
+
+This method relies on matching the user’s device IP address from the initial click event to the app open event after installation.
+
+1. User taps **Get the App without Copying** button on the landing page.
+2. The user is redirected directly to the App Store to download your app.
+3. Dub has already tracked the click and stored the IP address at the time of deep link click.
+4. After installation, your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `dubDomain` parameter in the request body.
+5. Dub matches the user using IP-based tracking and returns the destination URL.
+6. If a destination URL is returned, your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
+
+### Track the deep link open
+
+The following logic determines whether to use clipboard-based tracking or IP-based tracking:
+
+- **Clipboard-based tracking**: Used when a deep link is found in the clipboard (e.g., `acme.link`). The app sends the `deepLink` parameter in the request body.
+- **IP-based tracking**: Used when no deep link is found in the clipboard. The app sends only the `dubDomain` parameter, allowing Dub to match the user based on their IP address.
+
+This ensures the most reliable tracking method is chosen automatically.
+
+<CodeGroup>
+
+```javascript React Native
+// App.js
+import React, { useEffect } from 'react';
+import Clipboard from '@react-native-clipboard/clipboard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default function App() {
+  useEffect(() => {
+    trackOpen();
+  }, []);
+
+  return (
+    // Your app components
+  );
+}
+
+// Make request to /track/open endpoint
+async function trackOpen() {
+  try {
+    // Check if this is first launch
+    const hasLaunched = await AsyncStorage.getItem('app_first_launch');
+    if (hasLaunched !== null) {
+      return;
+    }
+    await AsyncStorage.setItem('app_first_launch', 'false');
+
+    // Check clipboard for deep link
+    const clipboard = await Clipboard.getString();
+    let requestBody;
+
+    if (clipboard && clipboard.includes('acme.link')) {
+      // Clipboard-based tracking
+      requestBody = { deepLink: clipboard };
+    } else {
+      // IP-based tracking fallback
+      requestBody = { dubDomain: 'acme.link' };
+    }
+
+    const response = await fetch('https://api.dub.co/track/open', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const destinationURL = data.link?.url;
+
+      if (destinationURL) {
+        // Navigate to the destination URL
+        console.log('Navigating to:', destinationURL);
+      }
+    }
+  } catch (error) {
+    console.error('Error tracking open:', error);
+  }
+}
+```
+
+```swift iOS
+import SwiftUI
+
+@main
+struct MyApp: App {
+  var body: some Scene {
+    WindowGroup {
+      ContentView().onAppear {
+        trackOpen()
+      }
+    }
+  }
+}
+
+// Make request to /track/open endpoint
+func trackOpen(completion: @escaping (String?) -> Void) {
+  let clipboard = UIPasteboard.general.string
+  var requestBody: [String: String]
+
+  if let deepLink = clipboard, deepLink.contains("acme.link") {
+    // Clipboard-based tracking
+    requestBody = ["deepLink": deepLink]
+  } else {
+    // IP-based tracking fallback
+    requestBody = ["dubDomain": "acme.link"]
+  }
+
+  guard let url = URL(string: "https://api.dub.co/track/open") else {
+    completion(nil)
+    return
+  }
+
+  var request = URLRequest(url: url)
+  request.httpMethod = "POST"
+  request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+  do {
+    request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+  } catch {
+    print("Error creating request body:", error)
+    completion(nil)
+    return
+  }
+
+  URLSession.shared.dataTask(with: request) { data, response, error in
+    if let error = error {
+      print("Error tracking open:", error)
+      completion(nil)
+      return
+    }
+
+    guard let data = data else {
+      print("No data received")
+      completion(nil)
+      return
+    }
+
+    do {
+      let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+      let link = json?["link"] as? [String: Any]
+      let destinationURL = link?["url"] as? String
+      completion(destinationURL)
+    } catch {
+      print("Error parsing response:", error)
+      completion(nil)
+    }
+  }.resume()
+}
+
+```
+
+</CodeGroup>
+
+### Handle the navigation
+
+Once you have the deep link URL from your `trackOpen` function, you can route the user to the appropriate screen.
+
+<CodeGroup>
+
+```javascript React Native
+// App.js with React Navigation
+import React, { useEffect, useRef } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  const navigationRef = useRef();
+
+  useEffect(() => {
+    const handleDeepLink = async () => {
+      const destinationURL = await trackOpen();
+
+      if (destinationURL && navigationRef.current) {
+        // Parse URL and navigate
+        const url = new URL(destinationURL);
+        const path = url.pathname;
+
+        if (path.includes("/product/")) {
+          const productId = path.split("/product/")[1];
+          navigationRef.current.navigate("Product", { productId });
+        } else {
+          navigationRef.current.navigate("Home");
+        }
+      }
+    };
+
+    handleDeepLink();
+  }, []);
+
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Product" component={ProductScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+```
+
+```swift iOS
+import SwiftUI
+
+struct ContentView: View {
+  @State private var deepLinkURL: String?
+  @State private var shouldNavigate = false
+
+  var body: some View {
+    NavigationStack {
+      VStack {
+        Text("Home Screen")
+      }
+      .onAppear {
+        trackOpen { url in
+          if let url = url {
+            DispatchQueue.main.async {
+              deepLinkURL = url
+              shouldNavigate = true
+            }
+          }
+        }
+      }
+      .navigationDestination(isPresented: $shouldNavigate) {
+        if let url = deepLinkURL {
+          DetailView(url: url)
+        }
+      }
+    }
+  }
+}
+
+struct DetailView: View {
+  let url: String
+
+  var body: some View {
+    Text("Navigated to: \(url)")
+  }
+}
+```
+
+</CodeGroup>
+
+### Important notes
+
+1. **IP-based Tracking Limitations**: IP-based tracking relies on the device’s network IP, which can be less reliable in environments like corporate networks, VPNs, or shared Wi-Fi.
+2. **Network Operations**: Ensure that all API calls are made in background threads to avoid blocking the main thread and ensure smooth app performance.
+3. **Error Handling**: Implement proper error handling for network requests, clipboard access to ensure the app behaves gracefully under failures.
+4. **Testing**: Test thoroughly using TestFlight or an internal distribution build to confirm the flow works for both clipboard-based and IP-based tracking scenarios.
+5. **App Store Guidelines**: Ensure your app complies with Apple's App Store guidelines regarding clipboard access and user privacy.
+
+### Related resources
+
+- [iOS Deep Linking Guide](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content)
+- [`/track/open` API endpoint reference](/api-reference/endpoint/track-open)
+- [Dub Deep Links Quickstart](/concepts/deep-links/quickstart)
