@@ -434,14 +434,14 @@ To get started, we recommend using the [quickstart guide](/concepts/deep-links/q
 
 ## iOS App Store
 
-Unlike Android, iOS doesn't provide a built-in install referrer API. Dub implements a hybrid approach combining **probabilistic tracking** (IP-based) and **deterministic tracking** (clipboard-based) to ensure reliable deferred deep linking on iOS.
+Unlike Android, iOS doesn't provide a built-in install referrer API. Dub implements a hybrid approach combining **deterministic tracking** (clipboard-based) and **probabilistic tracking** (IP-based) to ensure reliable deferred deep linking on iOS.
 
 ### How iOS deferred deep linking works on Dub
 
 Dub's iOS deferred deep linking solution provides two tracking approaches:
 
-1. **Probabilistic clipboard-based tracking**: Matches users from the web to the app based on their IP address.
-2. **Deterministic IP-based tracking**: Uses iOS clipboard data to reliably identify and open the exact deep link the user interacted with.
+1. **Deterministic clipboard-based tracking**: Uses iOS clipboard data to reliably identify and open the exact deep link the user interacted with.
+2. **Probabilistic IP-based tracking**: Matches users from the web to the app based on their IP address.
 
 For the deterministic approach, when an iOS user taps a deep link without your app installed, Dub redirects them to a custom landing page before the App Store.
 
@@ -459,7 +459,7 @@ This page displays two options:
 
 After the user installs your app, the deep link resolution method depends on the button they clicked.
 
-#### 1. Probabilistic clipboard-based tracking
+#### 1. Deterministic clipboard-based tracking
 
 This method uses the iOS clipboard to pass the deep link into your app after installation, ensuring reliable and direct link resolution.
 
@@ -472,7 +472,7 @@ Here is how it works in a nutshell:
 5. Your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `deepLink` parameter in the request body.
 6. Dub returns the destination URL, and your app navigates the user to the appropriate screen.
 
-#### 2. Deterministic IP-based tracking
+#### 2. Probabilistic IP-based tracking
 
 This method relies on matching the user’s device IP address from the initial click event to the app open event after installation.
 
@@ -487,8 +487,8 @@ This method relies on matching the user’s device IP address from the initial c
 
 The following logic determines whether to use clipboard-based tracking or IP-based tracking:
 
-- Clipboard-based tracking: Used when a deep link is found in the clipboard (e.g., `acme.link`). The app sends the `deepLink` parameter in the request body.
-- IP-based tracking: Used when no deep link is found in the clipboard. The app sends only the `dubDomain` parameter, allowing Dub to match the user based on their IP address.
+- **Clipboard-based tracking**: Used when a deep link is found in the clipboard (e.g., `acme.link`). The app sends the `deepLink` parameter in the request body.
+- **IP-based tracking**: Used when no deep link is found in the clipboard. The app sends only the `dubDomain` parameter, allowing Dub to match the user based on their IP address.
 
 This ensures the most reliable tracking method is chosen automatically.
 
@@ -630,7 +630,7 @@ func trackOpen(completion: @escaping (String?) -> Void) {
 
 ### Handle the navigation
 
-Once you have the deep link URL from trackOpen, you can route the user to the appropriate screen.
+Once you have the deep link URL from your `trackOpen` function, you can route the user to the appropriate screen.
 
 <CodeGroup>
 
