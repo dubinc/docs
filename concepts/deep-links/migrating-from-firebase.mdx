@@ -109,7 +109,7 @@ private fun trackDeepLinkClick(deepLink: String) {
 In a nutshell, this code:
 
 - Extracts the domain and key from the deep link URL
-- Sends the data to Dub’s tracking endpoint `https://api.dub.co/track/open`
+- Sends the data to the [`/track/open` endpoint](/api-reference/endpoint/track-open)
 - Retrieves the final destination URL
 - Navigates to the destination URL in the app
 
@@ -207,7 +207,7 @@ func navigateToScreen(from url: String) {
 
 In a nutshell, this code:
 
-- Sends the deep link URL to Dub's tracking endpoint `https://api.dub.co/track/open`
+- Sends the deep link URL to the [`/track/open` endpoint](/api-reference/endpoint/track-open)
 - Retrieves the final destination URL
 - Navigates to the destination URL in the app
 

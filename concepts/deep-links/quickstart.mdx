@@ -265,7 +265,7 @@ private fun handleDeepLink(uri: Uri) {
 
 Once you’ve detected and parsed the deep link, you should track the open event using Dub's API, which will return the final destination URL in the API response.
 
-To do this, make a `POST` request to the endpoint `https://api.dub.co/track/open` with the following body:
+To do this, make a `POST` request to the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the following body:
 
 ```json
 {
@@ -389,7 +389,7 @@ When your app isn't installed, the user will be redirected to the App Store or G
 After they install and open your app, you'll need to use [deferred deep linking](/concepts/deep-links/deferred-deep-linking) to:
 
 1. Retrieve the short link that brought the user to the app store
-2. Track the open event via `/track/open`
+2. Track the open event via the [`/track/open` endpoint](/api-reference/endpoint/track-open)
 3. Redirect the user to the final destination URL
 
 <Note>
