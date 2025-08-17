@@ -416,7 +416,7 @@ private fun navigateToDestination(destinationUrl: String) {
 
 </CodeGroup>
 
-### Important Notes
+### Important notes
 
 1. **First Launch Detection**: The install referrer is only available on the first launch after installation. Make sure to track this properly to avoid duplicate tracking.
 2. **URL Decoding**: The referrer URL is URL-encoded multiple times. Make sure to properly decode it to extract the original deep link.
@@ -426,7 +426,7 @@ private fun navigateToDestination(destinationUrl: String) {
 
 To get started, we recommend using the [quickstart guide](/concepts/deep-links/quickstart) to set up your deep links on Dub.
 
-### Related Resources
+### Related resources
 
 - [Google Play Install Referrer API Documentation](https://developer.android.com/google/play/installreferrer)
 - [Android Deep Linking Guide](https://developer.android.com/training/app-links)
@@ -443,7 +443,7 @@ Dub's iOS deferred deep linking solution provides two tracking approaches:
 1. **Deterministic clipboard-based tracking**: Uses iOS clipboard data to reliably identify and open the exact deep link the user interacted with.
 2. **Probabilistic IP-based tracking**: Matches users from the web to the app based on their IP address.
 
-For the deterministic approach, when an iOS user taps a deep link without your app installed, Dub redirects them to a custom landing page before the App Store.
+For the deterministic approach, when an iOS user who doesn't have your app installed clicks on your deep link, Dub redirects them to a custom landing page:
 
 <Frame>
   <img
@@ -454,7 +454,7 @@ For the deterministic approach, when an iOS user taps a deep link without your a
 
 This page displays two options:
 
-- **Get the App**: Copies the deep link to the clipboard before redirecting.
+- **Get the App**: Copies the deep link to the clipboard before redirecting to the App Store.
 - **Get the App without Copying**: Redirects directly to the App Store without copying the deep link to the clipboard.
 
 After the user installs your app, the deep link resolution method depends on the button they clicked.
@@ -470,7 +470,7 @@ Here is how it works in a nutshell:
 3. The user is redirected to the App Store to download your app.
 4. After installation, your app reads the clipboard to retrieve the deep link.
 5. Your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `deepLink` parameter in the request body.
-6. Dub returns the destination URL, and your app navigates the user to the appropriate screen.
+6. Dub returns the destination URL, and your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
 
 #### 2. Probabilistic IP-based tracking
 
@@ -481,7 +481,7 @@ This method relies on matching the user’s device IP address from the initial c
 3. Dub has already tracked the click and stored the IP address at the time of deep link click.
 4. After installation, your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `dubDomain` parameter in the request body.
 5. Dub matches the user using IP-based tracking and returns the destination URL.
-6. Your app navigates the user to the appropriate screen.
+6. If a destination URL is returned, your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
 
 ### Track the deep link open
 
@@ -719,7 +719,7 @@ struct DetailView: View {
 
 </CodeGroup>
 
-### Important Notes
+### Important notes
 
 1. **IP-based Tracking Limitations**: IP-based tracking relies on the device’s network IP, which can be less reliable in environments like corporate networks, VPNs, or shared Wi-Fi.
 2. **Network Operations**: Ensure that all API calls are made in background threads to avoid blocking the main thread and ensure smooth app performance.
@@ -727,8 +727,8 @@ struct DetailView: View {
 4. **Testing**: Test thoroughly using TestFlight or an internal distribution build to confirm the flow works for both clipboard-based and IP-based tracking scenarios.
 5. **App Store Guidelines**: Ensure your app complies with Apple's App Store guidelines regarding clipboard access and user privacy.
 
-### Related Resources
+### Related resources
 
 - [iOS Deep Linking Guide](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content)
-- [Dub API Documentation](/api-reference/introduction)
+- [`/track/open` API endpoint reference](/api-reference/endpoint/track-open)
 - [Dub Deep Links Quickstart](/concepts/deep-links/quickstart)
