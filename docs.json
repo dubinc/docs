@@ -152,6 +152,8 @@
                     "pages": [
                       "sdks/client-side/features/conversion-tracking",
                       "sdks/client-side/features/client-side-click-tracking",
+                      "sdks/client-side/features/client-side-lead-tracking",
+                      "sdks/client-side/features/client-side-sale-tracking",
                       "sdks/client-side/features/cross-domain-tracking",
                       "sdks/client-side/features/reverse-proxy-support"
                     ]
