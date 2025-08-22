@@ -65,6 +65,7 @@
                   "conversions/leads/auth0",
                   "conversions/leads/appwrite",
                   "conversions/leads/segment",
+                  "conversions/leads/client-side",
                   "conversions/leads/google-tag-manager"
                 ]
               },
@@ -75,6 +76,7 @@
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
                   "conversions/sales/segment",
+                  "conversions/sales/client-side",
                   "conversions/sales/google-tag-manager"
                 ]
               }
@@ -150,10 +152,8 @@
                   {
                     "group": "Features",
                     "pages": [
+                      "sdks/client-side/features/click-tracking",
                       "sdks/client-side/features/conversion-tracking",
-                      "sdks/client-side/features/client-side-click-tracking",
-                      "sdks/client-side/features/client-side-lead-tracking",
-                      "sdks/client-side/features/client-side-sale-tracking",
                       "sdks/client-side/features/cross-domain-tracking",
                       "sdks/client-side/features/reverse-proxy-support"
                     ]
@@ -316,6 +316,10 @@
     {
       "source": "/sdks/js-client/overview",
       "destination": "/sdks/client-side/installation-guides/react"
+    },
+    {
+      "source": "/sdks/client-side/features/client-side-click-tracking",
+      "destination": "/sdks/client-side/features/click-tracking"
     },
     {
       "source": "/self-hosting/guide",
