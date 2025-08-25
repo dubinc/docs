@@ -10,7 +10,7 @@ To do that, navigate to your [workspace's Analytics settings page](https://app.d
 
 <Frame>
   <img
-    src="/images/conversions/allowed-hostnames.png"
+    src="/images/conversions/publishable-key.png"
     alt="Enabling conversion tracking for a workspace"
   />
 </Frame>
@@ -62,7 +62,7 @@ Next, install the Dub analytics script in your website. Follow the installation 
 ```javascript Other Frameworks
 <script>
   !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
-  s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx");
+  s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
   document.head.appendChild(s)}(window,"dubAnalytics");
 </script>
 ```
@@ -91,7 +91,6 @@ export function SignUpForm() {
 
     // Track the lead event
     trackLead({
-      clickId: "W13FJbgeLIGdlx7s", // Get this from cookie
       eventName: "Sign Up",
       customerExternalId: email,
       customerName: name,
@@ -148,7 +147,7 @@ export function SignUpForm() {
         var s = document.createElement("script");
         s.defer = 1;
         s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
-        s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx");
+        s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx"); // Replace with your publishable key
         document.head.appendChild(s);
       })(window, "dubAnalytics");
     </script>
@@ -174,7 +173,6 @@ export function SignUpForm() {
 
           // Track the lead event
           dubAnalytics.trackLead({
-            clickId: "W13FJbgeLIGdlx7s", // Get this cookie
             eventName: "Sign Up",
             customerExternalId: email,
             customerName: name,
