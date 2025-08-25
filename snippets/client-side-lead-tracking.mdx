@@ -1,4 +1,4 @@
-You can track the leads on the client-side using `trackLead` method of the [`@dub/analytics` script](/sdks/client-side/introduction).
+## Installation
 
 <Steps>
 
@@ -100,26 +100,6 @@ export function SignUpForm() {
     // Continue with form submission
     console.log("Lead tracked successfully");
   };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email Address"
-        required
-      />
-      <button type="submit">Create Account</button>
-    </form>
-  );
 }
 ```
 
@@ -133,35 +113,12 @@ export function SignUpForm() {
 
     <!-- Dub Analytics Script -->
     <script>
-      !(function (c, n) {
-        (c[n] =
-          c[n] ||
-          function () {
-            (c[n].q = c[n].q || []).push(arguments);
-          }),
-          ["trackClick", "trackLead", "trackSale"].forEach(function (t) {
-            c[n][t] = function () {
-              c[n](t, ...arguments);
-            };
-          });
-        var s = document.createElement("script");
-        s.defer = 1;
-        s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
-        s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx"); // Replace with your publishable key
-        document.head.appendChild(s);
-      })(window, "dubAnalytics");
+      !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
+      s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
+      document.head.appendChild(s)}(window,"dubAnalytics");
     </script>
   </head>
   <body>
-    <div class="container">
-      <h1>Sign Up</h1>
-      <form id="signupForm">
-        <input type="text" id="name" placeholder="Full Name" required />
-        <input type="email" id="email" placeholder="Email Address" required />
-        <button type="submit">Create Account</button>
-      </form>
-    </div>
-
     <script>
       document
         .getElementById("signupForm")
@@ -190,9 +147,9 @@ export function SignUpForm() {
 </CodeGroup>
 
 <Tip>
-  The `customerExternalId` should be a unique identifier for the customer in your
-  system. While the examples above use an email address, it can be any value
-  that uniquely identifies the user (e.g., user ID).
+  The `customerExternalId` should be a unique identifier for the customer in
+  your system. While the examples above use an email address, it can be any
+  value that uniquely identifies the user (e.g., user ID).
 </Tip>
 
 </Step>
