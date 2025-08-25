@@ -79,31 +79,123 @@ Once the analytics script is installed, you can start tracking lead events in yo
 
 ```typescript React/Next.js
 import { useAnalytics } from "@dub/analytics";
+import { useState } from "react";
 
 export function SignUpForm() {
   const { trackLead } = useAnalytics();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-  trackLead({
-    clickId: "W13FJbgeLIGdlx7s",
-    eventName: "Sign Up",
-    customerExternalId: "1234567890",
-    customerName: "John Doe",
-    customerEmail: "john.doe@example.com",
-  });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Track the lead event
+    trackLead({
+      clickId: "W13FJbgeLIGdlx7s", // Get this from cookie
+      eventName: "Sign Up",
+      customerExternalId: email,
+      customerName: name,
+      customerEmail: email,
+    });
+
+    // Continue with form submission
+    console.log("Lead tracked successfully");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Full Name"
+        required
+      />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email Address"
+        required
+      />
+      <button type="submit">Create Account</button>
+    </form>
+  );
 }
 ```
 
-```javascript Other Frameworks
-dubAnalytics.trackLead({
-  clickId: "W13FJbgeLIGdlx7s",
-  eventName: "Sign Up",
-  customerExternalId: "1234567890",
-  customerName: "John Doe",
-  customerEmail: "john.doe@example.com",
-});
+```html HTML
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Example</title>
+
+    <!-- Dub Analytics Script -->
+    <script>
+      !(function (c, n) {
+        (c[n] =
+          c[n] ||
+          function () {
+            (c[n].q = c[n].q || []).push(arguments);
+          }),
+          ["trackClick", "trackLead", "trackSale"].forEach(function (t) {
+            c[n][t] = function () {
+              c[n](t, ...arguments);
+            };
+          });
+        var s = document.createElement("script");
+        s.defer = 1;
+        s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
+        s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx");
+        document.head.appendChild(s);
+      })(window, "dubAnalytics");
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sign Up</h1>
+      <form id="signupForm">
+        <input type="text" id="name" placeholder="Full Name" required />
+        <input type="email" id="email" placeholder="Email Address" required />
+        <button type="submit">Create Account</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+
+          // Track the lead event
+          dubAnalytics.trackLead({
+            clickId: "W13FJbgeLIGdlx7s", // Get this cookie
+            eventName: "Sign Up",
+            customerExternalId: email,
+            customerName: name,
+            customerEmail: email,
+          });
+
+          // Continue with form submission
+          console.log("Lead tracked successfully");
+        });
+    </script>
+  </body>
+</html>
 ```
 
 </CodeGroup>
+
+<Tip>
+  The `customerExternalId` should be a unique identifier for the customer in your
+  system. While the examples above use an email address, it can be any value
+  that uniquely identifies the user (e.g., user ID).
+</Tip>
 
 </Step>
 
