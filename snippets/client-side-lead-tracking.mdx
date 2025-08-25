@@ -45,9 +45,35 @@ You can group your hostnames when adding them to the allow list:
 
 </Step>
 
-</Steps>
+<Step title="Install the analytics script">
 
-Here is a quick example of how you can track a lead on the client-side:
+Next, install the Dub analytics script in your website. Follow the installation guide for your specific framework:
+
+- **[React/Next.js](/sdks/client-side/installation-guides/react)** - Install the `@dub/analytics` package
+- **[Manual HTML](/sdks/client-side/installation-guides/manual)** - Add the script tag to your `<head>` section
+- **[Other frameworks](/sdks/client-side/installation-guides)** - Choose your framework from the available guides
+
+<CodeGroup>
+
+```typescript React/Next.js
+// TODO
+```
+
+```javascript Other Frameworks
+<script>
+  !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
+  s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx");
+  document.head.appendChild(s)}(window,"dubAnalytics");
+</script>
+```
+
+</CodeGroup>
+
+</Step>
+
+<Step title="Track the lead events">
+
+Once the analytics script is installed, you can start tracking lead events in your application.
 
 <CodeGroup>
 
@@ -78,3 +104,7 @@ dubAnalytics.trackLead({
 ```
 
 </CodeGroup>
+
+</Step>
+
+</Steps>
