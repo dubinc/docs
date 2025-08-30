@@ -85,7 +85,7 @@
           },
           {
             "group": "Dub Partners",
-            "pages": ["partners/quickstart", "partners/white-labeling"]
+            "pages": ["partners/quickstart", "partners/embedded-referrals"]
           },
           {
             "group": "Integrations",
@@ -302,6 +302,10 @@
     }
   },
   "redirects": [
+    {
+      "source": "/partners/white-labeling",
+      "destination": "/partners/embedded-referrals"
+    },
     {
       "source": "/sdks",
       "destination": "/sdks/overview"
