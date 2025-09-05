@@ -8,6 +8,9 @@
     "dark": "#eb5611"
   },
   "favicon": "/logos/favicon.png",
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
+  },
   "navigation": {
     "anchors": [
       {
@@ -84,7 +87,7 @@
           },
           {
             "group": "Dub Partners",
-            "pages": ["partners/quickstart", "partners/white-labeling"]
+            "pages": ["partners/quickstart", "partners/embedded-referrals"]
           },
           {
             "group": "Integrations",
@@ -301,6 +304,10 @@
     }
   },
   "redirects": [
+    {
+      "source": "/partners/white-labeling",
+      "destination": "/partners/embedded-referrals"
+    },
     {
       "source": "/sdks",
       "destination": "/sdks/overview"

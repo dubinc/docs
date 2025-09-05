@@ -1,12 +1,23 @@
-With [Dub Partners](https://dub.co/partners), you can build a white-labeled referral dashboard that lives directly inside your app in just a few lines of code.
+With [Dub Partners](https://dub.co/partners), you can build an embedded referral dashboard that lives directly inside your application in just a few lines of code.
 
 This way, your users can automatically enroll in your partner program **without needing to leave your app and sign up on a third-party platform**.
 
-In this guide, we'll walk you through the steps to get started with the Dub Referrals Embed.
+<Frame>
+  <video
+    src="https://assets.dub.co/cms/dub-partners-whitelabeled-embed.mp4"
+    autoPlay
+    loop
+    muted
+    controls
+    playsInline
+  />
+</Frame>
+
+In this guide, we'll walk you through the steps to get started with Dub's embedded referral dashboard feature.
 
 ## Example App
 
-Before we dive in, here's an open-source example app showing the Dub Referrals Embed in action: [acme.dub.sh](https://acme.dub.sh)
+Before we dive in, here's an open-source example app showing Dub's embedded referral dashboard in action: [acme.dub.sh](https://acme.dub.sh)
 
 <Frame>
   <video
@@ -22,7 +33,7 @@ Before we dive in, here's an open-source example app showing the Dub Referrals E
 You can also view the source code for the example app on [GitHub](https://github.com/dubinc/examples/tree/main/embed/referrals):
 
 <Card
-  title="Dub Referrals Embed Demo App"
+  title="Dub embedded referral dashboard demo app"
   icon="github"
   href="https://github.com/dubinc/examples/tree/main/embed/referrals"
   color="#333333"
@@ -32,7 +43,7 @@ You can also view the source code for the example app on [GitHub](https://github
 
 ## Step 1: Generate embed token
 
-First, you need to create a server API route that generates a public token, which will be used by the Dub Referrals Embed to fetch real-time conversions and earnings data from the client-side.
+First, you need to create a server API route that generates a public token, which will be used by the embedded referral dashboard to fetch real-time conversions and earnings data from the client-side.
 
 <Frame>
   <img
@@ -203,7 +214,7 @@ Refer to the [full API reference](/api-reference/endpoint/create-referrals-embed
 
 ## Step 2: Install the embed
 
-Then, with the `publicToken` from Step 1, you can install and initialize the Dub Referrals Embed. There are two ways to do this:
+Then, with the `publicToken` from Step 1, you can install and initialize the embedded referral dashboard. There are two ways to do this:
 
 ### React component
 
@@ -294,7 +305,7 @@ export default function App() {
 
 ## Embed options
 
-The Dub Referrals Embed supports the following options for styling and behavior:
+The embedded referral dashboard supports the following options for styling and behavior:
 
 <ParamField body="data" type="referrals | analytics" required>
   The type of embed to use. In this case, we're using the `referrals` type.
