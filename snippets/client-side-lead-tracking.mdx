@@ -7,14 +7,13 @@ Here are the quickstart examples for tracking lead events:
 <CodeGroup>
 
 ```typescript React
-import { useAnalytics } from "@dub/analytics";
+import { useAnalytics } from "@dub/analytics/react";
 import { useState } from "react";
 
 export function SignUpForm() {
   const { trackLead } = useAnalytics();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
