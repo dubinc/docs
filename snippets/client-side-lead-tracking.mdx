@@ -1,3 +1,5 @@
+import DubClientInstall from "/snippets/dub-client-install.mdx";
+
 ## Installation
 
 <Steps>
@@ -45,25 +47,43 @@ You can group your hostnames when adding them to the allow list:
 
 </Step>
 
-<Step title="Install the analytics script">
+<Step title="Install @dub/analytics package">
 
-Next, install the Dub analytics script in your website. Follow the installation guide for your specific framework:
+Next, install the Dub analytics script in your application.
 
-- **[React/Next.js](/sdks/client-side/installation-guides/react)** - Install the `@dub/analytics` package
-- **[Manual HTML](/sdks/client-side/installation-guides/manual)** - Add the script tag to your `<head>` section
-- **[Other frameworks](/sdks/client-side/installation-guides)** - Choose your framework from the available guides
+<DubClientInstall />
+
+You must configure the **publishable key** you generated in step 1 when installing the analytics script. Without this key, client-side lead tracking will not work.
 
 <CodeGroup>
 
-```typescript React/Next.js
-// TODO
+```typescript React
+import { Analytics as DubAnalytics } from '@dub/analytics/react';
+
+export default function RootLayout({
+  children,
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+      <DubAnalytics
+        ...
+        publishableKey="dub_pk_xxxxxxxx" // Replace with your publishable key
+      />
+    </html>
+  );
+}
 ```
 
-```javascript Other Frameworks
+```html Other
 <script>
-  !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
-  s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
-  document.head.appendChild(s)}(window,"dubAnalytics");
+  !(function (c, n) { 
+    c[n] = c[n] || function () { (c[n].q = c[n].q || []).push(arguments); }; 
+    ["trackClick","trackLead","trackSale"].forEach(t => c[n][t] = (...a) => c[n](t, ...a)); 
+    var s=document.createElement("script"); s.defer=1; s.src="https://dubcdn.com/analytics/script.conversion-tracking.js"; 
+    s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
+    document.head.appendChild(s); 
+  })(window, "dubAnalytics");
 </script>
 ```
 
@@ -73,11 +93,11 @@ Next, install the Dub analytics script in your website. Follow the installation 
 
 <Step title="Track the lead events">
 
-Once the analytics script is installed, you can start tracking lead events in your application.
+Once the analytics script is installed, you can start tracking lead events in your application on the client-side.
 
 <CodeGroup>
 
-```typescript React/Next.js
+```typescript React
 import { useAnalytics } from "@dub/analytics";
 import { useState } from "react";
 
@@ -96,61 +116,54 @@ export function SignUpForm() {
       customerName: name,
       customerEmail: email,
     });
-
-    // Continue with form submission
-    console.log("Lead tracked successfully");
   };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <button type="submit">Sign Up</button>
+    </form>
+  );
 }
 ```
 
-```html HTML
+```html Other
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up - Example</title>
-
-    <!-- Dub Analytics Script -->
-    <script>
-      !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
-      s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
-      document.head.appendChild(s)}(window,"dubAnalytics");
-    </script>
+    <title>Sign Up</title>
   </head>
   <body>
+    <form id="signupForm">
+      <input type="text" id="name" required />
+      <input type="email" id="email" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
     <script>
-      document
-        .getElementById("signupForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+      document.getElementById("signupForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
 
-          // Track the lead event
-          dubAnalytics.trackLead({
-            eventName: "Sign Up",
-            customerExternalId: email,
-            customerName: name,
-            customerEmail: email,
-          });
-
-          // Continue with form submission
-          console.log("Lead tracked successfully");
+        // Track the lead event
+        dubAnalytics.trackLead({
+          eventName: "Sign Up",
+          customerExternalId: email,
+          customerName: name,
+          customerEmail: email,
         });
+      });
     </script>
   </body>
 </html>
 ```
 
 </CodeGroup>
-
-<Tip>
-  The `customerExternalId` should be a unique identifier for the customer in
-  your system. While the examples above use an email address, it can be any
-  value that uniquely identifies the user (e.g., user ID).
-</Tip>
 
 </Step>
 

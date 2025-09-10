@@ -21,4 +21,27 @@ Before you get started, make sure you follow the [Dub Conversions quickstart gui
 
 <LeadsAttributes />
 
+## When to track leads
+
+You should track lead events after successful user actions such as:
+
+  - User registration or account creation
+  - Newsletter subscription
+  - Contact form submission
+  - Demo request or trial signup
+  - Download of gated content
+  
+Ensure the event is triggered **only after the backend confirms the action was completed successfully**. This guarantees accurate lead data and prevents false or incomplete entries.
+
+<Warning>
+  Client-side conversion tracking comes with some limitations:
+  
+  - **Ad blockers**: Users with ad blockers may prevent tracking scripts from loading
+  - **JavaScript disabled**: Events won't be tracked if users have JavaScript disabled
+  - **Network issues**: Failed network requests won't retry automatically
+  - **Privacy concerns**: Some users may block client-side tracking for privacy reasons
+  
+  For more accurate conversion tracking, consider using [server-side conversion tracking](/api-reference/endpoint/track-lead).
+</Warning>
+
 <LeadsOutro />
