@@ -134,7 +134,7 @@ First, clone the [Dub repo](https://d.to/github) into a public GitHub repository
     Copy the `.env.example` file from `./apps/web` to `.env` by executing the following command from `apps/web`:
 
     ```bash Terminal
-    cp ./apps/web/.env.example .env
+    cp .env.example .env
     ```
 
     You'll be updating this `.env` file with your own values as you progress through the setup.
@@ -151,7 +151,7 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
   <Step title="Create Tinybird Workspace">
 
-    In your [Tinybird](https://tinybird.co/) account, create a new Workspace.
+    In your [Tinybird](https://tinybird.co/) account, create a new Workspace. For this guide, we will use the `us-east-1` region.
 
     Copy your `admin` [Auth Token](https://www.tinybird.co/docs/concepts/auth-tokens.html). Paste this token as the `TINYBIRD_API_KEY` environment variable in your `.env` file.
 
@@ -167,16 +167,16 @@ In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
     If you have `brew`, install `pipx` by running `brew install pipx`. If not, you can check [installation guide](https://pipx.pypa.io/stable/installation/) for other options. After that, install the Tinybird CLI with `pipx install tinybird-cli` (requires Python >= 3.8).
 
-    Run `tb auth --interactive` and paste your `admin` Auth Token.
+    Run `tb login --interactive` and paste your `admin` Auth Token.
 
   </Step>
 
   <Step title="Publish Tinybird datasource and endpoints">
 
-    Run `tb push` to publish the datasource and endpoints in the `packages/tinybird` directory. You should see the following output (truncated for brevity):
+    Run `tb deploy` to publish the datasource and endpoints in the `packages/tinybird` directory. You should see the following output (truncated for brevity):
 
     ```bash Terminal
-    $ tb push
+    $ tb deploy
 
     ** Processing ./datasources/click_events.datasource
     ** Processing ./endpoints/clicks.pipe
@@ -279,7 +279,7 @@ Prerequisites:
     In the terminal, navigate to the `apps/web` directory and run the following command to start the Docker Compose stack:
 
     ```bash Terminal
-    docker-compose up
+    docker compose up
     ```
 
     This will start two containers: one for the MySQL database and another for the PlanetScale simulator.
@@ -288,7 +288,7 @@ Prerequisites:
 
   <Step title="Set up database environment variables">
 
-    Ensure the following credientials are added to your `.env` file:
+    Ensure the following credentials are added to your `.env` file:
 
     ```
     DATABASE_URL="mysql://root:@localhost:3306/planetscale"
@@ -428,7 +428,7 @@ Finally, you can start the development server. This will build the packages + st
 pnpm dev
 ```
 
-The web app (`apps/web`) will be available at [localhost:8888](http://localhost:8888).
+The web app (`apps/web`) will be available at [localhost:8888](http://localhost:8888). Additionally, you may access Prisma Studio to manage your MySQL database at [localhost:5555](http://localhost:5555).
 
 ### Testing your shortlinks locally
 

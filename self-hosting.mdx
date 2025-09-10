@@ -107,16 +107,16 @@ In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
     Install the Tinybird CLI with `pip install tinybird-cli` (requires Python >= 3.8).
 
-    Run `tb auth` and paste your `admin` Auth Token.
+    Run `tb login` and paste your `admin` Auth Token.
 
   </Step>
 
   <Step title="Publish Tinybird datasource and endpoints">
 
-    Run `tb push` to publish the datasource and endpoints in the `packages/tinybird` directory. You should see the following output (truncated for brevity):
+    Run `tb deploy` to publish the datasource and endpoints in the `packages/tinybird` directory. You should see the following output (truncated for brevity):
 
     ```bash Terminal
-    $ tb push
+    $ tb deploy
 
     ** Processing ./datasources/click_events.datasource
     ** Processing ./endpoints/clicks.pipe
