@@ -1,3 +1,5 @@
+import DubClientInstall from "/snippets/dub-client-install.mdx";
+
 ## Installation
 
 <Steps>
@@ -45,25 +47,43 @@ You can group your hostnames when adding them to the allow list:
 
 </Step>
 
-<Step title="Install the analytics script">
+<Step title="Install @dub/analytics package">
 
-Next, install the Dub analytics script in your website. Follow the installation guide for your specific framework:
+Next, install the Dub analytics script in your application.
 
-- **[React/Next.js](/sdks/client-side/installation-guides/react)** - Install the `@dub/analytics` package
-- **[Manual HTML](/sdks/client-side/installation-guides/manual)** - Add the script tag to your `<head>` section
-- **[Other frameworks](/sdks/client-side/installation-guides)** - Choose your framework from the available guides
+<DubClientInstall />
+
+You must configure the **publishable key** you generated in step 1 when installing the analytics script. Without this key, client-side sale tracking will not work.
 
 <CodeGroup>
 
-```typescript React/Next.js
-// TODO
+```typescript React
+import { Analytics as DubAnalytics } from '@dub/analytics/react';
+
+export default function RootLayout({
+  children,
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+      <DubAnalytics
+        ...
+        publishableKey="dub_pk_xxxxxxxx" // Replace with your publishable key
+      />
+    </html>
+  );
+}
 ```
 
-```javascript Other Frameworks
+```html Other
 <script>
-  !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
-  s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
-  document.head.appendChild(s)}(window,"dubAnalytics");
+  !(function (c, n) { 
+    c[n] = c[n] || function () { (c[n].q = c[n].q || []).push(arguments); }; 
+    ["trackClick","trackLead","trackSale"].forEach(t => c[n][t] = (...a) => c[n](t, ...a)); 
+    var s=document.createElement("script"); s.defer=1; s.src="https://dubcdn.com/analytics/script.conversion-tracking.js"; 
+    s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
+    document.head.appendChild(s); 
+  })(window, "dubAnalytics");
 </script>
 ```
 
@@ -73,69 +93,63 @@ Next, install the Dub analytics script in your website. Follow the installation 
 
 <Step title="Track the sale events">
 
-Once the analytics script is installed, you can start tracking sale events in your application. Here's a simple checkout flow example:
+Once the analytics script is installed, you can start tracking sale events in your application on the client-side.
 
 <CodeGroup>
 
-```typescript React/Next.js
+```typescript React
 import { useAnalytics } from "@dub/analytics";
 import { useState } from "react";
 
 export function CheckoutForm() {
   const { trackSale } = useAnalytics();
-  const [email, setEmail] = useState("");
 
-  const handleCheckout = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Track the sale event
     trackSale({
       eventName: "Purchase",
-      customerExternalId: email,
-      amount: 1000, // $10.00
+      customerExternalId: "cus_RBfbD57H",
+      amount: 5000, // $50.00
+      invoiceId: "in_1MtHbELkdIwH",
     });
-
-    // Continue with order confirmation
-    console.log("Sale tracked successfully");
   };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      ...
+    </form>
+  );
 }
 ```
 
-```html HTML
+```html Other
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checkout - Example</title>
-
-    <!-- Dub Analytics Script -->
-    <script>
-      !function(c,n){c[n]=c[n]||function(){(c[n].q=c[n].q||[]).push(arguments)},["trackClick","trackLead","trackSale"].forEach(function(t){c[n][t]=function(){c[n](t,...arguments)}});var s=document.createElement("script");s.defer=1;s.src="https://dubcdn.com/analytics/script.conversion-tracking.js";
-      s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
-      document.head.appendChild(s)}(window,"dubAnalytics");
-    </script>
+    <title>Checkout</title>
   </head>
-
   <body>
+    <form id="checkoutForm">
+      ...
+      <button type="submit">Checkout</button>
+    </form>
+
     <script>
-      document
-        .getElementById("checkoutForm")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
+      document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-          const email = document.getElementById("email").value;
-
-          // Track the sale event
-          dubAnalytics.trackSale({
-            eventName: "Purchase",
-            customerExternalId: email,
-            amount: 1000, // $10.00
-          });
-
-          // Continue with order confirmation
-          console.log("Sale tracked successfully");
+        // Track the sale event
+        dubAnalytics.trackSale({
+          eventName: "Purchase",
+          customerExternalId: "cus_RBfbD57H",
+          amount: 5000, // $50.00
+          invoiceId: "in_1MtHbELkdIwH",
         });
+      });
     </script>
   </body>
 </html>
