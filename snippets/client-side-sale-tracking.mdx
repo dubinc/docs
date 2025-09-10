@@ -5,12 +5,13 @@ Once the analytics script is installed, you can start tracking sale events in yo
 <CodeGroup>
 
 ```typescript React
-import { useAnalytics } from "@dub/analytics";
+import { useAnalytics } from "@dub/analytics/react";
 import { useState } from "react";
 
 export function CheckoutForm() {
   const { trackSale } = useAnalytics();
-
+  // …
+}
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
