@@ -19,15 +19,14 @@ When it comes to [conversion tracking](/conversions/quickstart), a `sale` event 
 
 ## When to track sale
 
-You should track sale events after successful user actions such as:
+Track sale events only after a user successfully completes a purchase or payment-related action, such as:
 
-  - User registration or account creation
-  - Newsletter subscription
-  - Contact form submission
-  - Demo request or trial signup
-  - Download of gated content
+  - Completing a checkout or order
+  - Subscription payment
+  - Invoice payment
+  - Any paid trial or demo conversion
   
-Ensure the event is triggered **only after the backend confirms the action was completed successfully**. This guarantees accurate sale data and prevents false or incomplete entries.
+Ensure the event is triggered **only after the backend confirms the payment was successful**. This guarantees accurate sale data and prevents false or incomplete entries.
 
 <Warning>
   Client-side conversion tracking comes with some limitations:
