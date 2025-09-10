@@ -6,7 +6,7 @@ description: Learn how to track leads on the client-side
 
 import LeadsIntro from "/snippets/leads-intro.mdx";
 import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
-import LeadsAttributes from "/snippets/leads-attributes.mdx";
+import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
 
 <LeadsIntro />
@@ -17,21 +17,11 @@ Before you get started, make sure you follow the [Dub Conversions quickstart gui
 
 1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
 
+<ClientSideTrackingInstall />
+
+## Client-side lead tracking
+
 <ClientSideLeadTracking />
-
-<LeadsAttributes />
-
-## When to track leads
-
-You should track lead events after successful user actions such as:
-
-  - User registration or account creation
-  - Newsletter subscription
-  - Contact form submission
-  - Demo request or trial signup
-  - Download of gated content
-  
-Ensure the event is triggered **only after the backend confirms the action was completed successfully**. This guarantees accurate lead data and prevents false or incomplete entries.
 
 <Warning>
   Client-side conversion tracking comes with some limitations:

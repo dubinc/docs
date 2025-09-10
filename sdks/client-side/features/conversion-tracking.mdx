@@ -4,6 +4,10 @@ sidebarTitle: Conversion tracking
 description: Learn how to use the @dub/analytics script to track conversion events on the client-side
 ---
 
+import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
+import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
+import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
+
 `@dub/analytics` is a client-side script for [tracking conversion events](/conversions/quickstart) with Dub.
 
 By default, the script handles the detection of the `dub_id` query parameter and storing it as a first-party cookie:
@@ -36,14 +40,12 @@ Finally, when the user completes a purchase (e.g. subscribing to a plan, purchas
   />
 </Frame>
 
-## Client-side lead tracking
+<ClientSideTrackingInstall />
 
-import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
+## Client-side lead tracking
 
 <ClientSideLeadTracking />
 
 ## Client-side sale tracking
-
-import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
 
 <ClientSideSaleTracking />

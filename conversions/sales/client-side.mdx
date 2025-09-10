@@ -4,29 +4,26 @@ sidebarTitle: Client-side tracking
 description: Learn how to track sales on the client-side
 ---
 
-import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
-import SaleAttributes from "/snippets/sale-attributes.mdx";
+import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
+import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
 
 When it comes to [conversion tracking](/conversions/quickstart), a `sale` event happens when a user purchases your product or service. Examples include:
 
 - Subscribing to a paid plan
 - Usage expansion (upgrading from one plan to another)
 
+## Prerequisites
+
+Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+
+<ClientSideTrackingInstall />
+
+## Client-side sale tracking
+
 <ClientSideSaleTracking />
-
-<SaleAttributes />
-
-## When to track sale
-
-Track sale events only after a user successfully completes a purchase or payment-related action, such as:
-
-  - Completing a checkout or order
-  - Subscription payment
-  - Invoice payment
-  - Any paid trial or demo conversion
-  
-Ensure the event is triggered **only after the backend confirms the payment was successful**. This guarantees accurate sale data and prevents false or incomplete entries.
 
 <Warning>
   Client-side conversion tracking comes with some limitations:
@@ -36,7 +33,7 @@ Ensure the event is triggered **only after the backend confirms the payment was 
   - **Network issues**: Failed network requests won't retry automatically
   - **Privacy concerns**: Some users may block client-side tracking for privacy reasons
   
-  For more accurate conversion tracking, consider using [server-side conversion tracking](/api-reference/endpoint/track-sale).
+  For more accurate conversion tracking, consider using [server-side conversion tracking](/api-reference/endpoint/track-lead).
 </Warning>
 
 ## View conversion results
