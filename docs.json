@@ -61,26 +61,29 @@
                 "group": "Tracking lead events",
                 "pages": [
                   "conversions/leads/introduction",
-                  "conversions/leads/clerk",
-                  "conversions/leads/better-auth",
-                  "conversions/leads/next-auth",
-                  "conversions/leads/supabase",
-                  "conversions/leads/auth0",
-                  "conversions/leads/appwrite",
-                  "conversions/leads/segment",
                   "conversions/leads/client-side",
-                  "conversions/leads/google-tag-manager"
+                  {
+                    "group": "Auth providers",
+                    "pages": [
+                      "conversions/leads/clerk",
+                      "conversions/leads/better-auth",
+                      "conversions/leads/next-auth",
+                      "conversions/leads/supabase",
+                      "conversions/leads/auth0",
+                      "conversions/leads/appwrite"
+                    ]
+                  },
+                  "conversions/leads/segment"
                 ]
               },
               {
                 "group": "Tracking sale events",
                 "pages": [
                   "conversions/sales/introduction",
+                  "conversions/sales/client-side",
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
-                  "conversions/sales/segment",
-                  "conversions/sales/client-side",
-                  "conversions/sales/google-tag-manager"
+                  "conversions/sales/segment"
                 ]
               }
             ]
@@ -230,6 +233,16 @@
                 ]
               },
               {
+                "group": "Domains API",
+                "pages": [
+                  "api-reference/endpoint/create-a-domain",
+                  "api-reference/endpoint/update-a-domain",
+                  "api-reference/endpoint/delete-a-domain",
+                  "api-reference/endpoint/register-a-domain",
+                  "api-reference/endpoint/check-a-domain-availability"
+                ]
+              },
+              {
                 "group": "Folders API",
                 "pages": [
                   "api-reference/endpoint/create-a-folder",
@@ -244,16 +257,6 @@
                   "api-reference/endpoint/create-a-tag",
                   "api-reference/endpoint/retrieve-a-list-of-tags",
                   "api-reference/endpoint/update-a-tag"
-                ]
-              },
-              {
-                "group": "Domains API",
-                "pages": [
-                  "api-reference/endpoint/create-a-domain",
-                  "api-reference/endpoint/update-a-domain",
-                  "api-reference/endpoint/delete-a-domain",
-                  "api-reference/endpoint/register-a-domain",
-                  "api-reference/endpoint/check-a-domain-availability"
                 ]
               }
             ]
