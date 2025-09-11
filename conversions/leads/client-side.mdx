@@ -1,0 +1,36 @@
+---
+title: Client-side tracking
+og:title: Client-side lead tracking with Dub
+description: Learn how to track lead conversion events with Dub using client-side tracking
+---
+
+import LeadsIntro from "/snippets/leads-intro.mdx";
+import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
+import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
+import LeadsOutro from "/snippets/leads-outro.mdx";
+
+<LeadsIntro />
+
+## Prerequisites
+
+Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+
+<ClientSideTrackingInstall />
+
+## Client-side lead tracking
+
+<ClientSideLeadTracking />
+
+<Warning>
+  Client-side conversion tracking comes with some limitations: - **Ad
+  blockers**: Users with ad blockers may prevent tracking scripts from loading -
+  **JavaScript disabled**: Events won't be tracked if users have JavaScript
+  disabled - **Network issues**: Failed network requests won't retry
+  automatically - **Privacy concerns**: Some users may block client-side
+  tracking for privacy reasons For more accurate conversion tracking, consider
+  using [server-side conversion tracking](/api-reference/endpoint/track-lead).
+</Warning>
+
+<LeadsOutro />

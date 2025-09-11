@@ -61,24 +61,29 @@
                 "group": "Tracking lead events",
                 "pages": [
                   "conversions/leads/introduction",
-                  "conversions/leads/clerk",
-                  "conversions/leads/better-auth",
-                  "conversions/leads/next-auth",
-                  "conversions/leads/supabase",
-                  "conversions/leads/auth0",
-                  "conversions/leads/appwrite",
-                  "conversions/leads/segment",
-                  "conversions/leads/google-tag-manager"
+                  "conversions/leads/client-side",
+                  {
+                    "group": "Auth providers",
+                    "pages": [
+                      "conversions/leads/clerk",
+                      "conversions/leads/better-auth",
+                      "conversions/leads/next-auth",
+                      "conversions/leads/supabase",
+                      "conversions/leads/auth0",
+                      "conversions/leads/appwrite"
+                    ]
+                  },
+                  "conversions/leads/segment"
                 ]
               },
               {
                 "group": "Tracking sale events",
                 "pages": [
                   "conversions/sales/introduction",
+                  "conversions/sales/client-side",
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
-                  "conversions/sales/segment",
-                  "conversions/sales/google-tag-manager"
+                  "conversions/sales/segment"
                 ]
               }
             ]
@@ -153,8 +158,8 @@
                   {
                     "group": "Features",
                     "pages": [
+                      "sdks/client-side/features/click-tracking",
                       "sdks/client-side/features/conversion-tracking",
-                      "sdks/client-side/features/client-side-click-tracking",
                       "sdks/client-side/features/cross-domain-tracking",
                       "sdks/client-side/features/reverse-proxy-support"
                     ]
@@ -228,6 +233,16 @@
                 ]
               },
               {
+                "group": "Domains API",
+                "pages": [
+                  "api-reference/endpoint/create-a-domain",
+                  "api-reference/endpoint/update-a-domain",
+                  "api-reference/endpoint/delete-a-domain",
+                  "api-reference/endpoint/register-a-domain",
+                  "api-reference/endpoint/check-a-domain-availability"
+                ]
+              },
+              {
                 "group": "Folders API",
                 "pages": [
                   "api-reference/endpoint/create-a-folder",
@@ -242,16 +257,6 @@
                   "api-reference/endpoint/create-a-tag",
                   "api-reference/endpoint/retrieve-a-list-of-tags",
                   "api-reference/endpoint/update-a-tag"
-                ]
-              },
-              {
-                "group": "Domains API",
-                "pages": [
-                  "api-reference/endpoint/create-a-domain",
-                  "api-reference/endpoint/update-a-domain",
-                  "api-reference/endpoint/delete-a-domain",
-                  "api-reference/endpoint/register-a-domain",
-                  "api-reference/endpoint/check-a-domain-availability"
                 ]
               }
             ]
@@ -321,6 +326,10 @@
     {
       "source": "/sdks/js-client/overview",
       "destination": "/sdks/client-side/installation-guides/react"
+    },
+    {
+      "source": "/sdks/client-side/features/client-side-click-tracking",
+      "destination": "/sdks/client-side/features/click-tracking"
     },
     {
       "source": "/self-hosting/guide",

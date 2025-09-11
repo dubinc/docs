@@ -1,0 +1,100 @@
+import LeadsAttributes from "/snippets/leads-attributes.mdx";
+
+Once the analytics script is installed, you can start tracking lead events in your application on the client-side.
+
+Here are the quickstart examples for tracking lead events:
+
+<CodeGroup>
+
+```typescript React
+import { useAnalytics } from "@dub/analytics/react";
+import { useState } from "react";
+
+export function SignUpForm() {
+  const { trackLead } = useAnalytics();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Track the lead event
+    trackLead({
+      eventName: "Sign Up",
+      customerExternalId: email,
+      customerName: name,
+      customerEmail: email,
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <button type="submit">Sign Up</button>
+    </form>
+  );
+}
+```
+
+```html Other
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <form id="signupForm">
+      <input type="text" id="name" required />
+      <input type="email" id="email" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+
+          // Track the lead event
+          dubAnalytics.trackLead({
+            eventName: "Sign Up",
+            customerExternalId: email,
+            customerName: name,
+            customerEmail: email,
+          });
+        });
+    </script>
+  </body>
+</html>
+```
+
+</CodeGroup>
+
+<LeadsAttributes />
+
+**When to track leads**
+
+You should track lead events after successful user actions such as:
+
+- User registration or account creation
+- Newsletter subscription
+- Contact form submission
+- Demo request or trial signup
+- Download of gated content
+
+Ensure the event is triggered **only after the backend confirms the action was completed successfully**. This guarantees accurate lead data and prevents false or incomplete entries.

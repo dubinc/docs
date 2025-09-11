@@ -8,13 +8,14 @@ import DubClientInstall from "/snippets/dub-client-install.mdx";
 import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
 import InstallServerSdksTrackConversions from "/snippets/install-server-sdks-track-conversions.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
+import DubConversionTrackingDemoApps from "/snippets/dub-conversion-tracking-demo-apps.mdx";
 
 <Note>
   Conversion tracking require a [Business plan](https://dub.co/pricing)
   subscription or higher.
 </Note>
 
-[Dub Conversions](https://dub.co/help/article/dub-conversions) is a powerful tool that lets you turn any [short link you create on Dub](https://dub.co/help/article/how-to-create-link) into a full attribution engine. This allows you to understand how well your links are translating to actual users and revenue dollars.
+Dub's powerful [attribution platform](https://dub.co/analytics) lets you understand how well your links are translating to actual users and revenue dollars.
 
 <Frame>
   <img
@@ -23,7 +24,7 @@ import ViewConversions from "/snippets/view-conversions.mdx";
   />
 </Frame>
 
-In this guide, we'll walk you through the steps to get started with Dub Conversions:
+In this guide, we'll walk you through the steps to get started with [conversion tracking on Dub](https://dub.co/help/article/dub-conversions):
 
 1. [Enable conversion tracking for your links](#step-1%3A-enable-conversion-tracking-for-your-links)
 2. [Install the `@dub/analytics` client-side SDK](#step-2-install-the-dub-analytics-client-side-sdk)
@@ -31,6 +32,11 @@ In this guide, we'll walk you through the steps to get started with Dub Conversi
 4. [View your conversions](#step-4-view-your-conversions)
 
 ## Step 1: Enable conversion tracking for your links
+
+<Tip>
+  If you're using [Dub Partners](/partners/quickstart), you can skip this step
+  since partner links will have conversion tracking enabled by default.
+</Tip>
 
 First, you'll need to enable conversion tracking for your Dub links to be able to start tracking conversions.
 
@@ -139,13 +145,4 @@ Once you've enabled conversion tracking for your links, all your tracked convers
 
 ## Example Apps
 
-<CardGroup cols={2}>
-  <Card
-    title="Dub Conversions Demo App"
-    icon="github"
-    href="https://github.com/dubinc/examples/tree/main/conversions/stripe"
-    color="#333333"
-  >
-    See the full example on GitHub.
-  </Card>
-</CardGroup>
+<DubConversionTrackingDemoApps />
