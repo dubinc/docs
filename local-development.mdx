@@ -430,6 +430,13 @@ pnpm dev
 
 The web app (`apps/web`) will be available at [localhost:8888](http://localhost:8888). Additionally, you may access Prisma Studio to manage your MySQL database at [localhost:5555](http://localhost:5555).
 
+### Authenticating
+
+Email login is the preferred method of authentication for local development. You may create an account at `localhost:8888/register` which will require email verification. 
+
+You may obtain your verification code from the `EmailVerificationToken` table in Prisma Studio at `localhost:5555`.
+
+
 ### Testing your shortlinks locally
 
 Use the following url structure to ensure event tracking is working, and to populate analytics data, replacing `<shortlink-key>` with the shortlink key you've created.
