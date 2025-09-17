@@ -87,6 +87,8 @@ Here's an example payload:
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",
     "updatedAt": "2024-08-26T16:41:52.084Z",
+    "testCompletedAt": null,
+    "testStartedAt": null,
     "projectId": "cm022sis60003ikt1syy7kfhl"
   }
 }
@@ -146,6 +148,8 @@ Here's an example payload:
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",
     "updatedAt": "2024-08-26T16:41:52.084Z",
+    "testCompletedAt": null,
+    "testStartedAt": null,
     "projectId": "cm022sis60003ikt1syy7kfhl"
   }
 }
@@ -205,6 +209,8 @@ Here's an example payload:
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",
     "updatedAt": "2024-08-26T16:41:52.084Z",
+    "testCompletedAt": null,
+    "testStartedAt": null,
     "projectId": "cm022sis60003ikt1syy7kfhl"
   }
 }
@@ -219,6 +225,7 @@ This event is triggered when a [new lead is created](/api-reference/endpoint/tra
 - `customer`: Details about the customer that signed up.
 - `click`: Details about the click event that led to the lead event.
 - `link`: Details about the referral link that the lead event is associated with.
+- `metadata`: Additional metadata associated with the lead event (optional).
 
 Here's an example payload:
 
@@ -289,8 +296,11 @@ Here's an example payload:
       "sales": 0,
       "saleAmount": 0,
       "createdAt": "2024-08-29T13:03:59.098Z",
-      "updatedAt": "2024-08-30T09:53:49.505Z"
-    }
+      "updatedAt": "2024-08-30T09:53:49.505Z",
+      "testCompletedAt": null,
+      "testStartedAt": null
+    },
+    "metadata": null
   }
 }
 ```
@@ -304,6 +314,8 @@ This event is triggered when a [new sale is tracked](/api-reference/endpoint/tra
 - `customer`: Details about the customer that made the purchase.
 - `click`: Details about the click event that led to the sale event.
 - `link`: Details about the referral link that the sale event is associated with.
+- `sale`: Details about the recorded sale event.
+- `metadata`: Additional metadata associated with the sale event (optional).
 
 Here's an example payload:
 
@@ -374,14 +386,17 @@ Here's an example payload:
       "sales": 1,
       "saleAmount": 20000,
       "createdAt": "2024-08-29T13:03:59.098Z",
-      "updatedAt": "2024-08-30T09:57:50.891Z"
+      "updatedAt": "2024-08-30T09:57:50.891Z",
+      "testCompletedAt": null,
+      "testStartedAt": null
     },
     "sale": {
       "amount": 4500,
       "currency": "usd",
       "paymentProcessor": "stripe",
       "invoiceId": null
-    }
+    },
+    "metadata": null
   }
 }
 ```
@@ -528,8 +543,8 @@ Here's an example payload:
   "createdAt": "2024-08-30T10:16:13.149Z",
   "data": {
     "click": {
+      "id": "d0UtZqE0BZuBPrJS",
       "timestamp": "2024-08-30T10:16:12.124Z",
-      "clickId": "d0UtZqE0BZuBPrJS",
       "url": "https://github.com/dubinc/dub",
       "ip": "63.141.57.109",
       "continent": "NA",
@@ -581,7 +596,9 @@ Here's an example payload:
       "sales": 10,
       "saleAmount": 200000,
       "createdAt": "2024-08-29T13:03:59.098Z",
-      "updatedAt": "2024-08-30T10:16:12.126Z"
+      "updatedAt": "2024-08-30T10:16:12.126Z",
+      "testCompletedAt": null,
+      "testStartedAt": null
     }
   }
 }
