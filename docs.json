@@ -121,7 +121,7 @@
             "group": "Overview",
             "pages": [
               "api-reference/introduction",
-              "api-reference/tokens",
+              "api-reference/api-keys",
               "api-reference/rate-limits"
             ]
           },
