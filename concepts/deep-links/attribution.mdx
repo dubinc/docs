@@ -121,7 +121,9 @@ struct ContentView: View {
 </CodeGroup>
 
 If the deep link was successfully resolved and correlated to the original click, the `response` object will contain the destination URL, which you can use to navigate the user to the appropriate screen. 
-It will also contain the `clickId`, which you can use to [track conversion events server-side](/conversions/quickstart#step-3%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events) if you wish.
+It will also contain the `clickId`, which the `dub` instance will persist internally. 
+If you wish to use [server-side conversion tracking](/conversions/quickstart#step-3%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events) you will have to send the `clickId` to your server. 
+You may access it any time by calling the `clickId` property on the `dub` instance.
 
 ## Step 3: Track conversion events
 
@@ -199,7 +201,7 @@ struct ContentView: View {
 
 </CodeGroup>
 
-Alternatively, you can track conversion events server-side for [lead events](/conversions/leads/introduction) and [sale events](/conversions/sales/introduction) by sending the `clickId` resolved from the deep link to your backend and then calling off to either:
+Alternatively, you can [track conversion events server-side](/conversions/quickstart#step-3%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events) for [lead events](/conversions/leads/introduction) and [sale events](/conversions/sales/introduction) by sending the `clickId` resolved from the deep link to your backend and then calling off to either:
 
 - [`POST /track/lead`](https://dub.co/docs/api-reference/endpoint/track-lead)
 - [`POST /track/sale`](https://dub.co/docs/api-reference/endpoint/track-sale)
