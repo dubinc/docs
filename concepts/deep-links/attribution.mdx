@@ -4,9 +4,208 @@ og:title: "How to set up deep link attribution with Dub"
 description: "Learn how to use deep link attribution to track conversions events with Dub."
 ---
 
+import InstallationGuides from "/snippets/dub-client-mobile-installation-guides.mdx";
+import InstallIosSdkStep from "/snippets/steps/install-ios-sdk.mdx";
+import InitializeIosSdkStep from "/snippets/steps/initialize-ios-sdk.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
+
 <Note>
-  This feature is coming soon. If you'd like early access, please [contact
+  Deep link attribution requires a [Business plan](https://dub.co/pricing)
+  subscription or higher.
+</Note>
+
+Dub's powerful [attribution platform](https://dub.co/analytics) lets you understand how well your deep links are translating to actual users and revenue dollars inside your app.
+
+<Note>
+  This feature is currently only available for iOS (Swift). React Native and Android support are coming soon. If you'd like early access, please [contact
   us](https://dub.co/contact/support).
 </Note>
 
-With [Dub Conversions](/conversions/quickstart), you can easily track conversion events from your deep links.
+<Frame>
+  <img
+    src="https://assets.dub.co/blog/introducing-dub-conversions.webp"
+    alt="Conversion analytics"
+  />
+</Frame>
+
+
+## Prerequisites
+
+Before you get started, make sure you have the following:
+
+1. Obtain your [publishable key](/api-reference/publishable-keys) (`DUB_PUBLISHABLE_KEY`) from your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and allowlist your site's domain (`DUB_DOMAIN`) to allow the client-side conversion events to be ingested by Dub.
+2. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+
+In this guide, we'll walk you through the steps to get started tracking conversions through your deep links.
+
+1. [Install the client-side Mobile SDK](#step-1%3A-install-the-client-side-mobile-sdk)
+2. [Track deep link and deferred deep link events](#step-2%3A-track-deep-link-and-deferred-deep-link-events)
+3. [Track conversion events](#step-3%3A-track-conversion-events-in-your-app)
+4. [View your conversions](#step-4%3A-view-your-conversions)
+
+## Step 1: Install the client-side Mobile SDK
+
+<Tabs>
+<Tab title="iOS (SwiftUI)">
+
+Install the [Dub iOS SDK](/sdks/client-side-mobile/installation-guides/swift) and initialize it with your publishable key and domain.
+
+<Steps titleSize="h3">
+
+<InstallIosSdkStep/>
+
+<InitializeIosSdkStep/>
+
+</Steps>
+</Tab>
+</Tabs>
+
+
+## Step 2: Track deep link and deferred deep link events
+
+Once the SDK has been initialized, you can start tracking deep link and deferred deep link events.
+Call `trackOpen` on the `dub` instance to track deep link and deferred deep link open events. 
+The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
+again with the `deepLink` parameter whenever the app is opened from a deep link.
+
+
+<CodeGroup>
+
+```swift iOS (SwiftUI)
+// ContentView.swift
+import SwiftUI
+import Dub
+
+struct ContentView: View {
+
+    @Environment(\.dub) var dub: Dub
+
+    @AppStorage("is_first_launch") private var isFirstLaunch = true
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                // Your app content
+            }
+            .onOpenURL { url in
+                trackOpen(deepLink: url)
+            }
+            .onAppear {
+                if isFirstLaunch {
+                    trackOpen()
+                    isFirstLaunch = false
+                }
+            }
+        }
+    }
+
+    private func trackOpen(deepLink: URL? = nil) {
+        Task {
+            do {
+                let response = try await dub.trackOpen(deepLink: deepLink)
+
+                // Obtain the destination URL from the response
+                guard let url = response.link?.url else {
+                    return
+                }
+
+                // Navigate to the destination URL
+            } catch let error as DubError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+```
+
+</CodeGroup>
+
+If the deep link was successfully resolved and correlated to the original click, the `response` object will contain the destination URL, which you can use to navigate the user to the appropriate screen. 
+It will also contain the `clickId`, which you can use to [track conversion events server-side](/conversions/quickstart#step-3%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events) if you wish.
+
+## Step 3: Track conversion events
+
+You may track conversion events directly in your app with the `trackLead` and `trackSale` methods.
+
+<CodeGroup>
+
+```swift iOS (SwiftUI)
+// ContentView.swift
+import SwiftUI
+import Dub
+
+struct ContentView: View {
+
+    @Environment(\.dub) var dub: Dub
+
+    var body: some View {
+        // ... your app content ...
+    }
+
+    private func trackLead(customerExternalId: String, name: String, email: String) {
+        Task {
+            do {
+                let response = try await dub.trackLead(
+                    eventName: "User Sign Up",
+                    customerExternalId: customerExternalId,
+                    customerName: name,
+                    customerEmail: email
+                )
+
+                print(response)
+            } catch let error as DubError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    private func trackSale(
+        customerExternalId: String,
+        amount: Int,
+        currency: String = "usd",
+        eventName: String? = "Purchase",
+        paymentProcessor: PaymentProcessor = .custom,
+        invoiceId: String? = nil,
+        metadata: Metadata? = nil,
+        leadEventName: String? = nil,
+        customerName: String? = nil,
+        customerEmail: String? = nil,
+        customerAvatar: String? = nil
+    ) {
+        Task {
+            do {
+                let response = try await dub.trackSale(
+                    customerExternalId: customerExternalId,
+                    amount: amount,
+                    currency: currency,
+                    eventName: eventName,
+                    paymentProcessor: paymentProcessor,
+                    invoiceId: invoiceId,
+                    metadata: metadata,
+                    leadEventName: leadEventName,
+                    customerName: customerName,
+                    customerEmail: customerEmail,
+                    customerAvatar: customerAvatar
+                )
+
+                print(response)
+            } catch let error as DubError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+```
+
+</CodeGroup>
+
+Alternatively, you can track conversion events server-side for [lead events](/conversions/leads/introduction) and [sale events](/conversions/sales/introduction) by sending the `clickId` resolved from the deep link to your backend and then calling off to either:
+
+- [`POST /track/lead`](https://dub.co/docs/api-reference/endpoint/track-lead)
+- [`POST /track/sale`](https://dub.co/docs/api-reference/endpoint/track-sale)
+
+## Step 4: View your conversions
+
+Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://app.dub.co/analytics). We provide 3 different views to help you understand your conversions:
+
+<ViewConversions />
