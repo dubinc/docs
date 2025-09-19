@@ -469,7 +469,7 @@ Here is how it works in a nutshell:
 2. Dub copies the deep link URL to the clipboard.
 3. The user is redirected to the App Store to download your app.
 4. After installation, your app reads the clipboard to retrieve the deep link.
-5. Your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `deepLink` parameter in the request body.
+5. Your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `deepLink` parameter in the request body either directly or via a supported [Dub Mobile SDK](/sdks/client-side-mobile/introduction).
 6. Dub returns the destination URL, and your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
 
 #### 2. Probabilistic IP-based tracking
@@ -479,7 +479,7 @@ This method relies on matching the user’s device IP address from the initial c
 1. User taps **Get the App without Copying** button on the landing page.
 2. The user is redirected directly to the App Store to download your app.
 3. Dub has already tracked the click and stored the IP address at the time of deep link click.
-4. After installation, your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `dubDomain` parameter in the request body.
+4. After installation, your app calls the [`/track/open` endpoint](/api-reference/endpoint/track-open) with the `dubDomain` parameter in the request body either directly or via a supported [Dub Mobile SDK](/sdks/client-side-mobile/introduction) .
 5. Dub matches the user using IP-based tracking and returns the destination URL.
 6. If a destination URL is returned, your app navigates the user to the appropriate screen (see [deep links quickstart](/concepts/deep-links/quickstart) for more details).
 
@@ -488,7 +488,7 @@ This method relies on matching the user’s device IP address from the initial c
 The following logic determines whether to use clipboard-based tracking or IP-based tracking:
 
 - **Clipboard-based tracking**: Used when a deep link is found in the clipboard (e.g., `acme.link`). The app sends the `deepLink` parameter in the request body.
-- **IP-based tracking**: Used when no deep link is found in the clipboard. The app sends only the `dubDomain` parameter, allowing Dub to match the user based on their IP address.
+- **IP-based tracking**: Used when no deep link is found in the clipboard or the user declined paste permissions. The app sends only the `dubDomain` parameter, allowing Dub to match the user based on their IP address.
 
 This ensures the most reliable tracking method is chosen automatically.
 
@@ -555,7 +555,7 @@ async function trackOpen() {
 }
 ```
 
-```swift iOS
+```swift iOS (SwiftUI)
 import SwiftUI
 
 @main
@@ -677,7 +677,7 @@ export default function App() {
 }
 ```
 
-```swift iOS
+```swift iOS (SwiftUI)
 import SwiftUI
 
 struct ContentView: View {

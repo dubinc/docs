@@ -1,0 +1,27 @@
+<Step title="Allowlist your site's domain">
+
+Then, you'll need to allowlist your site's domain to allow the client-side conversion events to be ingested by Dub.
+
+To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and add your site's domain to the **Allowed Hostnames** list.
+
+This provides an additional layer of security by ensuring only authorized domains can track conversions using your publishable key.
+
+<Frame>
+  <img
+    src="/images/conversions/allowed-hostnames.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+You can group your hostnames when adding them to the allow list:
+
+- `example.com`: Tracks traffic **only** from `example.com`.
+- `*.example.com`: Tracks traffic from **all subdomains** of `example.com`, but **not** from `example.com` itself.
+
+<Tip>
+  When testing things out locally, you can add `localhost` to the **Allowed
+  Hostnames** list temporarily. This will allow local events to be ingested by
+  Dub. Don't forget to remove it once you're ready to go live!
+</Tip>
+
+</Step>
