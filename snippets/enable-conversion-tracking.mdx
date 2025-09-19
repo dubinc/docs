@@ -1,0 +1,81 @@
+<Tip>
+  If you're using [Dub Partners](/partners/quickstart), you can skip this step
+  since partner links will have conversion tracking enabled by default.
+</Tip>
+
+First, you'll need to enable conversion tracking for your Dub links to be able to start tracking conversions.
+
+There are a few ways to do this:
+
+<AccordionGroup>
+  <Accordion title="Option 1: On a workspace-level">
+    To enable conversion tracking for all future links in a workspace, you can do the following:
+To enable conversion tracking for all future links in a workspace, you can do the following:
+
+1. Navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics).
+2. Toggle the **Workspace-level Conversion Tracking** switch to enable conversion tracking for the workspace.
+
+<Frame>
+  <img
+    src="/images/conversions/enable-conversion-tracking-workspace.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+    This option will enable conversion tracking in the [Dub Link Builder](https://dub.co/help/article/dub-link-builder) for all future links.
+
+  </Accordion>
+  <Accordion title="Option 2: On a link-level">
+    If you don't want to enable conversion tracking for all your links in a workspace, you can also opt to enable it on a link-level.
+
+To enable conversion tracking for a specific link, open the [Dub Link Builder](https://dub.co/help/article/dub-link-builder) for a link and toggle the **Conversion Tracking** switch.
+
+<Frame>
+  <img
+    src="/images/conversions/enable-conversion-tracking.png"
+    alt="Enabling conversion tracking for a link"
+  />
+</Frame>
+
+<Tip>
+  You can also use the `C` keyboard shortcut when inside the link builder to
+  quickly enable conversion tracking for a given link.
+</Tip>
+
+  </Accordion>
+  <Accordion title="Option 3: Via the API">
+    Alternatively, you can also enable conversion tracking programmatically via the [Dub API](/api-reference/introduction). All you need to do is pass `trackConversion: true` when creating or updating a link:
+
+    <CodeGroup>
+
+    ```javascript Node.js
+    const link = await dub.links.create({
+      url: "https://dub.co",
+      trackConversion: true,
+    });
+    ```
+
+    ```python Python
+    link = d.links.create(url="https://dub.co", track_conversion=True)
+    ```
+
+    ```go Go
+    link, err := d.Links.Create(ctx, &dub.CreateLinkRequest{
+        URL: "https://dub.co",
+        TrackConversion: true,
+    })
+    ```
+
+    ```ruby Ruby
+    s.links.create_many(
+      ::OpenApiSDK::Operations::CreateLinkRequest.new(
+        url: "https://dub.co",
+        track_conversion: true,
+      )
+    )
+    ```
+
+    </CodeGroup>
+
+  </Accordion>
+</AccordionGroup>

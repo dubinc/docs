@@ -4,20 +4,19 @@ og:title: Client-side sale tracking with Dub
 description: Learn how to track sales conversion events with Dub on the client-side
 ---
 
+import SalesIntro from "/snippets/sales-intro.mdx";
+import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
 import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
 import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
 
-When it comes to [conversion tracking](/conversions/quickstart), a `sale` event happens when a user purchases your product or service. Examples include:
+<SalesIntro />
 
-- Subscribing to a paid plan
-- Usage expansion (upgrading from one plan to another)
+In this guide, we will be focusing on tracking sales conversion events with Dub on the client-side.
 
 ## Prerequisites
 
-Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
-
-1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+<EnableConversionTracking />
 
 <ClientSideTrackingInstall />
 
@@ -33,6 +32,7 @@ Client-Side Conversion Tracking Limitations:
 - **Privacy concerns** – Some users may block client-side tracking for privacy reasons.
 
 For more accurate conversion tracking, consider using [server-side conversion tracking](/docs/conversions/sales/introduction)
+
 </Warning>
 
 ## View conversion results
