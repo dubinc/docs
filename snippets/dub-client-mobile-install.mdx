@@ -1,24 +1,29 @@
+import LeadAttributes from "/snippets/lead-attributes.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
+
 <Steps titleSize="h3">
 <Step title="Install the Dub iOS SDK">
   Before installing, ensure your environment meets these minimum requirements:
 
-  **Build Tools:**
-  - Xcode 16+
-  - Swift 6+
+**Build Tools:**
 
-  **Platforms:**
-  - iOS 16.0+
-  - macOS 10.13 (Ventura)+
+- Xcode 16+
+- Swift 6+
 
-  The Dub iOS SDK can be installed using the [Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/).
-  
-  In Xcode, select **File** > **Add Package Dependencies** and add `https://github.com/dubinc/dub-ios` as the repository URL. Select the latest version of the SDK from the [release page](https://github.com/dubinc/dub-ios/releases).
-  
+**Platforms:**
+
+- iOS 16.0+
+- macOS 10.13 (Ventura)+
+
+The Dub iOS SDK can be installed using the [Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/).
+
+In Xcode, select **File** > **Add Package Dependencies** and add `https://github.com/dubinc/dub-ios` as the repository URL. Select the latest version of the SDK from the [release page](https://github.com/dubinc/dub-ios/releases).
+
 </Step>
 
   <Step title="Initialize the SDK">
 
-  You must call `Dub.setup` with your publishable key and domain prior to being able to use the `dub` instance.
+You must call `Dub.setup` with your publishable key and domain prior to being able to use the `dub` instance.
 
     <CodeGroup>
 
@@ -46,18 +51,19 @@ struct DubApp: App {
     }
 }
 ```
-    
+
     </CodeGroup>
+
   </Step>
 
-  <Step title="Track deep link and deferred deep link open events" id="track-open">
+  <Step title="Track deep link open events" id="track-open">
     Call `trackOpen` on the `dub` instance to track deep link and deferred deep link open events. 
     The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
     again with the `deepLink` parameter whenever the app is opened from a deep link.
 
 <CodeGroup>
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
@@ -108,13 +114,13 @@ struct ContentView: View {
 
 </Step>
 
-  <Step title="(optional) Track lead events">
+<Step title="Track lead events (optional)">
 
-  To track lead events, call `trackLead` on the `dub` instance with your customer's external ID, name, and email. Learn more about the [lead event attributes](/conversions/leads/introduction#lead-event-attributes).
+To track lead events, call `trackLead` on the `dub` instance with your customer's external ID, name, and email.
 
 <CodeGroup>
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
@@ -147,64 +153,71 @@ struct ContentView: View {
 ```
 
 </CodeGroup>
+
+<Accordion title="Lead event attributes">
+  <LeadAttributes />
+</Accordion>
+
 </Step>
 
-  <Step title="(optional) Track sale events">
+<Step title="Track sale events (optional)">
   
-  To track sale events, call `trackSale` on the `dub` instance with your customer's user ID and purchase information. Learn more about the [sale event attributes](/conversions/sales/introduction#sale-event-attributes).
+  To track sale events, call `trackSale` on the `dub` instance with your customer's user ID and purchase information.
 
-  ```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
 
 struct ContentView: View {
 
-    @Environment(\.dub) var dub: Dub
+  @Environment(\.dub) var dub: Dub
 
-    var body: some View {
-       // ... your app content ...
-    }
+  var body: some View {
+     // ... your app content ...
+  }
 
-    private func trackSale(
-        customerExternalId: String,
-        amount: Int,
-        currency: String = "usd",
-        eventName: String? = "Purchase",
-        paymentProcessor: PaymentProcessor = .custom,
-        invoiceId: String? = nil,
-        metadata: Metadata? = nil,
-        leadEventName: String? = nil,
-        customerName: String? = nil,
-        customerEmail: String? = nil,
-        customerAvatar: String? = nil
-    ) {
-        Task {
-            do {
-                let response = try await dub.trackSale(
-                    customerExternalId: customerExternalId,
-                    amount: amount,
-                    currency: currency,
-                    eventName: eventName,
-                    paymentProcessor: paymentProcessor,
-                    invoiceId: invoiceId,
-                    metadata: metadata,
-                    leadEventName: leadEventName,
-                    customerName: customerName,
-                    customerEmail: customerEmail,
-                    customerAvatar: customerAvatar
-                )
+  private func trackSale(
+      customerExternalId: String,
+      amount: Int,
+      currency: String = "usd",
+      eventName: String? = "Purchase",
+      paymentProcessor: PaymentProcessor = .custom,
+      invoiceId: String? = nil,
+      metadata: Metadata? = nil,
+      leadEventName: String? = nil,
+      customerName: String? = nil,
+      customerEmail: String? = nil,
+      customerAvatar: String? = nil
+  ) {
+      Task {
+          do {
+              let response = try await dub.trackSale(
+                  customerExternalId: customerExternalId,
+                  amount: amount,
+                  currency: currency,
+                  eventName: eventName,
+                  paymentProcessor: paymentProcessor,
+                  invoiceId: invoiceId,
+                  metadata: metadata,
+                  leadEventName: leadEventName,
+                  customerName: customerName,
+                  customerEmail: customerEmail,
+                  customerAvatar: customerAvatar
+              )
 
-                print(response)
-            } catch let error as DubError {
-                print(error.localizedDescription)
-            }
-        }
-    }
+              print(response)
+          } catch let error as DubError {
+              print(error.localizedDescription)
+          }
+      }
+  }
 }
 ```
 
-
+<Accordion title="Sale event attributes">
+  <SaleAttributes />
+</Accordion>
 
 </Step>
 
