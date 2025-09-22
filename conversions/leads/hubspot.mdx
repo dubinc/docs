@@ -5,22 +5,28 @@ sidebarTitle: "HubSpot (CRM)"
 description: "Learn how to track lead conversion events with HubSpot and Dub"
 ---
 
-This guide shows you how to track lead conversions from HubSpot Forms and Meetings Scheduler.
+import LeadsIntro from "/snippets/leads-intro.mdx";
 
-## Prerequisites
+import ConversionTrackingPrerequisites from "/snippets/conversion-tracking-prerequisites.mdx";
 
-Before you start, follow the [Dub Conversions quickstart guide](/conversions/quickstart) to set up Dub Conversions for your links:
+<LeadsIntro />
 
-1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
-2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+This guide shows you how to track lead conversion events with HubSpot as your CRM.
 
-## Install HubSpot Integration
+<ConversionTrackingPrerequisites />
 
-Install the [HubSpot Dub Integration](https://dub.co/integrations/hubspot) to your workspace.
+Finally, install the [HubSpot Dub Integration](https://app.dub.co/integrations/hubspot) to your workspace.
 
-## HubSpot Form
+<Frame>
+  <img
+    src="/images/conversions/hubspot/installed-hubspot-integration.png"
+    alt="HubSpot Dub Integration"
+  />
+</Frame>
 
-HubSpot Form help you capture lead information and track conversions. By integrating with Dub, you can attribute each form submission back to the specific Dub link that drove the conversion.
+## Option 1: Using HubSpot Forms
+
+[HubSpot Forms](https://www.hubspot.com/products/marketing/forms) help you capture lead information and track conversions. By integrating with Dub, you can attribute each form submission back to the specific Dub link that drove the conversion.
 
 To make attribution work, you need to capture the `dub_id` cookie in your HubSpot form. This ensures each lead is tied back to the exact Dub link they came from.
 
@@ -68,7 +74,7 @@ Here's how you can set it up:
     Finally, add the following snippet to your site. The script reads the `dub_id` cookie and, if found, automatically fills the hidden Dub Id form field with its value.
 
     <CodeGroup>
-    ```html HTML
+    ```html HTML expandable
     <script src="https://js.hsforms.net/forms/embed/47839131.js" defer></script>
 
     <div
@@ -115,9 +121,9 @@ Here's how you can set it up:
   </Step>
 </Steps>
 
-## Meetings Scheduler
+## Option 2: Using HubSpot Meeting Scheduler
 
-HubSpot's Meetings Scheduler lets prospects book time directly with you or your team.
+[HubSpot's Meeting Scheduler](https://www.hubspot.com/products/sales/schedule-meeting) lets prospects book time directly with you or your team.
 
 Since HubSpot doesn't let you add a hidden field to the scheduling form, you should handle initial lead tracking through deferred lead tracking on the client side.
 
@@ -171,7 +177,7 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
     This way, the lead is only tracked after the meeting is confirmed, ensuring accurate attribution.
 
     <CodeGroup>
-    ```html HTML
+    ```html HTML expandable
 
     <!-- Load Dub analytics script -->
     <script>
@@ -251,7 +257,7 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
   </Step>
 </Steps>
 
-## Sales Tracking
+## Tracking sale conversion events
 
 After a prospect attends your demo call, you'll typically create a deal in HubSpot to track the sales opportunity.
 
