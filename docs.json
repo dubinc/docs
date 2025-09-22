@@ -63,8 +63,10 @@
                   "conversions/leads/introduction",
                   "conversions/leads/client-side",
                   {
-                    "group": "Auth providers",
+                    "group": "Third-party integrations",
                     "pages": [
+                      "conversions/leads/hubspot",
+                      "conversions/leads/segment",
                       "conversions/leads/clerk",
                       "conversions/leads/better-auth",
                       "conversions/leads/next-auth",
@@ -72,9 +74,7 @@
                       "conversions/leads/auth0",
                       "conversions/leads/appwrite"
                     ]
-                  },
-                  "conversions/leads/segment",
-                  "conversions/leads/hubspot"
+                  }
                 ]
               },
               {
@@ -82,10 +82,14 @@
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/client-side",
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify",
-                  "conversions/sales/segment",
-                  "conversions/sales/hubspot"
+                  {
+                    "group": "Third-party integrations",
+                    "pages": [
+                      "conversions/sales/segment",
+                      "conversions/sales/stripe",
+                      "conversions/sales/shopify"
+                    ]
+                  }
                 ]
               }
             ]
