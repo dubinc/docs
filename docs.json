@@ -62,9 +62,11 @@
                 "pages": [
                   "conversions/leads/introduction",
                   "conversions/leads/client-side",
+                  "conversions/leads/deferred",
                   {
                     "group": "Third-party integrations",
                     "pages": [
+                      "conversions/leads/hubspot",
                       "conversions/leads/segment",
                       "conversions/leads/clerk",
                       "conversions/leads/better-auth",

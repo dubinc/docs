@@ -6,7 +6,7 @@ description: Learn how to track lead conversion events with Dub using server-sid
 ---
 
 import LeadsIntro from "/snippets/leads-intro.mdx";
-import LeadsPrerequisites from "/snippets/leads-prerequisites.mdx";
+import ConversionTrackingPrerequisites from "/snippets/conversion-tracking-prerequisites.mdx";
 import AuthProviders from "/snippets/auth-providers.mdx";
 import LeadsAttributes from "/snippets/leads-attributes.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
@@ -15,25 +15,13 @@ import LeadsOutro from "/snippets/leads-outro.mdx";
 
 In this guide, we will be focusing on tracking new user sign-ups for a SaaS application as lead events on Dub.
 
-<LeadsPrerequisites />
+<ConversionTrackingPrerequisites />
 
-## Configure lead tracking
+## Quickstart
 
 Depending on which authentication framework you're using, we have a few pre-built guides to help you track lead events when a new user signs up for your SaaS application:
 
 <AuthProviders />
-
-<Tip>
-  If you're using the [Remix framework](https://remix.run/), you might run into an [issue](https://github.com/remix-run/remix/discussions/7922) where you get an empty/null value for the `dub_id` cookie. In that case, try using a library like [`cookie`](https://github.com/jshttp/cookie) instead:
-
-```typescript
-import cookie from "cookie";
-
-const cookies = cookie.parse(request.headers.get("cookie") ?? "");
-const dubId = cookies.dub_id;
-```
-
-</Tip>
 
 If you're not using any of the frameworks listed above, you can use the following steps to track lead events:
 
@@ -167,7 +155,7 @@ if ($dubId) {
     $request->clickId = $dubId;
     $request->eventName = 'Sign Up';
     $request->customerExternalId = $customer->id;
-    $request->customerName = $customer->name;
+    $request->customerNasme = $customer->name;
     $request->customerEmail = $customer->email;
     $request->customerAvatar = $customer->avatar;
 
