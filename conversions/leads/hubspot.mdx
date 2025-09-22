@@ -214,11 +214,6 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
         if (event.origin === "https://meetings.hubspot.com") {
           const clickId = getCookie("dub_id");
 
-          if (!clickId) {
-            console.debug("clickId not found. Skipping lead tracking.");
-            return;
-          }
-
           // Get the data from the event
           const data = event.data;
 
