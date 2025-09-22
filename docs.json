@@ -9,14 +9,7 @@
   },
   "favicon": "/logos/favicon.png",
   "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "cursor",
-      "vscode"
-    ]
+    "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
   },
   "navigation": {
     "tabs": [
@@ -25,9 +18,7 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": [
-              "introduction"
-            ]
+            "pages": ["introduction"]
           },
           {
             "group": "Links",
@@ -106,10 +97,7 @@
           },
           {
             "group": "Dub Partners",
-            "pages": [
-              "partners/quickstart",
-              "partners/embedded-referrals"
-            ]
+            "pages": ["partners/quickstart", "partners/embedded-referrals"]
           },
           {
             "group": "Integrations",
@@ -128,10 +116,7 @@
           },
           {
             "group": "Open source",
-            "pages": [
-              "local-development",
-              "self-hosting"
-            ]
+            "pages": ["local-development", "self-hosting"]
           }
         ]
       },
@@ -142,7 +127,7 @@
             "group": "Overview",
             "pages": [
               "api-reference/introduction",
-              "api-reference/api-keys",
+              "api-reference/tokens",
               "api-reference/publishable-keys",
               "api-reference/rate-limits"
             ]
