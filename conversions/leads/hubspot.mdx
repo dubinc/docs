@@ -1,0 +1,151 @@
+---
+title: "HubSpot"
+"og:title": "How to track lead conversion events with HubSpot and Dub"
+description: "Learn how to track lead conversion events with HubSpot and Dub"
+---
+
+This guide shows you how to track lead conversions from HubSpot Forms and Meetings Scheduler.
+
+## Prerequisites
+
+Before you start, follow the [Dub Conversions quickstart guide](/conversions/quickstart) to set up Dub Conversions for your links:
+
+1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+2. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
+
+## Install HubSpot Integration
+
+Install the [HubSpot Dub Integration](https://dub.co/integrations/hubspot) to your workspace.
+
+![Install HubSpot Integration](/images/hubspot-install-integration.png)
+
+## Install the Integration
+
+![Install Integration](/images/hubspot-install-integration-step.png)
+
+## HubSpot Forms
+
+HubSpot Forms capture lead information and track conversions through form submissions. This integration attributes form conversions back to your Dub links.
+
+### Populate `dub_id` in HubSpot Forms
+
+To attribute form submissions back to your original Dub links, you need to capture the `dub_id` parameter from the URL and pass it to HubSpot. This allows Dub to track which specific link generated each lead conversion.
+
+Add a hidden input field to your HubSpot form using the HubSpot form builder. Set the internal property value to `dub_id`.
+
+Use this code to capture the dub_id from the URL parameter and pass it to HubSpot as a hidden field value:
+
+```html
+<script src="https://js.hsforms.net/forms/embed/47839131.js" defer></script>
+
+<div
+  class="hs-form-frame"
+  data-region="na1"
+  data-form-id="YOUR_FORM_ID"
+  data-portal-id="YOUR_PORTAL_ID"
+></div>
+
+<script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift();
+    }
+
+    return null;
+  }
+
+  // Listen for the form ready event
+  window.addEventListener("hs-form-event:on-ready", (event) => {
+    const clickId = getCookie("dub_id");
+
+    if (!clickId) {
+      console.debug("clickId not found. Skipping lead tracking.");
+      return;
+    }
+
+    // Populate the hidden field with the dub_id
+    HubSpotFormsV4.getForms()[0].setFieldValue("0-1/dub_id", clickId);
+  });
+</script>
+```
+
+![HubSpot Forms Setup](/images/hubspot-forms-setup.png)
+
+## Meetings Scheduler
+
+HubSpot's Meetings Scheduler allows prospects to book time directly with your team. Since HubSpot doesn't allow passing custom additional fields to the scheduling form, handle the initial lead tracking through deferred conversion tracking on the client side.
+
+### Deferred Lead Tracking
+
+Use this code to track lead conversions when meetings are booked through the HubSpot scheduler. This ensures you can attribute the conversion back to your original Dub link:
+
+```html
+<div
+  class="meetings-iframe-container"
+  data-src="https://meetings.hubspot.com/YOUR_USERNAME?embed=true"
+></div>
+
+<script
+  type="text/javascript"
+  src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"
+></script>
+
+<script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift();
+    }
+
+    return null;
+  }
+
+  // Listen for the message event
+  window.addEventListener("message", function (event) {
+    // Check if the message is from the scheduling widget
+    if (event.origin === "https://meetings.hubspot.com") {
+      const clickId = getCookie("dub_id");
+
+      if (!clickId) {
+        console.debug("clickId not found. Skipping lead tracking.");
+        return;
+      }
+
+      // Get the data from the event
+      const data = event.data;
+
+      if (data.meetingBookSucceeded) {
+        // Get the scheduled contact
+        const contact =
+          data.meetingsPayload.bookingResponse.postResponse.contact;
+
+        if (!contact) {
+          console.debug("contact not found. Skipping lead tracking.");
+          return;
+        }
+
+        // Track the lead with the scheduled contact
+        const customerName = [contact.firstName, contact.lastName]
+          .filter(Boolean)
+          .join(" ");
+
+        dubAnalytics.trackLead({
+          clickId,
+          mode: "deferred",
+          eventName: "Meeting scheduled",
+          customerExternalId: contact.email,
+          customerName: customerName,
+          customerEmail: contact.email,
+        });
+      }
+    }
+  });
+</script>
+```
+
+![Meetings Scheduler Setup](/images/hubspot-meetings-scheduler-setup.png)
