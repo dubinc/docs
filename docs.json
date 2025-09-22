@@ -9,7 +9,14 @@
   },
   "favicon": "/logos/favicon.png",
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "cursor",
+      "vscode"
+    ]
   },
   "navigation": {
     "anchors": [
@@ -18,7 +25,9 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction"]
+            "pages": [
+              "introduction"
+            ]
           },
           {
             "group": "Links",
@@ -63,8 +72,9 @@
                   "conversions/leads/introduction",
                   "conversions/leads/client-side",
                   {
-                    "group": "Auth providers",
+                    "group": "Third-party integrations",
                     "pages": [
+                      "conversions/leads/segment",
                       "conversions/leads/clerk",
                       "conversions/leads/better-auth",
                       "conversions/leads/next-auth",
@@ -72,8 +82,7 @@
                       "conversions/leads/auth0",
                       "conversions/leads/appwrite"
                     ]
-                  },
-                  "conversions/leads/segment"
+                  }
                 ]
               },
               {
@@ -81,16 +90,24 @@
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/client-side",
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify",
-                  "conversions/sales/segment"
+                  {
+                    "group": "Third-party integrations",
+                    "pages": [
+                      "conversions/sales/segment",
+                      "conversions/sales/stripe",
+                      "conversions/sales/shopify"
+                    ]
+                  }
                 ]
               }
             ]
           },
           {
             "group": "Dub Partners",
-            "pages": ["partners/quickstart", "partners/embedded-referrals"]
+            "pages": [
+              "partners/quickstart",
+              "partners/embedded-referrals"
+            ]
           },
           {
             "group": "Integrations",
@@ -109,7 +126,10 @@
           },
           {
             "group": "Open source",
-            "pages": ["local-development", "self-hosting"]
+            "pages": [
+              "local-development",
+              "self-hosting"
+            ]
           }
         ]
       },
@@ -169,7 +189,10 @@
               },
               {
                 "group": "Embedded Dashboards",
-                "pages": ["sdks/embed/referrals", "sdks/embed/analytics"]
+                "pages": [
+                  "sdks/embed/referrals",
+                  "sdks/embed/analytics"
+                ]
               }
             ]
           },
