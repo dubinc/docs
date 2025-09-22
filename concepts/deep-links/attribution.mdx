@@ -4,6 +4,9 @@ og:title: "How to set up deep link attribution with Dub"
 description: "Learn how to use deep link attribution to track conversions events with Dub."
 ---
 
+import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
+import GeneratePublishableKeyStep from "/snippets/steps/generate-publishable-key.mdx";
+import AllowlistDomainsStep from "/snippets/steps/allowlist-domains.mdx";
 import InstallationGuides from "/snippets/dub-client-mobile-installation-guides.mdx";
 import InstallIosSdkStep from "/snippets/steps/install-ios-sdk.mdx";
 import InitializeIosSdkStep from "/snippets/steps/initialize-ios-sdk.mdx";
@@ -16,11 +19,6 @@ import ViewConversions from "/snippets/view-conversions.mdx";
 
 Dub's powerful [attribution platform](https://dub.co/analytics) lets you understand how well your deep links are translating to actual users and revenue dollars inside your app.
 
-<Note>
-  This feature is currently only available for iOS (Swift). React Native and Android support are coming soon. If you'd like early access, please [contact
-  us](https://dub.co/contact/support).
-</Note>
-
 <Frame>
   <img
     src="https://assets.dub.co/blog/introducing-dub-conversions.webp"
@@ -28,50 +26,55 @@ Dub's powerful [attribution platform](https://dub.co/analytics) lets you underst
   />
 </Frame>
 
+<Note>
+  This feature is currently only available for iOS (Swift). React Native and
+  Android support are coming soon. If you'd like early access, please [contact
+  us](https://dub.co/contact/support).
+</Note>
 
 ## Prerequisites
 
-Before you get started, make sure you have the following:
+<EnableConversionTracking />
 
-1. Obtain your [publishable key](/api-reference/publishable-keys) (`DUB_PUBLISHABLE_KEY`) from your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and allowlist your site's domain (`DUB_DOMAIN`) to allow the client-side conversion events to be ingested by Dub.
-2. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
+Then, you'll need generate a [publishable key](/api-reference/publishable-keys) from your Dub workspace to track conversions on the client-side.
 
-In this guide, we'll walk you through the steps to get started tracking conversions through your deep links.
+To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and generate a new publishable key under the **Publishable Key** section.
 
-1. [Install the client-side Mobile SDK](#step-1%3A-install-the-client-side-mobile-sdk)
-2. [Track deep link and deferred deep link events](#step-2%3A-track-deep-link-and-deferred-deep-link-events)
-3. [Track conversion events](#step-3%3A-track-conversion-events-in-your-app)
-4. [View your conversions](#step-4%3A-view-your-conversions)
+<Frame>
+  <img
+    src="/images/conversions/publishable-key.png"
+    alt="Enabling conversion tracking for a workspace"
+  />
+</Frame>
+
+Once these are set up, we can start tracking conversion events for your deep links.
 
 ## Step 1: Install the client-side Mobile SDK
 
 <Tabs>
 <Tab title="iOS (SwiftUI)">
 
-Install the [Dub iOS SDK](/sdks/client-side-mobile/installation-guides/swift) and initialize it with your publishable key and domain.
+Install the [Dub iOS SDK](/sdks/client-side-mobile/installation-guides/swift) and initialize it with your publishable key and short link domain.
 
 <Steps titleSize="h3">
 
-<InstallIosSdkStep/>
+<InstallIosSdkStep />
 
-<InitializeIosSdkStep/>
+<InitializeIosSdkStep />
 
 </Steps>
 </Tab>
 </Tabs>
 
-
-## Step 2: Track deep link and deferred deep link events
+## Step 2: Track deep link open events
 
 Once the SDK has been initialized, you can start tracking deep link and deferred deep link events.
-Call `trackOpen` on the `dub` instance to track deep link and deferred deep link open events. 
-The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
-again with the `deepLink` parameter whenever the app is opened from a deep link.
 
+Call `trackOpen` on the `dub` instance to track deep link and deferred deep link open events. The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then again with the `deepLink` parameter whenever the app is opened from a deep link.
 
 <CodeGroup>
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
@@ -120,10 +123,9 @@ struct ContentView: View {
 
 </CodeGroup>
 
-If the deep link was successfully resolved and correlated to the original click, the `response` object will contain the destination URL, which you can use to navigate the user to the appropriate screen. 
-It will also contain the `clickId`, which the `dub` instance will persist internally. 
-If you wish to use [server-side conversion tracking](/conversions/quickstart#step-3%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events) you will have to send the `clickId` to your server. 
-You may access it any time by calling the `clickId` property on the `dub` instance.
+If the deep link was successfully resolved and correlated to the original click, the `response` object will contain the destination URL, which you can use to navigate the user to the appropriate screen.
+
+It will also contain the `clickId`, which the `dub` instance will persist internally.
 
 ## Step 3: Track conversion events
 
@@ -131,7 +133,7 @@ You may track conversion events directly in your app with the `trackLead` and `t
 
 <CodeGroup>
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
@@ -148,7 +150,7 @@ struct ContentView: View {
         Task {
             do {
                 let response = try await dub.trackLead(
-                    eventName: "User Sign Up",
+                    eventName: "Sign Up",
                     customerExternalId: customerExternalId,
                     customerName: name,
                     customerEmail: email
@@ -166,10 +168,6 @@ struct ContentView: View {
         amount: Int,
         currency: String = "usd",
         eventName: String? = "Purchase",
-        paymentProcessor: PaymentProcessor = .custom,
-        invoiceId: String? = nil,
-        metadata: Metadata? = nil,
-        leadEventName: String? = nil,
         customerName: String? = nil,
         customerEmail: String? = nil,
         customerAvatar: String? = nil
@@ -181,10 +179,6 @@ struct ContentView: View {
                     amount: amount,
                     currency: currency,
                     eventName: eventName,
-                    paymentProcessor: paymentProcessor,
-                    invoiceId: invoiceId,
-                    metadata: metadata,
-                    leadEventName: leadEventName,
                     customerName: customerName,
                     customerEmail: customerEmail,
                     customerAvatar: customerAvatar
