@@ -125,7 +125,7 @@ Here's how you can set it up:
 
 [HubSpot's Meeting Scheduler](https://www.hubspot.com/products/sales/schedule-meeting) lets prospects book time directly with you or your team.
 
-Since HubSpot doesn't let you add a hidden field to the scheduling form, you should handle initial lead tracking through deferred lead tracking on the client side.
+Since HubSpot doesn't let you add a hidden field to the scheduling form, you should handle initial lead tracking through [deferred lead tracking](/conversions/leads/deferred) on the client side.
 
 <Steps>
   <Step title="Generate your publishable key">
@@ -172,7 +172,7 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
   <Step title="Add the tracking code to your site">
     Use the following code to track lead conversions when meetings are booked through the HubSpot scheduler.
 
-    The script listens for booking events from HubSpot, extracts the customer's details (name and email), and then calls `dubAnalytics.trackLead()` with deferred lead tracking.
+    The script listens for booking events from HubSpot, extracts the customer's details (name and email), and then calls `dubAnalytics.trackLead()` with [deferred lead tracking](/conversions/leads/deferred).
 
     This way, the lead is only tracked after the meeting is confirmed, ensuring accurate attribution.
 
