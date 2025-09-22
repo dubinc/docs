@@ -6,6 +6,7 @@ og:image: https://assets.dub.co/cms/gtm-integration.jpeg
 ---
 
 import LeadsIntro from "/snippets/leads-intro.mdx";
+import ConversionTrackingPrerequisites from "/snippets/conversion-tracking-prerequisites.mdx";
 import LeadsAttributes from "/snippets/leads-attributes.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
 
@@ -13,12 +14,7 @@ import LeadsOutro from "/snippets/leads-outro.mdx";
 
 In this guide, we will be focusing on tracking new user sign-ups for a SaaS application that uses Google Tag Manager to track conversions.
 
-## Prerequisites
-
-Before you get started, make sure you follow the [Dub Conversions quickstart guide](/conversions/quickstart) to get Dub Conversions set up for your links:
-
-1. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
-2. [Install the @dub/analytics client-side SDK via GTM](/sdks/client-side/installation-guides/google-tag-manager)
+<ConversionTrackingPrerequisites />
 
 ## Configure Google Tag Manager server-side tracking
 
@@ -56,6 +52,7 @@ This will open up the **Template Editor**. In the top right corner, click on the
 </Frame>
 
 Download the [gtm-server-client-template/template.tpl](https://raw.githubusercontent.com/dubinc/gtm-server-client-template/main/template.tpl) file and upload it to the Template Editor. You'll see a preview of the template:
+
 <Frame>
   <img
     src="/images/conversions/google-tag-manager/gtm-server-client-template.png"
@@ -142,6 +139,7 @@ This will open up the **Template Editor**. In the top right corner, click on the
 </Frame>
 
 Download the [gtm-server-tag-template/template.tpl](https://raw.githubusercontent.com/dubinc/gtm-server-tag-template/main/template.tpl) file and upload it to the Template Editor. You'll see a preview of the template:
+
 <Frame>
   <img
     src="/images/conversions/google-tag-manager/gtm-server-tag-template.png"

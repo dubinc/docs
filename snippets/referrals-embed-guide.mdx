@@ -66,6 +66,7 @@ const { publicToken } = await dub.embedTokens.referrals({
     email: user.email, // the user's email
     image: user.image, // the user's image/avatar
     tenantId: user.id, // the user's ID within your application
+    groupId: "grp_xxxxxx", // optional: the partner's group ID on Dub (https://d.to/groups)
   },
 });
 ```
@@ -83,6 +84,7 @@ with Dub(
             "email": user.email,  # the user's email
             "image": user.image,  # the user's image/avatar
             "tenant_id": user.id,  # the user's ID within your application
+            "group_id": "grp_xxxxxx", # optional: the partner's group ID on Dub (https://d.to/groups)
         },
     })
 
@@ -114,6 +116,7 @@ func main() {
             Email: user.Email, // the user's email
             Image: user.Image, // the user's image/avatar
             TenantID: user.ID, // the user's ID within your application
+            GroupID: "grp_xxxxxx", // optional: the partner's group ID on Dub (https://d.to/groups)
         },
     })
     if err != nil {
@@ -145,6 +148,7 @@ $request = new Operations\CreateReferralsEmbedTokenRequestBody(
         email: $user->email, // the user's email
         image: $user->image, // the user's image/avatar
         tenantId: $user->id, // the user's ID within your application
+        groupId: "grp_xxxxxx", // optional: the partner's group ID on Dub (https://d.to/groups)
     ),
 );
 
@@ -174,6 +178,7 @@ req = ::OpenApiSDK::Operations::CreateReferralsEmbedTokenRequestBody.new(
         email: user.email, # the user's email
         image: user.image, # the user's image/avatar
         tenant_id: user.id, # the user's ID within your application
+        group_id: "grp_xxxxxx", # optional: the partner's group ID on Dub (https://d.to/groups)
     ),
 )
 
@@ -201,6 +206,7 @@ const response = await fetch("https://api.dub.co/tokens/embed/referrals", {
       email: user.email, // the user's email
       image: user.image, // the user's image/avatar
       tenantId: user.id, // the user's ID within your application
+      groupId: "grp_xxxxxx", // optional: the partner's group ID on Dub (https://d.to/groups)
     },
   }),
 });

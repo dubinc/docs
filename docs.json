@@ -19,9 +19,9 @@
     ]
   },
   "navigation": {
-    "anchors": [
+    "tabs": [
       {
-        "anchor": "Documentation",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Getting Started",
@@ -71,9 +71,12 @@
                 "pages": [
                   "conversions/leads/introduction",
                   "conversions/leads/client-side",
+                  "conversions/leads/deferred",
                   {
-                    "group": "Auth providers",
+                    "group": "Third-party integrations",
                     "pages": [
+                      "conversions/leads/hubspot",
+                      "conversions/leads/segment",
                       "conversions/leads/clerk",
                       "conversions/leads/better-auth",
                       "conversions/leads/next-auth",
@@ -81,8 +84,7 @@
                       "conversions/leads/auth0",
                       "conversions/leads/appwrite"
                     ]
-                  },
-                  "conversions/leads/segment"
+                  }
                 ]
               },
               {
@@ -90,9 +92,14 @@
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/client-side",
-                  "conversions/sales/stripe",
-                  "conversions/sales/shopify",
-                  "conversions/sales/segment"
+                  {
+                    "group": "Third-party integrations",
+                    "pages": [
+                      "conversions/sales/segment",
+                      "conversions/sales/stripe",
+                      "conversions/sales/shopify"
+                    ]
+                  }
                 ]
               }
             ]
@@ -129,8 +136,7 @@
         ]
       },
       {
-        "anchor": "APIs and SDKs",
-        "icon": "rectangle-terminal",
+        "tab": "APIs and SDKs",
         "groups": [
           {
             "group": "Overview",

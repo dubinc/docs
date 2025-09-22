@@ -79,7 +79,7 @@ Now you'll need to implement the logic to read the install referrer, extract the
 
 <CodeGroup>
 
-```javascript React Native
+```javascript React Native expandable
 // InstallReferrerTracker.js
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
 
@@ -169,7 +169,7 @@ class InstallReferrerTracker {
 export default InstallReferrerTracker;
 ```
 
-```kotlin Android
+```kotlin Android expandable
 // InstallReferrerTracker.kt
 import android.content.Context
 import com.android.installreferrer.api.InstallReferrerClient
@@ -347,7 +347,7 @@ Finally, implement the navigation logic to redirect users to the appropriate scr
 
 <CodeGroup>
 
-```javascript React Native
+```javascript React Native expandable
 // InstallReferrerTracker.js (navigation method)
 navigateToDestination(destinationUrl) {
   // Parse the destination URL to determine which screen to navigate to
@@ -370,7 +370,7 @@ navigateToDestination(destinationUrl) {
 }
 ```
 
-```kotlin Android
+```kotlin Android expandable
 // InstallReferrerTracker.kt (navigation method)
 import android.content.Intent
 import android.net.Uri
@@ -494,7 +494,7 @@ This ensures the most reliable tracking method is chosen automatically.
 
 <CodeGroup>
 
-```javascript React Native
+```javascript React Native expandable
 // App.js
 import React, { useEffect } from 'react';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -555,7 +555,7 @@ async function trackOpen() {
 }
 ```
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 import SwiftUI
 
 @main
@@ -634,7 +634,7 @@ Once you have the deep link URL from your `trackOpen` function, you can route th
 
 <CodeGroup>
 
-```javascript React Native
+```javascript React Native expandable
 // App.js with React Navigation
 import React, { useEffect, useRef } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -677,7 +677,7 @@ export default function App() {
 }
 ```
 
-```swift iOS (SwiftUI)
+```swift iOS (SwiftUI) expandable
 import SwiftUI
 
 struct ContentView: View {

@@ -3,6 +3,8 @@ import AllowlistDomainsStep from "/snippets/steps/allowlist-domains.mdx";
 
 ## Quickstart
 
+Then, you'll need to install the Dub client-side script and set up the necessary configuration for client-side conversion tracking:
+
 <Steps>
 
 <GeneratePublishableKeyStep />
@@ -41,12 +43,20 @@ export default function RootLayout({
 
 ```html Other
 <script>
-  !(function (c, n) { 
-    c[n] = c[n] || function () { (c[n].q = c[n].q || []).push(arguments); }; 
-    ["trackClick","trackLead","trackSale"].forEach(t => c[n][t] = (...a) => c[n](t, ...a)); 
-    var s=document.createElement("script"); s.defer=1; s.src="https://dubcdn.com/analytics/script.conversion-tracking.js"; 
-    s.setAttribute("data-publishable-key","dub_pk_xxxxxxxx"); // Replace with your publishable key
-    document.head.appendChild(s); 
+  !(function (c, n) {
+    c[n] =
+      c[n] ||
+      function () {
+        (c[n].q = c[n].q || []).push(arguments);
+      };
+    ["trackClick", "trackLead", "trackSale"].forEach(
+      (t) => (c[n][t] = (...a) => c[n](t, ...a))
+    );
+    var s = document.createElement("script");
+    s.defer = 1;
+    s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
+    s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx"); // Replace with your publishable key
+    document.head.appendChild(s);
   })(window, "dubAnalytics");
 </script>
 ```
