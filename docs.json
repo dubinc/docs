@@ -12,9 +12,9 @@
     "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
   },
   "navigation": {
-    "anchors": [
+    "tabs": [
       {
-        "anchor": "Documentation",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Getting Started",
@@ -120,8 +120,7 @@
         ]
       },
       {
-        "anchor": "APIs and SDKs",
-        "icon": "rectangle-terminal",
+        "tab": "APIs and SDKs",
         "groups": [
           {
             "group": "Overview",
