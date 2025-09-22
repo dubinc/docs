@@ -17,70 +17,114 @@ Before you start, follow the [Dub Conversions quickstart guide](/conversions/qui
 
 Install the [HubSpot Dub Integration](https://dub.co/integrations/hubspot) to your workspace.
 
-![Install HubSpot Integration](/images/hubspot-install-integration.png)
+## HubSpot Form
 
-## Install the Integration
+HubSpot Form help you capture lead information and track conversions. By integrating with Dub, you can attribute each form submission back to the specific Dub link that drove the conversion.
 
-![Install Integration](/images/hubspot-install-integration-step.png)
+To make attribution work, you need to capture the `dub_id` cookie in your HubSpot form. This ensures each lead is tied back to the exact Dub link they came from.
 
-## HubSpot Forms
+Here's how you can set it up:
 
-HubSpot Forms capture lead information and track conversions through form submissions. This integration attributes form conversions back to your Dub links.
+<Steps>
+  <Step title="Create a new property">
+    In HubSpot, create a new property under the Contact object:
 
-### Populate `dub_id` in HubSpot Forms
+    - Label: Dub Id
+    - Group: Contact information
+    - Field type: Single-line text
+    - Visibility options: set to Show property in forms and bots
+    - Internal name: must be `dub_id`
 
-To attribute form submissions back to your original Dub links, you need to capture the `dub_id` parameter from the URL and pass it to HubSpot. This allows Dub to track which specific link generated each lead conversion.
+    <Frame>
+      <img
+        src="/images/conversions/hubspot/hubspot-dub-id-property.png"
+        alt="Segment Dub (Actions) Mapping"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
 
-Add a hidden input field to your HubSpot form using the HubSpot form builder. Set the internal property value to `dub_id`.
+  </Step>
+  
+  <Step title="Add a hidden field to your form">
+    In the HubSpot form builder, add a hidden field and map it to the Dub Id
+    property you just created.
+    
+    This makes sure the value captured by your script is stored on the contact record. Without mapping to a property, HubSpot won’t persist the `dub_id` value.
 
-Use this code to capture the dub_id from the URL parameter and pass it to HubSpot as a hidden field value:
+    <Frame>
+      <img
+        src="/images/conversions/hubspot/hubspot-forms-setup.png"
+        alt="Segment Dub (Actions) Mapping"
+        width="1440"
+        height="1024"
+      />
+    </Frame>
 
-```html
-<script src="https://js.hsforms.net/forms/embed/47839131.js" defer></script>
+  </Step>
 
-<div
-  class="hs-form-frame"
-  data-region="na1"
-  data-form-id="YOUR_FORM_ID"
-  data-portal-id="YOUR_PORTAL_ID"
-></div>
+  <Step title="Add the script to your site">
+    Finally, add the following snippet to your site. The script reads the `dub_id` cookie and, if found, automatically fills the hidden Dub Id form field with its value.
 
-<script>
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
+    <CodeGroup>
+    ```html HTML
+    <script src="https://js.hsforms.net/forms/embed/47839131.js" defer></script>
 
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
+    <div
+      class="hs-form-frame"
+      data-region="na1"
+      data-form-id="YOUR_FORM_ID"
+      data-portal-id="YOUR_PORTAL_ID"
+    ></div>
 
-    return null;
-  }
+    <script>
+      // A helper function to get the value of a cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
 
-  // Listen for the form ready event
-  window.addEventListener("hs-form-event:on-ready", (event) => {
-    const clickId = getCookie("dub_id");
+        if (parts.length === 2) {
+          return parts.pop().split(";").shift();
+        }
 
-    if (!clickId) {
-      console.debug("clickId not found. Skipping lead tracking.");
-      return;
-    }
+        return null;
+      }
 
-    // Populate the hidden field with the dub_id
-    HubSpotFormsV4.getForms()[0].setFieldValue("0-1/dub_id", clickId);
-  });
-</script>
-```
+      // Listen for the form ready event
+      window.addEventListener("hs-form-event:on-ready", (event) => {
+        const clickId = getCookie("dub_id");
 
-![HubSpot Forms Setup](/images/hubspot-forms-setup.png)
+        if (!clickId) {
+          console.debug("clickId not found. Skipping lead tracking.");
+          return;
+        }
+
+        // Populate the hidden field with the dub_id
+        HubSpotFormsV4.getForms()[0].setFieldValue("0-1/dub_id", clickId);
+      });
+    </script>
+    ```
+
+    </CodeGroup>
+
+    When the form is ready, the script checks for the `dub_id` and, if found, automatically sets it into a hidden `Dub Id` field on the form.
+
+    This way, when a prospect submits the form, the `dub_id` is captured and passed to HubSpot, ensuring the lead is attributed back to the original Dub link.
+
+  </Step>
+</Steps>
 
 ## Meetings Scheduler
 
-HubSpot's Meetings Scheduler allows prospects to book time directly with your team. Since HubSpot doesn't allow passing custom additional fields to the scheduling form, handle the initial lead tracking through deferred conversion tracking on the client side.
+HubSpot's Meetings Scheduler lets prospects book time directly with you or your team.
 
-### Deferred Lead Tracking
+Since HubSpot doesn't let you add a hidden field to the scheduling form, you should handle initial lead tracking through deferred lead tracking on the client side.
 
-Use this code to track lead conversions when meetings are booked through the HubSpot scheduler. This ensures you can attribute the conversion back to your original Dub link:
+Use the following code to track lead conversions when meetings are booked through the HubSpot scheduler.
+
+The script listens for booking events from HubSpot, extracts the customer’s details (name and email), and then calls `dubAnalytics.trackLead()` with deferred lead tracking.
+
+This way, the lead is only tracked after the meeting is confirmed, ensuring accurate attribution.
 
 ```html
 <div
@@ -147,5 +191,3 @@ Use this code to track lead conversions when meetings are booked through the Hub
   });
 </script>
 ```
-
-![Meetings Scheduler Setup](/images/hubspot-meetings-scheduler-setup.png)

@@ -73,7 +73,8 @@
                       "conversions/leads/appwrite"
                     ]
                   },
-                  "conversions/leads/segment"
+                  "conversions/leads/segment",
+                  "conversions/leads/hubspot"
                 ]
               },
               {
@@ -83,7 +84,8 @@
                   "conversions/sales/client-side",
                   "conversions/sales/stripe",
                   "conversions/sales/shopify",
-                  "conversions/sales/segment"
+                  "conversions/sales/segment",
+                  "conversions/sales/hubspot"
                 ]
               }
             ]
