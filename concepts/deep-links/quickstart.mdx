@@ -189,13 +189,67 @@ When a user opens your app from a deep link, you need to handle two main scenari
 When your app is already installed, the deep link will open your app directly.
 You may handle the deep link manually or with the supported mobile SDKs.
 
-**Option 1**: Handle the deep link using a supported [Dub Mobile SDK](/sdks/client-side-mobile/introduction) (iOS only)
+**Option 1**: Handle the deep link using a supported [Dub Mobile SDK](/sdks/client-side-mobile/introduction) (iOS & React Native only)
 
-Follow our [Swift Installation Guide](/sdks/client-side-mobile/installation-guides/swift) to get started.
+Follow our installation guide for [Swift](/sdks/client-side-mobile/installation-guides/swift) or [React Native](/sdks/client-side-mobile/installation-guides/react-native) to get started.
 
 <CodeGroup>
 
-```swift iOS (SwiftUI)
+```typescript React Native expandable
+import { useState, useEffect, useRef } from "react";
+import { Linking } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import dub from "@dub/react-native";
+
+export default function App() {
+  useEffect(() => {
+    dub.init({
+      publishableKey: "<DUB_PUBLISHABLE_KEY>",
+      domain: "<DUB_DOMAIN>",
+    });
+
+    // Check if this is first launch
+    const isFirstLaunch = await AsyncStorage.getItem("is_first_launch");
+
+    if (isFirstLaunch === null) {
+      await handleFirstLaunch();
+      await AsyncStorage.setItem("is_first_launch", "false");
+    } else {
+      // Handle initial deep link url (Android only)
+      const url = await Linking.getInitialURL();
+
+      if (url) {
+        await handleDeepLink(url);
+      }
+    }
+
+    const linkingListener = Linking.addEventListener("url", (event) => {
+      handleDeepLink(event.url);
+    });
+
+    return () => {
+      linkingListener.remove();
+    };
+  }, []);
+
+  const handleFirstLaunch = async (
+    deepLinkUrl?: string | null | undefined
+  ): Promise<void> => {
+    try {
+      const response = await dub.trackOpen(deepLinkUrl);
+
+      const destinationURL = response.link?.url;
+      // Navigate to the destination URL
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  // Return your app...
+}
+```
+
+```swift iOS (SwiftUI) expandable
 // ContentView.swift
 import SwiftUI
 import Dub
@@ -242,16 +296,68 @@ struct ContentView: View {
 }
 ```
 
-```swift iOS (UIKit)
-// AppDelegate.swift
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    handleDeepLink(url: url)
-    return true
-}
+```swift iOS (UIKit) expandable
+import UIKit
+import Dub
 
-func handleDeepLink(url: URL) {
-    // Call the tracking endpoint with the full deep link URL
-    trackDeepLinkClick(deepLink: url.absoluteString)
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    private let dubPublishableKey = "<DUB_PUBLISHABLE_KEY>"
+    private let dubDomain = "<DUB_DOMAIN>"
+
+    private var isFirstLaunch: Bool {
+        get {
+            UserDefaults.standard.object(forKey: "is_first_launch") as? Bool ?? true
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "is_first_launch")
+        }
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Dub.setup(publishableKey: dubPublishableKey, domain: dubDomain)
+
+        // Track first launch
+        if isFirstLaunch {
+            trackOpen()
+            isFirstLaunch = false
+        }
+
+        // Override point for customization after application launch.
+        return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        handleDeepLink(url: url)
+        return true
+    }
+
+    func handleDeepLink(url: URL) {
+        trackOpen(deepLink: url)
+    }
+
+    private func trackOpen(deepLink: URL? = nil) {
+        // Call the tracking endpoint with the full deep link URL
+        Task {
+            do {
+                let response = try await Dub.shared.trackOpen(deepLink: deepLink)
+
+                print(response)
+
+                // Navigate to final link via link.url
+                guard let destinationUrl = response.link?.url else {
+                    return
+                }
+
+                // Navigate to the destination URL
+            } catch let error as DubError {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 ```
 

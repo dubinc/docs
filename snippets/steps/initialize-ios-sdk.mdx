@@ -26,4 +26,26 @@ struct DubApp: App {
   }
 }
 ```
+
+```swift iOS (UIKit)
+import UIKit
+import Dub
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+
+    // Step 1: Obtain your Dub domain and publishable key
+    private let dubPublishableKey = "<DUB_PUBLISHABLE_KEY>"
+    private let dubDomain = "<DUB_DOMAIN>"
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Step 2: Initialize the Dub SDK by calling `setup`
+        Dub.setup(publishableKey: dubPublishableKey, domain: dubDomain)
+        return true
+    }
+}
+```
+
 </Step>
