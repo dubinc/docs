@@ -1,0 +1,32 @@
+---
+title: "Publishable keys"
+description: "Learn how publishable keys work on Dub."
+---
+
+import GeneratePublishableKeyStep from "/snippets/steps/generate-publishable-key.mdx";
+import AllowlistDomainsStep from "/snippets/steps/allowlist-domains.mdx";
+
+Publishable keys on Dub allow you to safely embed authentication in client-side applications.
+These keys are specifically designed to be used with [Dub's client-side SDKs](/sdks/client-side/introduction) for features like [conversion tracking](/sdks/client-side/features/conversion-tracking).
+
+Unlike [API keys](/api-reference/tokens) which must be kept secret, publishable keys can be safely exposed in your frontend code since they have limited capabilities.
+
+Publishable keys on Dub follow the format:
+
+```bash .env
+DUB_PUBLISHABLE_KEY=dub_pk_xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+## Create a publishable key
+
+You can create a publishable key by following these steps:
+
+<Steps>
+<GeneratePublishableKeyStep />
+
+<AllowlistDomainsStep />
+
+<Step title="Use your publishable key">
+You can now use your publishable key to authenticate client-side requests in your application. Usage will depend on the client-side SDK you are using.
+</Step>
+</Steps>

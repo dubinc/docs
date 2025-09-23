@@ -1,0 +1,29 @@
+<Step title="Initialize the SDK">
+
+You must call `Dub.setup` with your publishable key and domain prior to being able to use the `dub` instance.
+
+```swift iOS (SwiftUI)
+import SwiftUI
+import Dub
+
+@main
+struct DubApp: App {
+  // Step 1: Obtain your Dub domain and publishable key
+  private let dubPublishableKey = "<DUB_PUBLISHABLE_KEY>"
+  private let dubDomain = "<DUB_DOMAIN>"
+
+  init() {
+    // Step 2: Initialize the Dub SDK by calling `setup`
+    Dub.setup(publishableKey: dubPublishableKey, domain: dubDomain)
+  }
+
+  var body: some Scene {
+    WindowGroup {
+        ContentView()
+            // Step 3: Expose the `dub` instance as a SwiftUI environment value
+            .environment(\.dub, Dub.shared)
+    }
+  }
+}
+```
+</Step>

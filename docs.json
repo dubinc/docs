@@ -128,6 +128,7 @@
             "pages": [
               "api-reference/introduction",
               "api-reference/tokens",
+              "api-reference/publishable-keys",
               "api-reference/rate-limits"
             ]
           },
@@ -146,7 +147,7 @@
                 ]
               },
               {
-                "group": "Client-side SDK",
+                "group": "Client-side SDK (Web)",
                 "pages": [
                   "sdks/client-side/introduction",
                   {
@@ -174,8 +175,16 @@
                 ]
               },
               {
-                "group": "Embedded Dashboards",
-                "pages": ["sdks/embed/referrals", "sdks/embed/analytics"]
+                "group": "Client-side SDK (Mobile)",
+                "pages": [
+                  "sdks/client-side-mobile/introduction",
+                  {
+                    "group": "Installation Guides",
+                    "pages": [
+                      "sdks/client-side-mobile/installation-guides/swift"
+                    ]
+                  }
+                ]
               }
             ]
           },

@@ -1,0 +1,37 @@
+---
+title: Swift
+description: How to add the Dub iOS SDK to your Swift project
+---
+
+import DubSwiftInstall from "/snippets/dub-client-mobile-install.mdx";
+import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
+import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
+
+## Prerequisites
+
+Before you get started, make sure you have the following:
+
+1. Obtain your [publishable key](/api-reference/publishable-keys) (`DUB_PUBLISHABLE_KEY`) from your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and allowlist your site's domain (`DUB_DOMAIN`) to allow the client-side conversion events to be ingested by Dub.
+
+2. (Optional) If you plan to track conversions, follow the [Dub Conversions quickstart guide](/conversions/quickstart) to [enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links).
+
+## Quickstart
+
+This quick start guide will show you how to get started with Dub iOS SDK in your Swift project.
+
+<DubSwiftInstall />
+
+## Examples
+
+Here are some open-source code examples that you can reference:
+
+<CardGroup cols={2}>
+  <Card
+    title="Swift (SwiftUI)"
+    icon="github"
+    href="https://github.com/dubinc/dub-ios/tree/main/Examples/SwiftUI"
+    color="#333333"
+  >
+    See the full example on GitHub.
+  </Card>
+</CardGroup>
