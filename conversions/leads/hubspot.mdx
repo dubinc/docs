@@ -204,23 +204,10 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
     ></script>
 
     <script>
-      function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-
-        if (parts.length === 2) {
-          return parts.pop().split(";").shift();
-        }
-
-        return null;
-      }
-
       // Listen for the message event
       window.addEventListener("message", function (event) {
         // Check if the message is from the scheduling widget
         if (event.origin === "https://meetings.hubspot.com") {
-          const clickId = getCookie("dub_id");
-
           // Get the data from the event
           const data = event.data;
 
@@ -240,7 +227,6 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
               .join(" ");
 
             dubAnalytics.trackLead({
-              clickId,
               mode: "deferred",
               eventName: "Meeting scheduled",
               customerExternalId: contact.email,
