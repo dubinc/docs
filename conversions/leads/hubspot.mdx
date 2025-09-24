@@ -24,6 +24,42 @@ Finally, install the [HubSpot Dub Integration](https://app.dub.co/integrations/h
   />
 </Frame>
 
+### Integration Setup
+
+During the installation, Dub will create 3 properties to your contact object on HubSpot:
+
+- **Dub Id** - Unique identifier that Dub uses to track clicks
+- **Dub Link** - The short link that the contact clicked to reach your site
+- **Dub Partner Email** - Email address of the partner associated with the short link
+
+<Frame>
+  <img
+    src="/images/conversions/hubspot/hubspot-dub-properties.png"
+    alt="HubSpot Contact Properties Created by Dub Integration"
+  />
+</Frame>
+
+<Tip>
+  If you can't see these properties in your HubSpot contact object after
+  installation, something went wrong with the integration setup. Please [contact
+  us](mailto:support@dub.co) for assistance.
+</Tip>
+
+### Set Your Closed Won Deal Stage ID
+
+You can define which HubSpot deal stage should be treated as **Closed Won** for automatic sales tracking in Dub.
+
+If you've customized your pipeline (i.e. changed or added deal stages in HubSpot), enter the stage ID corresponding to your custom **Closed Won** stage in the [HubSpot Integration Settings](https://app.dub.co/settings/integrations/hubspot).
+
+Once set, any HubSpot deal marked as **Closed Won** will automatically be tracked in Dub as a sale conversion event, including its deal value.
+
+<Frame>
+  <img
+    src="/images/conversions/hubspot/hubspot-custom-deal-stage-id.png"
+    alt="Add custom deal stage ID to HubSpot Integration Settings"
+  />
+</Frame>
+
 ## Option 1: Using HubSpot Forms
 
 [HubSpot Forms](https://www.hubspot.com/products/marketing/forms) help you capture lead information and track conversions. By integrating with Dub, you can attribute each form submission back to the specific Dub link that drove the conversion.
@@ -33,29 +69,8 @@ To make attribution work, you need to capture the `dub_id` cookie in your HubSpo
 Here's how you can set it up:
 
 <Steps>
-  <Step title="Create a new property">
-    In HubSpot, create a new property under the Contact object:
-
-    - Label: Dub Id
-    - Group: Contact information
-    - Field type: Single-line text
-    - Visibility options: set to Show property in forms and bots
-    - Internal name: must be `dub_id`
-
-    <Frame>
-      <img
-        src="/images/conversions/hubspot/hubspot-dub-id-property.png"
-        alt="Segment Dub (Actions) Mapping"
-        width="1440"
-        height="1024"
-      />
-    </Frame>
-
-  </Step>
-  
   <Step title="Add a hidden field to your form">
-    In the HubSpot form builder, add a hidden field and map it to the Dub Id
-    property you just created.
+    In the HubSpot form builder, add a hidden field and map it to the **Dub Id** contact property.
     
     This makes sure the value captured by your script is stored on the contact record. Without mapping to a property, HubSpot won’t persist the `dub_id` value.
 
@@ -114,9 +129,7 @@ Here's how you can set it up:
 
     </CodeGroup>
 
-    When the form is ready, the script checks for the `dub_id` and, if found, automatically sets it into a hidden `Dub Id` field on the form.
-
-    This way, when a prospect submits the form, the `dub_id` is captured and passed to HubSpot, ensuring the lead is attributed back to the original Dub link.
+    When a prospect submits the form, the `dub_id` is captured and passed to HubSpot, ensuring the lead is attributed back to the original Dub link.
 
   </Step>
 </Steps>
@@ -256,3 +269,5 @@ When you create a deal in HubSpot for a contact who came through your Dub links,
 ### When a deal is closed
 
 When a deal moves to a **Closed Won** status in HubSpot, the integration automatically tracks a sale event in Dub using the deal amount as the sale value.
+
+If a deal is not being tracked as a sale in Dub, make sure you've set the correct Closed Won Deal Stage ID in your [HubSpot Integration Settings](#set-your-closed-won-deal-stage-id).
