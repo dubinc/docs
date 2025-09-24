@@ -17,18 +17,18 @@ This guide shows you how to track lead conversion events with HubSpot as your CR
 
 Finally, install the [HubSpot Dub Integration](https://app.dub.co/integrations/hubspot) to your workspace.
 
-During the installation, Dub will automatically create 3 properties to your contact object:
-
-- **Dub Id** - Unique identifier for tracking the specific Dub link that generated the lead
-- **Dub Link** - The actual Dub link URL that the lead clicked to reach your site
-- **Dub Partner Email** - Email address of the partner who created the Dub link (if applicable)
-
 <Frame>
   <img
     src="/images/conversions/hubspot/installed-hubspot-integration.png"
     alt="HubSpot Dub Integration"
   />
 </Frame>
+
+During the installation, Dub will create 3 properties to your contact object on HubSpot:
+
+- **Dub Id** - Unique identifier that Dub uses to track clicks
+- **Dub Link** - The short link that the contact clicked to reach your site
+- **Dub Partner Email** - Email address of the partner associated with the short link
 
 <Frame>
   <img
@@ -38,7 +38,9 @@ During the installation, Dub will automatically create 3 properties to your cont
 </Frame>
 
 <Tip>
-If you can't see these properties in your HubSpot contact object after installation, something went wrong with the integration setup. Please [contact us](mailto:support@dub.co) for assistance.
+  If you can't see these properties in your HubSpot contact object after
+  installation, something went wrong with the integration setup. Please [contact
+  us](mailto:support@dub.co) for assistance.
 </Tip>
 
 ## Option 1: Using HubSpot Forms
