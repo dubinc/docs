@@ -176,12 +176,14 @@
               },
               {
                 "group": "Client-side SDK (Mobile)",
+                "tag": "Beta",
                 "pages": [
                   "sdks/client-side-mobile/introduction",
                   {
                     "group": "Installation Guides",
                     "pages": [
-                      "sdks/client-side-mobile/installation-guides/swift"
+                      "sdks/client-side-mobile/installation-guides/swift",
+                      "sdks/client-side-mobile/installation-guides/react-native"
                     ]
                   }
                 ]

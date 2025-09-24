@@ -1,0 +1,171 @@
+import LeadAttributes from "/snippets/lead-attributes.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
+
+<Steps titleSize="h3">
+<Step title="Install the Dub React Native SDK">
+
+```sh
+# With npm
+npm install @dub/react-native
+
+# With yarn
+yarn add @dub/react-native
+
+# With pnpm
+pnpm add @dub/react-native
+```
+
+</Step>
+
+<Step title="Initialize the SDK">
+
+You must call `init` on your `dub` instance with your publishable key and domain prior to being able to use the `dub` instance. We provide two ways to initialize the SDK:
+
+**Option 1**: Use the `DubProvider` to wrap your app
+
+```typescript
+import { DubProvider } from "@dub/react-native";
+
+export default function App() {
+  return (
+    <DubProvider
+      publishableKey="<DUB_PUBLISHABLE_KEY>"
+      dubDomain="<DUB_DOMAIN>"
+    >
+      // Your app content...
+    </DubProvider>
+  );
+}
+```
+
+**Option 2**: Manually initialize the Dub SDK
+
+```typescript
+import dub from "@dub/react-native";
+
+export default function App() {
+  useEffect(() => {
+    dub.init({
+      publishableKey: "<DUB_PUBLISHABLE_KEY>",
+      domain: "<DUB_DOMAIN>",
+    });
+  }, []);
+
+  // Return your app...
+}
+```
+
+</Step>
+
+<Step title="Track deep link open events" id="track-open">
+Call `trackOpen` on the `dub` instance to track deep link and deferred deep link open events. 
+The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
+again with the `deepLink` parameter whenever the app is opened from a deep link.
+
+```typescript React Native expandable
+import { useState, useEffect, useRef } from "react";
+import { Linking } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import dub from "@dub/react-native";
+
+export default function App() {
+  useEffect(() => {
+    dub.init({
+      publishableKey: "<DUB_PUBLISHABLE_KEY>",
+      domain: "<DUB_DOMAIN>",
+    });
+
+    // Check if this is first launch
+    const isFirstLaunch = await AsyncStorage.getItem("is_first_launch");
+
+    if (isFirstLaunch === null) {
+      await handleFirstLaunch();
+      await AsyncStorage.setItem("is_first_launch", "false");
+    } else {
+      // Handle initial deep link url (Android only)
+      const url = await Linking.getInitialURL();
+
+      if (url) {
+        await handleDeepLink(url);
+      }
+    }
+
+    const linkingListener = Linking.addEventListener("url", (event) => {
+      handleDeepLink(event.url);
+    });
+
+    return () => {
+      linkingListener.remove();
+    };
+  }, []);
+
+  const handleFirstLaunch = async (
+    deepLinkUrl?: string | null | undefined
+  ): Promise<void> => {
+    try {
+      const response = await dub.trackOpen(deepLinkUrl);
+
+      const destinationURL = response.link?.url;
+      // Navigate to the destination URL
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  // Return your app...
+}
+```
+
+</Step>
+
+<Step title="Track lead events (optional)">
+
+To track lead events, call `trackLead` on the `dub` instance with your customer's external ID, name, and email.
+
+```typescript React Native
+import dub from "@dub/react-native";
+
+try {
+  await dub.trackLead({
+    eventName: "User Sign Up",
+    customerExternalId: user.id,
+    customerName: user.name,
+    customerEmail: user.email,
+  });
+} catch (error) {
+  // Handle sale tracking error
+}
+```
+
+<Accordion title="Lead event attributes">
+  <LeadAttributes />
+</Accordion>
+
+</Step>
+
+<Step title="Track sale events (optional)">
+
+To track sale events, call `trackSale` on the `dub` instance with your customer's user ID and purchase information.
+
+```typescript React Native
+import dub from "@dub/react-native";
+
+try {
+  await dub.trackSale({
+    customerExternalId: user.id,
+    amount: product.price.amount,
+    currency: "usd",
+    eventName: "Purchase",
+  });
+} catch (error) {
+  // Handle sale tracking error
+}
+```
+
+<Accordion title="Sale event attributes">
+  <SaleAttributes />
+</Accordion>
+
+</Step>
+
+</Steps>
