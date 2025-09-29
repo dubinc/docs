@@ -155,6 +155,73 @@ $dub->track->sale($request);
 
 <SaleAttributes />
 
+## Direct sale tracking (without lead events)
+
+For scenarios where you want to track sales directly from clicks without requiring a preceding lead event, you can use the direct sale tracking method. This requires passing the `clickId` parameter along with customer information:
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+const dub = new Dub();
+
+// Get the clickId from the dub_id cookie
+const clickId = getCookie('dub_id'); // Your cookie reading logic
+
+await dub.track.sale({
+  clickId: clickId,
+  customerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  customerName: "John Doe",
+  customerEmail: "john@example.com",
+  customerAvatar: "https://example.com/avatar.jpg",
+  amount: 100,
+  paymentProcessor: "stripe",
+  eventName: "E-book purchase",
+  invoiceId: "123456",
+  currency: "usd",
+});
+```
+
+```python Python
+from dub import Dub
+import os
+
+dub = Dub(token=os.environ['DUB_API_KEY'])
+
+# Get the clickId from the dub_id cookie
+click_id = get_cookie('dub_id')  # Your cookie reading logic
+
+dub.track.sale({
+    'click_id': click_id,
+    'external_id': 'cus_RBfbD57HDzPKpduI8elr5qHA',
+    'customer_name': 'John Doe',
+    'customer_email': 'john@example.com',
+    'customer_avatar': 'https://example.com/avatar.jpg',
+    'amount': 100,
+    'payment_processor': 'stripe',
+    'event_name': 'E-book purchase',
+    'invoice_id': '123456',
+    'currency': 'usd'
+})
+```
+
+</CodeGroup>
+
+### Required parameters for direct sale tracking
+
+When using direct sale tracking, you need to provide:
+
+- `clickId`: The unique click identifier (available from the `dub_id` cookie)
+- `customerExternalId`: Your unique identifier for the customer
+- `customerName`: Customer's name (optional - a random name will be generated if not provided)
+- `customerEmail`: Customer's email address (optional)
+- `customerAvatar`: Customer's avatar URL (optional)
+
+<Note>
+  The `clickId` is automatically stored in the `dub_id` cookie when a user clicks on your Dub link. Make sure you have the [@dub/analytics client-side SDK](/sdks/client-side/introduction) installed to capture this value.
+</Note>
+
 ## Step 2: View conversion results
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
