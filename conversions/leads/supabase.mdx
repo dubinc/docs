@@ -18,9 +18,11 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 ## Configure Supabase
 
-Next, configure Supabase to track lead conversion events in the auth callback function.
+Next, configure Supabase to track lead conversion events. The implementation depends on your authentication flow:
 
-Here's how it works in a nutshell:
+## Auth callback implementation
+
+For OAuth providers (Google, GitHub, etc.) and email signup with verification enabled, implement the `/auth/callback` route:
 
 1. In the `/api/auth/callback` route, check if:
    - the `dub_id` cookie is present.
@@ -132,6 +134,122 @@ export default async function handler(
 
   // return the user to an error page with instructions
   return res.redirect(`${origin}/auth/auth-code-error`);
+}
+```
+
+</CodeGroup>
+
+## Email signup without verification
+
+<Warning>
+The `/auth/callback` route handles most authentication conditions **except** normal user signup with email when email verification is disabled. For this flow, you need to add tracking code directly to your signup page.
+</Warning>
+
+When email verification is disabled, users are immediately signed in after signup without going through the `/auth/callback` route. Add the tracking code directly to your signup form handler:
+
+<CodeGroup>
+
+```typescript Server action (App Router)
+// app/actions/auth.ts
+'use server';
+
+import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
+import { dub } from '@/lib/dub';
+import { redirect } from 'next/navigation';
+
+export async function signUp(formData: FormData) {
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+
+  const supabase = createClient(cookies());
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  // Track the lead conversion if signup was successful
+  if (data.user) {
+    const dubId = cookies().get('dub_id')?.value;
+
+    if (dubId) {
+      await dub.track.lead({
+        clickId: dubId,
+        eventName: 'Sign Up',
+        customerExternalId: data.user.id,
+        customerEmail: data.user.email,
+        customerName: data.user.user_metadata?.name,
+        customerAvatar: data.user.user_metadata?.avatar_url,
+      });
+
+      // Delete the dub_id cookie
+      cookies().delete('dub_id');
+    }
+  }
+
+  redirect('/dashboard');
+}
+```
+
+```typescript API route (Pages Router)
+// pages/api/auth/signup.ts
+import { NextApiRequest, NextApiResponse } from 'next';
+import { createClient } from '@supabase/supabase-js';
+import { dub } from '@/lib/dub';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const { email, password } = req.body;
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+
+    // Track the lead conversion if signup was successful
+    if (data.user) {
+      const { dub_id } = req.cookies;
+
+      if (dub_id) {
+        await dub.track.lead({
+          clickId: dub_id,
+          eventName: 'Sign Up',
+          customerExternalId: data.user.id,
+          customerEmail: data.user.email,
+          customerName: data.user.user_metadata?.name,
+          customerAvatar: data.user.user_metadata?.avatar_url,
+        });
+
+        // Delete the dub_id cookie
+        res.setHeader(
+          'Set-Cookie',
+          'dub_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT'
+        );
+      }
+    }
+
+    res.status(200).json({ user: data.user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 }
 ```
 
