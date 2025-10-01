@@ -18,15 +18,23 @@ In this guide, we will be focusing on tracking new user sign-ups for a SaaS appl
 
 ## Configure Supabase
 
-Next, configure Supabase to track lead conversion events in the auth callback function.
+Next, configure Supabase to track lead conversion events. The implementation depends on your authentication flow:
 
-Here's how it works in a nutshell:
+### For OAuth and email verification flows
+
+For OAuth providers (Google, GitHub, etc.) and email signup with verification enabled, use the `/api/auth/callback` route:
 
 1. In the `/api/auth/callback` route, check if:
    - the `dub_id` cookie is present.
    - the user is a new sign up (created in the last 10 minutes).
 2. If the `dub_id` cookie is present and the user is a new sign up, send a lead event to Dub using `dub.track.lead`
 3. Delete the `dub_id` cookie.
+
+### For email signup without verification
+
+<Warning>
+The `/auth/callback` route handles most authentication conditions **except** normal user signup with email when email verification is disabled. For this flow, you need to add tracking code directly to your signup page.
+</Warning>
 
 <CodeGroup>
 
