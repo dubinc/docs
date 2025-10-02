@@ -1,6 +1,6 @@
 ---
 title: Event types
-og:title: "Dub Webhooks – Event types"
+og:title: "Dub Webhooks – Event types"
 description: "List of available webhook events you can listen to along with their payload examples"
 ---
 
@@ -225,6 +225,7 @@ This event is triggered when a [new lead is created](/api-reference/endpoint/tra
 - `customer`: Details about the customer that signed up.
 - `click`: Details about the click event that led to the lead event.
 - `link`: Details about the referral link that the lead event is associated with.
+- `partner`: Details about the partner associated with the lead event (only present for partner links).
 - `metadata`: Additional metadata associated with the lead event (optional).
 
 Here's an example payload:
@@ -300,6 +301,20 @@ Here's an example payload:
       "testCompletedAt": null,
       "testStartedAt": null
     },
+    "partner": {
+      "id": "pn_1JRB6678XHGBZE95R5PH5QVGS",
+      "name": "John Smith",
+      "email": "john@partner.com",
+      "image": "https://example.com/avatar.jpg",
+      "payoutsEnabledAt": null,
+      "country": "US",
+      "totalClicks": 150,
+      "totalLeads": 25,
+      "totalConversions": 15,
+      "totalSales": 10,
+      "totalSaleAmount": 50000,
+      "totalCommissions": 5000
+    },
     "metadata": null
   }
 }
@@ -314,6 +329,7 @@ This event is triggered when a [new sale is tracked](/api-reference/endpoint/tra
 - `customer`: Details about the customer that made the purchase.
 - `click`: Details about the click event that led to the sale event.
 - `link`: Details about the referral link that the sale event is associated with.
+- `partner`: Details about the partner associated with the sale event (only present for partner links).
 - `sale`: Details about the recorded sale event.
 - `metadata`: Additional metadata associated with the sale event (optional).
 
@@ -389,6 +405,20 @@ Here's an example payload:
       "updatedAt": "2024-08-30T09:57:50.891Z",
       "testCompletedAt": null,
       "testStartedAt": null
+    },
+    "partner": {
+      "id": "pn_1JRB6678XHGBZE95R5PH5QVGS",
+      "name": "Sarah Johnson",
+      "email": "sarah@partner.com",
+      "image": "https://example.com/sarah-avatar.jpg",
+      "payoutsEnabledAt": null,
+      "country": "US",
+      "totalClicks": 200,
+      "totalLeads": 30,
+      "totalConversions": 20,
+      "totalSales": 15,
+      "totalSaleAmount": 75000,
+      "totalCommissions": 7500
     },
     "sale": {
       "amount": 4500,
@@ -527,7 +557,7 @@ Here's an example payload:
 
 Due to the high volume nature of these events, these events are scoped to a specific link.
 
-This means that you need to specify the link when creating a webhook – though you can select multiple links for the same webhook if you'd like.
+This means that you need to specify the link when creating a webhook – though you can select multiple links for the same webhook if you'd like.
 
 ### `link.clicked`
 
