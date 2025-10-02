@@ -1,8 +1,5 @@
-## Deduplication behavior
-
 Lead events are automatically deduplicated to prevent duplicate tracking:
 
 - Events are deduplicated based on the combination of `customerExternalId` (the user ID of the referred customer within your database) and `eventName`
 - If you send multiple lead events with the same customer ID and event name, only the first event will be tracked
 - Subsequent duplicate events will return `null` and won't be tracked
-- Use different event names or customer IDs to track additional events for the same customer
