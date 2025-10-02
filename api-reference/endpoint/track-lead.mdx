@@ -8,3 +8,37 @@ og:title: "Track a lead conversion event with the Dub API"
   Conversions endpoints require a [Business plan](https://dub.co/pricing)
   subscription or higher.
 </Note>
+
+## Deduplication behavior
+
+The `/track/lead` endpoint automatically deduplicates lead events based on the combination of `customerExternalId` and `eventName`. This means:
+
+- If you send multiple lead events with the same `customerExternalId` and `eventName`, only the first event will be tracked
+- Subsequent requests with the same combination will return `null` for the link and the event will not be recorded
+- To track additional events for the same customer, use a different `eventName` or `customerExternalId`
+
+<Warning>
+  Make sure to use unique event names or customer IDs if you need to track multiple lead events for the same customer.
+</Warning>
+
+### Example
+
+```javascript
+// First request - will be tracked
+await dub.track.lead({
+  customerExternalId: "customer_123",
+  eventName: "signup"
+});
+
+// Second request with same customerExternalId + eventName - will be deduplicated
+await dub.track.lead({
+  customerExternalId: "customer_123", 
+  eventName: "signup" // Same combination - returns null
+});
+
+// Third request with different eventName - will be tracked
+await dub.track.lead({
+  customerExternalId: "customer_123",
+  eventName: "activated" // Different eventName - will be tracked
+});
+```
