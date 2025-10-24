@@ -97,7 +97,11 @@
           },
           {
             "group": "Dub Partners",
-            "pages": ["partners/quickstart", "partners/embedded-referrals"]
+            "pages": [
+              "partners/quickstart",
+              "partners/embedded-referrals",
+              "partners/link-based-discounts"
+            ]
           },
           {
             "group": "Integrations",

@@ -5,6 +5,7 @@ description: Track clicks on the client-side using query parameters
 
 import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
 import VerifyTrackClick from "/snippets/verify-track-click.mdx";
+import FetchPartnerDiscountData from "/snippets/fetch-partner-discount-data.mdx";
 
 With the [`@dub/analytics` script](/sdks/client-side/introduction), you can track clicks on the client-side using query parameters (e.g. `?via=john`, `?ref=jane`).
 
@@ -122,87 +123,7 @@ Once you've done that, check if the following is true:
 
 If you're using [Dub Partners](/partners/quickstart) with [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives), the script will automatically fetch the partner and discount data for you when someone lands on your site via a valid referral link.
 
-This data will be stored as a JSON-stringified object in the `dub_partner_data` cookie in the following format:
-
-```json
-{
-  "clickId": "xxx", // unique ID of the click event
-  "partner": {
-    "id": "pn_xxx", // unique ID of the partner on Dub
-    "name": "John Doe", // name of the partner
-    "image": "https://example.com/john.png" // avatar of the partner
-  },
-  "discount": {
-    "id": "disc_xxx", // unique ID of the discount on Dub
-    "amount": 25, // discount amount (either a percentage or a fixed amount)
-    "type": "percentage", // type of the discount (either "percentage" or "fixed")
-    "maxDuration": 3, // maximum duration of the discount in months
-    "couponId": "XZuejd0Q", // Stripe coupon code
-    "couponTestId": "2NMXz81x" // Stripe test coupon ID
-  }
-}
-```
-
-You can access partner and discount data in your application code using the `useAnalytics()` hook. If you’re working in a non-React environment, you can use the `DubAnalytics` object directly.
-
-Here is a quick example of how you can display a discount banner using the `useAnalytics()` hook:
-
-<CodeGroup>
-
-```typescript React/Next.js
-// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
-import { useAnalytics } from "@dub/analytics/react";
-
-function DiscountBanner() {
-  const { partner, discount } = useAnalytics();
-
-  if (!partner || !discount) {
-    return null;
-  }
-
-  return (
-    <div className="flex items-center gap-2">
-      <img
-        src={partner.image}
-        alt={partner.name}
-        className="size-6 rounded-full"
-      />
-      <p>
-        {partner.name} referred you to Acme and gave you {discount.amount}{" "}
-        {discount.type} off
-      </p>
-    </div>
-  );
-}
-```
-
-```javascript Other Frameworks
-// Display a banner that says: _"John referred you to Acme and gave you 25% off"_
-dubAnalytics("ready", function () {
-  if (DubAnalytics.partner && DubAnalytics.discount) {
-    const banner = document.createElement("div");
-
-    banner.innerHTML = `
-      <div class="flex items-center gap-2">
-        <img src="${DubAnalytics.partner.image}" alt="${DubAnalytics.partner.name}" class="size-6 rounded-full" />
-        <p>${DubAnalytics.partner.name} referred you to Acme and gave you ${DubAnalytics.discount.amount} ${DubAnalytics.discount.type} off</p>
-      </div>
-    `;
-    document.body.appendChild(banner);
-  }
-});
-```
-
-</CodeGroup>
-
-Here's an example of how the discount banner will look like:
-
-<Frame>
-  <img
-    src="/images/dub-partner-data.png"
-    alt="A screenshot of the Dub partner data example"
-  />
-</Frame>
+<FetchPartnerDiscountData />
 
 ## Manually tracking clicks with the `trackClick()` function
 
