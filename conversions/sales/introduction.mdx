@@ -14,6 +14,18 @@ import ViewConversions from "/snippets/view-conversions.mdx";
 
 In this guide, we will be focusing on tracking sales conversion events with Dub.
 
+## Sale tracking methods
+
+Dub supports two methods for tracking sale events:
+
+1. **Traditional method**: Requires a preceding lead event (click → lead → sale)
+2. **Direct sale tracking**: Track sales directly from clicks without a lead event (click → sale)
+
+The direct sale tracking method is particularly useful for:
+- One-time purchases where users don't sign up
+- E-commerce scenarios without a traditional lead/signup flow
+- Simplified conversion funnels
+
 <ConversionTrackingPrerequisites />
 
 ## Step 1: Configure sale tracking
@@ -142,6 +154,73 @@ $dub->track->sale($request);
 </CodeGroup>
 
 <SaleAttributes />
+
+## Direct sale tracking (without lead events)
+
+For scenarios where you want to track sales directly from clicks without requiring a preceding lead event, you can use the direct sale tracking method. This requires passing the `clickId` parameter along with customer information:
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+const dub = new Dub();
+
+// Get the clickId from the dub_id cookie
+const clickId = getCookie('dub_id'); // Your cookie reading logic
+
+await dub.track.sale({
+  clickId: clickId,
+  customerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  customerName: "John Doe",
+  customerEmail: "john@example.com",
+  customerAvatar: "https://example.com/avatar.jpg",
+  amount: 100,
+  paymentProcessor: "stripe",
+  eventName: "E-book purchase",
+  invoiceId: "123456",
+  currency: "usd",
+});
+```
+
+```python Python
+from dub import Dub
+import os
+
+dub = Dub(token=os.environ['DUB_API_KEY'])
+
+# Get the clickId from the dub_id cookie
+click_id = get_cookie('dub_id')  # Your cookie reading logic
+
+dub.track.sale({
+    'click_id': click_id,
+    'external_id': 'cus_RBfbD57HDzPKpduI8elr5qHA',
+    'customer_name': 'John Doe',
+    'customer_email': 'john@example.com',
+    'customer_avatar': 'https://example.com/avatar.jpg',
+    'amount': 100,
+    'payment_processor': 'stripe',
+    'event_name': 'E-book purchase',
+    'invoice_id': '123456',
+    'currency': 'usd'
+})
+```
+
+</CodeGroup>
+
+### Required parameters for direct sale tracking
+
+When using direct sale tracking, you need to provide:
+
+- `clickId`: The unique click identifier (available from the `dub_id` cookie)
+- `customerExternalId`: Your unique identifier for the customer
+- `customerName`: Customer's name (optional - a random name will be generated if not provided)
+- `customerEmail`: Customer's email address (optional)
+- `customerAvatar`: Customer's avatar URL (optional)
+
+<Note>
+  The `clickId` is automatically stored in the `dub_id` cookie when a user clicks on your Dub link. Make sure you have the [@dub/analytics client-side SDK](/sdks/client-side/introduction) installed to capture this value.
+</Note>
 
 ## Step 2: View conversion results
 
