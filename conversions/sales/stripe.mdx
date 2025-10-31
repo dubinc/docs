@@ -426,6 +426,34 @@ If you're not using Stripe Adaptive Pricing, Dub will record the sale amount in 
   add the ability to customize that in the future.
 </Note>
 
+## Tax handling
+
+When tracking sale conversions from Stripe, Dub automatically excludes taxes from the final sale amount to ensure accurate revenue reporting.
+
+For **checkout sessions**, Dub calculates the sale amount by subtracting the tax amount from the total:
+
+```javascript
+// Sale amount calculation for checkout sessions
+saleAmount = amount_total - total_details.amount_tax
+```
+
+For **invoices**, Dub uses the `total_excluding_tax` field when available:
+
+```javascript
+// Sale amount calculation for invoices
+saleAmount = total_excluding_tax ?? amount_paid
+```
+
+This ensures that the sale amounts recorded in Dub reflect the actual revenue before taxes, providing more accurate metrics for:
+
+- Revenue tracking and reporting
+- Partner commission calculations
+- Analytics and conversion metrics
+
+<Note>
+  Tax amounts are automatically excluded from all sale events tracked through the Stripe integration, including one-time purchases, subscriptions, and recurring invoices.
+</Note>
+
 ## View conversion results
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
