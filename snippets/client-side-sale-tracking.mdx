@@ -30,7 +30,7 @@ export function OrderConfirmationPage() {
         amount: parseInt(amount), // Amount in cents
         invoiceId: invoiceId || undefined,
 
-        // For direct sale tracking (without prior lead event):
+        // Additional props for direct sale tracking (without prior lead event):
         // clickId: "cm3w...", // Read from dub_id cookie
         // customerName: "John Doe",
         // customerEmail: "john@example.com",
@@ -72,7 +72,7 @@ export function OrderConfirmationPage() {
           amount: parseInt(amount), // Amount in cents
           invoiceId: invoiceId || undefined,
 
-          // For direct sale tracking (without prior lead event):
+          // Additional props for direct sale tracking (without prior lead event):
           // clickId: "cm3w...", // Read from dub_id cookie
           // customerName: "John Doe",
           // customerEmail: "john@example.com",
@@ -157,7 +157,7 @@ export function CheckoutForm() {
           amount: 5000, // $50.00
           invoiceId: "in_1MtHbELkdIwH",
 
-          // For direct sale tracking (without prior lead event):
+          // Additional props for direct sale tracking (without prior lead event):
           // clickId: "cm3w...", // Read from dub_id cookie
           // customerName: "John Doe",
           // customerEmail: "john@example.com",
