@@ -59,7 +59,7 @@ export function OrderConfirmationPage() {
         // Track the sale event
         dubAnalytics.trackSale({
           eventName: "Purchase",
-          customerExternalId: customerId,
+          customerExternalId: customerId, // can also be customer email
           amount: parseInt(amount), // Amount in cents
           invoiceId: invoiceId || undefined,
         });
