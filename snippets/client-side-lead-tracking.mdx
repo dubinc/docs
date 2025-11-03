@@ -2,7 +2,76 @@ import LeadAttributes from "/snippets/lead-attributes.mdx";
 
 Once the analytics script is installed, you can start tracking lead events in your application on the client-side.
 
-Here are the quickstart examples for tracking lead events:
+### Track leads from URL query parameters
+
+If you redirect users to a thank-you page after a successful action, you can track leads by reading query parameters from the URL.
+
+<CodeGroup>
+
+```typescript React
+import { useAnalytics } from "@dub/analytics/react";
+import { useEffect } from "react";
+
+export function ThankYouPage() {
+  const { trackLead } = useAnalytics();
+
+  useEffect(() => {
+    // Get query parameters from URL
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+    const name = params.get("name");
+
+    if (email) {
+      // Track the lead event
+      trackLead({
+        eventName: "Sign Up",
+        customerExternalId: email, // can also be customer email
+        customerName: name || undefined,
+        customerEmail: email,
+      });
+    }
+  }, [trackLead]);
+
+  return <div>Thank you for signing up!</div>;
+}
+```
+
+```html HTML / Other Frameworks
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You</title>
+  </head>
+  <body>
+    <div>Thank you for signing up!</div>
+
+    <script>
+      // Get query parameters from URL
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
+      const name = params.get("name");
+
+      if (email) {
+        // Track the lead event
+        dubAnalytics.trackLead({
+          eventName: "Sign Up",
+          customerExternalId: email, // can also be customer email
+          customerName: name || undefined,
+          customerEmail: email,
+        });
+      }
+    </script>
+  </body>
+</html>
+```
+
+</CodeGroup>
+
+### Track leads from form submissions
+
+You can also track leads directly when users submit a form on your website.
 
 <CodeGroup>
 
@@ -46,7 +115,7 @@ export function SignUpForm() {
 }
 ```
 
-```html Other
+```html HTML / Other Frameworks
 <!DOCTYPE html>
 <html lang="en">
   <head>

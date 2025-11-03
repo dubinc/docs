@@ -9,3 +9,7 @@ Here are the properties you can include when sending a sale event:
 | `invoiceId`          | No       | The invoice ID of the sale. Can be used as a idempotency key – only one sale event can be recorded for a given invoice ID.                             |
 | `currency`           | No       | The currency of the sale. Defaults to "usd".                                                                                                           |
 | `metadata`           | No       | An object containing additional information about the sale.                                                                                            |
+| `clickId`            | No       | **[For direct sale tracking]**: The unique ID of the click that the sale conversion event is attributed to. You can read this value from `dub_id` cookie. |
+| `customerName`       | No       | **[For direct sale tracking]**: The name of the customer. If not passed, a random name will be generated.                                              |
+| `customerEmail`      | No       | **[For direct sale tracking]**: The email address of the customer.                                                                                     |
+| `customerAvatar`     | No       | **[For direct sale tracking]**: The avatar URL of the customer.                                                                                        |
