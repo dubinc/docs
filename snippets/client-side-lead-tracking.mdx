@@ -57,7 +57,7 @@ export function ThankYouPage() {
         // Track the lead event
         dubAnalytics.trackLead({
           eventName: "Sign Up",
-          customerExternalId: email,
+          customerExternalId: email, // can also be customer email
           customerName: name || undefined,
           customerEmail: email,
         });
