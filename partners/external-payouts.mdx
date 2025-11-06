@@ -84,7 +84,27 @@ If the webhook fails after all retries, you'll need to manually process the payo
 
 ## Setting up external payouts
 
-### 1. Set up webhook receiver
+### 1. Configure partner tenant IDs
+
+For external payouts to work, each partner must have a `tenantId` configured. This is your internal identifier for the partner in your system.
+
+You can set the tenant ID when:
+
+- [Creating a partner via API](/api-reference/endpoint/create-a-partner)
+- [Updating a partner in your dashboard](https://dub.co/help/article/managing-program-partners#advanced-settings)
+- Importing partners from another platform
+
+<Frame>
+  <img src="/images/partner-advanced-settings-modal.png" alt="Partner tenant ID"/>
+</Frame>
+
+<Warning>
+  Partners without a `tenantId` will not receive external payouts. In hybrid
+  mode, they'll need to connect a bank account to receive payments directly from
+  Dub.
+</Warning>
+
+### 2. Set up webhook receiver
 
 Create a webhook endpoint that listens for the `payout.confirmed` event. See our [webhook setup guide](/concepts/webhooks/introduction) for detailed instructions.
 
@@ -132,25 +152,15 @@ export const POST = async (req: Request) => {
 };
 ```
 
-### 3. Configure partner tenant IDs
+### 3. Verify setup
 
-For external payouts to work, each partner must have a `tenantId` configured. This is your internal identifier for the partner in your system.
+After configuring your partners and webhook receiver, test the integration to ensure everything works correctly:
 
-You can set the tenant ID when:
+1. **Confirm a payout** in your Dub dashboard for a partner with a configured `tenantId`
+2. **Check your webhook receiver** to verify it received the `payout.confirmed` event
+3. **Verify the payout status** in your Dub dashboard shows as "completed" after your webhook returns a 2xx response
 
-- [Creating a partner via API](/api-reference/endpoint/create-a-partner)
-- [Updating a partner in your dashboard](https://dub.co/help/article/managing-program-partners#advanced-settings)
-- Importing partners from another platform
-
-<Frame>
-  <img src="/images/partner-advanced-settings-modal.png" alt="Partner tenant ID"/>
-</Frame>
-
-<Warning>
-  Partners without a `tenantId` will not receive external payouts. In hybrid
-  mode, they'll need to connect a bank account to receive payments directly from
-  Dub.
-</Warning>
+If the payout is marked as "completed", your external payout integration is working correctly. If it's marked as "failed", check the [troubleshooting section](#troubleshooting) below.
 
 ## Webhook payload
 
