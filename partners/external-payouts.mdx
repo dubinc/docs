@@ -200,7 +200,9 @@ const payoutId = event.data.id;
 
 // Check if payout already processed
 const existing = await db.payouts.findUnique({
-  where: { dubPayoutId: payoutId },
+  where: { 
+    dubPayoutId: payoutId 
+  },
 });
 
 if (existing) {
@@ -222,13 +224,6 @@ Log all webhook events for debugging and reconciliation.
 
 </Accordion>
 
-<Accordion title="Reconcile payouts regularly">
-  Periodically compare payouts in your system with Dub's records to catch any
-  discrepancies. You can use the [Commissions
-  API](/api-reference/endpoint/retrieve-a-list-of-commissions) to fetch payout
-  data.
-</Accordion>
-
 <Accordion title="Monitor webhook health">
   Set up alerts for webhook failures in your [webhook
   settings](https://app.dub.co/settings/webhooks). Dub will automatically
@@ -242,16 +237,17 @@ Log all webhook events for debugging and reconciliation.
 <AccordionGroup>
 
 <Accordion title="Webhook not receiving events">
-  1. Verify your webhook is subscribed to the `payout.confirmed` event 2. Check
-  that your webhook URL is publicly accessible 3. Ensure your endpoint returns a
-  2xx status code 4. Review webhook logs in your [webhook
-  settings](https://app.dub.co/settings/webhooks)
+  - Verify your webhook is subscribed to the `payout.confirmed` event
+  - Check that your webhook URL is publicly accessible
+  - Ensure your endpoint returns a 2xx status code
+  - Review webhook logs in your [webhook settings](https://app.dub.co/settings/webhooks)
 </Accordion>
 
 <Accordion title="Partner not receiving external payouts">
-  1. Verify the partner has a `tenantId` configured 2. Check that your program's
-  payout mode is set to Hybrid or External 3. Ensure the partner meets the
-  minimum payout threshold 4. Confirm the partner's status is "approved"
+  - Verify the partner has a `tenantId` configured
+  - Check that your program's payout mode is set to Hybrid or External
+  - Ensure the partner meets the minimum payout threshold
+  - Confirm the partner's status is "approved"
 </Accordion>
 
 <Accordion title="Payout marked as failed">
@@ -259,9 +255,6 @@ Check the failure reason in your dashboard. Common causes:
 - Webhook endpoint returned non-2xx status code
 - Webhook endpoint timed out (30 second limit)
 - Webhook endpoint is unreachable
-
-You can manually mark the payout as completed once you've processed it externally.
-
 </Accordion>
 
 </AccordionGroup>
