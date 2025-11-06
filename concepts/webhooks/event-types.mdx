@@ -557,6 +557,60 @@ Here's an example payload:
 ```
 </Accordion>
 
+### `payout.confirmed`
+
+This event is triggered when a payout is confirmed and ready to be processed externally. This event is only sent for programs configured with external or hybrid payout modes.
+
+The event payload contains the following:
+
+- `id`: The unique identifier for the payout
+- `invoiceId`: The invoice ID associated with this payout
+- `amount`: The payout amount in cents
+- `currency`: The currency code (e.g., "USD")
+- `status`: The payout status (typically "completed" for external payouts)
+- `description`: A description of the payout
+- `periodStart` / `periodEnd`: The commission period this payout covers
+- `mode`: The payout mode ("external" for external payouts)
+- `partner`: Details about the partner receiving the payout, including their `tenantId`
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json payout.confirmed
+{
+  "id": "evt_...",
+  "event": "payout.confirmed",
+  "createdAt": "2025-10-22T15:50:13.661Z",
+  "data": {
+    "id": "po_1K869T6CWEH4NB78NS3QYHDJE",
+    "invoiceId": "inv_1K94KX5ZWHTWFG07NP96AY90F",
+    "amount": 5000,
+    "currency": "USD",
+    "status": "completed",
+    "description": "Dub Partners payout (Acme)",
+    "periodStart": "2025-10-22T15:49:33.343Z",
+    "periodEnd": "2025-10-31T18:29:59.999Z",
+    "createdAt": "2025-10-22T15:50:13.661Z",
+    "paidAt": null,
+    "mode": "external",
+    "partner": {
+      "id": "cm6v2l38p000zubyl5fly3i7w",
+      "name": "Matthew Hayden",
+      "email": "matthew@example.com",
+      "image": null,
+      "country": "US",
+      "tenantId": "64dc9a8c-5cf9-4446-b53b-cdc15199fafc",
+      "status": "approved"
+    }
+  }
+}
+```
+</Accordion>
+
+<Note>
+Learn more about setting up external payouts in the [External payouts guide](/partners/external-payouts).
+</Note>
+
 ## Link-level events
 
 Due to the high volume nature of these events, these events are scoped to a specific link.
