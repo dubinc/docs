@@ -559,15 +559,13 @@ Here's an example payload:
 
 ### `payout.confirmed`
 
-This event is triggered when a payout is confirmed and ready to be processed externally. This event is only sent for programs configured with external or hybrid payout modes.
+This event is triggered when a payout is confirmed and ready to be processed externally. This event is only sent for programs configured with **external** or **hybrid** payout modes.
 
 The event payload contains the following:
 
-- `id`: The unique identifier for the payout
-- `invoiceId`: The invoice ID associated with this payout
 - `amount`: The payout amount in cents
-- `currency`: The currency code (e.g., "USD")
-- `status`: The payout status (typically "completed" for external payouts)
+- `currency`: The currency code
+- `status`: The payout status (typically "processing" for external payouts)
 - `description`: A description of the payout
 - `periodStart` / `periodEnd`: The commission period this payout covers
 - `mode`: The payout mode ("external" for external payouts)
@@ -578,7 +576,7 @@ Here's an example payload:
 <Accordion title="Sample payload">
 ```json payout.confirmed
 {
-  "id": "evt_...",
+  "id": "evt_b9ywgxWqai2glUpCQjclB17kM",
   "event": "payout.confirmed",
   "createdAt": "2025-10-22T15:50:13.661Z",
   "data": {
@@ -586,7 +584,7 @@ Here's an example payload:
     "invoiceId": "inv_1K94KX5ZWHTWFG07NP96AY90F",
     "amount": 5000,
     "currency": "USD",
-    "status": "completed",
+    "status": "processing",
     "description": "Dub Partners payout (Acme)",
     "periodStart": "2025-10-22T15:49:33.343Z",
     "periodEnd": "2025-10-31T18:29:59.999Z",
@@ -608,7 +606,8 @@ Here's an example payload:
 </Accordion>
 
 <Note>
-Learn more about setting up external payouts in the [External payouts guide](/partners/external-payouts).
+  Learn more about external payouts in the [External payouts
+  guide](/partners/external-payouts).
 </Note>
 
 ## Link-level events
