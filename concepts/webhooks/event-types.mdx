@@ -31,6 +31,7 @@ These events are triggered in the context of your entire workspace:
 - [`link.deleted`](#link-deleted)
 - [`lead.created`](#lead-created)
 - [`sale.created`](#sale-created)
+- [`partner.application_submitted`](#partner-application-submitted)
 - [`partner.enrolled`](#partner-enrolled)
 - [`commission.created`](#commission-created)
 - [`payout.confirmed`](#payout-confirmed)
@@ -430,6 +431,62 @@ Here's an example payload:
       "invoiceId": null
     },
     "metadata": null
+  }
+}
+```
+</Accordion>
+
+### `partner.application_submitted`
+
+This event is triggered when a partner submits an application to join your partner program. The event payload contains the following:
+
+- `id`: The application ID.
+- `createdAt`: The timestamp when the application was submitted.
+- `partner`: Details about the partner who submitted the application, including their enrollment status and contact information.
+- `applicationFormData`: An array of form fields submitted by the partner, with labels and values.
+
+Here's an example payload:
+
+<Accordion title="Sample payload">
+```json partner.application_submitted
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "partner.application_submitted",
+  "createdAt": "2025-11-06T11:25:59.264Z",
+  "data": {
+    "id": "pga_1K9CEN4JWYACNHS4DR3PWNR2F",
+    "createdAt": "2025-11-06T11:25:59.264Z",
+    "partner": {
+      "id": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+      "name": "Matthew Hayden",
+      "email": "matthew@example.com",
+      "companyName": null,
+      "image": null,
+      "description": "I'm a content creator who works with brands to grow their business.",
+      "country": "US",
+      "groupId": "grp_1K9BZE1K2RWYAWB2K1YN5TY7F",
+      "status": "pending",
+      "website": null,
+      "youtube": null,
+      "twitter": null,
+      "linkedin": null,
+      "instagram": null,
+      "tiktok": null
+    },
+    "applicationFormData": [
+      {
+        "label": "Website",
+        "value": "https://example.com/"
+      },
+      {
+        "label": "How do you plan to promote Acme?",
+        "value": "I'll promote Acme by sharing it on my social platforms and writing a blog post."
+      },
+      {
+        "label": "Any additional questions or comments?",
+        "value": null
+      }
+    ]
   }
 }
 ```
