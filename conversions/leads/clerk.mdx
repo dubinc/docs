@@ -218,6 +218,20 @@ Here's a quick summary of the steps:
           dubClickId: dubId || "n/a",
         },
       });
+
+    /**
+     If have existing public metadata in your clerk user you will want to merge the existing metadata with the new metadata.
+     This is to avoid losing any existing metadata.
+
+      const usermetadata = await clerk.users.getUser(id);
+
+      await clerk.users.updateUser(id, {
+        publicMetadata: {
+          ...usermetadata.publicMetadata,
+          dubClickId: dubId || 'n/a',
+        });
+     */
+
       const res = NextResponse.json({ ok: true });
       // Delete the dub_id cookie
       res.cookies.set("dub_id", "", {
