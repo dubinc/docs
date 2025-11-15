@@ -31,6 +31,18 @@ Depending on your Dub plan, you can expect the following rate limits:
 | [Advanced](https://dub.co/pricing) 			| 3,000 requests per minute                                               |
 | [Enterprise](https://dub.co/enterprise)               | Custom – [reach out to sales](https://dub.co/contact/sales) for details |
 
+## Rate limits by endpoint
+
+Analytics endpoints have separate, more restrictive rate limits to ensure optimal performance:
+
+| Plan                                                  | Analytics API rate limit                                                |\n| ----------------------------------------------------- | ----------------------------------------------------------------------- |\n| Free                                                  | 1 request per second                                                    |\n| [Pro](https://dub.co/pricing)           \t\t| 2 requests per second                                                   |\n| [Business](https://dub.co/pricing) \t\t\t| 4 requests per second                                                   |\n| [Advanced](https://dub.co/pricing) \t\t\t| 8 requests per second                                                   |\n| [Enterprise](https://dub.co/enterprise)               | 20 requests per second                                                  |
+
+Analytics endpoints include:
+- `/analytics/*` - All analytics retrieval endpoints
+- `/events/*` - All event tracking endpoints
+
+All other API endpoints use the standard rate limits listed in the [Rate limits by plan](#rate-limits-by-plan) section above.
+
 ## How to comply with rate limits
 
 Here are some tips on how you can optimize your API setup to comply with our rate limits:
