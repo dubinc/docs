@@ -68,6 +68,7 @@
                     "pages": [
                       "conversions/leads/hubspot",
                       "conversions/leads/segment",
+                      "conversions/leads/google-tag-manager",
                       "conversions/leads/clerk",
                       "conversions/leads/better-auth",
                       "conversions/leads/next-auth",
@@ -86,9 +87,10 @@
                   {
                     "group": "Third-party integrations",
                     "pages": [
-                      "conversions/sales/segment",
                       "conversions/sales/stripe",
-                      "conversions/sales/shopify"
+                      "conversions/sales/shopify",
+                      "conversions/sales/segment",
+                      "conversions/sales/google-tag-manager"
                     ]
                   }
                 ]
