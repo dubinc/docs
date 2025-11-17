@@ -1,11 +1,12 @@
 ---
 title: "Google Tag Manager"
+sidebarTitle: GTM (Analytics)
 "og:title": "How to track sales conversion events with Google Tag Manager and Dub"
 description: "Learn how to track sales conversion events with Google Tag Manager and Dub"
 og:image: https://assets.dub.co/cms/gtm-integration.jpeg
 ---
 
-import ConversionTrackingPrerequisites from "/snippets/conversion-tracking-prerequisites.mdx";
+import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
 import SalesAttributes from "/snippets/sale-attributes.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
 
@@ -19,176 +20,31 @@ When it comes to [conversion tracking](/conversions/quickstart), a `sale` event 
 - Subscribing to a paid plan
 - Usage expansion (upgrading from one plan to another)
 
-In this guide, we will be focusing on tracking sales events for a SaaS application that uses Google Tag Manager to track conversions.
+In this guide, we will be focusing on tracking sales events for a SaaS application that uses Google Tag Manager to manage client-side tracking scripts.
 
-<ConversionTrackingPrerequisites />
+## Prerequisites
 
-## Configure Google Tag Manager server-side tracking
+<EnableConversionTracking />
+
+## Set up Dub Analytics in Google Tag Manager
 
 <Tip>
-  If you've already set up the [Dub GTM Server Client and Tag for lead
-  tracking](/conversions/leads/google-tag-manager), you can skip ahead to step
-  5.
+  If you've already set up the [Dub Analytics script for lead
+  tracking](/conversions/leads/google-tag-manager), you can skip to Step 2.
 </Tip>
 
-To track sales conversion events with Google Tag Manager, you'll need to set up a server container and configure a custom client to handle Dub conversion events.
+To track sales conversion events with Google Tag Manager, you'll need to install the Dub analytics script and configure sales tracking tags.
 
-### 1. Set up GTM Server Container
+### Step 1: Add Dub Analytics Script to GTM
 
 <Tip>
-  If you've already set up the [Dub GTM Server Client and Tag for lead
+  If you've already set up the [Dub Analytics script for lead
   tracking](/conversions/leads/google-tag-manager), you can skip this step.
 </Tip>
 
-In Google Tag Manager, you'll need to use an existing server container or [create a new one](https://youtu.be/waqBSk3vkko). Server containers are the foundation for server-side tracking and allow you to process events before they reach their final destinations.
+First, you'll need to add the Dub analytics script to your website using Google Tag Manager.
 
-- If you already have a server container set up, you can use that
-- If not, [create a new server container in your GTM workspace](https://developers.google.com/tag-platform/learn/sst-fundamentals/4-sst-setup-container)
-
-### 2. Import Dub GTM Server Client Template
-
-<Tip>
-  If you've already set up the [Dub GTM Server Client and Tag for lead
-  tracking](/conversions/leads/google-tag-manager), you can skip this step.
-</Tip>
-
-Inside your GTM server container, navigate to the **Templates** tab. Under **Client Templates**, click the **New** button.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-new-client-template.png"
-    alt="GTM New Client Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-This will open up the **Template Editor**. In the top right corner, click on the **⋮** button and select **Import**.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-import-client-template.png"
-    alt="GTM Import Client Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-Download the [gtm-server-client-template/template.tpl](https://github.com/dubinc/gtm-server-client-template/blob/main/template.tpl) file and upload it to the Template Editor. You'll see a preview of the template:
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-server-client-template.png"
-    alt="GTM Server Client Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-Click the **Save** button in the top right to save the template.
-
-### 3. Create Dub Server Client
-
-<Tip>
-  If you've already set up the [Dub GTM Server Client and Tag for lead
-  tracking](/conversions/leads/google-tag-manager), you can skip this step.
-</Tip>
-
-Next, you'd want to create a new GTM Server Client using the imported template.
-
-In your GTM server container, navigate to the **Clients** tab and click **New**.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-new-server-client.png"
-    alt="GTM New Server Client"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-This will open up the client configuration page, where you can choose a client type to begin setup. Under **Custom**, select the **Dub GTM Server Client** template that you created in step 2.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-choose-client-type.png"
-    alt="GTM Choose Client Type"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-Make sure your client configuration is set to the following:
-
-- Client Name: **Dub GTM Server Client**
-- Priority: **0**
-- Request Path: `/dub/track`
-- Debug Logging: (optional)
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-server-client.png"
-    alt="GTM Server Client"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-<Note>
-  Clients in GTM Server are adapters that act as bridges between the software
-  running on a user's device and your server container. They receive requests
-  and transform them into events that can be processed by tags.
-</Note>
-
-### 4. Import Dub GTM Server Tag Template
-
-<Tip>
-  If you've already set up the [Dub GTM Server Client and Tag for lead
-  tracking](/conversions/leads/google-tag-manager), you can skip this step.
-</Tip>
-
-Next, you'll want to import the Dub GTM Server Tag template to handle sales tracking.
-
-In your GTM server container, navigate to the **Templates** tab once again. Under **Tag Templates**, click the **New** button.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-new-tag-template.png"
-    alt="GTM New Tag Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-This will open up the **Template Editor**. In the top right corner, click on the **⋮** button and select **Import**.
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-import-client-template.png"
-    alt="GTM Import Client Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-Download the [gtm-server-tag-template/template.tpl](https://github.com/dubinc/gtm-server-tag-template/blob/main/template.tpl) file and upload it to the Template Editor. You'll see a preview of the template:
-
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-server-tag-template.png"
-    alt="Dub GTM Server Tag Template"
-    width="1440"
-    height="1024"
-  />
-</Frame>
-
-Click the **Save** button in the top right to save the template.
-
-### 5. Add Sales Tracking Tag
-
-Last but not least, you'll want to create a new GTM Server Tag using the imported template.
-
-In your GTM server container, navigate to the **Tags** tab and click **New**.
+In your GTM workspace, navigate to the **Tags** section and click **New** to create a new tag.
 
 <Frame>
   <img
@@ -199,95 +55,167 @@ In your GTM server container, navigate to the **Tags** tab and click **New**.
   />
 </Frame>
 
-This will open up the tag configuration page. Under **Tag Configuration**, select the **Dub Conversion Tag** server tag template that you created in step 4.
+Select **Custom HTML** as the tag type and add the following code:
 
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-choose-tag-type.png"
-    alt="GTM Choose Tag Type"
-    width="1440"
-    height="1024"
-  />
-</Frame>
+```html
+<script>
+  !(function (c, n) {
+    c[n] =
+      c[n] ||
+      function () {
+        (c[n].q = c[n].q || []).push(arguments);
+      };
+    ["trackClick", "trackLead", "trackSale"].forEach(
+      (t) => (c[n][t] = (...a) => c[n](t, ...a))
+    );
+    var s = document.createElement("script");
+    s.defer = 1;
+    s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
+    s.setAttribute("data-publishable-key", "dub_pk_xxxxxxxx"); // Replace with your publishable key
+    document.head.appendChild(s);
+  })(window, "dubAnalytics");
+</script>
+```
 
-Make sure your tag configuration is set to the following:
+<Warning>
+  Make sure to replace `dub_pk_xxxxxxxx` with your actual [publishable
+  key](https://dub.co/docs/conversions/quickstart#step-2-generate-a-publishable-key)
+  from your Dub workspace.
+</Warning>
 
-- **Dub API Key**: Your [Dub API key](https://dub.co/docs/api-reference/tokens) (starts with `dub_`)
-- **Event**: Select "Track sale" from the dropdown
-- **Customer External ID**: `customerExternalId` from the event data
-- **Amount**: `amount` from the event data (in cents)
-- **Currency**: `currency` from the event data (e.g., "usd")
-- **Event Name**: `eventName` from the event data (e.g., "Purchase")
-- **Payment Processor**: `paymentProcessor` from the event data (e.g., "stripe")
-- **Invoice ID**: Map to the `invoiceId` from the event data (optional)
-- **Lead Event Name**: Map to the `leadEventName` from the event data (optional)
-- **Metadata**: Map to the `metadata` from the event data (optional)
+Configure the tag to fire on **All Pages** by setting the trigger to **All Pages - Page View**.
 
-<Frame>
-  <img
-    src="/images/conversions/google-tag-manager/gtm-track-sale-tag.png"
-    alt="GTM Sales Tracking Tag"
-    width="1440"
-    height="1024"
-  />
-</Frame>
+Name this tag "Dub Analytics Script" and save it.
 
-Under the **Triggering** section, configure when the tag should fire:
+### Step 2: Create Sales Tracking Tag for Checkout Forms
 
-- Click **+** to add a new trigger
-- Select **Custom Event** as the trigger type
-- Set the **Event Name** to match the event name from the Dub Server Client. Default is `dub_conversion`
-- Add a condition to filter for sales events:
-  - **Variable**: Select a variable that contains the event type
-  - **Operator**: Equals
-  - **Value**: "Purchase"
-- Name the trigger "Dub Sales Event Trigger" and save it
+Next, create a tag to track sales when users complete checkout forms on your website.
+
+Create another **Custom HTML** tag with the following code:
+
+```html
+<script>
+  (function () {
+    // Get checkout data - customize these selectors based on your form
+    var customerId = document.getElementById("customer_id")
+      ? document.getElementById("customer_id").value
+      : "";
+    var amount = document.getElementById("amount")
+      ? document.getElementById("amount").value
+      : "";
+    var invoiceId = document.getElementById("invoice_id")
+      ? document.getElementById("invoice_id").value
+      : "";
+
+    // Only track if customer ID and amount are present
+    if (customerId && amount) {
+      // Track the sale event
+      dubAnalytics.trackSale({
+        eventName: "Purchase",
+        customerExternalId: customerId,
+        amount: parseInt(amount), // Amount in cents
+        invoiceId: invoiceId || undefined,
+        currency: "usd", // Customize as needed
+        paymentProcessor: "stripe", // Customize as needed
+      });
+    }
+  })();
+</script>
+```
+
+<Note>
+  **Important**: You'll need to customize the DOM selectors
+  (`getElementById('customer_id')`, `getElementById('amount')`, etc.) to match
+  your actual checkout form field IDs or use different methods to capture the
+  form data based on your website's structure.
+</Note>
+
+Configure this tag to fire on **Form Submission** by creating a new trigger:
+
+- Trigger Type: **Form Submission**
+- This trigger fires on: **Some Forms** (or **All Forms** if you want to track all form submissions)
+- Add conditions to specify which forms should trigger sales tracking (e.g., checkout forms)
+
+Name this tag "Dub Sales Tracking - Checkout Form" and save it.
+
+### Step 3: Create Sales Tracking Tag for Order Confirmation Pages
+
+For tracking sales on order confirmation pages (recommended approach), create another **Custom HTML** tag:
+
+```html
+<script>
+  (function () {
+    // Get query parameters from URL
+    var params = new URLSearchParams(window.location.search);
+    var customerId = params.get("customer_id");
+    var amount = params.get("amount");
+    var invoiceId = params.get("invoice_id");
+
+    // Only track if customer ID and amount are present
+    if (customerId && amount) {
+      // Track the sale event
+      dubAnalytics.trackSale({
+        eventName: "Purchase",
+        customerExternalId: customerId,
+        amount: parseInt(amount), // Amount in cents
+        invoiceId: invoiceId || undefined,
+        currency: "usd", // Customize as needed
+        paymentProcessor: "stripe", // Customize as needed
+      });
+    }
+  })();
+</script>
+```
+
+Configure this tag to fire on specific pages by creating a **Page View** trigger with conditions:
+
+- Trigger Type: **Page View**
+- This trigger fires on: **Some Page Views**
+- Add conditions like:
+  - **Page URL** contains `/order-confirmation`
+  - Or **Page Path** equals `/checkout/success`
+  - Or whatever URL pattern matches your order confirmation pages
+
+Name this tag "Dub Sales Tracking - Order Confirmation" and save it.
 
 <SalesAttributes />
 
 ## Testing your setup
 
-You can test your GTM server setup by sending a curl request to your server URL with the appropriate query parameters:
+To test your GTM setup, you can use the **Preview** mode in Google Tag Manager:
 
-<CodeGroup>
+1. **Enable Preview Mode**: In your GTM workspace, click the **Preview** button in the top right corner
+2. **Enter your website URL** and click **Connect**
+3. **Navigate to a checkout page** or your order confirmation page
+4. **Complete a test purchase** or visit the confirmation page with query parameters
+5. **Check the GTM debugger** to see if your tags are firing correctly
 
-```bash cURL
-curl "https://server-side-tagging-xxx-uc.a.run.app/dub/track/sale?\
-dub_id=pAzVZ3jzwZXcLMDT&\
-customerExternalId=user_1K0RN3SDNAC0C1WCW4BGRS3EW&\
-amount=1000&\
-currency=usd&\
-eventName=Purchase&\
-paymentProcessor=stripe&\
-invoiceId=inv_123456789&\
-leadEventName=Sign%20Up&\
-mode=async"
-```
+### Verify sales tracking
 
-</CodeGroup>
+You can also verify that sales are being tracked by:
 
-## Download GTM templates
+1. **Checking your browser's developer console** for any JavaScript errors
+2. **Using the Network tab** to see if requests are being sent to Dub's analytics endpoint
+3. **Viewing your Dub dashboard** to confirm that sale events are appearing in your analytics
 
-To learn more about how to track sales with Google Tag Manager, check out the following templates:
+### Common troubleshooting tips
 
-<CardGroup cols={2}>
-  <Card
-    title="Dub GTM Server Client Template"
-    icon="github"
-    href="https://github.com/dubinc/gtm-server-client-template"
-  >
-    A GTM server-side client template for receiving lead and sale conversion
-    events from web containers
-  </Card>
-  <Card
-    title="Dub GTM Server Tag Template"
-    icon="github"
-    href="https://github.com/dubinc/gtm-server-tag-template"
-  >
-    A GTM server-side tag template for sending lead and sale conversion events
-    from your GTM server container to Dub
-  </Card>
-</CardGroup>
+- **Tag not firing**: Check that your triggers are configured correctly and that the conditions match your page structure
+- **Form data not captured**: Verify that your DOM selectors match your actual form field IDs or names
+- **Amount formatting**: Ensure amounts are in cents (e.g., $10.00 = 1000 cents)
+- **Multiple events**: Make sure your tags aren't firing multiple times by checking trigger conditions
+- **Missing publishable key**: Ensure you've replaced the placeholder with your actual publishable key
+
+<Warning>
+**Client-Side Tracking Limitations**:
+- **Ad blockers** – Users with ad blockers may prevent tracking scripts from loading
+- **JavaScript disabled** – Events won't be tracked if users have JavaScript disabled  
+- **Network issues** – Failed network requests won't retry automatically
+- **Privacy concerns** – Some users may block client-side tracking for privacy reasons
+
+For more accurate conversion tracking, consider using [server-side conversion tracking](/conversions/sales/introduction)
+
+</Warning>
 
 ## View conversion results
 
