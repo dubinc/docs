@@ -42,15 +42,24 @@ Select **Custom HTML** as the tag type and add the following code:
 
 ```html
 <script>
-  !(function (c, n) {
+  (function (c, n) {
     c[n] =
       c[n] ||
       function () {
         (c[n].q = c[n].q || []).push(arguments);
       };
-    ["trackClick", "trackLead", "trackSale"].forEach(
-      (t) => (c[n][t] = (...a) => c[n](t, ...a))
-    );
+
+    var methods = ["trackClick", "trackLead", "trackSale"];
+    for (var i = 0; i < methods.length; i++) {
+      (function (method) {
+        c[n][method] = function () {
+          var args = Array.prototype.slice.call(arguments);
+          args.unshift(method);
+          c[n].apply(null, args);
+        };
+      })(methods[i]);
+    }
+
     var s = document.createElement("script");
     s.defer = 1;
     s.src = "https://dubcdn.com/analytics/script.conversion-tracking.js";
@@ -70,7 +79,36 @@ Configure the tag to fire on **All Pages** by setting the trigger to **All Pages
 
 Name this tag "Dub Analytics Script" and save it.
 
-### Step 2: Create Lead Tracking Tag for Form Submissions
+### Step 2: Create User-Defined Variable for dub_id Cookie
+
+To read the `dub_id` cookie that Dub Analytics sets, you'll need to create a User-Defined Variable in Google Tag Manager.
+
+In your GTM workspace, navigate to the **Variables** section and click **New** to create a new variable.
+
+<Frame>
+  <img
+    src="/images/conversions/google-tag-manager/gtm-dub-id-cookie-variable.png"
+    alt="GTM Dub ID Cookie Variable"
+    width="1440"
+    height="1024"
+  />
+</Frame>
+
+Configure the variable with the following settings:
+
+- **Variable Type**: Select **1st Party Cookie**
+- **Cookie Name**: Enter `dub_id`
+- **Variable Name**: Name it "Dub ID Cookie"
+
+Click **Save** to create the variable.
+
+<Note>
+  This variable will automatically read the `dub_id` cookie value set by the Dub
+  Analytics script. You can use this variable in your tags to pass the Dub ID
+  when tracking conversion events.
+</Note>
+
+### Step 3: Create Lead Tracking Tag for Form Submissions
 
 Next, create a tag to track leads when users submit forms on your website.
 
@@ -87,6 +125,9 @@ Create another **Custom HTML** tag with the following code:
       ? document.getElementById("email").value
       : "";
 
+    // Get dub_id from cookie using GTM variable
+    var clickId = {{Dub ID Cookie}} || "";
+
     // Only track if email is present
     if (email) {
       // Track the lead event
@@ -95,6 +136,7 @@ Create another **Custom HTML** tag with the following code:
         customerExternalId: email,
         customerName: name || undefined,
         customerEmail: email,
+        clickId: clickId || undefined,
       });
     }
   })();
@@ -116,7 +158,7 @@ Configure this tag to fire on **Form Submission** by creating a new trigger:
 
 Name this tag "Dub Lead Tracking - Form Submission" and save it.
 
-### Step 3: Create Lead Tracking Tag for Thank You Pages
+### Step 4: Create Lead Tracking Tag for Thank You Pages
 
 For tracking leads on thank-you pages (recommended approach), create another **Custom HTML** tag:
 
@@ -128,6 +170,9 @@ For tracking leads on thank-you pages (recommended approach), create another **C
     var email = params.get("email");
     var name = params.get("name");
 
+    // Get dub_id from cookie using GTM variable
+    var clickId = {{Dub ID Cookie}} || "";
+
     // Only track if email is present
     if (email) {
       // Track the lead event
@@ -136,6 +181,7 @@ For tracking leads on thank-you pages (recommended approach), create another **C
         customerExternalId: email,
         customerName: name || undefined,
         customerEmail: email,
+        clickId: clickId || undefined,
       });
     }
   })();
