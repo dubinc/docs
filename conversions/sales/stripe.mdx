@@ -115,6 +115,10 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
   first.
 </Tip>
 
+<Note>
+  When using Stripe Payment Links, lead webhooks and [lead rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types) are not created. Only sale events will be tracked.
+</Note>
+
 If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
 
 Then, when a user clicks on the shortened link, Dub will automatically append the unique click ID as the `client_reference_id` [query parameter](https://docs.stripe.com/payment-links/url-parameters) to the payment link.
