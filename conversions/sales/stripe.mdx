@@ -454,6 +454,16 @@ This ensures that the sale amounts recorded in Dub reflect the actual revenue be
   Tax amounts are automatically excluded from all sale events tracked through the Stripe integration, including one-time purchases, subscriptions, and recurring invoices.
 </Note>
 
+## Free trials and $0 sales
+
+Dub does not track free trials or $0 sale events from Stripe. This means:
+
+- Checkout sessions with `amount_total` of `0` will not be recorded as sale events
+- Invoices with `amount_paid` of `0` will not be tracked
+- Free trial periods will not generate sale events until the first paid invoice
+
+Sale events will only be tracked when actual revenue is generated (i.e., when the customer is charged a non-zero amount).
+
 ## View conversion results
 
 And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
