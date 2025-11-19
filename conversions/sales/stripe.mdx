@@ -115,6 +115,10 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
   first.
 </Tip>
 
+<Note>
+  When using Stripe Payment Links, lead webhooks and [lead rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types) are not created. Only sale events will be tracked.
+</Note>
+
 If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
 
 Then, when a user clicks on the shortened link, Dub will automatically append the unique click ID as the `client_reference_id` [query parameter](https://docs.stripe.com/payment-links/url-parameters) to the payment link.
@@ -453,6 +457,16 @@ This ensures that the sale amounts recorded in Dub reflect the actual revenue be
 <Note>
   Tax amounts are automatically excluded from all sale events tracked through the Stripe integration, including one-time purchases, subscriptions, and recurring invoices.
 </Note>
+
+## Free trials and $0 sales
+
+Dub does not track free trials or $0 sale events from Stripe. This means:
+
+- Checkout sessions with `amount_total` of `0` will not be recorded as sale events
+- Invoices with `amount_paid` of `0` will not be tracked
+- Free trial periods will not generate sale events until the first paid invoice
+
+Sale events will only be tracked when actual revenue is generated (i.e., when the customer is charged a non-zero amount).
 
 ## View conversion results
 
