@@ -1,0 +1,392 @@
+---
+title: Direct sale tracking
+description: Learn how to track sales without a prior lead event using Dub
+---
+
+import SalesIntro from "/snippets/sales-intro.mdx";
+import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
+import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
+import SaleAttributes from "/snippets/sale-attributes.mdx";
+import ViewConversions from "/snippets/view-conversions.mdx";
+
+<SalesIntro />
+
+In this guide, we will be focusing on tracking sales conversion events **without a prior lead event**. This is useful when you want to attribute a sale directly to a click, bypassing the lead tracking step.
+
+## When to use direct sale tracking
+
+Direct sale tracking is ideal for scenarios where:
+
+- You don't need to track leads separately (e.g., one-time purchases)
+- You want to attribute sales directly to clicks without intermediate steps
+- You're tracking sales for users who haven't signed up or created an account
+
+<Note>
+  If you're tracking both leads and sales in your conversion funnel, use [server-side tracking](/conversions/sales/introduction) or [client-side tracking](/conversions/sales/client-side) instead.
+</Note>
+
+## Prerequisites
+
+<EnableConversionTracking />
+
+<ClientSideTrackingInstall />
+
+## Track direct sale conversions
+
+To track a direct sale, you need to pass the `clickId` parameter along with customer information when tracking the sale event. The `clickId` can be read from the `dub_id` cookie that's automatically set when a user clicks on your Dub link.
+
+### Track direct sales from URL query parameters
+
+If you redirect users to a confirmation page after a successful purchase, you can track direct sales by reading query parameters from the URL and the `dub_id` cookie.
+
+<CodeGroup>
+
+```typescript React
+import { useAnalytics } from "@dub/analytics/react";
+import { useEffect } from "react";
+
+// Helper function to read cookie
+function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+}
+
+export function OrderConfirmationPage() {
+  const { trackSale } = useAnalytics();
+
+  useEffect(() => {
+    // Get query parameters from URL
+    const params = new URLSearchParams(window.location.search);
+    const customerId = params.get("customer_id");
+    const amount = params.get("amount");
+    const invoiceId = params.get("invoice_id");
+
+    // Get click ID from cookie
+    const clickId = getCookie("dub_id");
+
+    if (customerId && amount && clickId) {
+      // Track the direct sale event
+      trackSale({
+        eventName: "Purchase",
+        customerExternalId: customerId,
+        amount: parseInt(amount), // Amount in cents
+        invoiceId: invoiceId || undefined,
+        
+        // Required for direct sale tracking:
+        clickId: clickId,
+        customerName: "John Doe", // Optional: customer name
+        customerEmail: "john@example.com", // Optional: customer email
+        customerAvatar: "https://example.com/avatar.jpg", // Optional: avatar URL
+      });
+    }
+  }, [trackSale]);
+
+  return <div>Thank you for your purchase!</div>;
+}
+```
+
+```html HTML / Other Frameworks
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+  </head>
+  <body>
+    <div>Thank you for your purchase!</div>
+
+    <script>
+      // Helper function to read cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      // Get query parameters from URL
+      const params = new URLSearchParams(window.location.search);
+      const customerId = params.get("customer_id");
+      const amount = params.get("amount");
+      const invoiceId = params.get("invoice_id");
+
+      // Get click ID from cookie
+      const clickId = getCookie("dub_id");
+
+      if (customerId && amount && clickId) {
+        // Track the direct sale event
+        dubAnalytics.trackSale({
+          eventName: "Purchase",
+          customerExternalId: customerId,
+          amount: parseInt(amount), // Amount in cents
+          invoiceId: invoiceId || undefined,
+          
+          // Required for direct sale tracking:
+          clickId: clickId,
+          customerName: "John Doe", // Optional: customer name
+          customerEmail: "john@example.com", // Optional: customer email
+          customerAvatar: "https://example.com/avatar.jpg", // Optional: avatar URL
+          currency: "usd",
+          paymentProcessor: "stripe",
+          metadata: { plan: "pro" },
+        });
+      }
+    </script>
+  </body>
+</html>
+```
+
+</CodeGroup>
+
+### Track direct sales from form submissions
+
+You can also track direct sales when users complete a checkout form on your website.
+
+<CodeGroup>
+
+```typescript React
+import { useAnalytics } from "@dub/analytics/react";
+import { useState } from "react";
+
+// Helper function to read cookie
+function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+}
+
+export function CheckoutForm() {
+  const { trackSale } = useAnalytics();
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Get click ID from cookie
+    const clickId = getCookie("dub_id");
+
+    if (clickId) {
+      // Track the direct sale event
+      trackSale({
+        eventName: "Purchase",
+        customerExternalId: "cus_RBfbD57H",
+        amount: 5000, // $50.00
+        invoiceId: "in_1MtHbELkdIwH",
+        
+        // Required for direct sale tracking:
+        clickId: clickId,
+        customerName: "John Doe",
+        customerEmail: "john@example.com",
+        customerAvatar: "https://example.com/avatar.jpg",
+      });
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      ...
+      <button type="submit">Complete Purchase</button>
+    </form>
+  );
+}
+```
+
+```html HTML / Other Frameworks
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+  </head>
+  <body>
+    <form id="checkoutForm">
+      ...
+      <button type="submit">Complete Purchase</button>
+    </form>
+
+    <script>
+      // Helper function to read cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Get click ID from cookie
+        const clickId = getCookie("dub_id");
+
+        if (clickId) {
+          // Track the direct sale event
+          dubAnalytics.trackSale({
+            eventName: "Purchase",
+            customerExternalId: "cus_RBfbD57H",
+            amount: 5000, // $50.00
+            invoiceId: "in_1MtHbELkdIwH",
+            
+            // Required for direct sale tracking:
+            clickId: clickId,
+            customerName: "John Doe",
+            customerEmail: "john@example.com",
+            customerAvatar: "https://example.com/avatar.jpg",
+            currency: "usd",
+            paymentProcessor: "stripe",
+            metadata: { plan: "pro" },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
+```
+
+</CodeGroup>
+
+### Server-side direct sale tracking
+
+You can also track direct sales from your backend by passing the `clickId` parameter when calling the track sale API:
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+const dub = new Dub();
+
+await dub.track.sale({
+  customerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+  amount: 5000,
+  paymentProcessor: "stripe",
+  eventName: "Purchase",
+  invoiceId: "in_1MtHbELkdIwH",
+  currency: "usd",
+  
+  // Required for direct sale tracking:
+  clickId: "cm3w...", // Pass the click ID from your frontend
+  customerName: "John Doe",
+  customerEmail: "john@example.com",
+  customerAvatar: "https://example.com/avatar.jpg",
+});
+```
+
+```python Python
+from dub import Dub
+import os
+
+dub = Dub(token=os.environ['DUB_API_KEY'])
+
+dub.track.sale({
+    'external_id': 'cus_RBfbD57HDzPKpduI8elr5qHA',
+    'amount': 5000,
+    'payment_processor': 'stripe',
+    'event_name': 'Purchase',
+    'invoice_id': 'in_1MtHbELkdIwH',
+    'currency': 'usd',
+    
+    # Required for direct sale tracking:
+    'click_id': 'cm3w...', # Pass the click ID from your frontend
+    'customer_name': 'John Doe',
+    'customer_email': 'john@example.com',
+    'customer_avatar': 'https://example.com/avatar.jpg'
+})
+```
+
+```go Go
+package main
+
+import (
+    "context"
+    dub "github.com/dubinc/dub-go"
+)
+
+d := dub.New(
+    dub.WithSecurity(os.Getenv("DUB_API_KEY")),
+)
+
+_, err := d.Track.Sale(context.Background(), &operations.TrackSaleRequest{
+    CustomerExternalId: "cus_RBfbD57HDzPKpduI8elr5qHA",
+    Amount:             5000,
+    PaymentProcessor:   "stripe",
+    EventName:          "Purchase",
+    InvoiceId:          "in_1MtHbELkdIwH",
+    Currency:           "usd",
+    
+    // Required for direct sale tracking:
+    ClickId:         "cm3w...", // Pass the click ID from your frontend
+    CustomerName:    "John Doe",
+    CustomerEmail:   "john@example.com",
+    CustomerAvatar:  "https://example.com/avatar.jpg",
+})
+```
+
+```ruby Ruby
+require 'dub'
+
+dub = ::OpenApiSDK::Dub.new
+dub.config_security(
+  ::OpenApiSDK::Shared::Security.new(
+    token: ENV['DUB_API_KEY']
+  )
+)
+
+req = ::OpenApiSDK::Operations::TrackSaleRequest.new(
+  external_id: 'cus_RBfbD57HDzPKpduI8elr5qHA',
+  amount: 5000,
+  payment_processor: 'stripe',
+  event_name: 'Purchase',
+  invoice_id: 'in_1MtHbELkdIwH',
+  currency: 'usd',
+  
+  # Required for direct sale tracking:
+  click_id: 'cm3w...', # Pass the click ID from your frontend
+  customer_name: 'John Doe',
+  customer_email: 'john@example.com',
+  customer_avatar: 'https://example.com/avatar.jpg'
+)
+
+dub.track.sale(req)
+```
+
+```php PHP
+<?php
+
+require 'vendor/autoload.php';
+
+use Dub\Dub;
+use Dub\Models\Operations;
+
+$dub = Dub::builder()->setSecurity($_ENV["DUB_API_KEY"])->build();
+
+$request = new Operations\TrackSaleRequest();
+$request->customerExternalId = 'cus_RBfbD57HDzPKpduI8elr5qHA';
+$request->amount = 5000;
+$request->paymentProcessor = 'stripe';
+$request->eventName = 'Purchase';
+$request->invoiceId = 'in_1MtHbELkdIwH';
+$request->currency = 'usd';
+
+// Required for direct sale tracking:
+$request->clickId = 'cm3w...'; // Pass the click ID from your frontend
+$request->customerName = 'John Doe';
+$request->customerEmail = 'john@example.com';
+$request->customerAvatar = 'https://example.com/avatar.jpg';
+
+$dub->track->sale($request);
+```
+
+</CodeGroup>
+
+<SaleAttributes />
+
+<Note>
+  **When to track sale**: Track sale events only after a user successfully completes a purchase or payment-related action. Ensure the event is triggered **only after the backend confirms the payment was successful**.
+</Note>
+
+## View your conversions
+
+And that's it – you're all set! You can now sit back, relax, and watch your conversion revenue grow. We provide 3 different views to help you understand your conversions:
+
+<ViewConversions />

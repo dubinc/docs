@@ -84,6 +84,7 @@
                 "pages": [
                   "conversions/sales/introduction",
                   "conversions/sales/client-side",
+                  "conversions/sales/direct",
                   {
                     "group": "Third-party integrations",
                     "pages": [
