@@ -237,7 +237,8 @@
                   "api-reference/endpoint/create-a-partner-link",
                   "api-reference/endpoint/upsert-a-partner-link",
                   "api-reference/endpoint/retrieve-a-partners-links",
-                  "api-reference/endpoint/retrieve-partner-analytics"
+                  "api-reference/endpoint/retrieve-partner-analytics",
+                  "api-reference/endpoint/ban-a-partner"
                 ]
               },
               {
