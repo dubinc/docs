@@ -78,37 +78,74 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     POST https://api.dub.co/oauth/token
     ```
 
-    Here's an example using the fetch API:
-
-    ```js
-    await fetch("https://api.dub.co/oauth/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        code: "YOUR_AUTHORIZATION_CODE",
-        client_id: "YOUR_CLIENT_ID",
-        client_secret: "YOUR_CLIENT_SECRET",
-        redirect_uri: "YOUR_REDIRECT_URI",
-        grant_type: "authorization_code",
-      }),
-    });
-    ```
-
     <Warning>
       The `Content-Type` header should be set to `application/x-www-form-urlencoded`.
     </Warning>
 
-    Parameters:
+    <Tabs>
+      <Tab title="With PKCE (recommended)">
+        We recommend using the [PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) flow for all applications, especially native desktop or mobile applications and single-page apps (SPAs) where the `client_secret` cannot be hidden.
 
-    | Property | Description                           |
-    | -------- | ------------------------------------- |
-    | `code` | The code you received when the user was redirected back to your application. |
-    | `client_id` | The client ID of your OAuth application. |
-    | `client_secret` | The client secret of your OAuth application. |
-    | `redirect_uri` | The same redirect URI you used in the authorization URL. |
-    | `grant_type` | The grant type. It should be `authorization_code`. |
+        With PKCE, the `client_secret` is **never sent to the authorization server**, preventing the `client_secret` from being leaked from the client application.
+
+        ```js
+        await fetch("https://api.dub.co/oauth/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            code: "YOUR_AUTHORIZATION_CODE",
+            client_id: "YOUR_CLIENT_ID",
+            code_verifier: "YOUR_CODE_VERIFIER",
+            redirect_uri: "YOUR_REDIRECT_URI",
+            grant_type: "authorization_code",
+          }),
+        });
+        ```
+
+        Parameters:
+
+        | Property | Description                           |
+        | -------- | ------------------------------------- |
+        | `code` | The code you received when the user was redirected back to your application. |
+        | `client_id` | The client ID of your OAuth application. |
+        | `code_verifier` | The original code verifier used to generate the `code_challenge` in Step 2. |
+        | `redirect_uri` | The same redirect URI you used in the authorization URL. |
+        | `grant_type` | The grant type. It should be `authorization_code`. |
+
+        For example, the [Dub Raycast extension](https://github.com/raycast/extensions/tree/main/extensions/dub) uses PKCE to authenticate users.
+      </Tab>
+      <Tab title="With client secret">
+        If you're building a server-side application where the `client_secret` can be securely stored, you can use the standard flow.
+
+        ```js
+        await fetch("https://api.dub.co/oauth/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            code: "YOUR_AUTHORIZATION_CODE",
+            client_id: "YOUR_CLIENT_ID",
+            client_secret: "YOUR_CLIENT_SECRET",
+            redirect_uri: "YOUR_REDIRECT_URI",
+            grant_type: "authorization_code",
+          }),
+        });
+        ```
+
+        Parameters:
+
+        | Property | Description                           |
+        | -------- | ------------------------------------- |
+        | `code` | The code you received when the user was redirected back to your application. |
+        | `client_id` | The client ID of your OAuth application. |
+        | `client_secret` | The client secret of your OAuth application. |
+        | `redirect_uri` | The same redirect URI you used in the authorization URL. |
+        | `grant_type` | The grant type. It should be `authorization_code`. |
+      </Tab>
+    </Tabs>
 
     Response:
 
@@ -123,14 +160,6 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
       "scope": "links.write tags.write domains.read"
     }
     ```
-
-    We recommend using the [PKCE](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce) flow for native desktop or mobile application or a single-page app (SPA) where the `client_secret` cannot be hidden.
-
-    With PKCE, the `client_secret` is **never sent to the authorization server**, preventing the `client_secret` from being leaked from the client application.
-
-    Instead of using the `client_secret`, you will need to generate a `code_verifier` and `code_challenge` and use them to exchange for an access token.
-
-    For example [Dub Raycast extension](https://github.com/raycast/extensions/tree/main/extensions/dub) uses PKCE to authenticate users.
 
   </Step>
 
