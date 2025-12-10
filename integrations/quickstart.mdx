@@ -47,11 +47,17 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     | `response_type` | Expected response type. It should be `code`. |
     | `scope` | A space separated list of scopes that you want to request access to. Read more about scopes [here](#scopes). |
     | `state` | The state parameter to prevent against CSRF attacks. Read more about it [here](https://auth0.com/docs/protocols/state-parameters) |
+    | `code_challenge` | Required for PKCE. The code challenge generated from the `code_verifier`. |
+    | `code_challenge_method` | Required for PKCE. The method used to generate the code challenge. It should be `S256`. |
+
+    <Info>
+      PKCE (Proof Key for Code Exchange) is enabled by default and recommended for all applications. If you include `code_challenge` and `code_challenge_method` in the authorization request, you must also include the `code_verifier` when exchanging the code for an access token in Step 3.
+    </Info>
 
     An example URL would look like this:
 
     ```
-    GET https://app.dub.co/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=SOME_SCOPE&state=SOME_STATE
+    GET https://app.dub.co/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=SOME_SCOPE&state=SOME_STATE&code_challenge=YOUR_CODE_CHALLENGE&code_challenge_method=S256
     ```
 
     <Frame>
