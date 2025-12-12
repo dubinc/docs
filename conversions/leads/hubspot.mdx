@@ -256,18 +256,18 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
   </Step>
 </Steps>
 
-## Tracking sale conversion events
+## Tracking conversion events
 
 After a prospect attends your demo call, you'll typically create a deal in HubSpot to track the sales opportunity.
 
 Dub's HubSpot integration automatically sets up webhooks to track both deal creation and deal closure events, providing complete visibility into your sales funnel.
 
-### When a deal is created
+### When a deal is created (lead event)
 
-When you create a deal in HubSpot for a contact who came through your Dub links, the integration automatically tracks this as a lead conversion event in Dub.
+When you create a deal in HubSpot for a contact who came through your Dub links, the integration automatically tracks this as a [lead event](https://dub.co/docs/conversions/leads/introduction) in Dub.
 
-### When a deal is closed
+### When a deal is closed (sale event)
 
-When a deal moves to a **Closed Won** status in HubSpot, the integration automatically tracks a sale event in Dub using the deal amount as the sale value.
+When a deal moves to a **Closed Won** status in HubSpot, the integration automatically [tracks a sale event](https://dub.co/docs/conversions/sales/introduction) in Dub using the deal amount as the sale value.
 
 If a deal is not being tracked as a sale in Dub, make sure you've set the correct Closed Won Deal Stage ID in your [HubSpot Integration Settings](#set-your-closed-won-deal-stage-id).
