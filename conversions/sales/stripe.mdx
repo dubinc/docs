@@ -41,8 +41,9 @@ Here's how you can install the Dub Stripe integration:
 </Frame>
 
 <Tip>
-  Alternatively, you can also install the Stripe app in a [Stripe sandbox](https://docs.stripe.com/sandboxes) first to test
-  your end-to-end flow without involving real money.
+  Alternatively, you can also install the Stripe app in a [Stripe
+  sandbox](https://docs.stripe.com/sandboxes) first to test your end-to-end flow
+  without involving real money.
 </Tip>
 
 Once the app is installed, click on **Continue to app settings** to finish the installation.
@@ -116,7 +117,9 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
 </Tip>
 
 <Note>
-  When using Stripe Payment Links, lead webhooks and [lead rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types) are not created. Only sale events will be tracked.
+  When using Stripe Payment Links, lead webhooks and [lead
+  rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types)
+  are not created. Only sale events will be tracked.
 </Note>
 
 If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
@@ -294,7 +297,7 @@ First, you'll need to complete the following prerequisites:
 3. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
 4. [Install the Dub server-side SDK](/sdks/overview#server-side-sdks)
 
-Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
 
 ```javascript Node.js
 import { stripe } from "@/lib/stripe";
@@ -314,12 +317,26 @@ const stripeSession = await stripe.checkout.sessions.create({
   mode: "subscription",
   client_reference_id: user.teamId,
   metadata: {
-    dubCustomerId: user.id, // the unique user ID of the customer in your database
+    dubCustomerExternalId: user.id, // the unique user ID of the customer in your database
   },
 });
 ```
 
 This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
+<Warning>
+  If you're using [guest checkout](https://docs.stripe.com/payments/checkout/guest-customers) (e.g. with `mode: "payment"`), the `customer` field in the `checkout.session.completed` webhook event will be `null`, and sales won't be tracked on Dub. 
+  
+  To fix this, set `customer_creation` to `always` when [creating your checkout session](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-customer_creation):
+
+```javascript Node.js
+const stripeSession = await stripe.checkout.sessions.create({
+  // ... other options
+  customer_creation: "always", // ensures a Stripe customer is created
+});
+```
+
+</Warning>
 
 ### Option 3: Using Stripe Customers
 
@@ -331,7 +348,7 @@ First, you'll need to complete the following prerequisites:
 2. [Enable conversion tracking for your links](/conversions/quickstart#step-1%3A-enable-conversion-tracking-for-your-links)
 3. [Install the @dub/analytics client-side SDK](/sdks/client-side/introduction)
 
-Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerId` value in the `metadata` field.
+Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
 
 ```javascript Node.js
 import { stripe } from "@/lib/stripe";
@@ -348,13 +365,13 @@ await stripe.customers.create({
   email: user.email,
   name: user.name,
   metadata: {
-    dubCustomerId: user.id,
+    dubCustomerExternalId: user.id,
     dubClickId: dub_id,
   },
 });
 ```
 
-Alternatively, you can also pass the `dubCustomerId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
+Alternatively, you can also pass the `dubCustomerExternalId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
 
 ```javascript Node.js
 import { stripe } from "@/lib/stripe";
@@ -369,7 +386,7 @@ const dub_id = req.headers.get("dub_id");
 
 await stripe.customers.update(user.id, {
   metadata: {
-    dubCustomerId: user.id,
+    dubCustomerExternalId: user.id,
     dubClickId: dub_id,
   },
 });
@@ -438,14 +455,14 @@ For **checkout sessions**, Dub calculates the sale amount by subtracting the tax
 
 ```javascript
 // Sale amount calculation for checkout sessions
-saleAmount = amount_total - total_details.amount_tax
+saleAmount = amount_total - total_details.amount_tax;
 ```
 
 For **invoices**, Dub uses the `total_excluding_tax` field when available:
 
 ```javascript
 // Sale amount calculation for invoices
-saleAmount = total_excluding_tax ?? amount_paid
+saleAmount = total_excluding_tax ?? amount_paid;
 ```
 
 This ensures that the sale amounts recorded in Dub reflect the actual revenue before taxes, providing more accurate metrics for:
@@ -455,7 +472,9 @@ This ensures that the sale amounts recorded in Dub reflect the actual revenue be
 - Analytics and conversion metrics
 
 <Note>
-  Tax amounts are automatically excluded from all sale events tracked through the Stripe integration, including one-time purchases, subscriptions, and recurring invoices.
+  Tax amounts are automatically excluded from all sale events tracked through
+  the Stripe integration, including one-time purchases, subscriptions, and
+  recurring invoices.
 </Note>
 
 ## Free trials and $0 sales
