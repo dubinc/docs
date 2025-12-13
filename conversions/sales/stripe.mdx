@@ -266,6 +266,19 @@ If you have a custom checkout flow that uses Stripe's `checkout.sessions.create`
 
 This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
 
+<Warning>
+  If you're using [guest checkout](https://docs.stripe.com/payments/checkout/guest-customers) (where customers can pay without creating an account), the `customer` field in the `checkout.session.completed` webhook event will be `null`, and sales won't be tracked. To fix this, set `customer_creation` to `always` when creating your checkout session:
+
+  ```javascript Node.js
+  const stripeSession = await stripe.checkout.sessions.create({
+    // ... other options
+    customer_creation: "always", // ensures a Stripe customer is created
+  });
+  ```
+
+  See [Stripe's documentation](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-customer_creation) for more details.
+</Warning>
+
 <Accordion title="How does this work?">
 
 Remember in the [lead conversion tracking guide](/conversions/leads/introduction), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
