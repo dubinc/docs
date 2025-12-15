@@ -20,6 +20,10 @@ Dub supports OAuth 2.0 authentication, which is **recommended** if you build int
 
 We recommend you use a OAuth client library to integrate the OAuth flow. You can find recommended libraries in a variety of programming languages [here](https://oauth.net/code/).
 
+<Info>
+  OAuth endpoints (`/oauth/authorize`, `/oauth/token`, `/oauth/userinfo`) are not available in the Dub SDKs. You'll need to call these endpoints directly using HTTP requests or an OAuth client library.
+</Info>
+
 ### Set up OAuth 2.0
 
 Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
@@ -163,6 +167,39 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
 
   </Step>
 
+  <Step title="Retrieve user and workspace info">
+    After obtaining an access token, you can retrieve information about the authenticated user and their workspace by calling the userinfo endpoint:
+
+    ```
+    GET https://api.dub.co/oauth/userinfo
+    ```
+
+    Here's an example using curl:
+
+    ```bash
+    curl --request GET \
+      --url https://api.dub.co/oauth/userinfo \
+      --header 'Authorization: Bearer <ACCESS_TOKEN>'
+    ```
+
+    Response:
+
+    ```json
+    {
+      "id": "user_id",
+      "name": "John Doe",
+      "image": "https://example.com/avatar.png",
+      "workspace": {
+        "id": "ws_abc123",
+        "slug": "acme",
+        "name": "Acme Inc",
+        "logo": "https://example.com/logo.png"
+      }
+    }
+    ```
+
+  </Step>
+
   <Step title="Make an API request with the access token">
     Once you have obtained a valid access token, you can use it to make requests to the Dub API.
 
@@ -242,8 +279,6 @@ Dub supports the following scopes for OAuth 2.0:
 
 | Scope              | Description                                                         |
 | ------------------ | ------------------------------------------------------------------- |
-| `workspaces.read`  | Read access to workspaces.                                          |
-| `workspaces.write` | Write access to workspaces.                                         |
 | `links.read`       | Read access to links.                                               |
 | `links.write`      | Write access to links.                                              |
 | `tags.read`        | Read access to tags.                                                |
