@@ -20,6 +20,10 @@ Dub supports OAuth 2.0 authentication, which is **recommended** if you build int
 
 We recommend you use a OAuth client library to integrate the OAuth flow. You can find recommended libraries in a variety of programming languages [here](https://oauth.net/code/).
 
+<Info>
+  OAuth endpoints (`/oauth/authorize`, `/oauth/token`, `/oauth/userinfo`) are not available in the Dub SDKs. You'll need to call these endpoints directly using HTTP requests or an OAuth client library.
+</Info>
+
 ### Set up OAuth 2.0
 
 Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
