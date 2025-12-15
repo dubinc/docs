@@ -128,6 +128,33 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
 
   </Step>
 
+  <Step title="Retrieve user and workspace info">
+    After obtaining an access token, you can retrieve information about the authenticated user and their workspace by calling the userinfo endpoint:
+
+    ```
+    GET https://api.dub.co/oauth/userinfo
+    ```
+
+    Pass the access token in the header: `Authorization: Bearer <ACCESS_TOKEN>`
+
+    Response:
+
+    ```json
+    {
+      "id": "user_id",
+      "name": "John Doe",
+      "image": "https://example.com/avatar.png",
+      "workspace": {
+        "id": "ws_abc123",
+        "slug": "acme",
+        "name": "Acme Inc",
+        "logo": "https://example.com/logo.png"
+      }
+    }
+    ```
+
+  </Step>
+
   <Step title="Make an API request with the access token">
     Once you have obtained a valid access token, you can use it to make requests to the Dub API.
 
