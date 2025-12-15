@@ -135,7 +135,13 @@ Here is a step-by-step guide on how to set up OAuth 2.0 authentication with Dub.
     GET https://api.dub.co/oauth/userinfo
     ```
 
-    Pass the access token in the header: `Authorization: Bearer <ACCESS_TOKEN>`
+    Here's an example using curl:
+
+    ```bash
+    curl --request GET \
+      --url https://api.dub.co/oauth/userinfo \
+      --header 'Authorization: Bearer <ACCESS_TOKEN>'
+    ```
 
     Response:
 
