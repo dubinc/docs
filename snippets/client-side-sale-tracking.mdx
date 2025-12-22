@@ -2,7 +2,7 @@ import SaleAttributes from "/snippets/sale-attributes.mdx";
 
 Once the analytics script is installed, you can start tracking sale events in your application on the client-side.
 
-### Track sales from URL query parameters
+### Track sales from URL query parameters (recommended)
 
 If you redirect users to a confirmation page after a successful purchase, you can track sales by reading query parameters from the URL.
 
@@ -141,26 +141,28 @@ export function CheckoutForm() {
     </form>
 
     <script>
-      document.getElementById("checkoutForm").addEventListener("submit", function (e) {
-        e.preventDefault();
+      document
+        .getElementById("checkoutForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-        // Track the sale event
-        dubAnalytics.trackSale({
-          eventName: "Purchase",
-          customerExternalId: "cus_RBfbD57H", // can also be customer email
-          amount: 5000, // $50.00
-          invoiceId: "in_1MtHbELkdIwH",
+          // Track the sale event
+          dubAnalytics.trackSale({
+            eventName: "Purchase",
+            customerExternalId: "cus_RBfbD57H", // can also be customer email
+            amount: 5000, // $50.00
+            invoiceId: "in_1MtHbELkdIwH",
 
-          // Additional props for direct sale tracking (without prior lead event):
-          // clickId: "cm3w...", // Read from dub_id cookie
-          // customerName: "John Doe",
-          // customerEmail: "john@example.com",
-          // customerAvatar: "https://example.com/avatar.jpg",
-          // currency: "usd",
-          // paymentProcessor: "stripe",
-          // metadata: { plan: "pro" },
+            // Additional props for direct sale tracking (without prior lead event):
+            // clickId: "cm3w...", // Read from dub_id cookie
+            // customerName: "John Doe",
+            // customerEmail: "john@example.com",
+            // customerAvatar: "https://example.com/avatar.jpg",
+            // currency: "usd",
+            // paymentProcessor: "stripe",
+            // metadata: { plan: "pro" },
+          });
         });
-      });
     </script>
   </body>
 </html>
@@ -174,9 +176,9 @@ export function CheckoutForm() {
 
 Track sale events only after a user successfully completes a purchase or payment-related action, such as:
 
-  - Completing a checkout or order
-  - Subscription payment
-  - Invoice payment
-  - Any paid trial or demo conversion
-  
+- Completing a checkout or order
+- Subscription payment
+- Invoice payment
+- Any paid trial or demo conversion
+
 Ensure the event is triggered **only after the backend confirms the payment was successful**. This guarantees accurate sale data and prevents false or incomplete entries.

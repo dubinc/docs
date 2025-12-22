@@ -88,11 +88,60 @@ Configure the tag to fire on **All Pages** by setting the trigger to **All Pages
 
 Name this tag "Dub Analytics Script" and save it.
 
-### Step 2: Create Sales Tracking Tag for Checkout Forms
+### Step 2: Tracking sales events
 
-Next, create a tag to track sales when users complete checkout forms on your website.
+There are two ways to track sales events with Google Tag Manager:
 
-Create another **Custom HTML** tag with the following code:
+- [Order Confirmation Page Tracking (Recommended)](#option-1-order-confirmation-page-tracking-recommended)
+- [Checkout Form Submission Tracking](#option-2-checkout-form-submission-tracking)
+
+#### Option 1: Order Confirmation Page Tracking (Recommended)
+
+This method tracks sales when users land on an order confirmation or success page after completing a purchase. This approach is more reliable as it's less likely to be blocked by ad blockers and provides better data accuracy.
+
+Create a **Custom HTML** tag with the following code:
+
+```html
+<script>
+  (function () {
+    // Get query parameters from URL
+    var params = new URLSearchParams(window.location.search);
+    var customerId = params.get("customer_id");
+    var amount = params.get("amount");
+    var invoiceId = params.get("invoice_id");
+
+    // Only track if customer ID and amount are present
+    if (customerId && amount) {
+      // Track the sale event
+      dubAnalytics.trackSale({
+        eventName: "Purchase",
+        customerExternalId: customerId,
+        amount: parseInt(amount), // Amount in cents
+        invoiceId: invoiceId || undefined,
+        currency: "usd", // Customize as needed
+        paymentProcessor: "stripe", // Customize as needed
+      });
+    }
+  })();
+</script>
+```
+
+Configure this tag to fire on specific pages by creating a **Page View** trigger with conditions:
+
+- Trigger Type: **Page View**
+- This trigger fires on: **Some Page Views**
+- Add conditions like:
+  - **Page URL** contains `/order-confirmation`
+  - Or **Page Path** equals `/checkout/success`
+  - Or whatever URL pattern matches your order confirmation pages
+
+Name this tag "Dub Sales Tracking - Order Confirmation" and save it.
+
+#### Option 2: Checkout Form Submission Tracking
+
+This method tracks sales immediately when users complete checkout forms on your website. Note that this approach may be less reliable due to ad blockers and timing issues.
+
+Create a **Custom HTML** tag with the following code:
 
 ```html
 <script>
@@ -139,46 +188,6 @@ Configure this tag to fire on **Form Submission** by creating a new trigger:
 
 Name this tag "Dub Sales Tracking - Checkout Form" and save it.
 
-### Step 3: Create Sales Tracking Tag for Order Confirmation Pages
-
-For tracking sales on order confirmation pages (recommended approach), create another **Custom HTML** tag:
-
-```html
-<script>
-  (function () {
-    // Get query parameters from URL
-    var params = new URLSearchParams(window.location.search);
-    var customerId = params.get("customer_id");
-    var amount = params.get("amount");
-    var invoiceId = params.get("invoice_id");
-
-    // Only track if customer ID and amount are present
-    if (customerId && amount) {
-      // Track the sale event
-      dubAnalytics.trackSale({
-        eventName: "Purchase",
-        customerExternalId: customerId,
-        amount: parseInt(amount), // Amount in cents
-        invoiceId: invoiceId || undefined,
-        currency: "usd", // Customize as needed
-        paymentProcessor: "stripe", // Customize as needed
-      });
-    }
-  })();
-</script>
-```
-
-Configure this tag to fire on specific pages by creating a **Page View** trigger with conditions:
-
-- Trigger Type: **Page View**
-- This trigger fires on: **Some Page Views**
-- Add conditions like:
-  - **Page URL** contains `/order-confirmation`
-  - Or **Page Path** equals `/checkout/success`
-  - Or whatever URL pattern matches your order confirmation pages
-
-Name this tag "Dub Sales Tracking - Order Confirmation" and save it.
-
 <SalesAttributes />
 
 ## Testing your setup
@@ -187,9 +196,10 @@ To test your GTM setup, you can use the **Preview** mode in Google Tag Manager:
 
 1. **Enable Preview Mode**: In your GTM workspace, click the **Preview** button in the top right corner
 2. **Enter your website URL** and click **Connect**
-3. **Navigate to a checkout page** or your order confirmation page
-4. **Complete a test purchase** or visit the confirmation page with query parameters
-5. **Check the GTM debugger** to see if your tags are firing correctly
+3. **Test your chosen tracking method**:
+   - **For Option 1 (Order Confirmation)**: Navigate to your order confirmation page with query parameters (e.g., `?customer_id=123&amount=1000&invoice_id=inv_456`)
+   - **For Option 2 (Form Submission)**: Navigate to a checkout page and complete a test purchase form
+4. **Check the GTM debugger** to see if your tags are firing correctly
 
 ### Verify sales tracking
 
@@ -202,9 +212,11 @@ You can also verify that sales are being tracked by:
 ### Common troubleshooting tips
 
 - **Tag not firing**: Check that your triggers are configured correctly and that the conditions match your page structure
-- **Form data not captured**: Verify that your DOM selectors match your actual form field IDs or names
+- **Form data not captured** (Option 2): Verify that your DOM selectors match your actual checkout form field IDs or names
+- **Query parameters missing** (Option 1): Ensure your checkout process redirects to the confirmation page with the required query parameters
 - **Amount formatting**: Ensure amounts are in cents (e.g., $10.00 = 1000 cents)
 - **Multiple events**: Make sure your tags aren't firing multiple times by checking trigger conditions
+- **Duplicate tracking**: Verify you've only implemented one tracking method (Option 1 OR Option 2, not both)
 - **Missing publishable key**: Ensure you've replaced the placeholder with your actual publishable key
 
 <Warning>
