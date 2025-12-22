@@ -237,16 +237,15 @@ You can also verify that leads are being tracked by:
 ### Common troubleshooting tips
 
 - **Tag not firing**: Check that your triggers are configured correctly and that the conditions match your page structure
-- **Form data not captured** (Option 2): Verify that your DOM selectors match your actual form field IDs or names
-- **Query parameters missing** (Option 1): Ensure your form redirects to the thank-you page with the required query parameters
-- **Multiple events**: Make sure your tags aren't firing multiple times by checking trigger conditions
-- **Duplicate tracking**: Verify you've only implemented one tracking method (Option 1 OR Option 2, not both)
 - **Missing publishable key**: Ensure you've replaced the placeholder with your actual publishable key
+- **Query parameters missing** (Option 1): Ensure your form redirects to the thank-you page with the required query parameters
+- **Form data not captured** (Option 2): Verify that your DOM selectors match your actual form field IDs or names
 
 <Warning>
 **Client-Side Tracking Limitations**:
+
 - **Ad blockers** – Users with ad blockers may prevent tracking scripts from loading
-- **JavaScript disabled** – Events won't be tracked if users have JavaScript disabled  
+- **JavaScript disabled** – Events won't be tracked if users have JavaScript disabled
 - **Network issues** – Failed network requests won't retry automatically
 - **Privacy concerns** – Some users may block client-side tracking for privacy reasons
 
