@@ -11,10 +11,6 @@ import ViewConversions from "/snippets/view-conversions.mdx";
 
 <SalesIntro />
 
-<Warning>
-  Lead commissions will not be created when using direct sale tracking. If you need to reward partners for lead events, use [standard sale tracking](/conversions/sales/introduction) instead. [Learn more about configuring reward types](https://dub.co/help/article/partner-rewards#configuring-reward-types).
-</Warning>
-
 In this guide, we will be focusing on tracking sales conversion events **without a prior lead event**. This is useful when you want to attribute a sale directly to a click, bypassing the lead tracking step.
 
 ## When to use direct sale tracking
@@ -26,8 +22,16 @@ Direct sale tracking is ideal for scenarios where:
 - You're tracking sales for users who haven't signed up or created an account
 
 <Note>
-  If you're tracking both leads and sales in your conversion funnel, use [server-side tracking](/conversions/sales/introduction) or [client-side tracking](/conversions/sales/client-side) instead.
+  If you're tracking both leads and sales in your conversion funnel, use
+  [server-side tracking](/conversions/sales/introduction) or [client-side
+  tracking](/conversions/sales/client-side) instead.
 </Note>
+
+<Warning>
+  [Lead commission
+  rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types)
+  will not be created when using direct sale tracking.
+</Warning>
 
 ## Prerequisites
 
@@ -53,7 +57,7 @@ import { useEffect } from "react";
 function getCookie(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  if (parts.length === 2) return parts.pop()?.split(";").shift();
 }
 
 export function OrderConfirmationPage() {
@@ -76,7 +80,7 @@ export function OrderConfirmationPage() {
         customerExternalId: customerId,
         amount: parseInt(amount), // Amount in cents
         invoiceId: invoiceId || undefined,
-        
+
         // Required for direct sale tracking:
         clickId: clickId,
         customerName: "John Doe", // Optional: customer name
@@ -106,7 +110,7 @@ export function OrderConfirmationPage() {
       function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        if (parts.length === 2) return parts.pop().split(";").shift();
       }
 
       // Get query parameters from URL
@@ -125,7 +129,7 @@ export function OrderConfirmationPage() {
           customerExternalId: customerId,
           amount: parseInt(amount), // Amount in cents
           invoiceId: invoiceId || undefined,
-          
+
           // Required for direct sale tracking:
           clickId: clickId,
           customerName: "John Doe", // Optional: customer name
@@ -157,12 +161,12 @@ import { useState } from "react";
 function getCookie(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  if (parts.length === 2) return parts.pop()?.split(";").shift();
 }
 
 export function CheckoutForm() {
   const { trackSale } = useAnalytics();
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -176,7 +180,7 @@ export function CheckoutForm() {
         customerExternalId: "cus_RBfbD57H",
         amount: 5000, // $50.00
         invoiceId: "in_1MtHbELkdIwH",
-        
+
         // Required for direct sale tracking:
         clickId: clickId,
         customerName: "John Doe",
@@ -214,34 +218,36 @@ export function CheckoutForm() {
       function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        if (parts.length === 2) return parts.pop().split(";").shift();
       }
 
-      document.getElementById("checkoutForm").addEventListener("submit", function (e) {
-        e.preventDefault();
+      document
+        .getElementById("checkoutForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-        // Get click ID from cookie
-        const clickId = getCookie("dub_id");
+          // Get click ID from cookie
+          const clickId = getCookie("dub_id");
 
-        if (clickId) {
-          // Track the direct sale event
-          dubAnalytics.trackSale({
-            eventName: "Purchase",
-            customerExternalId: "cus_RBfbD57H",
-            amount: 5000, // $50.00
-            invoiceId: "in_1MtHbELkdIwH",
-            
-            // Required for direct sale tracking:
-            clickId: clickId,
-            customerName: "John Doe",
-            customerEmail: "john@example.com",
-            customerAvatar: "https://example.com/avatar.jpg",
-            currency: "usd",
-            paymentProcessor: "stripe",
-            metadata: { plan: "pro" },
-          });
-        }
-      });
+          if (clickId) {
+            // Track the direct sale event
+            dubAnalytics.trackSale({
+              eventName: "Purchase",
+              customerExternalId: "cus_RBfbD57H",
+              amount: 5000, // $50.00
+              invoiceId: "in_1MtHbELkdIwH",
+
+              // Required for direct sale tracking:
+              clickId: clickId,
+              customerName: "John Doe",
+              customerEmail: "john@example.com",
+              customerAvatar: "https://example.com/avatar.jpg",
+              currency: "usd",
+              paymentProcessor: "stripe",
+              metadata: { plan: "pro" },
+            });
+          }
+        });
     </script>
   </body>
 </html>
@@ -267,7 +273,7 @@ await dub.track.sale({
   eventName: "Purchase",
   invoiceId: "in_1MtHbELkdIwH",
   currency: "usd",
-  
+
   // Required for direct sale tracking:
   clickId: "cm3w...", // Pass the click ID from your frontend
   customerName: "John Doe",
@@ -289,7 +295,7 @@ dub.track.sale({
     'event_name': 'Purchase',
     'invoice_id': 'in_1MtHbELkdIwH',
     'currency': 'usd',
-    
+
     # Required for direct sale tracking:
     'click_id': 'cm3w...', # Pass the click ID from your frontend
     'customer_name': 'John Doe',
@@ -317,7 +323,7 @@ _, err := d.Track.Sale(context.Background(), &operations.TrackSaleRequest{
     EventName:          "Purchase",
     InvoiceId:          "in_1MtHbELkdIwH",
     Currency:           "usd",
-    
+
     // Required for direct sale tracking:
     ClickId:         "cm3w...", // Pass the click ID from your frontend
     CustomerName:    "John Doe",
@@ -343,7 +349,7 @@ req = ::OpenApiSDK::Operations::TrackSaleRequest.new(
   event_name: 'Purchase',
   invoice_id: 'in_1MtHbELkdIwH',
   currency: 'usd',
-  
+
   # Required for direct sale tracking:
   click_id: 'cm3w...', # Pass the click ID from your frontend
   customer_name: 'John Doe',
@@ -386,7 +392,9 @@ $dub->track->sale($request);
 <SaleAttributes />
 
 <Note>
-  **When to track sale**: Track sale events only after a user successfully completes a purchase or payment-related action. Ensure the event is triggered **only after the backend confirms the payment was successful**.
+  **When to track sale**: Track sale events only after a user successfully
+  completes a purchase or payment-related action. Ensure the event is triggered
+  **only after the backend confirms the payment was successful**.
 </Note>
 
 ## View your conversions
