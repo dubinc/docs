@@ -258,6 +258,14 @@
                 ]
               },
               {
+                "group": "Bounties API",
+                "pages": [
+                  "api-reference/endpoint/list-submissions-for-a-bounty",
+                  "api-reference/endpoint/approve-a-bounty-submission",
+                  "api-reference/endpoint/reject-a-bounty-submission"
+                ]
+              },
+              {
                 "group": "Domains API",
                 "pages": [
                   "api-reference/endpoint/create-a-domain",
