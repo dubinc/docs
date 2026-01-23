@@ -420,7 +420,39 @@ To view emails sent from your application during local development, you'll need 
 
 Generate a secret by visiting https://generate-secret.vercel.app/32. Set the value of `NEXTAUTH_SECRET` in `.env` to this value.
 
-## Step 7: Start the development server
+## Step 7: Seed the database (optional)
+
+You can seed the database with sample data for testing and development purposes. This creates a workspace with test users, domains, folders, partners, and other resources.
+
+<Steps>
+
+  <Step title="Run the seed script">
+
+    Navigate to the `apps/web` directory and run the following command:
+
+    ```bash Terminal
+    pnpm run script dev/seed
+    ```
+
+    This will add sample data without deleting any existing data.
+
+  </Step>
+
+  <Step title="Truncate and seed (optional)">
+
+    If you want to start fresh by deleting all existing data before seeding:
+
+    ```bash Terminal
+    pnpm run script dev/seed --truncate
+    ```
+
+    When using `--truncate`, the script will ask for confirmation before deleting any data.
+
+  </Step>
+
+</Steps>
+
+## Step 8: Start the development server
 
 Finally, you can start the development server. This will build the packages + start the app servers.
 
