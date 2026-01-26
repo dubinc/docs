@@ -394,6 +394,38 @@ await stripe.customers.update(user.id, {
 
 This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
 
+
+## Tracking free trials
+
+Dub supports tracking [subscription free trials](https://docs.stripe.com/billing/subscriptions/trials) as lead events on Dub. This is useful for products with free trials since you might want to track trial activations as part of your attribution flow.
+
+To enable free trial tracking, go to your Stripe integration settings and enable the **Track Free Trials** option:
+
+
+<Frame>
+  <img
+    src="/images/stripe/stripe-integration-settings.png"
+    alt="The Stripe integration settings page"
+  />
+</Frame>
+
+Optionally, you can also configure the integration to track the [provisioned quantity](https://docs.stripe.com/billing/subscriptions/quantities) in the subscription as separate lead events. 
+
+This is useful if you have a [lead-based reward](https://dub.co/help/article/partner-rewards#configuring-reward-types) for your [partner program](https://dub.co/partners) and want to reward partners for each unit of the subscription that their customers purchase (e.g. $50 per lead).
+
+<Tip>
+To differentiate between [manually tracked lead events](/conversions/leads/introduction) and free trial lead events for lead reward types, use the `Customer` `Source` [reward condition](https://dub.co/help/article/partner-rewards#adding-reward-conditions) to filter for `free trial` lead events:
+
+
+
+<Frame>
+  <img
+    src="/images/stripe/lead-reward-free-trials.png"
+    alt="The lead reward free trial condition"
+  />
+</Frame>
+</Tip>
+
 ## Currency conversion support
 
 If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) feature, Dub will record the sale amount using the currency of your Stripe account:
@@ -476,16 +508,6 @@ This ensures that the sale amounts recorded in Dub reflect the actual revenue be
   the Stripe integration, including one-time purchases, subscriptions, and
   recurring invoices.
 </Note>
-
-## Free trials and $0 sales
-
-Dub does not track free trials or $0 sale events from Stripe. This means:
-
-- Checkout sessions with `amount_total` of `0` will not be recorded as sale events
-- Invoices with `amount_paid` of `0` will not be tracked
-- Free trial periods will not generate sale events until the first paid invoice
-
-Sale events will only be tracked when actual revenue is generated (i.e., when the customer is charged a non-zero amount).
 
 ## View conversion results
 
