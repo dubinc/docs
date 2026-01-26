@@ -340,6 +340,12 @@ const stripeSession = await stripe.checkout.sessions.create({
 
 ### Option 3: Using Stripe Customers
 
+<Note>
+  When using Stripe Customers, [lead
+  rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types)
+  are not created. Only lead events will be tracked.
+</Note>
+
 Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2%3A-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
 
 First, you'll need to complete the following prerequisites:
