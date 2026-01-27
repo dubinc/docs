@@ -117,9 +117,9 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
 </Tip>
 
 <Note>
-  When using Stripe Payment Links, lead webhooks and [lead
+  When using Stripe Payment Links, lead and sale events are tracked but lead webhooks and [lead
   rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types)
-  are not created. Only sale events will be tracked.
+  will not be generated.
 </Note>
 
 If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
@@ -341,9 +341,9 @@ const stripeSession = await stripe.checkout.sessions.create({
 ### Option 3: Using Stripe Customers
 
 <Note>
-  When using Stripe Customers, [lead
+  When using Stripe Customers, lead and sale events are tracked but [lead
   rewards](https://dub.co/help/article/partner-rewards#configuring-reward-types)
-  are not created. Only lead events will be tracked.
+  will not be generated.
 </Note>
 
 Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2%3A-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
