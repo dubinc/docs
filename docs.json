@@ -1,20 +1,333 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "almond",
   "name": "Dub Documentation",
   "colors": {
-    "primary": "#eb5611",
-    "light": "#eb5611",
-    "dark": "#eb5611"
+    "primary": "#171717",
+    "light": "#51A2FF",
+    "dark": "#171717"
   },
   "favicon": "/logos/favicon.png",
+  "fonts": {
+    "family": "Inter"
+  },
   "contextual": {
     "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
   },
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Help",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["help/overview"]
+          },
+          {
+            "group": "Link Management",
+            "pages": [
+              {
+                "group": "Basics and creation",
+                "pages": [
+                  "help/link-management/create-short-link",
+                  "help/link-management/link-builder",
+                  "help/link-management/dubsh-links-not-working"
+                ]
+              },
+              {
+                "group": "Destinations and redirects",
+                "pages": [
+                  "help/link-management/check-link-destination",
+                  "help/link-management/double-redirects",
+                  "help/link-management/pass-query-parameters",
+                  "help/link-management/custom-link-previews"
+                ]
+              },
+              {
+                "group": "Targeting and routing",
+                "pages": [
+                  "help/link-management/device-targeting",
+                  "help/link-management/geo-targeting",
+                  "help/link-management/noindex"
+                ]
+              },
+              {
+                "group": "Security and access",
+                "pages": [
+                  "help/link-management/password-protected-links",
+                  "help/link-management/link-cloaking"
+                ]
+              },
+              {
+                "group": "Organization and management",
+                "pages": [
+                  "help/link-management/bulk-link-management",
+                  "help/link-management/export-links",
+                  "help/link-management/links-with-folders",
+                  "help/link-management/folders-rbac",
+                  "help/link-management/transfer-links-between-workspaces",
+                  "help/link-management/link-comments"
+                ]
+              },
+              {
+                "group": "Tracking parameters and UTMs",
+                "pages": [
+                  "help/link-management/utm-templates",
+                  "help/link-management/add-utm-parameters"
+                ]
+              },
+              {
+                "group": "QR codes and experimentation",
+                "pages": [
+                  "help/link-management/custom-qr-codes",
+                  "help/link-management/ab-testing"
+                ]
+              },
+              {
+                "group": "Expiration and lifecycle",
+                "pages": ["help/link-management/expiration-date"]
+              }
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              {
+                "group": "Overview and fundamentals",
+                "pages": [
+                  "help/analytics/dub-analytics-overview",
+                  "help/analytics/dub-conversions-overview",
+                  "help/analytics/customer-insights"
+                ]
+              },
+              {
+                "group": "Events and data streams",
+                "pages": [
+                  "help/analytics/real-time-events-stream",
+                  "help/analytics/tracking-internal-traffic-product-led-growth"
+                ]
+              },
+              {
+                "group": "Filtering and segmentation",
+                "pages": [
+                  "help/analytics/filter-qr-scans-vs-clicks",
+                  "help/analytics/filter-by-tags",
+                  "help/analytics/filter-by-folders",
+                  "help/analytics/utm-filtering-visualization"
+                ]
+              },
+              {
+                "group": "Geography and accuracy",
+                "pages": ["help/analytics/incorrect-country-city-data"]
+              },
+              {
+                "group": "Exporting and sharing",
+                "pages": [
+                  "help/analytics/export-link-analytics-data",
+                  "help/analytics/public-analytics-dashboards"
+                ]
+              },
+              {
+                "group": "Limits and constraints",
+                "pages": ["help/analytics/analytics-limits"]
+              }
+            ]
+          },
+          {
+            "group": "Dub Partners",
+            "pages": [
+              {
+                "group": "Overview and foundations",
+                "pages": [
+                  "help/dub-partners/overview",
+                  "help/dub-partners/partner-program-landing-page",
+                  "help/dub-partners/brand-and-support-resources"
+                ]
+              },
+              {
+                "group": "Partner onboarding and applications",
+                "pages": [
+                  "help/dub-partners/inviting-partners",
+                  "help/dub-partners/reviewing-program-applications",
+                  "help/dub-partners/customizing-program-application-form"
+                ]
+              },
+              {
+                "group": "Partner management",
+                "pages": [
+                  "help/dub-partners/managing-program-partners",
+                  "help/dub-partners/partners-with-groups",
+                  "help/dub-partners/referral-links-partner-groups"
+                ]
+              },
+              {
+                "group": "Rewards and incentives",
+                "pages": [
+                  "help/dub-partners/configuring-partner-rewards",
+                  "help/dub-partners/dual-sided-incentives"
+                ]
+              },
+              {
+                "group": "Payouts and commissions",
+                "pages": [
+                  "help/dub-partners/setup-bank-account-payouts",
+                  "help/dub-partners/sending-partner-payouts",
+                  "help/dub-partners/commissions-and-clawbacks"
+                ]
+              },
+              {
+                "group": "Messaging and communication",
+                "pages": [
+                  "help/dub-partners/messaging-partners",
+                  "help/dub-partners/partner-emails"
+                ]
+              },
+              {
+                "group": "Analytics and trust",
+                "pages": [
+                  "help/dub-partners/program-performance-analytics",
+                  "help/dub-partners/fraud-detection"
+                ]
+              },
+              {
+                "group": "Advanced programs",
+                "pages": ["help/dub-partners/program-bounties"]
+              }
+            ]
+          },
+          {
+            "group": "Partnering with Programs",
+            "pages": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "help/partnering-with-programs/navigating-partner-program",
+                  "help/partnering-with-programs/joining-programs-marketplace",
+                  "help/partnering-with-programs/faq"
+                ]
+              },
+              {
+                "group": "Partner profile and account",
+                "pages": [
+                  "help/partnering-with-programs/updating-partner-profile",
+                  "help/partnering-with-programs/managing-partner-teams",
+                  "help/partnering-with-programs/merging-partner-accounts"
+                ]
+              },
+              {
+                "group": "Commissions and payouts",
+                "pages": [
+                  "help/partnering-with-programs/commissions-and-payouts",
+                  "help/partnering-with-programs/receiving-partner-payouts",
+                  "help/partnering-with-programs/setting-business-details-in-payout-invoices"
+                ]
+              },
+              {
+                "group": "Communication",
+                "pages": [
+                  "help/partnering-with-programs/communicating-with-programs"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Custom Domains",
+            "pages": [
+              {
+                "group": "Domain basics",
+                "pages": [
+                  "help/custom-domains/default-dub-domains",
+                  "help/custom-domains/free-link-domain-offer",
+                  "help/custom-domains/choose-custom-domain"
+                ]
+              },
+              {
+                "group": "Domain setup",
+                "pages": [
+                  "help/custom-domains/add-custom-domain",
+                  "help/custom-domains/set-primary-domain",
+                  "help/custom-domains/shorten-links-subpath",
+                  "help/custom-domains/archive-domains"
+                ]
+              },
+              {
+                "group": "Domain configuration",
+                "pages": [
+                  "help/custom-domains/setup-redirect",
+                  "help/custom-domains/set-not-found-url",
+                  "help/custom-domains/configure-deep-links"
+                ]
+              },
+              {
+                "group": "Advanced setups",
+                "pages": [
+                  "help/custom-domains/cloudflare-domains",
+                  "help/custom-domains/use-proxy",
+                  "help/custom-domains/transfer-domains-between-workspaces"
+                ]
+              },
+              "help/custom-domains/troubleshooting"
+            ]
+          },
+          {
+            "group": "Workspace",
+            "pages": [
+              "help/workspace-management/what-is-a-workspace",
+              {
+                "group": "Team and access",
+                "pages": [
+                  "help/workspace-management/invite-teammates",
+                  "help/workspace-management/manage-member-roles"
+                ]
+              },
+              {
+                "group": "Authentication",
+                "pages": [
+                  "help/saml-sso/scim-okta",
+                  "help/saml-sso/okta",
+                  "help/saml-sso/google-workspace",
+                  "help/saml-sso/azure-ad",
+                  "help/saml-sso/scim-azure-ad"
+                ]
+              },
+              {
+                "group": "Billing and usage",
+                "pages": [
+                  "help/workspace-management/download-invoice",
+                  "help/workspace-management/change-billing-information",
+                  "help/workspace-management/cancel-subscription",
+                  "help/workspace-management/billing-and-plans",
+                  "help/workspace-management/usage-limits"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Migrating to Dub",
+            "pages": [
+              {
+                "group": "Dub Partners",
+                "pages": [
+                  "help/migrating-to-dub/rewardful",
+                  "help/migrating-to-dub/partnerstack",
+                  "help/migrating-to-dub/firstpromoter",
+                  "help/migrating-to-dub/tolt"
+                ]
+              },
+              {
+                "group": "Dub Links",
+                "pages": [
+                  "help/migrating-to-dub/bitly",
+                  "help/migrating-to-dub/rebrandly",
+                  "help/migrating-to-dub/short-io"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
         "groups": [
           {
             "group": "Getting Started",
@@ -128,7 +441,7 @@
         ]
       },
       {
-        "tab": "APIs and SDKs",
+        "tab": "APIs & SDKs",
         "groups": [
           {
             "group": "Overview",
@@ -306,18 +619,11 @@
   "api": {
     "openapi": "https://spec.speakeasy.com/dub/dub/dub-with-code-samples"
   },
-  "background": {
-    "image": "/images/background.png"
-  },
   "navbar": {
     "links": [
       {
         "label": "Contact support",
         "href": "https://dub.co/contact/support"
-      },
-      {
-        "label": "Help Center",
-        "href": "https://dub.co/help"
       }
     ],
     "primary": {
