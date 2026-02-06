@@ -1,5 +1,5 @@
 <a href="https://dub.co">
-  <img alt="Dub is the open-source link attribution platform for modern marketing teams." src="https://github.com/user-attachments/assets/66749065-928d-4501-bae0-7e2b4c456f7d" />
+  <img alt="Dub Documentation Preview" src="./images/docs-preview.png" />
 </a>
 
 <h3 align="center">dubinc/docs</h3>
@@ -19,5 +19,5 @@ npm i -g mintlify
 2. In the root of the repository, run the following command:
 
 ```
-npm run dev
+pnpm run dev
 ```

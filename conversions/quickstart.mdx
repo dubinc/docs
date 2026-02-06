@@ -10,6 +10,7 @@ import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
 import InstallServerSdksTrackConversions from "/snippets/install-server-sdks-track-conversions.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
 import DubConversionTrackingDemoApps from "/snippets/dub-conversion-tracking-demo-apps.mdx";
+import OpenAnalyticsSettings from "/snippets/open-analytics-settings.mdx";
 
 <Note>
   Conversion tracking requires a [Business plan](https://dub.co/pricing)
@@ -30,6 +31,10 @@ In this guide, we'll walk you through the steps to get started with conversion t
 ## Step 1: Enable conversion tracking for your links
 
 <EnableConversionTracking />
+
+You'll also need to generate a publishable key and allowlist your site's domain to ensure client-side events are ingested by Dub. Navigate to your workspace's Analytics settings page to configure these options.
+
+<OpenAnalyticsSettings />
 
 ## Step 2: Install the `@dub/analytics` client-side SDK
 
@@ -58,6 +63,54 @@ This script detects the `dub_id` query parameter and storing it as a first-party
 Once you've enabled conversion tracking for your links, all your tracked conversions will show up on your [Analytics dashboard](https://app.dub.co/analytics). We provide 3 different views to help you understand your conversions:
 
 <ViewConversions />
+
+## Integration options
+
+Choose the integration method that best fits your stack to track leads and sales:
+
+### Payment integrations
+
+<CardGroup cols={2}>
+  <Card title="Stripe" icon="stripe-s" href="/conversions/sales/stripe">
+    **Best for:** SaaS and subscription revenue tracking. Automatically track purchases, subscriptions, and refunds
+  </Card>
+  <Card title="Shopify" icon="shopify" href="/conversions/sales/shopify">
+    **Best for:** E-commerce revenue tracking. Native app that automatically tracks all orders
+  </Card>
+</CardGroup>
+
+### Lead tracking
+
+<CardGroup cols={2}>
+  <Card title="Google Tag Manager" icon="google" href="/conversions/leads/google-tag-manager">
+    **Best for:** Client-side lead event tracking. No-code setup for any platform
+  </Card>
+  <Card title="HubSpot" icon="hubspot" href="/conversions/leads/hubspot">
+    **Best for:** CRM lead tracking. Sync leads and deals directly to your CRM
+  </Card>
+</CardGroup>
+
+### Server-side SDKs
+
+<CardGroup cols={3}>
+  <Card title="TypeScript" icon="js" href="/sdks/typescript">
+    TypeScript SDK for Node.js
+  </Card>
+  <Card title="Python" icon="python" href="/sdks/python">
+    Python SDK for server-side integration
+  </Card>
+  <Card title="Go" icon="golang" href="/sdks/go">
+    Go SDK for backend services
+  </Card>
+  <Card title="PHP" icon="php" href="/sdks/php">
+    PHP SDK for web applications
+  </Card>
+  <Card title="Ruby" icon="gem" href="/sdks/ruby">
+    Ruby SDK for Rails and more
+  </Card>
+</CardGroup>
+
+Dub also offers **Mobile SDKs** ([Swift](/sdks/client-side/swift), [React Native](/sdks/client-side/react-native)) for native app conversion tracking, and **Auth framework integrations** ([Clerk](/conversions/leads/clerk), [Better Auth](/conversions/leads/better-auth), [Auth0](/conversions/leads/auth0)) to automatically track signups as lead events.
 
 ## Example Apps
 
