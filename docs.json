@@ -252,6 +252,14 @@
                 ]
               },
               {
+                "group": "Bounties API",
+                "pages": [
+                  "api-reference/endpoint/list-submissions-for-a-bounty",
+                  "api-reference/endpoint/approve-a-bounty-submission",
+                  "api-reference/endpoint/reject-a-bounty-submission"
+                ]
+              },
+              {
                 "group": "Commissions API",
                 "pages": [
                   "api-reference/endpoint/retrieve-a-list-of-commissions",
@@ -259,12 +267,8 @@
                 ]
               },
               {
-                "group": "Bounties API",
-                "pages": [
-                  "api-reference/endpoint/list-submissions-for-a-bounty",
-                  "api-reference/endpoint/approve-a-bounty-submission",
-                  "api-reference/endpoint/reject-a-bounty-submission"
-                ]
+                "group": "Payouts API",
+                "pages": ["api-reference/endpoint/retrieve-a-list-of-payouts"]
               },
               {
                 "group": "Domains API",
