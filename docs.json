@@ -18,7 +18,21 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["introduction"]
+            "pages": [
+              "introduction",
+              "platform-overview",
+              "data-model"
+            ]
+          },
+          {
+            "group": "Dub Partners",
+            "pages": [
+              "partners/quickstart",
+              "partners/program-setup",
+              "partners/how-attribution-works",
+              "partners/embedded-referrals",
+              "partners/link-based-discounts"
+            ]
           },
           {
             "group": "Links",
@@ -99,14 +113,6 @@
             ]
           },
           {
-            "group": "Dub Partners",
-            "pages": [
-              "partners/quickstart",
-              "partners/embedded-referrals",
-              "partners/link-based-discounts"
-            ]
-          },
-          {
             "group": "Integrations",
             "pages": [
               "integrations",
@@ -124,6 +130,182 @@
           {
             "group": "Open source",
             "pages": ["local-development", "self-hosting"]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "guides/getting-started/introduction",
+              "guides/getting-started/how-to-create-link",
+              "guides/getting-started/how-to-add-custom-domain",
+              "guides/getting-started/how-to-invite-teammates",
+              "guides/getting-started/how-to-change-default-workspace",
+              "guides/getting-started/how-to-import-csv",
+              "guides/getting-started/what-is-a-workspace"
+            ]
+          },
+          {
+            "group": "Link Management",
+            "pages": [
+              "guides/link-management/how-to-create-link",
+              "guides/link-management/dub-links-not-working",
+              "guides/link-management/custom-qr-codes",
+              "guides/link-management/device-targeting",
+              "guides/link-management/dub-link-builder",
+              "guides/link-management/geo-targeting",
+              "guides/link-management/how-noindex-works",
+              "guides/link-management/how-to-check-link-destination",
+              "guides/link-management/how-to-export-links",
+              "guides/link-management/link-cloaking",
+              "guides/link-management/link-comments",
+              "guides/link-management/password-protected-links",
+              "guides/link-management/how-to-use-tags",
+              "guides/link-management/bulk-link-actions",
+              "guides/link-management/how-to-create-utm-templates",
+              "guides/link-management/utm-builder",
+              "guides/link-management/link-expiration",
+              "guides/link-management/link-double-redirects",
+              "guides/link-management/parameter-passing",
+              "guides/link-management/custom-link-previews",
+              "guides/link-management/link-folders",
+              "guides/link-management/how-to-transfer-links",
+              "guides/link-management/ab-testing",
+              "guides/link-management/folders-rbac"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "guides/analytics/dub-analytics",
+              "guides/analytics/dub-conversions",
+              "guides/analytics/filter-analytics-by-trigger",
+              "guides/analytics/how-to-export-analytics",
+              "guides/analytics/incorrect-analytics-geolocation-data",
+              "guides/analytics/real-time-events-stream",
+              "guides/analytics/tracking-internal-traffic",
+              "guides/analytics/filter-analytics-by-tags",
+              "guides/analytics/filter-analytics-by-utms",
+              "guides/analytics/dub-analytics-limits",
+              "guides/analytics/filter-analytics-by-folders",
+              "guides/analytics/share-analytics",
+              "guides/analytics/customer-insights"
+            ]
+          },
+          {
+            "group": "Dub Partners",
+            "pages": [
+              "guides/partners/dub-partners",
+              "guides/partners/how-to-set-up-bank-account",
+              "guides/partners/messaging-partners",
+              "guides/partners/program-landing-page",
+              "guides/partners/dual-sided-incentives",
+              "guides/partners/program-resources",
+              "guides/partners/partner-link-settings",
+              "guides/partners/inviting-partners",
+              "guides/partners/partner-commissions",
+              "guides/partners/program-analytics",
+              "guides/partners/email-campaigns",
+              "guides/partners/partner-groups",
+              "guides/partners/partner-payouts",
+              "guides/partners/fraud-detection",
+              "guides/partners/managing-program-partners",
+              "guides/partners/partner-rewards",
+              "guides/partners/program-bounties",
+              "guides/partners/program-application-form",
+              "guides/partners/program-applications"
+            ]
+          },
+          {
+            "group": "Partnering with Programs",
+            "pages": [
+              "guides/programs/receiving-payouts",
+              "guides/programs/partner-profile",
+              "guides/programs/navigating-partner-program",
+              "guides/programs/communicating-with-programs",
+              "guides/programs/partner-payout-invoice",
+              "guides/programs/commissions-payouts",
+              "guides/programs/partners-faq",
+              "guides/programs/managing-partner-teams",
+              "guides/programs/program-marketplace",
+              "guides/programs/merging-partner-accounts"
+            ]
+          },
+          {
+            "group": "Custom Domains",
+            "pages": [
+              "guides/custom-domains/how-to-add-custom-domain",
+              "guides/custom-domains/archiving-domains",
+              "guides/custom-domains/how-to-set-primary-domain",
+              "guides/custom-domains/how-to-use-dub-with-subpath",
+              "guides/custom-domains/setting-not-found-url",
+              "guides/custom-domains/troubleshooting-domains",
+              "guides/custom-domains/using-cloudflare-domains",
+              "guides/custom-domains/choosing-a-custom-domain",
+              "guides/custom-domains/custom-domain-deep-links",
+              "guides/custom-domains/default-dub-domains",
+              "guides/custom-domains/free-dot-link-domain",
+              "guides/custom-domains/how-to-transfer-domains",
+              "guides/custom-domains/using-proxies-on-custom-domains",
+              "guides/custom-domains/how-to-redirect-root-domain"
+            ]
+          },
+          {
+            "group": "Workspace Management",
+            "pages": [
+              "guides/workspaces/how-to-invite-teammates",
+              "guides/workspaces/what-is-a-workspace",
+              "guides/workspaces/how-to-download-invoice",
+              "guides/workspaces/how-to-change-billing-information",
+              "guides/workspaces/how-to-cancel-subscription",
+              "guides/workspaces/workspace-roles"
+            ]
+          },
+          {
+            "group": "Migrating to Dub",
+            "pages": [
+              {
+                "group": "Dub Partners",
+                "pages": [
+                  "guides/migrating/migrating-from-rewardful",
+                  "guides/migrating/migrating-from-partnerstack",
+                  "guides/migrating/migrating-from-firstpromoter",
+                  "guides/migrating/migrating-from-tolt"
+                ]
+              },
+              {
+                "group": "Dub Links",
+                "pages": [
+                  "guides/migrating/migrating-from-bitly",
+                  "guides/migrating/migrating-from-rebrandly",
+                  "guides/migrating/migrating-from-short"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "SAML SSO",
+            "pages": [
+              "guides/saml-sso/okta-scim",
+              "guides/saml-sso/okta-saml",
+              "guides/saml-sso/google-saml",
+              "guides/saml-sso/azure-saml",
+              "guides/saml-sso/azure-scim"
+            ]
+          },
+          {
+            "group": "API",
+            "pages": [
+              "guides/api/create-links-programmatically",
+              "guides/api/build-analytics-dashboard",
+              "guides/api/track-conversions-with-api",
+              "guides/api/manage-partners-via-api",
+              "guides/api/generate-qr-codes",
+              "guides/api/sync-customers-with-crm"
+            ]
           }
         ]
       },

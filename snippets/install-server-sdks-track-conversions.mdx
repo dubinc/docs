@@ -1,9 +1,10 @@
 import AuthProviders from "/snippets/auth-providers.mdx";
 
 <Tip>
-  If you are using Shopify, you can skip this step since our Shopify app will
-  automatically track conversions for you. Read the [Shopify integration
-  guide](https://dub.co/docs/conversions/sales/shopify) for more information.
+  If you are using Stripe or Shopify, you can skip this step since our native
+  integrations will automatically track conversions for you. Read the
+  [Stripe](/conversions/sales/stripe) or [Shopify](/conversions/sales/shopify)
+  integration guide for more information.
 </Tip>
 
 The recommended way to track conversions on Dub is using [server-side tracking](/conversions/leads/introduction), which is more reliable than [client-side tracking](/conversions/leads/client-side).
@@ -50,6 +51,20 @@ The first event you'll want to track is a `lead` event. This happens when a user
     alt="A diagram showing how lead events are tracked in the conversion funnel"
   />
 </Frame>
+
+Depending on which platform you're using, we offer native integrations for the following:
+
+<CardGroup cols={2}>
+  <Card title="Google Tag Manager" icon="google" href="/conversions/leads/google-tag-manager">
+    No-code tracking via GTM tags
+  </Card>
+  <Card title="Segment" icon="chart-pie" href="/conversions/leads/segment">
+    Route leads through your Segment pipeline
+  </Card>
+  <Card title="HubSpot" icon="hubspot" href="/conversions/leads/hubspot">
+    Sync leads directly to HubSpot contacts
+  </Card>
+</CardGroup>
 
 Our most common lead event is `Sign Up`, which happens when a user signs up for an account. Depending on which authentication framework you're using, here are a few examples of how to send `Sign Up` lead events:
 
