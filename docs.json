@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "aspen",
   "name": "Dub Documentation",
   "colors": {
     "primary": "#eb5611",
@@ -12,14 +12,11 @@
     "options": ["copy", "view", "chatgpt", "claude", "cursor", "vscode"]
   },
   "navigation": {
-    "tabs": [
+    "anchors": [
       {
-        "tab": "Documentation",
+        "anchor": "Developer Docs",
+        "icon": "books",
         "groups": [
-          {
-            "group": "Getting Started",
-            "pages": ["introduction"]
-          },
           {
             "group": "Links",
             "pages": [
@@ -128,7 +125,83 @@
         ]
       },
       {
-        "tab": "APIs and SDKs",
+        "anchor": "Help Center",
+        "icon": "life-ring",
+        "groups": [
+          {
+            "group": "MANAGING A PROGRAM",
+            "pages": [
+              "help/introduction",
+              {
+                "group": "Getting started",
+                "pages": [
+                  "setting-up-your-program",
+                  "partner-groups",
+                  "partner-links",
+                  "brand-resources",
+                  "managing-partners"
+                ]
+              },
+              {
+                "group": "Customizing rewards",
+                "pages": ["customizing-rewards", "managing-commissions"]
+              },
+              {
+                "group": "Recruiting partners",
+                "pages": [
+                  "inviting-partners",
+                  "landing-page",
+                  "application-form",
+                  "reviewing-applications",
+                  "embedded-dashboard",
+                  "partner-network"
+                ]
+              },
+              {
+                "group": "Sending payouts",
+                "pages": ["partner-payouts", "bank-account", "external-payouts"]
+              },
+              {
+                "group": "Engaging partners",
+                "pages": ["email-campaigns", "messages", "bounties"]
+              },
+              {
+                "group": "Insights and reporting",
+                "pages": ["program-analytics", "commissions"]
+              },
+              { "group": "Fraud detection", "pages": ["fraud-detection"] },
+              {
+                "group": "Migration guides",
+                "pages": ["rewardful", "partnerstack", "firstpromoter", "tolt"]
+              }
+            ]
+          },
+          {
+            "group": "PARTNERING WITH PROGRAMS",
+            "pages": [
+              {
+                "group": "Getting started",
+                "pages": ["partner-profile", "partner-team", "merging-account"]
+              },
+              {
+                "group": "Joining programs",
+                "pages": ["program-marketplace", "navigating-program"]
+              },
+              {
+                "group": "Receiving payouts",
+                "pages": [
+                  "receiving-payouts",
+                  "payout-invoices",
+                  "commissions-payouts-work"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "APIs and SDKs",
+        "icon": "code",
         "groups": [
           {
             "group": "Overview",
@@ -183,7 +256,6 @@
               },
               {
                 "group": "Client-side SDK (Mobile)",
-                "tag": "Beta",
                 "pages": [
                   "sdks/client-side-mobile/introduction",
                   {
@@ -203,98 +275,98 @@
               {
                 "group": "Links API",
                 "pages": [
-                  "api-reference/endpoint/create-a-link",
-                  "api-reference/endpoint/update-a-link",
-                  "api-reference/endpoint/upsert-a-link",
-                  "api-reference/endpoint/delete-a-link",
-                  "api-reference/endpoint/retrieve-a-link",
-                  "api-reference/endpoint/retrieve-a-list-of-links",
-                  "api-reference/endpoint/retrieve-number-of-links",
-                  "api-reference/endpoint/bulk-create-links",
-                  "api-reference/endpoint/bulk-update-links",
-                  "api-reference/endpoint/bulk-delete-links"
+                  "api-reference/links/create",
+                  "api-reference/links/update",
+                  "api-reference/links/upsert",
+                  "api-reference/links/delete",
+                  "api-reference/links/retrieve",
+                  "api-reference/links/list",
+                  "api-reference/links/count",
+                  "api-reference/links/bulk-create",
+                  "api-reference/links/bulk-update",
+                  "api-reference/links/bulk-delete"
                 ]
               },
               {
                 "group": "Analytics API",
                 "pages": [
-                  "api-reference/endpoint/retrieve-analytics",
-                  "api-reference/endpoint/retrieve-a-list-of-events"
+                  "api-reference/analytics/retrieve",
+                  "api-reference/analytics/list-events"
                 ]
               },
               {
                 "group": "Conversions API",
                 "pages": [
-                  "api-reference/endpoint/track-lead",
-                  "api-reference/endpoint/track-sale"
+                  "api-reference/conversions/track-lead",
+                  "api-reference/conversions/track-sale"
                 ]
               },
               {
                 "group": "Partners API",
                 "pages": [
-                  "api-reference/endpoint/create-a-partner",
-                  "api-reference/endpoint/retrieve-a-list-of-partners",
-                  "api-reference/endpoint/create-a-partner-link",
-                  "api-reference/endpoint/upsert-a-partner-link",
-                  "api-reference/endpoint/retrieve-a-partners-links",
-                  "api-reference/endpoint/retrieve-partner-analytics",
-                  "api-reference/endpoint/ban-a-partner",
-                  "api-reference/endpoint/deactivate-a-partner"
+                  "api-reference/partners/create",
+                  "api-reference/partners/list",
+                  "api-reference/partners/ban",
+                  "api-reference/partners/deactivate",
+                  "api-reference/partners/create-link",
+                  "api-reference/partners/upsert-link",
+                  "api-reference/partners/retrieve-links",
+                  "api-reference/partners/retrieve-analytics"
                 ]
               },
               {
                 "group": "Customers API",
                 "pages": [
-                  "api-reference/endpoint/retrieve-a-customer",
-                  "api-reference/endpoint/retrieve-a-list-of-customers",
-                  "api-reference/endpoint/update-a-customer",
-                  "api-reference/endpoint/delete-a-customer"
+                  "api-reference/customers/retrieve",
+                  "api-reference/customers/list",
+                  "api-reference/customers/update",
+                  "api-reference/customers/delete"
                 ]
               },
               {
                 "group": "Bounties API",
                 "pages": [
-                  "api-reference/endpoint/list-submissions-for-a-bounty",
-                  "api-reference/endpoint/approve-a-bounty-submission",
-                  "api-reference/endpoint/reject-a-bounty-submission"
+                  "api-reference/bounties/list",
+                  "api-reference/bounties/approve",
+                  "api-reference/bounties/reject"
                 ]
               },
               {
                 "group": "Commissions API",
                 "pages": [
-                  "api-reference/endpoint/retrieve-a-list-of-commissions",
-                  "api-reference/endpoint/update-a-commission"
+                  "api-reference/commissions/list",
+                  "api-reference/commissions/update"
                 ]
               },
               {
                 "group": "Payouts API",
-                "pages": ["api-reference/endpoint/retrieve-a-list-of-payouts"]
+                "pages": ["api-reference/payouts/list"]
               },
               {
                 "group": "Domains API",
                 "pages": [
-                  "api-reference/endpoint/create-a-domain",
-                  "api-reference/endpoint/update-a-domain",
-                  "api-reference/endpoint/delete-a-domain",
-                  "api-reference/endpoint/register-a-domain",
-                  "api-reference/endpoint/check-a-domain-availability"
+                  "api-reference/domains/create",
+                  "api-reference/domains/update",
+                  "api-reference/domains/delete",
+                  "api-reference/domains/register",
+                  "api-reference/domains/check-availability"
                 ]
               },
               {
                 "group": "Folders API",
                 "pages": [
-                  "api-reference/endpoint/create-a-folder",
-                  "api-reference/endpoint/update-a-folder",
-                  "api-reference/endpoint/delete-a-folder",
-                  "api-reference/endpoint/retrieve-a-list-of-folders"
+                  "api-reference/folders/create",
+                  "api-reference/folders/update",
+                  "api-reference/folders/delete",
+                  "api-reference/folders/list"
                 ]
               },
               {
                 "group": "Tags API",
                 "pages": [
-                  "api-reference/endpoint/create-a-tag",
-                  "api-reference/endpoint/retrieve-a-list-of-tags",
-                  "api-reference/endpoint/update-a-tag"
+                  "api-reference/tags/create",
+                  "api-reference/tags/list",
+                  "api-reference/tags/update"
                 ]
               }
             ]
@@ -319,10 +391,6 @@
       {
         "label": "Contact support",
         "href": "https://dub.co/contact/support"
-      },
-      {
-        "label": "Help Center",
-        "href": "https://dub.co/help"
       }
     ],
     "primary": {
@@ -508,6 +576,182 @@
     {
       "source": "/api-reference/errors",
       "destination": "/api-reference/introduction#error-handling"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-link",
+      "destination": "/api-reference/links/create"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-link",
+      "destination": "/api-reference/links/update"
+    },
+    {
+      "source": "/api-reference/endpoint/upsert-a-link",
+      "destination": "/api-reference/links/upsert"
+    },
+    {
+      "source": "/api-reference/endpoint/delete-a-link",
+      "destination": "/api-reference/links/delete"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-link",
+      "destination": "/api-reference/links/retrieve"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-links",
+      "destination": "/api-reference/links/list"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-number-of-links",
+      "destination": "/api-reference/links/count"
+    },
+    {
+      "source": "/api-reference/endpoint/bulk-create-links",
+      "destination": "/api-reference/links/bulk-create"
+    },
+    {
+      "source": "/api-reference/endpoint/bulk-update-links",
+      "destination": "/api-reference/links/bulk-update"
+    },
+    {
+      "source": "/api-reference/endpoint/bulk-delete-links",
+      "destination": "/api-reference/links/bulk-delete"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-analytics",
+      "destination": "/api-reference/analytics/retrieve"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-events",
+      "destination": "/api-reference/analytics/list-events"
+    },
+    {
+      "source": "/api-reference/endpoint/track-lead",
+      "destination": "/api-reference/conversions/track-lead"
+    },
+    {
+      "source": "/api-reference/endpoint/track-sale",
+      "destination": "/api-reference/conversions/track-sale"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-partner",
+      "destination": "/api-reference/partners/create"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-partners",
+      "destination": "/api-reference/partners/list"
+    },
+    {
+      "source": "/api-reference/endpoint/ban-a-partner",
+      "destination": "/api-reference/partners/ban"
+    },
+    {
+      "source": "/api-reference/endpoint/deactivate-a-partner",
+      "destination": "/api-reference/partners/deactivate"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-partner-link",
+      "destination": "/api-reference/partners/create-link"
+    },
+    {
+      "source": "/api-reference/endpoint/upsert-a-partner-link",
+      "destination": "/api-reference/partners/upsert-link"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-partners-links",
+      "destination": "/api-reference/partners/retrieve-links"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-partner-analytics",
+      "destination": "/api-reference/partners/retrieve-analytics"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-customer",
+      "destination": "/api-reference/customers/retrieve"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-customers",
+      "destination": "/api-reference/customers/list"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-customer",
+      "destination": "/api-reference/customers/update"
+    },
+    {
+      "source": "/api-reference/endpoint/delete-a-customer",
+      "destination": "/api-reference/customers/delete"
+    },
+    {
+      "source": "/api-reference/endpoint/list-submissions-for-a-bounty",
+      "destination": "/api-reference/bounties/list"
+    },
+    {
+      "source": "/api-reference/endpoint/approve-a-bounty-submission",
+      "destination": "/api-reference/bounties/approve"
+    },
+    {
+      "source": "/api-reference/endpoint/reject-a-bounty-submission",
+      "destination": "/api-reference/bounties/reject"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-commissions",
+      "destination": "/api-reference/commissions/list"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-commission",
+      "destination": "/api-reference/commissions/update"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-payouts",
+      "destination": "/api-reference/payouts/list"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-domain",
+      "destination": "/api-reference/domains/create"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-domain",
+      "destination": "/api-reference/domains/update"
+    },
+    {
+      "source": "/api-reference/endpoint/delete-a-domain",
+      "destination": "/api-reference/domains/delete"
+    },
+    {
+      "source": "/api-reference/endpoint/register-a-domain",
+      "destination": "/api-reference/domains/register"
+    },
+    {
+      "source": "/api-reference/endpoint/check-a-domain-availability",
+      "destination": "/api-reference/domains/check-availability"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-folder",
+      "destination": "/api-reference/folders/create"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-folder",
+      "destination": "/api-reference/folders/update"
+    },
+    {
+      "source": "/api-reference/endpoint/delete-a-folder",
+      "destination": "/api-reference/folders/delete"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-folders",
+      "destination": "/api-reference/folders/list"
+    },
+    {
+      "source": "/api-reference/endpoint/create-a-tag",
+      "destination": "/api-reference/tags/create"
+    },
+    {
+      "source": "/api-reference/endpoint/retrieve-a-list-of-tags",
+      "destination": "/api-reference/tags/list"
+    },
+    {
+      "source": "/api-reference/endpoint/update-a-tag",
+      "destination": "/api-reference/tags/update"
     }
   ]
 }
