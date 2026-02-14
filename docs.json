@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "aspen",
   "name": "Dub Documentation",
   "colors": {
     "primary": "#eb5611",
@@ -14,17 +14,7 @@
   "navigation": {
     "anchors": [
       {
-        "anchor": "Welcome",
-        "icon": "hand-wave",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": ["introduction"]
-          }
-        ]
-      },
-      {
-        "anchor": "Documentation",
+        "anchor": "Developer Docs",
         "icon": "books",
         "groups": [
           {
@@ -139,18 +129,73 @@
         "icon": "life-ring",
         "groups": [
           {
-            "group": "Help Center",
-            "pages": ["help/introduction"]
-          }
-        ]
-      },
-      {
-        "anchor": "Guides",
-        "icon": "map-location-dot",
-        "groups": [
+            "group": "MANAGING A PROGRAM",
+            "pages": [
+              "help/introduction",
+              {
+                "group": "Getting started",
+                "pages": [
+                  "setting-up-your-program",
+                  "partner-groups",
+                  "partner-links",
+                  "brand-resources",
+                  "managing-partners"
+                ]
+              },
+              {
+                "group": "Customizing rewards",
+                "pages": ["customizing-rewards", "managing-commissions"]
+              },
+              {
+                "group": "Recruiting partners",
+                "pages": [
+                  "inviting-partners",
+                  "landing-page",
+                  "application-form",
+                  "reviewing-applications",
+                  "embedded-dashboard",
+                  "partner-network"
+                ]
+              },
+              {
+                "group": "Sending payouts",
+                "pages": ["partner-payouts", "bank-account", "external-payouts"]
+              },
+              {
+                "group": "Engaging partners",
+                "pages": ["email-campaigns", "messages", "bounties"]
+              },
+              {
+                "group": "Insights and reporting",
+                "pages": ["program-analytics", "commissions"]
+              },
+              { "group": "Fraud detection", "pages": ["fraud-detection"] },
+              {
+                "group": "Migration guides",
+                "pages": ["rewardful", "partnerstack", "firstpromoter", "tolt"]
+              }
+            ]
+          },
           {
-            "group": "Guides",
-            "pages": ["guides/introduction"]
+            "group": "PARTNERING WITH PROGRAMS",
+            "pages": [
+              {
+                "group": "Getting started",
+                "pages": ["partner-profile", "partner-team", "merging-account"]
+              },
+              {
+                "group": "Joining programs",
+                "pages": ["program-marketplace", "navigating-program"]
+              },
+              {
+                "group": "Receiving payouts",
+                "pages": [
+                  "receiving-payouts",
+                  "payout-invoices",
+                  "commissions-payouts-work"
+                ]
+              }
+            ]
           }
         ]
       },
@@ -211,7 +256,6 @@
               },
               {
                 "group": "Client-side SDK (Mobile)",
-                "tag": "Beta",
                 "pages": [
                   "sdks/client-side-mobile/introduction",
                   {
