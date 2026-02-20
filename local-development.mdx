@@ -462,6 +462,38 @@ pnpm dev
 
 The web app (`apps/web`) will be available at [localhost:8888](http://localhost:8888). Additionally, you may access Prisma Studio to manage your MySQL database at [localhost:5555](http://localhost:5555).
 
+### Logging into the application
+
+After seeding the database and starting the development server, you can log in to the application using one of the test users created during the seed process.
+
+<Steps>
+
+  <Step title="Find a test user email">
+
+    Navigate to [http://localhost:5555](http://localhost:5555) (Prisma Studio) and open the **Users** table. You'll find several test users, including `owner@dub-internal-test.com`.
+
+  </Step>
+
+  <Step title="Get the login link">
+
+    Go to [http://localhost:8888/login](http://localhost:8888/login) and use the email login method with one of the test user emails.
+
+    Check your **terminal** where the development server is running. After submitting the login form, you'll see a log message in the following format:
+
+    ```
+    Login link: http://localhost:8888/api/auth/callback/email?callbackUrl=...
+    ```
+
+  </Step>
+
+  <Step title="Complete login">
+
+    Copy the login link from the console and paste it into your browser's address bar. You'll be automatically logged in.
+
+  </Step>
+
+</Steps>
+
 ### Testing your shortlinks locally
 
 Use the following url structure to ensure event tracking is working, and to populate analytics data, replacing `<shortlink-key>` with the shortlink key you've created.
@@ -469,3 +501,63 @@ Use the following url structure to ensure event tracking is working, and to popu
 ```
 http://dub.localhost:8888/<shortlink-key>
 ```
+
+## Troubleshooting
+
+### 500 error on `/api/workspaces/[idOrSlug]` route
+
+If you're receiving a 500 error when accessing workspace-related pages, it may be due to missing Stripe API keys. Check your application logs for Stripe-related errors.
+
+For **local development only**, you can add mock Stripe keys to your `apps/web/.env` file:
+
+```bash .env
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=123
+STRIPE_SECRET_KEY=123
+STRIPE_WEBHOOK_SECRET=123
+
+# Stripe App webhook events
+STRIPE_APP_WEBHOOK_SECRET=123
+```
+
+<Warning>
+  These mock keys are for local development only and should never be used in production environments.
+</Warning>
+
+## Running E2E tests locally
+
+To run end-to-end tests locally, you'll need to configure additional environment variables and generate an API token.
+
+<Steps>
+
+  <Step title="Add E2E environment variables">
+
+    Add the following environment variables to your `apps/web/.env` file:
+
+    ```bash .env
+    # E2E testing
+    CI=true
+    E2E_BASE_URL=http://localhost:8888
+    E2E_TOKEN=your_token_here
+    E2E_TOKEN_MEMBER=your_token_here
+    E2E_TOKEN_OLD=your_token_here
+    E2E_PUBLISHABLE_KEY=your_token_here
+    ```
+
+  </Step>
+
+  <Step title="Generate an API token">
+
+    1. Start your development server and log in to the application
+    2. Navigate to [http://localhost:8888/acme/settings/tokens](http://localhost:8888/acme/settings/tokens)
+    3. Generate a new API token with full access permissions
+    4. Replace all instances of `your_token_here` in your `.env` file with the generated token
+
+  </Step>
+
+  <Step title="About the CI variable">
+
+    The `CI=true` variable is used because some tests are designed to run in CI environments. Setting this to `true` allows you to run these tests locally for development and debugging purposes.
+
+  </Step>
+
+</Steps>
