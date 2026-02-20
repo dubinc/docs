@@ -9,6 +9,8 @@ import DubClientInstall from "/snippets/dub-client-install.mdx";
 import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
 import VerifyTrackClick from "/snippets/verify-track-click.mdx";
 import InstallServerSdksTrackConversions from "/snippets/install-server-sdks-track-conversions.mdx";
+import OpenAnalyticsSettings from "/snippets/open-analytics-settings.mdx";
+import OpenProgramDashboard from "/snippets/open-program-dashboard.mdx";
 
 <Note>
   Dub Partners require a [Business plan](https://dub.co/pricing) subscription or
@@ -17,30 +19,18 @@ import InstallServerSdksTrackConversions from "/snippets/install-server-sdks-tra
 
 [Dub Partners](https://dub.co/partners) lets you build powerful, scalable referral and affiliate programs with 1-click global payouts and white-labeling functionality.
 
-In this guide, we'll walk you through the steps to get started with Dub Partners:
-
-1. [Install the `@dub/analytics` client-side SDK](#step-1%3A-install-the-%40dub%2Fanalytics-client-side-sdk)
-2. [Install the Dub server-side SDK + track conversion events](#step-2%3A-install-the-dub-server-side-sdk-%2B-track-conversion-events)
-3. [Set up your partner program](#step-3%3A-set-up-your-partner-program)
-
 ## Step 1: Install the `@dub/analytics` client-side SDK
 
-First, you'll need to install the [@dub/analytics client-side SDK](/sdks/client-side/introduction).
+First, install the [@dub/analytics client-side SDK](/sdks/client-side/introduction). This script captures click attribution by storing a first-party cookie that links conversions back to the referring partner.
 
-This script detects the `dub_id` query parameter and storing it as a first-party cookie, which will be used to attribute subsequent conversion events to the original link.
+<Tip>
+  For a detailed explanation of the click→cookie→lead→sale flow, see [How attribution works](/partners/how-attribution-works).
+</Tip>
 
-<Frame>
-  <img
-    className="rounded-lg border border-gray-100"
-    src="https://assets.dub.co/help/conversion-click-event.png"
-    alt="A diagram showing how click events are tracked in the conversion funnel"
-  />
-</Frame>
+The SDK also supports:
 
-On top of that, it also:
-
-- lets you [track clicks on the client-side](/sdks/client-side/features/click-tracking) using query parameters (e.g. `?via=john`)
-- [automatically fetch the partner and discount data](/sdks/client-side/features/click-tracking#automatically-fetching-partner-and-discount-data) for a given link – which is helpful for displaying [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives)
+- [Client-side click tracking](/sdks/client-side/features/click-tracking) via query parameters (e.g. `?via=john`)
+- [Fetching partner and discount data](/sdks/client-side/features/click-tracking#automatically-fetching-partner-and-discount-data) for [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives)
 
 <DubClientInstall />
 
@@ -50,7 +40,9 @@ Once the script is installed, make sure to verify that [client-side click tracki
 
 <VerifyTrackClick />
 
-In case you missed it, you'll also need to allowlist your site's domain to ensure the client-side click events are ingested by Dub. To do that, navigate to your [workspace's Analytics settings page](https://app.dub.co/settings/analytics) and add your site's domain to the **Allowed Hostnames** list.
+In case you missed it, you'll also need to allowlist your site's domain to ensure the client-side click events are ingested by Dub. Navigate to your workspace's Analytics settings page and add your site's domain to the **Allowed Hostnames** list.
+
+<OpenAnalyticsSettings />
 
 <Frame>
   <img
@@ -65,6 +57,21 @@ In case you missed it, you'll also need to allowlist your site's domain to ensur
   Dub. Don't forget to remove it once you're ready to go live!
 </Tip>
 
+## Alternative: Use a native integration
+
+Instead of the manual server-side SDK setup in Step 2, you can use one of our native integrations to track conversions automatically:
+
+<CardGroup cols={2}>
+  <Card title="Stripe" icon="stripe-s" href="/conversions/sales/stripe">
+    Automatically track purchases, subscriptions, and refunds
+  </Card>
+  <Card title="Shopify" icon="shopify" href="/conversions/sales/shopify">
+    Native app for e-commerce conversion tracking
+  </Card>
+</CardGroup>
+
+If you use Stripe or Shopify, you can skip Step 2 and proceed directly to [Step 3: Set up your partner program](#step-3-set-up-your-partner-program).
+
 ## Step 2: Install the Dub server-side SDK + track conversion events
 
 <InstallServerSdksTrackConversions />
@@ -73,12 +80,18 @@ In case you missed it, you'll also need to allowlist your site's domain to ensur
 
 Once you have conversion tracking up and running, you can follow these steps to set up your partner program:
 
-1. Go through the [program onboarding flow](https://app.dub.co/program/new) to create your program.
+<OpenProgramDashboard />
+
+1. Go through the program onboarding flow to create your program.
    - If you're migrating from another platform, you can also import your partners and historical conversions (e.g. [from Rewardful](https://dub.co/help/article/migrating-from-rewardful)).
 2. [Connect your bank account](https://dub.co/help/article/how-to-set-up-bank-account) for partner payouts.
 3. [Invite your partners](https://dub.co/help/article/inviting-partners) to join your program + set up a branded [program landing page](https://dub.co/help/article/program-landing-page) for future partners.
 4. Create [custom reward rules](https://dub.co/help/article/partner-rewards) and [dual-sided incentives](https://dub.co/help/article/dual-sided-incentives) to incentivize partners to share your link with others.
 5. Set up a [whitelabeled referral dashboard](/partners/embedded-referrals) that lives directly inside your app so your users can automatically enroll in your partner program without leaving your app.
+
+<Tip>
+  For a comprehensive guide on program configuration including conversion tracking integration, see [Partner program setup](/partners/program-setup).
+</Tip>
 
 <Frame>
   <img
@@ -87,3 +100,27 @@ Once you have conversion tracking up and running, you can follow these steps to 
     alt="Dub Partners"
   />
 </Frame>
+
+## Verify your setup
+
+Before going live, confirm you've completed each step:
+
+| Step | Verification |
+|------|--------------|
+| **1. Script installed** | Check that `@dub/analytics` loads on your site (no console errors) |
+| **2. Domain allowlisted** | Your domain is in [Allowed Hostnames](https://app.dub.co/settings/analytics) |
+| **3. Cookie working** | Visit your site via a Dub link and check for `dub_id` cookie |
+| **4. Conversions tracking** | Test a signup/purchase and verify it appears in your [Analytics dashboard](https://app.dub.co/analytics) |
+| **5. Program created** | Partner program exists in your [dashboard](https://app.dub.co/program/new) |
+| **6. Payouts ready** | Bank account connected in [payout settings](https://app.dub.co/settings/payouts) |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="How attribution works" icon="sitemap" href="/partners/how-attribution-works">
+    Deep dive into click→lead→sale attribution
+  </Card>
+  <Card title="Program setup guide" icon="gear" href="/partners/program-setup">
+    Configure rewards, invitations, and white-labeling
+  </Card>
+</CardGroup>

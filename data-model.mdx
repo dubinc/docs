@@ -1,33 +1,63 @@
 ---
 title: Data model
-description: "A quick overview of how Dub is structured."
+description: "Understanding the core data models in Dub."
 ---
 
-Whether you are using Dub's [API](/api-reference/introduction) or not, this page is a quick way to understand how Dub works.
+Understanding the core data models is key to using the Dub API and platform effectively. All data in Dub belongs to a Workspace, which acts as the top-level container for your organization.
 
-Within Dub, all data belongs to a [**Workspace**](#workspace). Within a workspace, you have:
+This page provides a conceptual overview of the primary entities you'll interact with and how they relate to each other, whether you're using the [Dub dashboard](https://app.dub.co) or the [Dub API](/api-reference/introduction).
 
-- [Links](#links)
-- [Analytics](#analytics)
-- [Partners](#partners)
-- [Customers](#customers)
-- [Tags](#tags)
-- [Domains](#domains)
+## Core Entities
 
-When interacting with Dub's API, you'll also need to create a [workspace API key](/api-reference/tokens) to authenticate your requests.
+The following table defines the primary data models in Dub:
 
-## Links
+| Entity         | Description                                                                                                      |
+| -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Workspace**  | The top-level container for all your data. Invite team members, manage roles, and configure billing here.        |
+| **Program**    | A partner program you create with configurable reward rules, commission structures, and enrolled partners.       |
+| **Partner**    | A user who joined a program. They receive a unique referral link and can earn commissions on conversions.        |
+| **Link**       | A short link that redirects to a destination URL. Can be standalone or associated with a partner for tracking.   |
+| **Analytics**  | Aggregated data about link performance including clicks, geographic location, devices, referrers, and UTMs.      |
+| **Customer**   | An end-user who clicked a partner's link and converted (e.g., signed up or made a purchase).                     |
+| **Commission** | A record of a successful conversion attributed to a partner, with a status (pending, approved, paid) and amount. |
+| **Domain**     | A custom domain for branded short links. Improves brand recognition and click-through rates.                     |
+| **Tag**        | A label to organize, filter, and group links for easier management and analytics segmentation.                   |
 
-Links are the bread and butter of Dub. You can shorten any URL to a Dub link, which you can then share with your audience. Links can be [created](/api-reference/endpoint/create-a-link), [updated](/api-reference/endpoint/update-a-link), and [deleted](/api-reference/endpoint/delete-a-link) via the [Dub API](/api-reference/introduction) or the [Dub dashboard](https://app.dub.co).
+## Entity Relationships
 
-## Domains
+The diagram below illustrates how these entities relate to one another:
 
-On Dub, you can [add custom domains](https://dub.co/help/article/how-to-add-custom-domain) to create branded short links for better brand recognition. You can also [set a primary domain](https://dub.co/help/article/how-to-set-primary-domain) for it to be used as the default domain for new links (both via the API and the dashboard).
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="/images/data-model.png"
+    alt="Dub Data Model - Entity Relationship Diagram"
+  />
+</Frame>
 
-## Tags
+## Key Relationships
 
-Tags are a way to organize your links. You can [add tags to your links](https://dub.co/help/article/how-to-use-tags) to categorize them and make them easier to find. You can also [filter analytics by tags](https://dub.co/blog/introducing-tags#filtering-analytics-by-tags) to get a better understanding of how your campaigns are performing.
+The relationships between entities follow a clear hierarchy:
 
-## Workspace
+1. **Workspace → Program**: A workspace can have multiple partner programs. Each program operates independently with its own reward rules and partners.
 
-[Workspaces](https://dub.co/help/article/what-is-a-workspace) is the defacto way of organizing your links and working with your team on Dub. You can think of a Dub workspace like a workspace on Slack or Discord – it's a shared space where you can [invite your team members](https://dub.co/help/article/how-to-invite-teammates) to collaborate on links.
+2. **Program → Partner**: Partners join a specific program. A single user could be a partner in multiple programs across different workspaces.
+
+3. **Partner → Link**: When a partner joins a program, they receive a unique referral link. This link is used to track all referrals back to that partner.
+
+4. **Link → Customer**: When a visitor clicks a partner's link and converts, they become a Customer. The customer is permanently associated with the referring link.
+
+5. **Customer → Commission**: Each qualifying action by a customer (e.g., a purchase) generates a Commission record for the partner who referred them.
+
+## Next Steps
+
+Now that you understand the data model, you can:
+
+<CardGroup cols={2}>
+  <Card title="Set up Dub Partners" icon="users" href="/partners/quickstart">
+    Create your first partner program and start tracking referrals
+  </Card>
+  <Card title="Explore the API" icon="code" href="/api-reference/introduction">
+    Learn how to interact with these entities programmatically
+  </Card>
+</CardGroup>

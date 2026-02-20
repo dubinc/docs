@@ -1,0 +1,63 @@
+---
+title: Platform overview
+description: "A high-level overview of how the Dub platform works."
+---
+
+import OpenAnalyticsSettings from "/snippets/open-analytics-settings.mdx";
+
+This page provides a high-level, conceptual overview of how the Dub platform works, focusing on the end-to-end flow of the Dub Partners product.
+
+## The Core Flow
+
+The partner lifecycle consists of five key stages:
+
+1. **Program Creation**: A user (the "Program Owner") creates a Partner Program in their Dub workspace.
+
+2. **Partner Onboarding**: A partner discovers the program and is invited or signs up. They get a unique referral link.
+
+3. **Link Sharing**: The partner shares their unique link on their website, social media, etc.
+
+4. **Visitor Click & Conversion**: A visitor clicks the link. The `@dub/analytics` script attributes the click to the partner. The visitor then converts (e.g., signs up, makes a purchase).
+
+5. **Commission & Payout**: A commission is generated for the partner. The Program Owner can then pay out all partners with 1-click global payouts.
+
+## Generate Your Script
+
+Before tracking conversions, you need to install the [`@dub/analytics`](/sdks/client-side/introduction) script on your website. This lightweight script detects when visitors arrive via a Dub link and stores a first-party cookie for attribution.
+
+To get started:
+
+1. Navigate to your workspace's Analytics settings page
+2. Generate a [publishable key](/api-reference/publishable-keys) for client-side authentication
+3. Allowlist the domains where you'll install the script
+
+<OpenAnalyticsSettings />
+
+Once configured, follow one of the [installation guides](/sdks/client-side/introduction#installation-guides) to add the script to your site.
+
+## Integration Options
+
+At Stage 4 (Visitor Click & Conversion), you'll need to track when visitors convert. Dub offers multiple integration paths:
+
+<CardGroup cols={2}>
+  <Card title="Payment platforms" icon="credit-card" href="/conversions/sales/stripe">
+    **Stripe** and **Shopify** native apps automatically track purchases, subscriptions, and refunds
+  </Card>
+  <Card title="Tag management" icon="tags" href="/conversions/leads/google-tag-manager">
+    **Google Tag Manager** for no-code client-side tracking on any platform
+  </Card>
+  <Card title="Automation" icon="bolt" href="https://dub.co/integrations/zapier">
+    **Zapier** connects Dub to 7,000+ apps to automate your workflows
+  </Card>
+  <Card title="Server-side SDKs" icon="code" href="/sdks/overview">
+    **TypeScript**, **Python**, **Go**, **PHP**, **Ruby** for custom implementations
+  </Card>
+</CardGroup>
+
+<Frame>
+  <img
+    className="rounded-lg border border-gray-100"
+    src="/images/dub-partners-flow.png"
+    alt="Dub Partners Flow - End-to-end partner lifecycle diagram"
+  />
+</Frame>
