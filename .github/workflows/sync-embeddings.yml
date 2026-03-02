@@ -3,7 +3,7 @@ name: Sync Support Embeddings
 on:
   push:
     branches:
-      - embeddable-support-chat-widget # ← temp, revert before merge
+      - main
     paths:
       - "docs/**/*.mdx"
       - "help/**/*.mdx"
@@ -46,7 +46,7 @@ jobs:
             fi
 
             echo "Re-embedding: $url"
-            curl -sf -X POST https://9b24-2804-14c-5be3-88e9-304c-73ed-a37d-1500.ngrok-free.app/api/ai/sync-embeddings \
+            curl -sf -X POST https://app.dub.co/api/ai/sync-embeddings \
               -H "Authorization: Bearer $EMBEDDING_SYNC_SECRET" \
               -H "Content-Type: application/json" \
               -d "{\"url\": \"$url\"}" \
