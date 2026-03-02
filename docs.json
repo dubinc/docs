@@ -139,11 +139,18 @@
                 "pages": [
                   "help/article/setting-up-your-program",
                   "help/article/partner-groups",
-                  "help/article/partner-rewards",
                   "help/article/managing-program-partners",
                   "help/article/dual-sided-incentives",
                   "help/article/program-resources",
                   "help/article/partner-link-settings"
+                ]
+              },
+              {
+                "group": "Rewards and commissions",
+                "pages": [
+                  "help/article/partner-rewards",
+                  "help/article/partner-commissions",
+                  "help/article/non-monetary-rewards"
                 ]
               },
               {
@@ -175,7 +182,6 @@
                 "group": "Insights and reporting",
                 "pages": [
                   "help/article/program-analytics",
-                  "help/article/partner-commissions",
                   "help/article/fraud-detection"
                 ]
               },
