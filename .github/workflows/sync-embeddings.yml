@@ -1,0 +1,55 @@
+name: Sync Support Embeddings
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**/*.mdx"
+      - "help/**/*.mdx"
+
+jobs:
+  sync:
+    name: Re-embed changed articles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find changed MDX files
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'docs/**/*.mdx' 'help/**/*.mdx' | tr '\n' ' ')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+          echo "Changed files: $CHANGED"
+
+      - name: Re-embed changed articles
+        if: steps.changed.outputs.files != ''
+        env:
+          EMBEDDING_SYNC_SECRET: ${{ secrets.EMBEDDING_SYNC_SECRET }}
+        run: |
+          for file in ${{ steps.changed.outputs.files }}; do
+            # Map file path to public URL
+            # docs/api-reference/links/create.mdx → https://dub.co/docs/api-reference/links/create
+            # help/article/partner-payouts.mdx    → https://dub.co/help/article/partner-payouts
+            if [[ "$file" == docs/* ]]; then
+              path="${file#docs/}"
+              path="${path%.mdx}"
+              url="https://dub.co/docs/$path"
+            elif [[ "$file" == help/* ]]; then
+              path="${file#help/}"
+              path="${path%.mdx}"
+              url="https://dub.co/help/$path"
+            else
+              continue
+            fi
+
+            echo "Re-embedding: $url"
+            curl -sf -X POST https://app.dub.co/api/ai/sync-embeddings \
+              -H "Authorization: Bearer $EMBEDDING_SYNC_SECRET" \
+              -H "Content-Type: application/json" \
+              -d "{\"url\": \"$url\"}" \
+              && echo "  ✓ Done" \
+              || echo "  ✗ Failed (exit $?)"
+          done
