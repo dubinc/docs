@@ -24,6 +24,10 @@ jobs:
           echo "files=$CHANGED" >> $GITHUB_OUTPUT
           echo "Changed files: $CHANGED"
 
+      - name: Wait for Mintlify to deploy
+        if: steps.changed.outputs.files != ''
+        run: sleep 600
+
       - name: Re-embed changed articles
         if: steps.changed.outputs.files != ''
         env:
