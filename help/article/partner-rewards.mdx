@@ -161,7 +161,7 @@ Here are a few reward examples with their conditions to give you some starting i
 
 ### Geo-specific
 
-When your partners have conversions from specific countries, reward them with a higher percentage.
+Tailor your reward amount by customer country. In this example, we're rewarding partners with a higher percentage for conversions from Canada and the United States:
 
 <Frame>
   <img
@@ -170,13 +170,14 @@ When your partners have conversions from specific countries, reward them with a 
   />
 </Frame>
 
-**Condition #1**
-
-If `Customer` `Country` `is one of` `Canada, United States, Mexico`
+| Condition                                                   | Reward                                    | Description                                 |
+| ----------------------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
+| If `Customer` `Country` `is one of` `Canada, United States` | Then pay a `Percentage` of `40%` per sale | Higher reward for US and Canadian customers |
+| If `Customer` `Country` `is not` `United States`            | Then pay a `Percentage` of `10%` per sale | Lower reward for non-US customers           |
 
 ### Product spotlight
 
-Tailor your reward amount by product. In this example, we're rewarding more when the sale is for the Gold Plan.
+Tailor your reward amount by product. In this example, we're rewarding more when the sale is for the Gold Plan:
 
 <Frame>
   <img
@@ -185,11 +186,19 @@ Tailor your reward amount by product. In this example, we're rewarding more when
   />
 </Frame>
 
-**Condition #1**
+| Condition                                  | Reward                                    | Description                           |
+| ------------------------------------------ | ----------------------------------------- | ------------------------------------- |
+| If`Sale` `Product ID` `is` `prod_xxx`      | Then pay a `Percentage` of `40%` per sale | Higher reward for `prod_xxx` sales    |
+| If `Sale` `Product ID` `is not` `prod_xxx` | Then pay a `Percentage` of `10%` per sale | Lower reward for non-`prod_xxx` sales |
 
-If `Sale` `Product ID` `is` `Your product ID`
+<Tip>
+  You can also set what the partner sees as the product name by adding a `Shown
+  as` field to the reward.
 
-Show as `Gold Plan` (what the partner sees)
+For example, if you want to show the product as "Gold Plan" instead of the
+actual product ID, you can set the `Shown as` to `Gold Plan`.
+
+</Tip>
 
 <Info>
   Where `Your product ID` is listed, you'll enter your product ID (the
@@ -207,7 +216,7 @@ prop](/docs/api-reference/endpoint/track-sale#body-metadata-one-of-0)
 
 ### Partner performance tiers
 
-For creating tiered rewards based on performance. In this example, our base reward is the smallest, and each condition is larger, starting at 50% and growing to 60% based on how many conversions the partner has.
+Tailor your reward amount by partner performance. In this example, we offer a 50% base reward and increase it to 60% based on how many conversions the partner has:
 
 <Frame>
   <img
@@ -216,13 +225,11 @@ For creating tiered rewards based on performance. In this example, our base rewa
   />
 </Frame>
 
-**Condition #1:**
-
-If `Partner` `Total conversions` `is greater than or equal to` `1`
-
-**Condition #2**
-
-If `Partner` `Total revenue` `is greater than or equal to` `$10,000`
+| Condition                                                               | Reward                                    | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------- |
+| If `Partner` `Total conversions` `is greater than or equal to` `200`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than 200 conversions               |
+| If `Partner` `Total revenue` `is greater than or equal to` `$10,000`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than $10K in referral revenue      |
+| If `Partner` `Total commissions` `is greater than or equal to` `$1,000` | Then pay a `Percentage` of `60%` per sale | Higher reward for partners who have earned more than $1K in commissions |
 
 <Tip>
   Want to move partners to a different partner group based on their performance
@@ -230,24 +237,11 @@ If `Partner` `Total revenue` `is greater than or equal to` `$10,000`
   rules](/help/article/partner-groups#group-move-rules).
 </Tip>
 
-### Sale reward tiers
+### Staggered reward durations
 
-For creating tiered rewards based on customer sales. In this example, we're giving our partners a higher reward if the sale amount is over a specific dollar amount.
+Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date.
 
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/condition-example-04.png"
-    alt="The Climb condition example"
-  />
-</Frame>
-
-**Condition #1**
-
-If `Sale` `Amount` `is greater than or equal to` `$100`
-
-### Staggered reward tiers
-
-When you want to offer a different reward amount after the customer's subscription meets a specific time period.
+In this example, we're offering a 25% reward for the first 12 months and a 10% reward for all other sales:
 
 <Frame>
   <img
@@ -256,21 +250,29 @@ When you want to offer a different reward amount after the customer's subscripti
   />
 </Frame>
 
-**Base reward example**
+There are 3 different conditions for staggered reward durations:
 
-Pay a `Percentage` or `10%` per sale `for the customer's lifetime` for all other sales
+| Condition type                         | Description                                      | Example                                                                  |
+| -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| **Customer's subscription duration**   | How long the customer has been subscribed for    | 25% for the first 12 months, 10% for the rest of the customer's lifetime |
+| **Customer's subscription start date** | The date the customer started their subscription | 25% if subscribed before Jan 1, 2026, else 10%                           |
+| **Customer's signup date**             | The date the customer signed up for your product | 25% if signed up before Jan 1, 2026, else 10%                            |
 
-**Condition example**
+### Sale amount modifiers
 
-If `Customer` `Subscription duration` `is less than or equal to` `12` months
+For creating tiered rewards based on the sale amount. In this example, we're giving our partners a higher reward if the sale amount is over a specific dollar amount:
 
-Then pay a `Percentage` of `25%` per sale `for 12 months`
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/condition-example-04.png"
+    alt="The Climb condition example"
+  />
+</Frame>
 
-<Info>
-  In this example, after a customer has been subscribed for more than 12 months,
-  the partner’s commission changes from 25% to 10% for all future payouts from
-  that customer.
-</Info>
+| Condition                                               | Reward                                    | Description                       |
+| ------------------------------------------------------- | ----------------------------------------- | --------------------------------- |
+| If `Sale` `Amount` `is greater than or equal to` `$100` | Then pay a `Percentage` of `60%` per sale | Higher reward for sales over $100 |
+| If `Sale` `Amount` `is less than or equal to` `$100`    | Then pay a `Percentage` of `60%` per sale | Lower reward for sales under $100 |
 
 ## Updating a partner group's reward configuration
 
