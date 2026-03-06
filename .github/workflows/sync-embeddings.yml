@@ -24,10 +24,6 @@ jobs:
           echo "files=$CHANGED" >> $GITHUB_OUTPUT
           echo "Changed files: $CHANGED"
 
-      - name: Wait for Mintlify to deploy
-        if: steps.changed.outputs.files != ''
-        run: sleep 600
-
       - name: Re-embed changed articles
         if: steps.changed.outputs.files != ''
         env:
@@ -53,7 +49,7 @@ jobs:
             curl -sf -X POST https://app.dub.co/api/ai/sync-embeddings \
               -H "Authorization: Bearer $EMBEDDING_SYNC_SECRET" \
               -H "Content-Type: application/json" \
-              -d "{\"url\": \"$url\"}" \
+              -d "{\"url\": \"$url\", \"delay\": 600}" \
               && echo "  ✓ Done" \
               || echo "  ✗ Failed (exit $?)"
           done
