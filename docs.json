@@ -802,6 +802,14 @@
       "destination": "/docs/integrations/hubspot"
     },
     {
+      "source": "/docs/conversions/leads/google-tag-manager",
+      "destination": "/docs/integrations/google-tag-manager"
+    },
+    {
+      "source": "/docs/conversions/sales/google-tag-manager",
+      "destination": "/docs/integrations/google-tag-manager"
+    },
+    {
       "source": "/docs/conversions/quickstart",
       "destination": "/docs/quickstart/server"
     },
