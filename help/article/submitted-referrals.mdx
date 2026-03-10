@@ -112,6 +112,8 @@ This change will also ask for an optional external ID.
   />
 </Frame>
 
+When changing to `qualified`, this creates a lead event.
+
 ### Closed won status
 
 This change will also ask for a required sale amount and optional Stripe customer ID.
@@ -123,7 +125,7 @@ This change will also ask for a required sale amount and optional Stripe custome
   />
 </Frame>
 
-
+When changing to `closed won`, this creates a sale record.
 
 ## Referral statuses
 
@@ -132,11 +134,11 @@ Submitted referrals move through a simple pipeline inside Dub:
 | Status | What it means |
 | --- | --- |
 | **New** | The referral was submitted and has not been reviewed yet. |
-| **Qualified** | The referral is valid and worth pursuing. This also creates a lead event in Dub. |
+| **Qualified** | The referral is valid and worth pursuing. This also creates a lead event. |
 | **Meeting** | The referred prospect has progressed to a meeting stage. |
 | **Negotiation** | The referred prospect is in an active deal cycle. |
 | **Unqualified** | The referral is not a fit and will not move forward. |
-| **Closed won** | The referral became a customer. This also records a sale in Dub. |
+| **Closed won** | The referral became a customer. This also creates a sale record. |
 | **Closed lost** | The opportunity did not convert. |
 
 ### Status rules
