@@ -11,47 +11,119 @@ sidebarTitle: "Submitted referrals"
 
 Submitted referrals let partners manually submit prospective customers to your program, even when the referral did not come through a tracked partner link.
 
-Partners see these in their **Customers** section as **Submitted Referrals**, and program owners review them in the workspace under **Customers** → **Partner Referrals**.
+<Frame>
+  <img
+    src="/images/dub-partners/customer-submitted-dash.png"
+    alt="Submitted referrals dashboard view"
+  />
+</Frame>
 
-## What are submitted referrals?
+They are different from tracked leads since they are not created automatically by a partner link, but rather manually submitted by the partner.
 
-A submitted referral is a manual referral submitted by a partner through your program's referral form.
+They start as a referral record, not an attributed lead event, and only become a lead or sale in Dub when you update their status. This makes submitted referrals useful for sales-assisted workflows where partners introduce prospects before a tracked signup or purchase happens.
 
-Every submitted referral always includes these required fields:
+## Creating rewards for submitted referrals
 
-- **Name**
-- **Email**
-- **Company**
+To create or update referral rewards, go to your program's [partner groups](/help/article/partner-groups), open the group you want to configure, and edit its rewards. This is where you create:
 
-You can also add custom fields to collect more context from partners, but these three fields are always required.
+- **Lead rewards** for referrals that reach `Qualified` status
+- **Sale rewards** for referrals that reach `Closed won` status
 
-## How they differ from tracked leads
+### Lead reward
 
-Tracked leads are created automatically when someone clicks a partner link and later completes a conversion event that you send to Dub.
+Open the lead reward editor, and add a condition to pay out when the customer source is `submitted referral`. If this customer reaches **Qualified**, the partner then earns a reward.
 
-Submitted referrals are different:
+<Frame>
+  <img
+    src="/images/dub-partners/create-lead-submitted-referral.png"
+    alt="Create lead submitted referral"
+  />
+</Frame>
 
-- They are entered manually by the partner
-- They start as a referral record, not an attributed lead event
-- They only become a lead or sale in Dub when you update their status
+### Sale reward
 
-This makes submitted referrals useful for sales-assisted workflows where partners introduce prospects before a tracked signup or purchase happens.
+Open the sale reward editor, and add a condition to pay out when the customer source is `closed won deal`. This will create the customer record, and the partner will be rewarded.
 
-## Where to find submitted referrals
+<Frame>
+  <img
+    src="/images/dub-partners/create-sale-submitted-referral.png"
+    alt="Create sale submitted referral"
+  />
+</Frame>
 
-As a program owner, go to **Customers** in your Partner Program navigation, then open the **Partner Referrals** tab.
+
+## Managing submitted referrals
+
+To view all submitted referrals, go to **Customers** in your Partner Program navigation, then click the **Partner Referrals** tab.
+
+<Frame>
+  <img
+    src="/images/dub-partners/customer-submitted-tab.png"
+    alt="Submitted referrals tab view"
+  />
+</Frame>
 
 This view shows all partner-submitted referrals in one table, including:
 
 - Lead email
 - Company
-- Partner
+- Submitting partner
 - Submitted date
-- Current status
+- [Current status](#referral-statuses)
 
 Click any row to open the referral details panel and review the submission more closely.
 
 If you want to review converted customers after a referral has been qualified or closed won, see [Customer insights](/help/article/customer-insights).
+
+## Reviewing submitted referrals
+
+When you click a referral row in the **Partner Referrals** table, a drawer view opens with the full referral record.
+
+<Frame>
+  <img
+    src="/images/dub-partners/submitted-referral-drawer.png"
+    alt="Submitted referrals drawer view"
+  />
+</Frame>
+
+This drawer is designed for quickly reviewing the submission, updating the referral stage, and seeing the history of changes without leaving the table. You're also able to edit the lead details by clicking the **Edit** button on the lead details card.
+
+## Changing statuses
+
+If you select a new stage, Dub shows **Save changes** and **Cancel** actions at the bottom of the drawer before the update is finalized.
+
+<Frame>
+  <img
+    src="/images/dub-partners/submitted-referral-drawer-save.png"
+    alt="Submitted referrals drawer save"
+  />
+</Frame>
+
+For all status change updates, the partner is notified and the status change is reflected in their dashboard. You can also include optional notes for the partner with the status update. For `qualified` and `closed won` statuses, additional information may be shown or required.
+
+### Qualified status
+
+This change will also ask for an optional external ID.
+
+<Frame>
+  <img
+    src="/images/dub-partners/referral-status-qualified.png"
+    alt="Submitted referrals drawer view"
+  />
+</Frame>
+
+### Closed won status
+
+This change will also ask for a required sale amount and optional Stripe customer ID.
+
+<Frame>
+  <img
+    src="/images/dub-partners/referral-status-closedwon.png"
+    alt="Submitted referrals drawer view"
+  />
+</Frame>
+
+
 
 ## Referral statuses
 
@@ -75,73 +147,3 @@ Submitted referrals move through a simple pipeline inside Dub:
 - A referral must have an associated customer before it can be moved to **Closed won**
 
 In practice, that means you should typically mark a submitted referral as **Qualified** before marking it as **Closed won**.
-
-## What happens when you change a status
-
-When you update a referral's status, Dub logs the change and can notify the partner by email. You can also include optional notes for the partner with the status update.
-
-Two statuses also create downstream conversion records:
-
-### Qualified
-
-When you move a submitted referral to **Qualified**, Dub:
-
-- creates a lead event with the event name **Qualified Lead**
-- uses the source **submitted referral**
-- creates or associates a customer record
-
-You can optionally provide an external ID at this step. If you don't, Dub uses the referral email as the customer external ID.
-
-### Closed won
-
-When you move a submitted referral to **Closed won**, Dub:
-
-- records a sale event with the event name **Closed Won**
-- uses the source **closed won deal**
-- requires a sale amount
-- optionally saves a Stripe customer ID to the customer record
-
-## Rewards for submitted referrals
-
-Submitted referrals use your normal partner reward system.
-
-- Marking a referral as **Qualified** can trigger your **lead reward**
-- Marking a referral as **Closed won** can trigger your **sale reward**
-
-If you want submitted referrals to be rewarded differently from tracked partner-link conversions, configure separate reward conditions in your [partner rewards](/help/article/partner-rewards) setup based on the customer's **Source**:
-
-- **submitted referral** for qualified submitted leads
-- **closed won deal** for submitted referrals that become customers
-
-This lets you keep manually submitted referrals on their own payout logic if needed.
-
-## Required fields
-
-Every submitted referral form requires:
-
-| Field | Required |
-| --- | --- |
-| Name | Yes |
-| Email | Yes |
-| Company | Yes |
-
-These fields are locked as required in the app. You can add extra custom fields, but you cannot remove these three base fields.
-
-## Related articles
-
-<CardGroup cols={2}>
-  <Card
-    title="Customer insights"
-    icon="user"
-    href="/help/article/customer-insights"
-  >
-    Review customer records after a submitted referral becomes a lead or sale
-  </Card>
-  <Card
-    title="Configuring partner rewards"
-    icon="money-bill"
-    href="/help/article/partner-rewards"
-  >
-    Configure lead and sale rewards for submitted referrals
-  </Card>
-</CardGroup>
