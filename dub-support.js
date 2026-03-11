@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const EMBED_URL =
-    "http://localhost:8888/embed/support-chat?variant=bubble&context=docs";
+  const ALLOWED_ORIGIN = "https://app.dub.co";
+  const EMBED_URL = `${ALLOWED_ORIGIN}/embed/support-chat?variant=bubble`;
 
   const BUBBLE_SIZE = 100;
   const PANEL_WIDTH = 580;
@@ -28,6 +28,7 @@
       "transition:width 0.2s ease,height 0.2s ease;";
 
     window.addEventListener("message", function (e) {
+      if (e.origin !== ALLOWED_ORIGIN) return;
       if (!e.data || e.data.type !== "dub-support-chat") return;
       if (e.data.isOpen) {
         iframe.style.width = Math.min(PANEL_WIDTH, window.innerWidth) + "px";
