@@ -2,7 +2,7 @@
   "use strict";
 
   const EMBED_URL =
-    "https://app.dub.co/embed/support-chat?variant=bubble&context=docs";
+    "http://localhost:8888/embed/support-chat?variant=bubble&context=docs";
 
   const BUBBLE_SIZE = 100;
   const PANEL_WIDTH = 580;
@@ -27,10 +27,7 @@
       "border:none;background:transparent;color-scheme:auto;" +
       "transition:width 0.2s ease,height 0.2s ease;";
 
-    const ALLOWED_ORIGIN = "https://app.dub.co";
-
     window.addEventListener("message", function (e) {
-      if (e.origin !== ALLOWED_ORIGIN) return;
       if (!e.data || e.data.type !== "dub-support-chat") return;
       if (e.data.isOpen) {
         iframe.style.width = Math.min(PANEL_WIDTH, window.innerWidth) + "px";
