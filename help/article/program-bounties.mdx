@@ -118,7 +118,7 @@ Examples:
 | Description (optional) | Provide additional bounty details. E.g. "Make sure to attach up to 3 photos of your event as proof for bounty completion." |
 | Start date (optional) | Bounty start date. Partners will receive an email notification on this date about the bounty. If one is not selected, the bounty will start on the creation date. |
 | End date (optional) | Bounty end date. If set, bounty will "expire" after the end date and will no longer be eligible for commission. |
-| Allowed submissions | The number of submissions you'd like the partner to submit to complete the bounty. |
+| Allowed submissions | The number of submissions required for a partner to complete the bounty. Partners must submit this many entries to complete it. |
 | [Submission window](#submission-window) (optional) | Set how many days before the end date partners can start submitting entries. An end date is required to enter a submission window. |
 | [Submission frequency](#submission-frequency) (optional) | Set the time between submissions partners can make. |
 | Submission type | This is the criteria for which partners will submit their entry. Select between manual submission and social metrics. |
@@ -137,12 +137,12 @@ This is the number of days before the end date that partners can start submittin
 
 
 ### Submission frequency
-Set the time between submissions partners can make. You can select from:
+Set the time between submissions partners can make when `Allowed submissions` is greater than one. Partners must submit the full number of allowed submissions to complete the bounty. You can select from:
 - Once a day
 - Once a week
 - Once a month
 
-**Set allowed submission to greater than one to be able to set a submission frequency.**
+**Set `Allowed submissions` to greater than one to set a submission frequency.**
 
 <Frame>
   <img
@@ -151,7 +151,7 @@ Set the time between submissions partners can make. You can select from:
   />
 </Frame>
 
-If no submission frequency is set, partners can submit all allowed submissions at any time.
+If no submission frequency is set, partners can submit all required entries at any time.
 
 
 ### Manual submission
