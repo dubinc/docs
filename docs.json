@@ -830,6 +830,10 @@
       "destination": "/docs/api-reference/authentication#publishable-keys"
     },
     {
+      "source": "/docs/api-reference/endpoint/create-a-new-link",
+      "destination": "/docs/api-reference/links/create"
+    },
+    {
       "source": "/docs/api-reference/endpoint/create-a-link",
       "destination": "/docs/api-reference/links/create"
     },
