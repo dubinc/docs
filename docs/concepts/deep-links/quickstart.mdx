@@ -615,3 +615,29 @@ You can also test your deep links by opening them from a messaging app on your d
 </Step>
 
 </Steps>
+
+## Troubleshooting
+
+If your deep links aren't working as expected, here are some common issues and solutions:
+
+<AccordionGroup>
+
+<Accordion title="Deep links not opening your app">
+
+Make sure you've [allowlisted your short link domain](#allowlist-your-deep-link-domain-in-your-app) in your app's configuration. This is required for both iOS and Android to recognize and handle links from your domain.
+
+</Accordion>
+
+<Accordion title="App not detected even though it's installed">
+
+This is typically caused by iOS or Android caching the deep link configuration. Try uninstalling and reinstalling your app to clear the cache. This forces the operating system to re-fetch the `apple-app-site-association` or `assetlinks.json` files.
+
+</Accordion>
+
+<Accordion title="Deep links work sometimes but not always">
+
+If your links are being shared through marketing platforms, email providers, or click trackers, the original URL may be getting wrapped or modified. When a third-party service wraps your Dub link in their own tracking URL, the deep link won't work because the device sees the wrapper domain instead of your allowlisted domain. Contact your marketing or analytics provider to ensure Dub links are passed through without modification.
+
+</Accordion>
+
+</AccordionGroup>
