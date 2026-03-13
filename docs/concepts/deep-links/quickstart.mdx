@@ -577,7 +577,7 @@ After they install and open your app, you'll need to use [deferred deep linking]
   Deep Linking](/docs/concepts/deep-links/deferred-deep-linking) guide.
 </Note>
 
-## Test your deep links
+## Testing deep links
 
 Before deploying your deep links to production, test them thoroughly using emulators to ensure they work correctly.
 
@@ -611,6 +611,37 @@ You can also test your deep links by opening them from a messaging app on your d
 2. Send yourself a message containing your deep link URL
 3. Tap on the link in the message
 4. The link should either open your app directly or redirect to the appropriate app store
+
+</Step>
+
+</Steps>
+
+## Troubleshooting deep links
+
+If your deep links aren't working as expected, here are some common issues and solutions:
+
+<Steps>
+<Step title="Deep link domain not allowlisted">
+
+Make sure you've [allowlisted your deep link domain](/docs/concepts/deep-links/quickstart#allowlist-your-deep-link-domain-in-your-app) in your app's configuration. This is required for both iOS and Android to recognize and handle links from your domain.
+
+</Step>
+
+<Step title="iOS/Android cached outdated deep link configuration">
+
+If you've completed all steps above and your deep links still aren't working, it's likely because iOS or Android cached the outdated deep link configuration.
+
+Try uninstalling and reinstalling your app to clear the cache. This forces the operating system to re-fetch the `apple-app-site-association` or `assetlinks.json` files.
+
+</Step>
+
+<Step title="Deep link wrapped by a third-party links">
+
+If your links are being shared through marketing platforms, email providers, or click trackers, the original URL may be getting wrapped or modified.
+
+When a third-party service wraps your Dub link in their own tracking URL, the deep link won't work because the device sees the wrapper domain instead of your allowlisted domain.
+
+Contact your marketing or analytics provider to ensure Dub links are passed through without modification.
 
 </Step>
 
