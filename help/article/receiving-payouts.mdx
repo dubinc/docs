@@ -1,37 +1,106 @@
 ---
 title: "Connecting your payout method to receive payouts"
-description: "Learn how to connect a bank account and start receiving partner payouts from the affiliate programs you're working with."
+description: "Learn how to connect a payout method and start receiving payouts from the affiliate programs you're working with."
 sidebarTitle: "Connecting your payout method"
 ---
 
 import { ImageCarousel } from "/snippets/components/image-carousel.jsx";
 import { PayoutSupportedCountries } from "/snippets/components/payout-supported-countries.jsx";
 
-As an affiliate partner on Dub, you can participate in various affiliate programs and receive commission payouts directly into your bank account.
+Once you've set up a [partner profile on Dub](https://partners.dub.co/), you can connect a payout method to start receiving payouts from the programs you're working with.
 
-Once you've set up a [partner profile on Dub](https://partners.dub.co/), you can connect your bank account to start receiving payouts from the programs you're working with.
+Depending on your [country of residence](#supported-payout-countries), you can choose between a [stablecoin wallet](#connecting-a-stablecoin-wallet) or a [bank account](#connecting-a-bank-account) to receive payouts.
 
-## Connecting a bank account
+|                     | Stablecoin                                 | Bank account                               |
+| ------------------- | ------------------------------------------ | ------------------------------------------ |
+| Fees                | 0.5% transaction fee                       | 1% FX conversion fee                       |
+| Payout currency     | USDC                                       | Local currency                             |
+| Payout timing       | Within minutes                             | Up to 15 business days                     |
+| Supported countries | [Refer below](#supported-payout-countries) | [Refer below](#supported-payout-countries) |
 
-Dub partners with Stripe for secure global payouts. To receive payouts, you'll need to follow these steps to set up a [Stripe Express](https://support.stripe.com/express) account:
+<Warning>
+  During onboarding, you must select the country where you legally reside for
+  tax purposes. Providing incorrect information may result in account
+  suspension, loss of payouts, and legal action.
+</Warning>
 
-<Info>
-  **Your payout bank account must match your local currency for compliance
-  reasons.** E.g. if you're based in the UK, you will need to connect a GBP bank
-  account to receive payouts.
+## Supported payout countries
 
-Related FAQ: ["Can I receive payouts in USD?"](#can-i-receive-payouts-in-usd)
+Here's the full list of countries that we support sending payouts to, along with the available payout methods for each of them:
 
-</Info>
+<PayoutSupportedCountries />
+
+## Connecting a stablecoin wallet
+
+Stablecoin payouts is the easiest and fastest way to receive payouts on Dub (especially for non-US partners):
+
+- **Get paid in USD** – instead of your local currency, you can receive payouts in USDC all around the world
+- **Faster payouts** – payouts are sent within minutes instead of having to wait up to 15 business days for regular bank transfers
+- **Lower fees** – 0.5% transaction fee vs 1% FX conversion fee for international payouts
 
 <Steps>
 <Step title="Initiate the connect payouts flow">
-First, go to your [payout settings on Dub](https://partners.dub.co/settings/payouts) and select "Connect bank account":
+
+First, go to your [payout settings on Dub](https://partners.dub.co/payouts?settings=true) and select "Connect stablecoin wallet":
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/partner-payout-settings.png"
-    alt="partner payout settings"
+    src="/images/payouts/payout-settings-stablecoin.png"
+    alt="Payout settings stablecoin"
+  />
+</Frame>
+
+This will open up the stablecoin wallet onboarding flow (`accounts.stripe.com/r/acct_xxx...`).
+
+</Step>
+
+<Step title="Connect your stablecoin wallet">
+
+Then, follow the steps in the onboarding flow to connect your stablecoin wallet. You can either use the 1-click connect flow (recommended), or manually input your stablecoin wallet details.
+
+<Warning>
+  Make sure to triple-check that you've entered the correct stablecoin wallet
+  address and network to receive USDC payouts. Incorrect details may result in
+  payout failures and lost funds.
+</Warning>
+
+<ImageCarousel
+  images={[
+    {
+      src: "/images/payouts/connect-stablecoin-wallet-1.png",
+      alt: "Connect stablecoin wallet step 1",
+    },
+    {
+      src: "/images/payouts/connect-stablecoin-wallet-2.png",
+      alt: "Connect stablecoin wallet step 2",
+    },
+    {
+      src: "/images/payouts/connect-stablecoin-wallet-3.png",
+      alt: "Connect stablecoin wallet step 3",
+    },
+  ]}
+  imageClassName="aspect-[4/3]"
+/>
+
+</Step>
+</Steps>
+
+## Connecting a bank account
+
+Dub partners with Stripe for secure global payouts. To receive payouts directly to your bank account, you'll need to follow these steps to set up a [Stripe Express](https://support.stripe.com/express) account and connect your bank account:
+
+<Note>
+  International (non-US) bank payouts are subject to a 1% FX conversion fee.
+</Note>
+
+<Steps>
+<Step title="Initiate the connect payouts flow">
+First, go to your [payout settings on Dub](https://partners.dub.co/payouts?settings=true) and select "Connect bank account":
+
+<Frame>
+  <img
+    src="/images/payouts/payout-settings-bank-account.png"
+    alt="Payout settings bank account"
   />
 </Frame>
 
@@ -45,59 +114,68 @@ Then, follow the steps in the onboarding flow to create your Stripe Express acco
 <ImageCarousel
   images={[
     {
-      src: "https://assets.dub.co/cms/connect-stripe-payouts-1.png",
-      alt: "Connect Stripe Payouts Step 1",
+      src: "/images/payouts/connect-bank-account-1.png",
+      alt: "Connect bank account step 1",
     },
     {
-      src: "https://assets.dub.co/cms/connect-stripe-payouts-2.png",
-      alt: "Connect Stripe Payouts Step 2",
+      src: "/images/payouts/connect-bank-account-2.png",
+      alt: "Connect bank account step 2",
     },
     {
-      src: "https://assets.dub.co/cms/connect-stripe-payouts-3.png",
-      alt: "Connect Stripe Payouts Step 3",
-    },
-    {
-      src: "https://assets.dub.co/cms/connect-stripe-payouts-4.png",
-      alt: "Connect Stripe Payouts Step 4",
-    },
-    {
-      src: "https://assets.dub.co/cms/connect-stripe-payouts-5.png",
-      alt: "Connect Stripe Payouts Step 5",
+      src: "/images/payouts/connect-bank-account-3.png",
+      alt: "Connect bank account step 3",
     },
   ]}
   imageClassName="aspect-[4/3]"
 />
 
-In one of the steps, you'll be asked to connect your bank account to receive payouts. You can either connect your account using Stripe's [Financial Connections](https://stripe.com/financial-connections) flow, or by manually inputting your bank account details.
-
-</Step>
-</Steps>
-
 <Tip>
   If you have any questions about the Stripe Express account creation flow, you
   can try the following:
 
-  - Refer to the official [Stripe Express help articles](https://support.stripe.com/express)
-  - Reach out to [Stripe Express support](https://support.stripe.com/?contact=true)
-  - Reach out to [Dub support](https://dub.co/contact/support)
+- Refer to the official [Stripe Express help articles](https://support.stripe.com/express)
+- Reach out to [Stripe Express support](https://support.stripe.com/?contact=true)
+- Reach out to [Dub support](https://dub.co/contact/support)
+
 </Tip>
 
-## Supported payout countries
+</Step>
 
-Here's the full list of countries that we support sending payouts to:
+<Step title="Connect your bank account">
 
-<PayoutSupportedCountries />
+For the final step, you'll be asked to connect your bank account to receive payouts. You can either connect your account using Stripe's [Financial Connections](https://stripe.com/financial-connections) flow, or by manually inputting your bank account details.
 
-<Tip>
-  While Stripe itself might not be supported in certain countries, we use
-  [Stripe Express](https://support.stripe.com/express) for payouts, which
-  [covers most regions
-  worldwide](https://docs.stripe.com/connect/cross-border-payouts#supported-countries).
-  Example: you can still receive payouts in India, even though Stripe itself is
-  not available in India.
-</Tip>
+<ImageCarousel
+  images={[
+    {
+      src: "/images/payouts/connect-bank-account-4.png",
+      alt: "Connect bank account step 4",
+    },
+    {
+      src: "/images/payouts/connect-bank-account-5.png",
+      alt: "Connect bank account step 5",
+    },
+  ]}
+  imageClassName="aspect-[4/3]"
+/>
 
-If you're not in a supported country, one workaround is to create a legal entity in any of the supported countries above and use that to receive payouts instead.
+<Warning>
+  **Your payout bank account must match your local currency for compliance
+  reasons.** E.g. if you're based in the UK, you will need to connect a GBP bank
+  account to receive payouts.
+
+Related FAQ: ["Can I receive payouts in USD?"](#can-i-receive-payouts-in-usd)
+
+</Warning>
+
+</Step>
+</Steps>
+
+## FAQs
+
+### My country is not supported by Dub, what should I do?
+
+If you're not in a [supported country](#supported-payout-countries), one workaround is to create a legal entity in any of the supported countries above and use that to receive payouts instead.
 
 For example, you can create a US LLC (using something like [Stripe Atlas](http://stripe.com/atlas)), which would let you receive payouts in USD.
 
@@ -114,17 +192,11 @@ Once you have an LLC ready, you can go to your [partner profile settings](https:
   />
 </Frame>
 
-## FAQs
-
 ### Can I receive payouts in USD?
 
-For compliance reasons, we can only send payouts in your local currency. For example, if you are based in Australia, you will receive payouts in AUD.
+If you're receiving payouts via [bank account](#connecting-a-bank-account), we can only send payouts in your local currency for compliance reasons. For example, if you are based in Australia, you will receive payouts in AUD.
 
-If you want to receive payouts in USD, you will need to create a US LLC (using something like [Stripe Atlas](http://stripe.com/atlas)) and update your [partner profile settings](https://partners.dub.co/settings) accordingly:
-
-- **Country** – Set to "United States"
-- **Profile Type** – Set to "Company"
-- **Legal company name** – Enter your LLC's legal name
+To receive payouts in USD, we recommend switching to [stablecoin payouts](#connecting-a-stablecoin-wallet) instead, which not only lets you receive payouts in USDC, but is also a [lot faster and cheaper](#connecting-a-stablecoin-wallet).
 
 ### Can I connect a savings account instead of a checking account?
 
@@ -146,7 +218,7 @@ To connect an existing Stripe Express account to Dub, make sure your partner acc
 
 ### Do I need to manually withdraw my earnings from Dub?
 
-Unlike platforms like PartnerStack, where you have to manually withdraw your earnings to your bank account – you do not need to manually withdraw your earnings on Dub.
+Unlike platforms like [PartnerStack](https://dub.co/compare/partnerstack), where you have to manually withdraw your earnings to your bank account – you do not need to manually withdraw your earnings on Dub.
 
 Instead, your earnings/payouts are **automatically deposited into your connected bank account** the moment they are paid by the company.
 
