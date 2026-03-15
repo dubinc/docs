@@ -6,27 +6,37 @@ export const ImageCarousel = ({
   autoplay = true,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoplayActive, setAutoplayActive] = useState(autoplay);
 
   useEffect(() => {
-    if (!autoplay || images.length <= 1) return;
+    if (!autoplayActive || images.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     }, 3000);
     return () => clearInterval(interval);
-  }, [autoplay, images.length]);
+  }, [autoplayActive, images.length]);
+
+  const disableAutoplay = () => setAutoplayActive(false);
 
   const goToPrev = () => {
+    disableAutoplay();
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const goToNext = () => {
+    disableAutoplay();
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const goToSlide = (index) => {
+    disableAutoplay();
+    setCurrentIndex(index);
   };
 
   if (!images.length) return null;
 
   return (
-    <div className="not-prose w-full">
+    <div className="not-prose w-full" onClick={disableAutoplay}>
       <div className="relative overflow-hidden rounded-xl">
         {images.map((img, index) => (
           <div
@@ -66,7 +76,7 @@ export const ImageCarousel = ({
               {images.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentIndex(index)}
+                  onClick={() => goToSlide(index)}
                   className={`w-2 h-2 rounded-full transition-colors ${
                     index === currentIndex
                       ? "bg-zinc-950 dark:bg-white"
