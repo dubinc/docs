@@ -98,6 +98,7 @@ export const PayoutSupportedCountries = () => {
                 height={32}
                 className="size-5 shrink-0 rounded-full border border-neutral-200 shadow-sm dark:border-neutral-700 mt-0.5"
                 draggable={false}
+                noZoom
               />
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
