@@ -10,16 +10,6 @@ sidebarTitle: "Azure AD SCIM Directory Sync"
 
 For Dub Enterprise users, you can automatically provision and deprovision users from your Azure Active Directory (AD) to Dub using [SCIM Directory Sync](https://learn.microsoft.com/en-us/azure/active-directory/architecture/sync-scim).
 
-<CheckList>
-  <CheckListItem
-    title="Create a SAML application in Azure"
-    href="/help/article/azure-saml"
-  >
-    Before you can configure SCIM Directory Sync, you need to create a SAML
-    application in Azure.
-  </CheckListItem>
-</CheckList>
-
 ## Step 1: Configure Directory Sync on Dub
 
 In your workspace dashboard on Dub, click on the **Settings** tab in the menu bar at the top. Then, click on the **Security** tab in the sidebar.
@@ -37,10 +27,7 @@ Under the **Directory Sync** section, click on **Configure**. This will open up 
 2. Click **Save changes**.
 
 <Frame>
-  <img
-    src="https://assets.dub.co/cms/scim-entra.png"
-    alt="SCIM Modal"
-  />
+  <img src="https://assets.dub.co/cms/scim-entra.png" alt="SCIM Modal" />
 </Frame>
 
 This will generate a Directory Sync connection for your Dub workspace, and return 2 values, which will be needed in Step 2:
