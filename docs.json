@@ -166,16 +166,16 @@
               {
                 "group": "Sending payouts",
                 "pages": [
-                  "help/article/how-to-set-up-bank-account",
-                  "help/article/partner-payouts"
+                  "help/article/partner-payouts",
+                  "help/article/how-to-set-up-bank-account"
                 ]
               },
               {
                 "group": "Engaging partners",
                 "pages": [
+                  "help/article/program-bounties",
                   "help/article/email-campaigns",
-                  "help/article/messaging-partners",
-                  "help/article/program-bounties"
+                  "help/article/messaging-partners"
                 ]
               },
               {

@@ -78,10 +78,11 @@ For sale rewards, you can further customize the recurring nature of the commissi
 
 On Dub, you can also set specific requirements for reward completion and can even reward a different type (flat rate or percentage), amount, and duration when they are met. They are available for sale and lead rewards only, and allow you to set conditions like the following:
 
-- Higher rewards for sales and leads from a specific country
-- Higher rewards for sales of specific products
-- Higher rewards for partners with more than 100 conversions
-- Higher rewards for sales over a specific amount
+- [Geo-specific rewards](#geo-specific) (e.g. higher rewards for sales and leads from a specific country)
+- [Product-specific rewards](#product-spotlight) (e.g. higher rewards for sales of specific products)
+- [Partner performance tiers](#partner-performance-tiers) (e.g. higher rewards for partners with more than 100 conversions)
+- [Staggered reward durations](#staggered-reward-durations) (e.g. higher rewards for the first 12 months, then a lower reward for the rest of the customer's lifetime)
+- [Sale amount modifiers](#sale-amount-modifiers) (e.g. higher rewards for sales over a specific amount)
 
 Click **Add condition** to set these parameters.
 
@@ -180,6 +181,50 @@ Tailor your reward amount by customer country. In this example, we're rewarding 
 | If `Customer` `Country` `is one of` `Canada, United States` | Then pay a `Percentage` of `40%` per sale | Higher reward for US and Canadian customers |
 | If `Customer` `Country` `is not` `United States`            | Then pay a `Percentage` of `10%` per sale | Lower reward for non-US customers           |
 
+### Staggered reward durations
+
+Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date.
+
+In this example, we're offering a 25% reward for the first 12 months and a 10% reward for all other sales:
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/staggered-rewards-03.png"
+    alt="Staggered rewards example"
+  />
+</Frame>
+
+There are 3 different conditions for staggered reward durations:
+
+| Condition type                         | Description                                      | Example                                                                  |
+| -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| **Customer's subscription duration**   | How long the customer has been subscribed for    | 25% for the first 12 months, 10% for the rest of the customer's lifetime |
+| **Customer's subscription start date** | The date the customer started their subscription | 25% if subscribed before Jan 1, 2026, else 10%                           |
+| **Customer's signup date**             | The date the customer signed up for your product | 25% if signed up before Jan 1, 2026, else 10%                            |
+
+### Partner performance tiers
+
+Tailor your reward amount by partner performance. In this example, we offer a 50% base reward and increase it to 60% based on how many conversions the partner has:
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/condition-example-03.png"
+    alt="The Climb condition example"
+  />
+</Frame>
+
+| Condition                                                               | Reward                                    | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------- |
+| If `Partner` `Total conversions` `is greater than or equal to` `200`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than 200 conversions               |
+| If `Partner` `Total revenue` `is greater than or equal to` `$10,000`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than $10K in referral revenue      |
+| If `Partner` `Total commissions` `is greater than or equal to` `$1,000` | Then pay a `Percentage` of `60%` per sale | Higher reward for partners who have earned more than $1K in commissions |
+
+<Tip>
+  Want to move partners to a different partner group based on their performance
+  instead? [Learn more about group move
+  rules](/help/article/partner-groups#group-move-rules).
+</Tip>
+
 ### Product spotlight
 
 Tailor your reward amount by product. In this example, we're rewarding more when the sale is for the Gold Plan:
@@ -218,50 +263,6 @@ prop](/docs/api-reference/endpoint/track-sale#body-metadata-one-of-0)
 (e.g. `metadata.productId = "prod_xxx"`).
 
 </Info>
-
-### Partner performance tiers
-
-Tailor your reward amount by partner performance. In this example, we offer a 50% base reward and increase it to 60% based on how many conversions the partner has:
-
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/condition-example-03.png"
-    alt="The Climb condition example"
-  />
-</Frame>
-
-| Condition                                                               | Reward                                    | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------- |
-| If `Partner` `Total conversions` `is greater than or equal to` `200`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than 200 conversions               |
-| If `Partner` `Total revenue` `is greater than or equal to` `$10,000`    | Then pay a `Percentage` of `60%` per sale | Higher reward for partners with more than $10K in referral revenue      |
-| If `Partner` `Total commissions` `is greater than or equal to` `$1,000` | Then pay a `Percentage` of `60%` per sale | Higher reward for partners who have earned more than $1K in commissions |
-
-<Tip>
-  Want to move partners to a different partner group based on their performance
-  instead? [Learn more about group move
-  rules](/help/article/partner-groups#group-move-rules).
-</Tip>
-
-### Staggered reward durations
-
-Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date.
-
-In this example, we're offering a 25% reward for the first 12 months and a 10% reward for all other sales:
-
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/staggered-rewards-03.png"
-    alt="Staggered rewards example"
-  />
-</Frame>
-
-There are 3 different conditions for staggered reward durations:
-
-| Condition type                         | Description                                      | Example                                                                  |
-| -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| **Customer's subscription duration**   | How long the customer has been subscribed for    | 25% for the first 12 months, 10% for the rest of the customer's lifetime |
-| **Customer's subscription start date** | The date the customer started their subscription | 25% if subscribed before Jan 1, 2026, else 10%                           |
-| **Customer's signup date**             | The date the customer signed up for your product | 25% if signed up before Jan 1, 2026, else 10%                            |
 
 ### Sale amount modifiers
 
