@@ -1,9 +1,8 @@
 ---
 title: "Dub Partners Overview"
-description: "Kickstart viral product-led growth with powerful, branded referral and affiliate programs with Dub Partners."
+description: "Learn how you can use Dub to recruit, manage, and pay out your affiliates, publishers, influencers, UGC creators, user referrals, and more."
 sidebarTitle: "Introduction"
-og:title: "Dub Partners – Kickstart viral product-led growth with powerful, branded referral and affiliate programs"
-og:description: "Learn how to use Dub Partners to manage and payout your partners and grow your product via powerful referral and affiliate programs."
+og:image: "https://assets.dub.co/cms/dub-partners.jpg"
 ---
 
 import { ImageCtaCard } from "/snippets/components/image-cta-card.jsx";
@@ -16,9 +15,9 @@ import { PayoutSupportedCountries } from "/snippets/components/payout-supported-
 
 In today's day and age, especially with the rise of AI, the best ideas and products are no longer sufficient to rise above the competition and become a category leader.
 
-What works is having a powerful distribution network that can produce consistent, repeatable, and profitable results – ideally on autopilot. A good example of this is a product-led partner program, be it a referral or an affiliate program.
+What works is having a powerful distribution network that can produce consistent, repeatable, and profitable results – ideally on autopilot.
 
-Think Dropbox's famous "Refer a friend" program, or Framer's beloved [Partner Program](https://www.framer.com/creators/) that generates [$8M worth of payouts](https://x.com/framer/status/1879207447057125549) annually.
+A good example of this is a product-led partner program – think Dropbox's famous "Refer a friend" program, or Framer's beloved partner program that generates [close to $1M in payouts](https://dub.co/customers/framer) every month.
 
 **This is where [Dub Partners](https://dub.co/partners) comes in.**
 
@@ -26,72 +25,112 @@ Think Dropbox's famous "Refer a friend" program, or Framer's beloved [Partner Pr
   <img src="https://assets.dub.co/cms/dub-partners.jpg" alt="Dub Partners" />
 </Frame>
 
-With Dub Partners, you can build powerful, scalable referral _and_ affiliate programs with **1-click global payouts** and **white-labeling functionality**.
+With Dub Partners, you can [recruit](/help/article/inviting-partners), [manage](/help/article/partner-groups), and [pay out](/help/article/partner-payouts) your partners – whether they're affiliates, publishers, influencers, UGC creators, user referrals, or more.
 
-## How does Dub Partners work?
+## Dub Partners platform tour
 
-Dub Partners is an all-in-one partner management platform for you to scale your revenue by incentivizing both your users and external partners to help spread the word about your product.
+Here's a quick [9-min video](https://supercut.ai/share/dub/I85bqEKFm5aDaN_DC1hGoZ) that walks you through the key features of Dub Partners and how you can use it to scale your partner revenue:
 
-1. **You create a program** – Set up your partner program, define reward rules (e.g., % of sale, fixed amount per lead), and configure payouts.
-2. **Partners join and get links** – Partners apply or are invited, then receive unique tracking links (short links or query-parameter links).
-3. **Visitors click and convert** – When someone clicks a partner link and later signs up or buys, Dub attributes that conversion to the partner.
-4. **Commissions are calculated** – Dub applies your reward rules and creates commissions.
-5. **Partners get paid** – You can pay via Dub (Stripe Connect) or handle payouts externally.
-
-Dub Partners is built on top of our [enterprise-grade attribution infrastructure](https://dub.co/analytics) that powers 100M+ click and conversion events monthly.
-
-## Key concepts
-
-| Concept           | What it means                                                                                                    |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Program**       | Your partner program (e.g., "Acme Affiliate Program"). Each workspace can have one program.                      |
-| **Partner**       | A person or company in your program who shares links and earns commissions.                                      |
-| **Partner group** | A tier or segment of partners (e.g., "Affiliates", "VIP Partners") with its own reward rules and link structure. |
-| **Reward rules**  | How partners earn: per click, per lead, per sale, or a mix. You define these per group.                          |
-| **Conversion**    | A tracked action (lead or sale) that gets attributed to a partner link.                                          |
-| **Commission**    | The amount a partner earns from a conversion, based on your reward rules.                                        |
+<Frame>
+  <div className="relative aspect-[100/69] w-full overflow-visible">
+    <iframe
+      allow="fullscreen; clipboard-write; encrypted-media; picture-in-picture"
+      allowfullscreen
+      mozallowfullscreen
+      webkitallowfullscreen
+      frameborder="0"
+      src="https://supercut.ai/embed/dub/I85bqEKFm5aDaN_DC1hGoZ?embed=full"
+      className="absolute inset-0 h-full w-full rounded-lg border-0"
+      title="Dub Partners Platform Tour"
+    ></iframe>
+  </div>
+</Frame>
 
 ## Dub Partners features
 
-With Dub Partners, you can:
+Here are some of Dub Partners' key features:
 
-1. Launch referral & affiliate programs with your users and external partners
-2. Create flexible reward structures (pay-per-click, lead, sale) tailored to each partner
-3. Send payouts globally in 1-click – with tax compliance included
-4. Offer dual-sided incentives to users who sign up through your partners
-5. Generate a program landing page with AI to drive partner signups
-6. Create an embedded referral dashboard inside your app
+1. [Real-time analytics + reliable attribution](#real-time-reliable-attribution)
+2. [Powerful reward structures (CPA/rev-share, CPL, CPC) with flexible conditions](#flexible-reward-structures)
+3. [Social metrics bounties for influencer / UGC campaigns](#social-metrics-bounties)
+4. [1-click global payouts + tax compliance](#global-payouts-%2B-tax-compliance)
+5. [Fraud detection (paid ads, self-referrals, etc.)](#fraud-detection)
+6. [Dual-sided incentives (via referral links / discount codes)](#dual-sided-incentives)
+7. [Generate branded landing pages / application forms with AI](#landing-page-%2B-application-forms)
+8. [Embed a referral dashboard directly within your app](#embedded-referral-dashboard)
 
-### Referral + affiliate program built in one
+### Real-time, reliable attribution
 
-With Dub Partners, you can launch both referral and affiliate programs with your users and external partners – all in a single platform.
+Built on top of Dub's [enterprise-grade attribution infrastructure](/docs/concepts/attribution), Dub Partners gives both you and your partners real-time visibility into the performance of your partner program, with the ability to:
+
+- View [partner group](/help/article/partner-groups)-level analytics (conversion rates, revenue, etc.)
+- Measure [individual partner performance](https://dub.co/changelog/new-partner-stats) (EPC, LTV, ROAS)
+- Create custom reports with [advanced analytics filtering](/help/article/dub-analytics#advanced-analytics-filters)
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/program-overview.png"
-    alt="Dub Partners referral and affiliate program"
+    src="https://assets.dub.co/cms/program-analytics-funnel.png"
+    alt="Time-series chart"
   />
 </Frame>
 
-This allows you to maximize your revenue growth by partnering with your most avid users and the best content creators in your niche, without needing to manage them in separate systems.
+On top of that, Dub's [best-in-class Stripe integration](https://dub.co/integrations/stripe) (which you can [install in just a few clicks](/docs/integrations/stripe)) automatically tracks:
+
+- sale (both one-time and recurring)
+- [free trial](/docs/integrations/stripe#tracking-free-trials) lead events
+- [refund events](/docs/conversions/sales/refunds)
+
+...and reconciles them with your [partner commissions](/help/article/partner-commissions) – no manual calculations required.
 
 ### Flexible reward structures
 
-With Dub, you can create advanced pay-per-click/lead and rev-share reward structures to drive partner engagement and revenue.
+With Dub Partners, you can create [flexible reward structures](/help/article/partner-rewards) to drive partner engagement and revenue:
 
-| Reward type                     | Description                                                                                                                                        |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Click-based (pay-per-click)** | Rewarding partners for driving clicks to your product – similar to how Google Ads' pay-per-click works.                                            |
-| **Lead-based (pay-per-lead)**   | A more effective alternative to pay-per-click, where you reward partners for leads generated (e.g. demo requests, free trial signups, etc.)        |
-| **Sale-based (pay-per-sale)**   | This is the most common reward type, where you reward partners for driving sales to your product either via a rev-share or fixed-price commission. |
+| Reward type       | Description                                                                                                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CPA/rev-share** | This is the most common reward type, where you reward partners for driving sales to your product either via a rev-share or fixed-price commission.                              |
+| **CPL**           | A more effective alternative to pay-per-click, where you reward partners for [qualified leads](/docs/conversions/leads/deferred) (e.g. demo requests, free trial signups, etc.) |
+| **CPC**           | Rewarding partners for driving traffic to your product – similar to how Google Ads' pay-per-click works.                                                                        |
 
-Learn more about [how to create partner rewards](/help/article/partner-rewards) on Dub Partners.
+On top of that, you can also set geo-specific, product-specific, or subscription-specific [reward conditions](/help/article/partner-rewards#adding-reward-conditions):
 
-### 1-click global payouts + tax compliance
+- [Geo-specific rewards](/help/article/partner-rewards#geo-specific) (e.g. higher rewards for sales and leads from a specific country)
+- [Product-specific rewards](/help/article/partner-rewards#product-spotlight) (e.g. higher rewards for sales of specific products)
+- [Partner performance tiers](/help/article/partner-rewards#partner-performance-tiers) (e.g. higher rewards for partners with more than 100 conversions)
+- [Staggered reward durations](/help/article/partner-rewards#staggered-reward-durations) (e.g. higher rewards for the first 12 months, then a lower reward for the rest of the customer's lifetime)
+- [Sale amount modifiers](/help/article/partner-rewards#sale-amount-modifiers) (e.g. higher rewards for sales over a specific amount)
+
+<Tip>
+  Looking to set up non-monetary rewards for your partners (e.g. free credits,
+  free months)? [Check out our guide here](/help/article/non-monetary-rewards).
+</Tip>
+
+### Social metrics bounties
+
+One of Dub's unique features is the ability to [reward partners for creating viral social content](/help/article/program-bounties#social-metrics) about your product via a CPM model.
+
+<Frame>
+  <video
+    src="https://assets.dub.co/cms/social-metrics-bounties.mp4"
+    loop
+    autoPlay
+    muted
+    playsInline
+  />
+</Frame>
+
+Some examples include:
+
+- Pay $1,000 if your X/Twitter post gets 1M views
+- Pay $500 per 10K views on YouTube, up to 100K views
+
+Aside from that, you can also reward partners a flat rate via [submission bounties](/help/article/program-bounties#manual-submission), as well as based on their performance on Dub via [performance bounties](/help/article/program-bounties#performance-bounties).
+
+### Global payouts + tax compliance
 
 Dub Partners supports [1-click payouts](/help/article/partner-payouts) to your partners worldwide.
 
-If you're running a partner program with hundreds of partners, instead of manually sending payouts to each partner, you can use Dub to pay your partners in one click, with tax-compliance built in.
+If you're running a partner program with hundreds of partners, instead of manually sending payouts to each partner, you can use Dub to pay your partners in one click.
 
 <Frame>
   <video
@@ -105,13 +144,26 @@ If you're running a partner program with hundreds of partners, instead of manual
 
 We also provide invoices for each payout, so you can easily track your spend and reconcile your payments.
 
+For US-based partners, Dub automatically handles [tax compliance](/help/article/partner-payouts#tax-compliance) by collecting W-9 forms and sending out 1099-NEC forms to individuals or entities that received $600 or more in payments for a given fiscal year.
+
 Here's the list of supported payout countries on Dub:
 
 <PayoutSupportedCountries />
 
+### Fraud detection
+
+As your program grows, it's critical to safeguard your revenue by detecting and preventing fraudulent activity. Dub Partners comes with several fraud detection mechanisms to help you catch and take action on any suspicious activity:
+
+- [Paid traffic detection](/help/article/fraud-detection#paid-traffic)
+- Self-referrals / matching customer email
+- Duplicate partner accounts / payout methods
+- Cross-program ban
+
+Learn more about how [fraud detection works](/help/article/fraud-detection) on Dub Partners.
+
 ### Dual-sided incentives
 
-With Dub Partners, you can create dual-sided incentives for your affiliate/referral programs, which give special discounts to customers who sign up via a referral link.
+With Dub Partners, you can create dual-sided incentives for your partners to give special discounts to their users – whether they're signing up via a [referral link](/help/article/dual-sided-incentives#option-1-direct-link-based-discounts-recommended) or a [discount code](/help/article/dual-sided-incentives#option-2-using-stripe-promo-codes-no-code-required).
 
 <Frame>
   <video
@@ -133,9 +185,9 @@ This can drive powerful word-of-mouth growth as partners are more likely to shar
 
 Learn more about [how to create dual-sided incentives](/help/article/dual-sided-incentives) for your partner program.
 
-### AI landing page generator
+### Landing page + application forms
 
-You can also use our intelligent AI landing page generator to create a compelling, branded landing page for your program to drive partner signups.
+You can also use our intelligent AI landing page generator to create a compelling, [branded landing page](/help/article/program-landing-page) for your program to drive partner signups.
 
 <Frame>
   <video
@@ -147,7 +199,7 @@ You can also use our intelligent AI landing page generator to create a compellin
   />
 </Frame>
 
-Learn more about [how to create a branded landing page](/help/article/program-landing-page) with Dub Partners.
+You can also create customized [application forms](/help/article/program-application-form) for your partners to collect the information you need to review their applications.
 
 ### Embedded referral dashboard
 
@@ -180,8 +232,6 @@ With Dub Partners, you can build a powerful, scalable word-of-mouth flywheel by 
 
 To get started with Dub Partners, follow our [program quickstart](/help/article/setting-up-your-program) and [conversion tracking](/docs/quickstart/server) guides.
 
-## Related articles
-
 <CardGroup cols={2}>
   <Card
     title="Setting up your program"
@@ -197,6 +247,11 @@ To get started with Dub Partners, follow our [program quickstart](/help/article/
   >
     Track conversions and attribute sign-ups and purchases
   </Card>
+</CardGroup>
+
+## Related articles
+
+<CardGroup cols={2}>
   <Card title="Partner groups" icon="users" href="/help/article/partner-groups">
     Segment partners by rewards, discounts, and performance
   </Card>

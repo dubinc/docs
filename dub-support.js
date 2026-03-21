@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const EMBED_URL =
-    "https://app.dub.co/embed/support-chat?variant=bubble&context=docs";
+  const ALLOWED_ORIGIN = "https://app.dub.co";
+  const EMBED_URL = `${ALLOWED_ORIGIN}/embed/support-chat?variant=bubble`;
 
   const BUBBLE_SIZE = 100;
   const PANEL_WIDTH = 580;
@@ -26,8 +26,6 @@
       "px;" +
       "border:none;background:transparent;color-scheme:auto;" +
       "transition:width 0.2s ease,height 0.2s ease;";
-
-    const ALLOWED_ORIGIN = "https://app.dub.co";
 
     window.addEventListener("message", function (e) {
       if (e.origin !== ALLOWED_ORIGIN) return;

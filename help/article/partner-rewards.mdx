@@ -71,12 +71,18 @@ For sale rewards, you can further customize the recurring nature of the commissi
 
 ### Adding reward conditions
 
+<Tip>
+  Customizing reward conditions is only available on the [Advanced plan and
+  above](https://dub.co/pricing/partners).
+</Tip>
+
 On Dub, you can also set specific requirements for reward completion and can even reward a different type (flat rate or percentage), amount, and duration when they are met. They are available for sale and lead rewards only, and allow you to set conditions like the following:
 
-- Higher rewards for sales and leads from a specific country
-- Higher rewards for sales of specific products
-- Higher rewards for partners with more than 100 conversions
-- Higher rewards for sales over a specific amount
+- [Geo-specific rewards](#geo-specific) (e.g. higher rewards for sales and leads from a specific country)
+- [Product-specific rewards](#product-spotlight) (e.g. higher rewards for sales of specific products)
+- [Partner performance tiers](#partner-performance-tiers) (e.g. higher rewards for partners with more than 100 conversions)
+- [Staggered reward durations](#staggered-reward-durations) (e.g. higher rewards for the first 12 months, then a lower reward for the rest of the customer's lifetime)
+- [Sale amount modifiers](#sale-amount-modifiers) (e.g. higher rewards for sales over a specific amount)
 
 Click **Add condition** to set these parameters.
 
@@ -97,11 +103,6 @@ Conditions let you use `AND` or `OR` statements to control how they work. Each c
     alt="Initial create sale reward state"
   />
 </Frame>
-
-<Tip>
-  Customizing reward conditions is only available on the [Advanced plan and
-  above](https://dub.co/pricing/partners).
-</Tip>
 
 ### Custom reward descriptions
 
@@ -159,6 +160,11 @@ During the creation of your rewards, the reward preview will populate with the s
 
 Here are a few reward examples with their conditions to give you some starting ideas.
 
+<Tip>
+  Customizing reward conditions is only available on the [Advanced plan and
+  above](https://dub.co/pricing/partners).
+</Tip>
+
 ### Geo-specific
 
 Tailor your reward amount by customer country. In this example, we're rewarding partners with a higher percentage for conversions from Canada and the United States:
@@ -175,44 +181,26 @@ Tailor your reward amount by customer country. In this example, we're rewarding 
 | If `Customer` `Country` `is one of` `Canada, United States` | Then pay a `Percentage` of `40%` per sale | Higher reward for US and Canadian customers |
 | If `Customer` `Country` `is not` `United States`            | Then pay a `Percentage` of `10%` per sale | Lower reward for non-US customers           |
 
-### Product spotlight
+### Staggered reward durations
 
-Tailor your reward amount by product. In this example, we're rewarding more when the sale is for the Gold Plan:
+Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date.
+
+In this example, we're offering a 25% reward for the first 12 months and a 10% reward for all other sales:
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/condition-example-02.png"
-    alt="Product Spotlight condition example"
+    src="https://assets.dub.co/cms/staggered-rewards-03.png"
+    alt="Staggered rewards example"
   />
 </Frame>
 
-| Condition                                  | Reward                                    | Description                           |
-| ------------------------------------------ | ----------------------------------------- | ------------------------------------- |
-| If`Sale` `Product ID` `is` `prod_xxx`      | Then pay a `Percentage` of `40%` per sale | Higher reward for `prod_xxx` sales    |
-| If `Sale` `Product ID` `is not` `prod_xxx` | Then pay a `Percentage` of `10%` per sale | Lower reward for non-`prod_xxx` sales |
+There are 3 different conditions for staggered reward durations:
 
-<Tip>
-  You can also set what the partner sees as the product name by adding a `Shown
-  as` field to the reward.
-
-For example, if you want to show the product as "Gold Plan" instead of the
-actual product ID, you can set the `Shown as` to `Gold Plan`.
-
-</Tip>
-
-<Info>
-  Where `Your product ID` is listed, you'll enter your product ID (the
-  screenshot uses an example product ID)
-
-If you're using our Stripe integration, the product ID will be the Stripe
-product ID that the subscription is for (starts with `prod_xxx`).
-
-If you're manually tracking a sale event via our `/track/sale` endpoint, you
-can pass along the product ID via the [metadata
-prop](/docs/api-reference/endpoint/track-sale#body-metadata-one-of-0)
-(e.g. `metadata.productId = "prod_xxx"`).
-
-</Info>
+| Condition type                         | Description                                      | Example                                                                  |
+| -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
+| **Customer's subscription duration**   | How long the customer has been subscribed for    | 25% for the first 12 months, 10% for the rest of the customer's lifetime |
+| **Customer's subscription start date** | The date the customer started their subscription | 25% if subscribed before Jan 1, 2026, else 10%                           |
+| **Customer's signup date**             | The date the customer signed up for your product | 25% if signed up before Jan 1, 2026, else 10%                            |
 
 ### Partner performance tiers
 
@@ -237,26 +225,44 @@ Tailor your reward amount by partner performance. In this example, we offer a 50
   rules](/help/article/partner-groups#group-move-rules).
 </Tip>
 
-### Staggered reward durations
+### Product spotlight
 
-Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date.
-
-In this example, we're offering a 25% reward for the first 12 months and a 10% reward for all other sales:
+Tailor your reward amount by product. In this example, we're rewarding more when the sale is for the Gold Plan:
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/staggered-rewards-03.png"
-    alt="Staggered rewards example"
+    src="https://assets.dub.co/cms/condition-example-02.png"
+    alt="Product Spotlight condition example"
   />
 </Frame>
 
-There are 3 different conditions for staggered reward durations:
+| Condition                                  | Reward                                    | Description                           |
+| ------------------------------------------ | ----------------------------------------- | ------------------------------------- |
+| If `Sale` `Product ID` `is` `prod_xxx`     | Then pay a `Percentage` of `40%` per sale | Higher reward for `prod_xxx` sales    |
+| If `Sale` `Product ID` `is not` `prod_xxx` | Then pay a `Percentage` of `10%` per sale | Lower reward for non-`prod_xxx` sales |
 
-| Condition type                         | Description                                      | Example                                                                  |
-| -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| **Customer's subscription duration**   | How long the customer has been subscribed for    | 25% for the first 12 months, 10% for the rest of the customer's lifetime |
-| **Customer's subscription start date** | The date the customer started their subscription | 25% if subscribed before Jan 1, 2026, else 10%                           |
-| **Customer's signup date**             | The date the customer signed up for your product | 25% if signed up before Jan 1, 2026, else 10%                            |
+<Tip>
+  You can also set what the partner sees as the product name by adding a `Shown
+  as` field to the reward.
+
+For example, if you want to show the product as "Gold Plan" instead of the
+actual product ID, you can set the `Shown as` to `Gold Plan`.
+
+</Tip>
+
+<Info>
+  Where `Your product ID` is listed, you'll enter your product ID (the
+  screenshot uses an example product ID)
+
+If you're using our Stripe integration, the product ID will be the Stripe
+product ID that the subscription is for (starts with `prod_xxx`).
+
+If you're manually tracking a sale event via our `/track/sale` endpoint, you
+can pass along the product ID via the [metadata
+prop](/docs/api-reference/track/sale#body-metadata-one-of-0)
+(e.g. `metadata.productId = "prod_xxx"`).
+
+</Info>
 
 ### Sale amount modifiers
 

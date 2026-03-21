@@ -166,17 +166,16 @@
               {
                 "group": "Sending payouts",
                 "pages": [
-                  "help/article/how-to-set-up-bank-account",
-                  "help/article/partner-payouts"
+                  "help/article/partner-payouts",
+                  "help/article/how-to-set-up-bank-account"
                 ]
               },
               {
                 "group": "Engaging partners",
                 "pages": [
-                  "help/article/email-campaigns",
-                  "help/article/messaging-partners",
                   "help/article/program-bounties",
-                  "help/article/submitted-referrals"
+                  "help/article/email-campaigns",
+                  "help/article/messaging-partners"
                 ]
               },
               {
@@ -829,6 +828,10 @@
     {
       "source": "/docs/api-reference/publishable-keys",
       "destination": "/docs/api-reference/authentication#publishable-keys"
+    },
+    {
+      "source": "/docs/api-reference/endpoint/create-a-new-link",
+      "destination": "/docs/api-reference/links/create"
     },
     {
       "source": "/docs/api-reference/endpoint/create-a-link",

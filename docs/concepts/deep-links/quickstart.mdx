@@ -24,17 +24,13 @@ By following the quickstart guide below, you'll be able to make sure that all yo
 
 Before you can create deep links, you need to configure your deep link domains in your Dub workspace. This involves adding a custom domain that will be used for your deep links and configuring your deep link configuration files.
 
-<Steps>
-
-<Step title="Add a custom domain">
+### Add a custom domain
 
 First, you'll need to add a custom domain to your Dub workspace. Navigate to your [workspace domain settings](https://app.dub.co/settings/domains) and click **Add Domain**.
 
 You can use a domain you already own, or leverage our [free .link domain offer](/help/article/free-dot-link-domain) to register a custom domain like `yourcompany.link` and use it as your deep link domain.
 
-</Step>
-
-<Step title="Set up your deep link configuration files">
+### Set up your deep link configuration files
 
 Once you've set up your custom domain, you'll need to upload your deep link configuration files to Dub, which we'll host under the `/.well-known/` directory of your domain.
 
@@ -96,9 +92,7 @@ For Android apps, upload your AssetLinks file to enable Android deep links:
 ]
 ```
 
-</Step>
-
-<Step title="Verify that your configuration files are set up correctly">
+### Verify that your configuration files are set up correctly
 
 Once you've set up your deep link configuration files, you can go to their respective URLs to verify that they've been configured correctly:
 
@@ -106,26 +100,19 @@ Once you've set up your deep link configuration files, you can go to their respe
 
 **Android:** `yourdomain.link/.well-known/assetlinks.json` [(example)](https://getacme.link/.well-known/assetlinks.json)
 
-</Step>
+### Allowlist your deep link domain in your app
 
-<Step title="Allowlist your deep link domain in your app">
 Last but not least, you'll need to allowlist your deep link domain in your apps to allow them to redirect straight into a page within your app.
 
 **For iOS apps**, you'll need to [allow websites to link to your apps](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content/).
 
 **For Android apps**, you'll need to [verify your Android app links](https://developer.android.com/training/app-links/verify-android-applinks).
 
-</Step>
-
-</Steps>
-
 ## Step 2: Create your deep links on Dub
 
 Now that you've configured your deep link domains, you can create deep links that will redirect users to specific content within your app.
 
-<Steps>
-
-<Step title="Enter your destination URL">
+### Enter your destination URL
 
 Go to your [Dub dashboard](https://app.dub.co) and click **Create Link** in the top navigation bar.
 
@@ -140,9 +127,7 @@ This is the URL that opens a specific screen or piece of content within your app
   />
 </Frame>
 
-</Step>
-
-<Step title="Set a short link slug">
+### Set a short link slug
 
 Under the Short Link field, you can either:
 
@@ -157,9 +142,7 @@ For example, you can set a short link slug like `apple-macbook` to open the prod
   a random 7-character slug for you.
 </Tip>
 
-</Step>
-
-<Step title="Add device targeting">
+### Add device targeting
 
 [Device Targeting](/help/article/device-targeting) enables you to redirect users to the App Store or Google Play Store if your app isn’t installed.
 
@@ -173,10 +156,6 @@ For example, you can set custom destination URLs for different devices using the
 </Frame>
 
 Finally, click **Create link** to create your deep link. This link will act as a Firebase Dynamic Link replacement.
-
-</Step>
-
-</Steps>
 
 <Note>
   Dub's link builder offers many additional features like UTM builder, password
@@ -598,7 +577,7 @@ After they install and open your app, you'll need to use [deferred deep linking]
   Deep Linking](/docs/concepts/deep-links/deferred-deep-linking) guide.
 </Note>
 
-## Test your deep links
+## Testing deep links
 
 Before deploying your deep links to production, test them thoroughly using emulators to ensure they work correctly.
 
@@ -632,6 +611,37 @@ You can also test your deep links by opening them from a messaging app on your d
 2. Send yourself a message containing your deep link URL
 3. Tap on the link in the message
 4. The link should either open your app directly or redirect to the appropriate app store
+
+</Step>
+
+</Steps>
+
+## Troubleshooting deep links
+
+If your deep links aren't working as expected, here are some common issues and solutions:
+
+<Steps>
+<Step title="Deep link domain not allowlisted">
+
+Make sure you've [allowlisted your deep link domain](/docs/concepts/deep-links/quickstart#allowlist-your-deep-link-domain-in-your-app) in your app's configuration. This is required for both iOS and Android to recognize and handle links from your domain.
+
+</Step>
+
+<Step title="iOS/Android cached outdated deep link configuration">
+
+If you've completed all steps above and your deep links still aren't working, it's likely because iOS or Android cached the outdated deep link configuration.
+
+Try uninstalling and reinstalling your app to clear the cache. This forces the operating system to re-fetch the `apple-app-site-association` or `assetlinks.json` files.
+
+</Step>
+
+<Step title="Deep link wrapped by a third-party links">
+
+If your links are being shared through marketing platforms, email providers, or click trackers, the original URL may be getting wrapped or modified.
+
+When a third-party service wraps your Dub link in their own tracking URL, the deep link won't work because the device sees the wrapper domain instead of your allowlisted domain.
+
+Contact your marketing or analytics provider to ensure Dub links are passed through without modification.
 
 </Step>
 

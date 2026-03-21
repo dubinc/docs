@@ -8,8 +8,6 @@ description: "Safeguard your partner program by automatically flagging, reviewin
   above](https://dub.co/pricing/partners).
 </Tip>
 
-## Using fraud detection
-
 Dub's Fraud Detection helps you catch and take action on any fraudulent activity in your program. We give you the details for each event so you can make the best decision for your program and customers.
 
 <Frame>
@@ -28,15 +26,15 @@ Each row is a single event type for a given partner and can contain multiple eve
 
 Here are the event types you might see flagged and detected in your program.
 
-| Event | Description |
-| --- | ----- |
-| Cross-program ban  | This partner has been banned from one or more other Dub programs, indicating a potential high-risk history. To protect security and privacy, specific details such as links, evidence, or notes are not shared across programs. |
-| Duplicate payout method  | This partner is using a payout method that is already linked to another partner account, which may indicate account duplication or fraudulent behavior.   |
-| Matching customer email  | Partner's email matches a customer's email and could be a self referral.   |
-| Suspicious customer email domain  | Customer's email uses a disposable or temporary domain, which could be a fraud attempt.   |
-| Banned referral source (customizable) | A conversion, event, or click was made on a banned referral domain.  |
-| Paid traffic (customizable) | A conversion, event, or click was made from paid advertising traffic.  |
-| Fraud report  | This partner was reported for suspected fraud during their application to another program and was rejected. |
+| Event                            | Description                                                                                                                                                                                                                     |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cross-program ban                | This partner has been banned from one or more other Dub programs, indicating a potential high-risk history. To protect security and privacy, specific details such as links, evidence, or notes are not shared across programs. |
+| Duplicate payout method          | This partner is using a payout method that is already linked to another partner account, which may indicate account duplication or fraudulent behavior.                                                                         |
+| Matching customer email          | Partner's email matches a customer's email and could be a self referral.                                                                                                                                                        |
+| Suspicious customer email domain | Customer's email uses a disposable or temporary domain, which could be a fraud attempt.                                                                                                                                         |
+| Banned referral source           | A conversion, event, or click was made on a banned referral domain.                                                                                                                                                             |
+| Paid traffic                     | A conversion, event, or click was made from paid advertising traffic.                                                                                                                                                           |
+| Fraud report                     | This partner was reported for suspected fraud during their application to another program and was rejected.                                                                                                                     |
 
 ## Reviewing fraud events
 
@@ -154,7 +152,13 @@ Click on any of the resolved items to see the event details, who resolved the ev
 
 ## Fraud settings
 
-We give you the option to customize some of your fraud detection settings. To edit these, click the **Fraud settings** button in the top right.
+We give you the option to customize fraud detection settings on a program-level, as well as choose which [fraud events types](#fraud-event-types) you want to receive alerts for.
+
+To edit these, click the **Fraud settings** button in the top right.
+
+<Frame>
+  <img src="/images/dub-partners/fraud-settings.png" alt="Fraud settings" />
+</Frame>
 
 ### Paid traffic
 
@@ -162,8 +166,8 @@ If your program doesn't allow traffic from advertisers, ensure this setting is e
 
 <Frame>
   <img
-    src="/images/dub-partners/fraud-settings.png"
-    alt="Fraud settings"
+    src="/images/dub-partners/fraud-settings-paid-traffic.png"
+    alt="Fraud settings paid traffic"
   />
 </Frame>
 
@@ -189,11 +193,11 @@ Add your internal Google Campaign IDs here to prevent your own Google Ads traffi
 </Frame>
 
 <Tip>
-  **Why this matters for Dynamic Search Ads (DSA):** If you run DSA campaigns, Google crawls your site and automatically selects landing pages to serve as ads. Sometimes Google indexes pages that already contain affiliate tracking parameters (e.g., `?via=affiliate`) from affiliate links being shared around the web. 
+  **Why this matters for Dynamic Search Ads (DSA):** If you run DSA campaigns, Google crawls your site and automatically selects landing pages to serve as ads. Sometimes Google indexes pages that already contain affiliate tracking parameters (e.g., `?via=affiliate`) from affiliate links being shared around the web.
 
 When these pages are served as ads, the affiliate parameter carries through – making it appear that an affiliate is running unauthorized paid ads when it's actually your own campaign. Whitelisting your Google Campaign IDs ensures this internal traffic is correctly attributed to you and not flagged as partner fraud.
-</Tip>
 
+</Tip>
 
 ### Referral source
 
@@ -209,6 +213,12 @@ If you want to flag traffic from a specific URL, enable this setting and then ad
 When adding URLs, you can also use `*` wildcards to match any part of a domain. These a great when monitoring for a specific page and not all traffic from the specific URL.
 
 ### Disabling fraud settings
+
+If you don't want to receive alerts for a specific fraud event type, you can disable it by toggling the switch to the right of the event type.
+
+<Frame>
+  <img src="/images/dub-partners/fraud-settings.png" alt="Fraud settings" />
+</Frame>
 
 When you disable any of the current active settings, you're also given the option to mark and pending events that match that criteria as "Resolved".
 
