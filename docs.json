@@ -895,7 +895,11 @@
     },
     {
       "source": "/docs/api-reference/endpoint/track-open",
-      "destination": "/docs/api-reference/endpoint/track-open"
+      "destination": "/docs/api-reference/track/open"
+    },
+    {
+      "source": "/docs/api-reference/endpoint/track-customer",
+      "destination": "/docs/api-reference/track/lead"
     },
     {
       "source": "/docs/api-reference/endpoint/create-referrals-embed-token",
