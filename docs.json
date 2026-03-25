@@ -902,10 +902,6 @@
       "destination": "/docs/api-reference/track/lead"
     },
     {
-      "source": "/docs/api-reference/endpoint/create-referrals-embed-token",
-      "destination": "/docs/api-reference/endpoint/create-referrals-embed-token"
-    },
-    {
       "source": "/docs/api-reference/endpoint/create-a-partner",
       "destination": "/docs/api-reference/partners/create"
     },
