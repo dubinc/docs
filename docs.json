@@ -443,15 +443,21 @@
                       "docs/api-reference/partners/retrieve-links"
                     ]
                   },
-                  {
-                    "group": "Analytics",
-                    "pages": [
-                      "docs/api-reference/track/lead",
-                      "docs/api-reference/track/sale",
-                      "docs/api-reference/analytics/retrieve",
-                      "docs/api-reference/events/list"
-                    ]
-                  },
+              {
+                "group": "Analytics",
+                "pages": [
+                  "docs/api-reference/analytics/retrieve",
+                  "docs/api-reference/events/list"
+                ]
+              },
+              {
+                "group": "Tracking",
+                "pages": [
+                  "docs/api-reference/track/lead",
+                  "docs/api-reference/track/sale",
+                  "docs/api-reference/track/open"
+                ]
+              },
                   {
                     "group": "Customers",
                     "pages": [
