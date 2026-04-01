@@ -26,11 +26,11 @@ Each row is a single event type for a given partner and can contain multiple eve
 
 Here are the event types you might see flagged and detected in your program.
 
-| Event                            | Description                                                                                                                                                                                                                     |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cross-program ban                | This partner has been banned from one or more other Dub programs, indicating a potential high-risk history. To protect security and privacy, specific details such as links, evidence, or notes are not shared across programs. |
-| Duplicate payout method          | This partner is using a payout method that is already linked to another partner account, which may indicate account duplication or fraudulent behavior.                                                                         |
-| Matching customer email          | Partner's email matches a customer's email and could be a self referral.                                                                                                                                                        |
+| Event  | Description  |
+| --- | ---- |
+| Cross-program ban  | This partner has been banned from one or more other Dub programs, indicating a potential high-risk history. To protect security and privacy, specific details such as links, evidence, or notes are not shared across programs. |
+| Duplicate payout method  | This partner is using a payout method that is already linked to another partner account, which may indicate account duplication or fraudulent behavior. |
+| Matching customer email  | Partner's email matches a customer's email and could be a self referral.   |
 | Suspicious customer email domain | Customer's email uses a disposable or temporary domain, which could be a fraud attempt.                                                                                                                                         |
 | Banned referral source           | A conversion, event, or click was made on a banned referral domain.                                                                                                                                                             |
 | Paid traffic                     | A conversion, event, or click was made from paid advertising traffic.                                                                                                                                                           |
@@ -45,7 +45,7 @@ Here are the event types you might see flagged and detected in your program.
 Click on any table row to open the review panel. When reviewing events, there are three panels of information for each item.
 
 <Frame>
-  <img src="https://assets.dub.co/cms/fraud-review.png" alt="Fraud review" />
+  <img src="/images/dub-partners/fraud-review.png" alt="Fraud review" />
 </Frame>
 
 <Steps>  
@@ -70,12 +70,12 @@ Here you'll see the event type, description, and a line item for each flagged ev
 
 </Step>
 
-<Step title="Commissions on hold">  
-If this partner has any pending commissions, you'll see the list of all commissions on hold. These are any commissions that have occurred since the flagged event.
+<Step title="Associated commissions">  
+If this partner has any pending commissions, you'll see the list of all commissions on hold. These are any commissions that have occurred since the flagged event. [Learn more here](/help/article/fraud-detection#associated-commissions).
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/fraud-event-commissions.png"
+    src="/images/dub-partners/fraud-event-commissions.png"
     alt="Event commissions"
   />
 </Frame>
@@ -97,8 +97,16 @@ When reviewing events, we recommend taking your time and ensuring a proper inves
     alt="Resolving events"
   />
 </Frame>
+
 Then, once you've confirmed the veracity of the reports, you can move on to the
 next step.
+
+### Associated commissions
+For commissions that are on hold for this partner, you can perform the following:
+- Click **Mark all as fraud** to mark all commissions on hold as fraud and cancel them.
+- You can individually change the commmission status to `Fraud` by clicking the `⋯` button and select **Edit commission**.
+- When [resolving](/help/article/fraud-detection#resolve-fraud-event) the event, any commissions not marked as `Fraud` will move to `Pending`
+- When [banning](/help/article/fraud-detection#ban-partner) the partner, this will change any `On hold` commmissions to `Cancelled` 
 
 ### Resolve fraud event
 
@@ -135,6 +143,7 @@ A reason must also be selected from the following options:
 | Fraudulent Activity                 | Partner generated fake clicks, leads, or other tracked actions to earn rewards.                 |
 | Spam or Misleading Content          | Partner used deceptive messaging, false claims, impersonation, or unsolicited promotion.        |
 | Brand Abuse or Trademark Violations | Partner misused your brand name, trademarks, or created confusion.                              |
+
 
 ## Resolved fraud events
 
