@@ -29,16 +29,16 @@ This opens up the commissions table view, where you can see a list of your histo
   />
 </Frame>
 
-| Column             | Data                                                                |
-| ------------------ | ------------------------------------------------------------------- |
-| Date               | Commission date                                                     |
-| Customer           | The customer associated with the lead or sale                       |
-| Partner            | Your partner                                                        |
-| Type               | The commission type (custom, click, lead, or sale)                  |
-| Amount             | The sale amount, or single count for custom, click, or lead rewards |
+| Column | Data |
+| --- | ---- |
+| Date      | Commission date |
+| Customer    | The customer associated with the lead or sale |
+| Partner        | The partner earning the commission |
+| Type        | The commission type (custom, click, lead, or sale)                  |
+| Amount        | The sale amount, or single count for custom, click, or lead rewards |
 | Commission         | The amount the partner will receive                                 |
-| Status             | Current status of the commission. Learn more about statuses.        |
-| Additional actions | Actions to mark the commission as duplicate, fraud, or canceled     |
+| Status             | Current status of the commission. [Learn more about statuses](/help/article/partner-commissions#commission-statuses).        |
+| Additional actions | Actions to edit the commission, and copy the invoice ID     |
 
 ## Commission statuses
 
@@ -54,6 +54,82 @@ If needed, you can also update the status for a given commission accordingly:
 - `Fraud`: If a commission event was found to be fraudulent, you can mark them as "Fraud" via the dashboard or the [API](/docs/api-reference/endpoint/update-a-commission). **This action cannot be undone.**
 - `Canceled`: If a commission event was canceled/voided (e.g. in cases of self-referrals where commissions are not eligible for payout), you can mark them as "Canceled" via the dashboard or the [API](/docs/api-reference/endpoint/update-a-commission). **This action cannot be undone.**
 - `Duplicate`: If a commission event was found to be a duplicate, you can mark them as "Duplicate" via the dashboard or the [API](/docs/api-reference/endpoint/update-a-commission). **This action cannot be undone.**
+
+[Learn more about changing commissions statuses](/help/article/partner-commissions#commission-status).
+
+## Single commission view
+Each commission has its own page that provides further details about the commission, associated payout, and activity. This can be helpful when you need more details about a commission, or you want to know when something changed.
+
+<Frame>
+  <img
+    src="/images/dub-partners/commission-single-view.png"
+    alt="Single commission view"
+  />
+</Frame>
+
+
+## Editing commissions
+
+You can change a commission's [status](/help/article/partner-commissions#commission-status) for all unpaid commissions, and edit the [earnings amount](/help/article/partner-commissions#earnings-amount) for custom commissions.
+
+### Commission status
+To change the commission's status, this can be completed from one of two areas:
+
+<Steps>
+  <Step title="Commissions table">
+      From the Commissions table, click the `⋯` button and select **Edit commission**.
+      
+      <Frame>
+        <img
+          src="/images/dub-partners/edit-commission-table.png"
+          alt="Edit commission table"
+        />
+      </Frame>
+      
+  </Step>
+  <Step title="Single commission page">
+      From the [single commission page](/help/article/partner-commissions#single-commission-view), click the **Edit** button in the top right.
+      
+      <Frame>
+        <img
+          src="/images/dub-partners/edit-commission-single.png"
+          alt="Single commission edit"
+        />
+      </Frame>
+  </Step>
+</Steps>
+
+With the edit commission modal open, you can change the status of any commission that hasn't been paid yet.
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-commission.png"
+    alt="Edit commission modal"
+  />
+</Frame>
+
+<Tip>You can also bulk edit the status of the commissions, if their statuses are the same.</Tip>
+
+If you change a commission's status to `Canceled` or `Fraud`, you're also able to mark all previous commissions for this customer-partner pair as that status too. This will also prevent the partner from earning future commissions from this customer.
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-commission-mark-all.png"
+    alt="Mark all commissions"
+  />
+</Frame>
+
+### Earnings amount
+You can only edit the earnings amount for `custom rewards` that haven't been paid yet. If the earnings amount is changed, it will also appear in the activity log on the [commissions page](/help/article/partner-commissions#single-commission-view).
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-commission-custom.png"
+    alt="Edit commission earnings modal"
+  />
+</Frame>
+
+
 
 ## Creating manual commissions
 
