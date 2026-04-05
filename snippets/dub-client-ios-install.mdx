@@ -82,6 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
     again with the `deepLink` parameter whenever the app is opened from a deep link.
 
+<Warning>
+  **UIKit apps:** If your `AppDelegate` has multiple URL handlers chained with `||` (e.g., Facebook/Meta SDK alongside Dub), the short-circuit evaluation may prevent `handleDeepLink` and `trackOpen` from being called. Make sure all handlers execute independently. See the [troubleshooting guide](/docs/concepts/deep-links/quickstart#troubleshooting-deep-links) for details and a fix.
+</Warning>
+
 <CodeGroup>
 
 ```swift iOS (SwiftUI) expandable

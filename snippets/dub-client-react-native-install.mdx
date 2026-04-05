@@ -62,6 +62,10 @@ Call `trackOpen` on the `dub` instance to track deep link and deferred deep link
 The `trackOpen` function should be called once without a `deepLink` parameter on first launch, and then 
 again with the `deepLink` parameter whenever the app is opened from a deep link.
 
+<Warning>
+  If your iOS app uses third-party SDKs that handle URLs (e.g., Facebook/Meta SDK), make sure your `AppDelegate`'s `openURL:` handler doesn't short-circuit with `||`. When a third-party SDK returns `YES` first, `RCTLinkingManager` never fires and `trackOpen` won't be called. See the [troubleshooting guide](/docs/concepts/deep-links/quickstart#troubleshooting-deep-links) for details and a fix.
+</Warning>
+
 ```typescript React Native expandable
 import { useState, useEffect, useRef } from "react";
 import { Linking } from "react-native";
