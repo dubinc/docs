@@ -645,4 +645,68 @@ Contact your marketing or analytics provider to ensure Dub links are passed thro
 
 </Step>
 
+<Step title="iOS URL handler short-circuited by third-party SDKs">
+
+If you're using third-party SDKs (e.g., Facebook/Meta SDK, Google Sign-In, or other authentication SDKs) alongside Dub in an iOS app, your `openURL` handler may silently fail to trigger Dub's deep link tracking.
+
+This happens when multiple URL handlers are chained with a short-circuit `||` (OR) operator in your `AppDelegate`. If a third-party SDK processes the URL first and returns `true`, subsequent handlers never execute — meaning `RCTLinkingManager` (React Native) or Dub's `handleDeepLink` / `trackOpen` never gets called.
+
+This is especially common when links are opened from in-app browsers (e.g., Facebook or Instagram's in-app browser).
+
+**How to fix this:**
+
+Replace the short-circuit `||` with a non-short-circuit `|` operator (or call all handlers independently) to ensure every SDK gets a chance to process the URL:
+
+<CodeGroup>
+
+```objc AppDelegate.mm (React Native) 
+// ❌ Bad: Short-circuit OR — if FBSDKApplicationDelegate returns YES, 
+// RCTLinkingManager never fires
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]
+      || [RCTLinkingManager application:app openURL:url options:options];
+}
+
+// ✅ Good: Non-short-circuit OR — both handlers always run
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  BOOL fbHandled = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+  BOOL rnHandled = [RCTLinkingManager application:app openURL:url options:options];
+  return fbHandled || rnHandled;
+}
+```
+
+```swift AppDelegate.swift (Swift)
+// ❌ Bad: Short-circuit OR — if the Facebook SDK returns true,
+// handleDeepLink never fires
+func application(_ app: UIApplication, open url: URL,
+                 options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    return ApplicationDelegate.shared.application(app, open: url, options: options)
+        || handleDeepLink(url: url)
+}
+
+// ✅ Good: Call each handler independently
+func application(_ app: UIApplication, open url: URL,
+                 options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    let fbHandled = ApplicationDelegate.shared.application(app, open: url, options: options)
+    let dubHandled = handleDeepLink(url: url)
+    return fbHandled || dubHandled
+}
+```
+
+</CodeGroup>
+
+<Warning>
+  This issue is easy to miss because deep links may still work in most
+  scenarios — it only fails when the URL is first processed by another SDK
+  (e.g., when a user opens your link from Facebook or Instagram's in-app
+  browser). Always test deep links from third-party apps where your SDKs are
+  active.
+</Warning>
+
+</Step>
+
 </Steps>

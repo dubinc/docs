@@ -149,6 +149,10 @@ To enable Universal Links with Dub, update your Associated Domains in Xcode:
 2. Select your app target → **Signing & Capabilities**
 3. Under **Associated Domains**, replace the old Firebase domain with your Dub domain:
 
+<Warning>
+  If your app uses other SDKs that handle URLs (e.g., Facebook/Meta SDK, Google Sign-In), make sure your `AppDelegate`'s `openURL` handler doesn't short-circuit with `||`. When a third-party SDK returns `true` first, Dub's `handleDubDeepLink` will never be called. See the [troubleshooting guide](/docs/concepts/deep-links/quickstart#troubleshooting-deep-links) for details and a fix.
+</Warning>
+
 No changes to your app’s `Info.plist` are required unless you had other Firebase-specific deep link configurations.
 
 ```swift
