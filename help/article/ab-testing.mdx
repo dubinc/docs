@@ -13,6 +13,16 @@ sidebarTitle: "A/B testing"
 
 A/B testing is a method of comparing two or more variations of a destination URL to see which performs better. It works by randomly redirecting users who click the same short link to different target URLs, then measuring which version gets better results based on metrics.
 
+<Note>
+If you combine A/B testing with [device targeting](/help/article/device-targeting) or [geo targeting](/help/article/geo-targeting) on the same link, the targeting rules are evaluated in this order:
+
+1. **Device targeting** (iOS/Android) – checked first
+2. **Geo targeting** – checked next
+3. **A/B testing** – applied last
+
+A/B testing only applies to traffic that isn't already redirected by a device or geo targeting rule.
+</Note>
+
 ## Where to find A/B testing?
 
 When the link builder is open, you'll find the **A/B test** button in the bottom action row. Click to open the dialogue.
