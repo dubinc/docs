@@ -165,9 +165,13 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
 In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
-    If you have `brew`, install `pipx` by running `brew install pipx`. If not, you can check [installation guide](https://pipx.pypa.io/stable/installation/) for other options. After that, install the Tinybird CLI with `pipx install tinybird-cli` (requires Python >= 3.8).
+    Install the Tinybird CLI by running the following command:
+     
+     ```bash terminal
+     curl https://tinybird.co | sh
+     ```
 
-    Run `tb auth --interactive` and paste your `admin` Auth Token.
+     Then, authenticate by running `tb login` and pasting your `admin` Auth Token.
 
   </Step>
 
