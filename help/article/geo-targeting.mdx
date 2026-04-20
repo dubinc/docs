@@ -35,6 +35,16 @@ Once you have added the locations and URLs, click on the "Add targeting" button 
 
 When your users click on the link, they will be redirected to the URL that you have specified based on their location.
 
+## Priority when combining with other features
+
+If you enable multiple targeting features on the same link, they are evaluated in the following order:
+
+1. **[Device targeting](/help/article/device-targeting)** (iOS/Android) – checked first
+2. **Geo targeting** – checked next if no device rule matches
+3. **[A/B testing](/help/article/ab-testing)** – applied last, only to traffic not already redirected by device or geo targeting
+
+This means device targeting takes priority over geo targeting. If a user matches a device targeting rule, that rule applies even if a geo targeting rule also exists for their location.
+
 ## Usage with the Dub API
 
 You can also use the [Dub API](/docs/api-reference/introduction) to create geo-targeted links.

@@ -27,3 +27,13 @@ You can also quickly access the Targeting feature by using the keyboard shortcut
 This is particularly useful if you want to send iOS users to the App Store to download your iOS app, and Android users to the Google Play Store to download your Android app.
 
 In both cases, the main **Destination URL** will be used as the fallback URL that will be used if the user's device type does not match the targeting rules.
+
+## Priority when combining with other features
+
+If you enable multiple targeting features on the same link, they are evaluated in the following order:
+
+1. **Device targeting** (iOS/Android) – checked first
+2. **[Geo targeting](/help/article/geo-targeting)** – checked next if no device rule matches
+3. **[A/B testing](/help/article/ab-testing)** – applied last, only to traffic not already redirected by device or geo targeting
+
+This means device targeting always takes the highest priority. For example, if a user on iOS clicks your link and you have an iOS destination URL configured, they will be sent there regardless of any geo targeting or A/B testing rules.
