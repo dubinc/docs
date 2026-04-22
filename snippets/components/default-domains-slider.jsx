@@ -1,11 +1,35 @@
 export const DefaultDomainsSlider = () => {
   const cards = [
-    { name: "Amazon", slug: "amazon", icon: "/images/default-domains/amazon.svg" },
-    { name: "Figma", slug: "figma", icon: "/images/default-domains/figma.svg" },
-    { name: "GitHub", slug: "github", icon: "/images/default-domains/github.svg" },
-    { name: "Spotify", slug: "spotify", icon: "/images/default-domains/spotify.svg" },
-    { name: "ChatGPT", slug: "chatgpt", icon: "/images/default-domains/chatgpt.svg" },
-    { name: "Google", slug: "google", icon: "/images/default-domains/google.svg" },
+    {
+      name: "Amazon",
+      slug: "amazon",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/amazon.svg",
+    },
+    {
+      name: "Figma",
+      slug: "figma",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/figma.svg",
+    },
+    {
+      name: "GitHub",
+      slug: "github",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/github.svg",
+    },
+    {
+      name: "Spotify",
+      slug: "spotify",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/spotify.svg",
+    },
+    {
+      name: "ChatGPT",
+      slug: "chatgpt",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/chatgpt.svg",
+    },
+    {
+      name: "Google",
+      slug: "google",
+      icon: "https://dub.co/_mintlify/static/dub/images/default-domains/google.svg",
+    },
   ];
 
   return (
@@ -27,10 +51,19 @@ export const DefaultDomainsSlider = () => {
               <span>→</span>
             </div>
             <div className="absolute -bottom-10 -right-8 z-10 w-1/2">
-              <img src={card.icon} alt={card.name} className="h-[222px] w-[222px] object-contain" />
+              <img
+                src={card.icon}
+                alt={card.name}
+                className="h-[222px] w-[222px] object-contain"
+              />
             </div>
             <div className="absolute bottom-0 left-0 h-32 w-3/5">
-              <img src="/images/default-domains/background-grid.svg" alt="" className="h-full w-full object-cover object-left-bottom dark:invert dark:opacity-60" aria-hidden />
+              <img
+                src="https://dub.co/_mintlify/static/dub/images/default-domains/background-grid.svg"
+                alt=""
+                className="h-full w-full object-cover object-left-bottom dark:invert dark:opacity-60"
+                aria-hidden
+              />
             </div>
           </a>
         ))}
