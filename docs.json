@@ -329,7 +329,7 @@
               {
                 "group": "Billing & subscription",
                 "pages": [
-                  "help/article/starting-your-free-trial",
+                  "help/article/free-trial",
                   "help/article/how-to-change-billing-information",
                   "help/article/how-to-download-invoice",
                   "help/article/how-to-cancel-subscription"
@@ -444,21 +444,21 @@
                       "docs/api-reference/partners/retrieve-links"
                     ]
                   },
-              {
-                "group": "Analytics",
-                "pages": [
-                  "docs/api-reference/analytics/retrieve",
-                  "docs/api-reference/events/list"
-                ]
-              },
-              {
-                "group": "Tracking",
-                "pages": [
-                  "docs/api-reference/track/lead",
-                  "docs/api-reference/track/sale",
-                  "docs/api-reference/track/open"
-                ]
-              },
+                  {
+                    "group": "Analytics",
+                    "pages": [
+                      "docs/api-reference/analytics/retrieve",
+                      "docs/api-reference/events/list"
+                    ]
+                  },
+                  {
+                    "group": "Tracking",
+                    "pages": [
+                      "docs/api-reference/track/lead",
+                      "docs/api-reference/track/sale",
+                      "docs/api-reference/track/open"
+                    ]
+                  },
                   {
                     "group": "Customers",
                     "pages": [
