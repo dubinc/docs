@@ -329,6 +329,7 @@
               {
                 "group": "Billing & subscription",
                 "pages": [
+                  "help/article/starting-your-free-trial",
                   "help/article/how-to-change-billing-information",
                   "help/article/how-to-download-invoice",
                   "help/article/how-to-cancel-subscription"
