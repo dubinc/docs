@@ -445,6 +445,14 @@
                     ]
                   },
                   {
+                    "group": "Applications",
+                    "pages": [
+                      "docs/api-reference/partners/applications/list",
+                      "docs/api-reference/partners/applications/approve",
+                      "docs/api-reference/partners/applications/reject"
+                    ]
+                  },
+                  {
                     "group": "Analytics",
                     "pages": [
                       "docs/api-reference/analytics/retrieve",
