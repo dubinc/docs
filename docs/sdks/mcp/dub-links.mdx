@@ -1,0 +1,217 @@
+---
+title: "Dub Links MCP Server"
+description: "Use the Dub Links MCP server to manage links, analytics, domains, and more with any MCP-compatible AI client."
+"og:title": "Dub Links MCP Server"
+---
+
+The Dub Links [MCP server](https://mcp.dub.sh/mcp/dub-links) gives your AI agent native access to the full Dub Links platform through a single integration. You can manage links, track conversions, and retrieve analytics using natural language.
+
+## What can the Dub Links MCP server do?
+
+- **Links** — Create, upsert, bulk-create, retrieve, list, update, bulk-update, delete, bulk-delete, and count links
+- **Analytics** — Retrieve analytics and list events for any link, domain, or workspace
+- **QR codes** — Retrieve a QR code for any link
+- **Customers** — List, retrieve, update, and delete customers
+- **Tracking** — Track lead, sale, and deep link open events
+- **Domains** — Create, list, update, and delete custom domains
+- **Tags** — Create, list, update, and delete tags
+- **Folders** — Create, list, update, and delete folders
+
+## Prerequisites
+
+You'll need a Dub API key to authenticate with the MCP server. You can create one in your [Dub workspace settings](https://app.dub.co/settings/tokens).
+
+## Setup
+
+Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actual Dub API key.
+
+<Tabs>
+  <Tab title="Cursor">
+    Open **Cursor Settings** → **MCP** → **Add new global MCP server** and paste the following:
+
+    ```json
+    {
+      "mcpServers": {
+        "dub-links": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-links",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Claude Desktop">
+    Open **Claude Desktop** settings → **Developer** tab → **Edit Config** and add the following:
+
+    ```json
+    {
+      "mcpServers": {
+        "dub-links": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-links",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add dub-links \
+      --env MCP_DUB_TOKEN=dub_xxxxxx \
+      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-links \
+      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
+    ```
+  </Tab>
+  <Tab title="VS Code Copilot">
+    Add the following to your `settings.json`:
+
+    ```json
+    {
+      "mcp": {
+        "servers": {
+          "dub-links": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "mcp-remote@0.1.25",
+              "https://mcp.dub.sh/mcp/dub-links",
+              "--header",
+              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+            ],
+            "env": {
+              "MCP_DUB_TOKEN": "dub_xxxxxx"
+            }
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Gemini CLI">
+    ```json
+    {
+      "mcpServers": {
+        "dub-links": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-links",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Other clients">
+    For any MCP client not listed above, use the raw configuration below:
+
+    ```json
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.1.25",
+        "https://mcp.dub.sh/mcp/dub-links",
+        "--header",
+        "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+      ],
+      "env": {
+        "MCP_DUB_TOKEN": "dub_xxxxxx"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Available tools
+
+<AccordionGroup>
+  <Accordion title="Links">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_create_link` | Create a link for the authenticated workspace |
+    | `dub_upsert_link` | Upsert a link by URL — returns the existing link or creates a new one |
+    | `dub_bulk_create_links` | Bulk create up to 100 links |
+    | `dub_get_link_info` | Retrieve the info for a link |
+    | `dub_get_links` | Retrieve a paginated list of links |
+    | `dub_get_links_count` | Retrieve the total number of links |
+    | `dub_update_link` | Update a link |
+    | `dub_bulk_update_links` | Bulk update up to 100 links with the same data |
+    | `dub_delete_link` | Delete a link |
+    | `dub_bulk_delete_links` | Bulk delete up to 100 links |
+  </Accordion>
+  <Accordion title="Analytics">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_retrieve_analytics` | Retrieve analytics for a link, domain, or workspace. The response type depends on the `event` and `type` query parameters |
+    | `dub_list_events` | Retrieve a paginated list of events for the authenticated workspace |
+  </Accordion>
+  <Accordion title="QR codes">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_get_qr_code` | Retrieve a QR code for a link |
+  </Accordion>
+  <Accordion title="Customers">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_get_customers` | Retrieve a paginated list of customers |
+    | `dub_get_customer` | Retrieve a customer by ID. Prefix the ID with `ext_` to look up by external ID |
+    | `dub_update_customer` | Update a customer |
+    | `dub_delete_customer` | Delete a customer from the workspace |
+  </Accordion>
+  <Accordion title="Tracking">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_track_lead` | Track a lead event for a short link |
+    | `dub_track_sale` | Track a sale event for a short link |
+    | `dub_track_open` | Track when a user opens your app via a Dub-powered deep link (iOS and Android) |
+  </Accordion>
+  <Accordion title="Domains">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_create_domain` | Create a custom domain for the workspace |
+    | `dub_list_domains` | Retrieve a paginated list of domains |
+    | `dub_update_domain` | Update a domain |
+    | `dub_delete_domain` | Delete a domain and all its associated links |
+  </Accordion>
+  <Accordion title="Tags">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_create_tag` | Create a tag for the workspace |
+    | `dub_get_tags` | Retrieve a paginated list of tags |
+    | `dub_update_tag` | Update a tag |
+    | `dub_delete_tag` | Delete a tag. Existing links will no longer be associated with this tag |
+  </Accordion>
+  <Accordion title="Folders">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_create_folder` | Create a folder for the workspace |
+    | `dub_list_folders` | Retrieve a paginated list of folders |
+    | `dub_update_folder` | Update a folder |
+    | `dub_delete_folder` | Delete a folder. Existing links will no longer be associated with this folder |
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,210 @@
+---
+title: "Dub Partners MCP Server"
+description: "Use the Dub Partners MCP server to manage your partner program — partners, commissions, payouts, and more — with any MCP-compatible AI client."
+"og:title": "Dub Partners MCP Server"
+---
+
+The Dub Partners [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub Partners platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
+
+## What can the Dub Partners MCP server do?
+
+- **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
+- **Partner links** — Create and upsert links for enrolled partners
+- **Applications** — List, approve, and reject pending partner applications
+- **Analytics** — Retrieve analytics and list events for any link, domain, or workspace
+- **Customers** — List, retrieve, update, and delete customers
+- **Tracking** — Track lead, sale, and deep link open events
+- **Bounties** — List, approve, and reject bounty submissions
+- **Commissions** — List and update commissions (e.g. for refunds or fraud)
+- **Payouts** — List payouts for your partner program
+
+## Prerequisites
+
+You'll need a Dub API key to authenticate with the MCP server. You can create one in your [Dub workspace settings](https://app.dub.co/settings/tokens).
+
+## Setup
+
+Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actual Dub API key.
+
+<Tabs>
+  <Tab title="Cursor">
+    Open **Cursor Settings** → **MCP** → **Add new global MCP server** and paste the following:
+
+    ```json
+    {
+      "mcpServers": {
+        "dub-partners": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Claude Desktop">
+    Open **Claude Desktop** settings → **Developer** tab → **Edit Config** and add the following:
+
+    ```json
+    {
+      "mcpServers": {
+        "dub-partners": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add dub-partners \
+      --env MCP_DUB_TOKEN=dub_xxxxxx \
+      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \
+      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
+    ```
+  </Tab>
+  <Tab title="VS Code Copilot">
+    Add the following to your `settings.json`:
+
+    ```json
+    {
+      "mcp": {
+        "servers": {
+          "dub-partners": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "mcp-remote@0.1.25",
+              "https://mcp.dub.sh/mcp/dub-partners",
+              "--header",
+              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+            ],
+            "env": {
+              "MCP_DUB_TOKEN": "dub_xxxxxx"
+            }
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Gemini CLI">
+    ```json
+    {
+      "mcpServers": {
+        "dub-partners": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Other clients">
+    For any MCP client not listed above, use the raw configuration below:
+
+    ```json
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.1.25",
+        "https://mcp.dub.sh/mcp/dub-partners",
+        "--header",
+        "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+      ],
+      "env": {
+        "MCP_DUB_TOKEN": "dub_xxxxxx"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Available tools
+
+<AccordionGroup>
+  <Accordion title="Partners">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_create_partner` | Create or update a partner (upsert). If a partner with the same email already exists, their program enrollment is updated |
+    | `dub_list_partners` | List all partners enrolled in a program |
+    | `dub_deactivate_partner` | Deactivate a partner and disable all their active links. Commissions and payouts remain intact |
+    | `dub_ban_partner` | Ban a partner from your program. All links are disabled and commissions are canceled |
+    | `dub_create_partner_link` | Create a link for a partner enrolled in your program |
+    | `dub_upsert_partner_link` | Upsert a link for a partner — returns the existing link or creates a new one |
+  </Accordion>
+  <Accordion title="Applications">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_list_partner_applications` | Retrieve a paginated list of pending applications for your partner program |
+    | `dub_approve_partner_application` | Approve a pending partner application. The partner is enrolled in the specified group and notified |
+    | `dub_reject_partner_application` | Reject a pending partner application. The partner is notified via email |
+  </Accordion>
+  <Accordion title="Analytics">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_retrieve_analytics` | Retrieve analytics for a link, domain, or workspace. The response type depends on the `event` and `type` query parameters |
+    | `dub_list_events` | Retrieve a paginated list of events for the authenticated workspace |
+  </Accordion>
+  <Accordion title="Customers">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_get_customers` | Retrieve a paginated list of customers |
+    | `dub_get_customer` | Retrieve a customer by ID. Prefix the ID with `ext_` to look up by external ID |
+    | `dub_update_customer` | Update a customer |
+    | `dub_delete_customer` | Delete a customer from the workspace |
+  </Accordion>
+  <Accordion title="Tracking">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_track_lead` | Track a lead event for a short link |
+    | `dub_track_sale` | Track a sale event for a short link |
+    | `dub_track_open` | Track when a user opens your app via a Dub-powered deep link (iOS and Android) |
+  </Accordion>
+  <Accordion title="Bounties">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_list_bounty_submissions` | List all submissions for a specific bounty in your partner program |
+    | `dub_approve_bounty_submission` | Approve a bounty submission. Optionally specify a custom reward amount |
+    | `dub_reject_bounty_submission` | Reject a bounty submission with a specified reason and optional note |
+  </Accordion>
+  <Accordion title="Commissions">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_list_commissions` | Retrieve a paginated list of commissions for your partner program |
+    | `dub_update_commission` | Update an existing commission amount. Useful for handling refunds or fraudulent sales |
+  </Accordion>
+  <Accordion title="Payouts">
+    | Tool | Description |
+    |------|-------------|
+    | `dub_list_payouts` | Retrieve a paginated list of payouts for your partner program |
+  </Accordion>
+</AccordionGroup>
