@@ -117,6 +117,13 @@
             "pages": ["docs/integrations", "docs/integrations/quickstart"]
           },
           {
+            "group": "MCP SERVERS",
+            "pages": [
+              "docs/sdks/mcp/dub-links",
+              "docs/sdks/mcp/dub-partners"
+            ]
+          },
+          {
             "group": "OPEN SOURCE",
             "pages": ["docs/local-development", "docs/self-hosting"]
           }
