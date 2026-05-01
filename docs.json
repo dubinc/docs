@@ -182,6 +182,7 @@
                 "group": "Insights and reporting",
                 "pages": [
                   "help/article/program-analytics",
+                  "help/article/commission-analytics",
                   "help/article/fraud-detection"
                 ]
               },
