@@ -138,9 +138,6 @@
                 "group": "Getting started",
                 "pages": [
                   "help/article/setting-up-your-program",
-                  "help/article/partner-groups",
-                  "help/article/managing-program-partners",
-                  "help/article/dual-sided-incentives",
                   "help/article/program-resources",
                   "help/article/partner-link-settings"
                 ]
@@ -149,6 +146,7 @@
                 "group": "Rewards and commissions",
                 "pages": [
                   "help/article/partner-rewards",
+                  "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
                 ]
@@ -161,6 +159,15 @@
                   "help/article/program-application-form",
                   "help/article/program-applications",
                   "docs/partners/embedded-referrals"
+                ]
+              },
+              {
+                "group": "Managing partners",
+                "pages": [
+                  "help/article/partner-groups",
+                  "help/article/partner-tags",
+                  "help/article/managing-program-partners",
+                  "help/article/partner-details"
                 ]
               },
               {
