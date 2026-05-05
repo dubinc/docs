@@ -139,7 +139,8 @@
                 "pages": [
                   "help/article/setting-up-your-program",
                   "help/article/program-resources",
-                  "help/article/partner-link-settings"
+                  "help/article/partner-link-settings",
+                  "help/article/importing-partners"
                 ]
               },
               {
@@ -164,10 +165,9 @@
               {
                 "group": "Managing partners",
                 "pages": [
-                  "help/article/partner-groups",
-                  "help/article/partner-tags",
                   "help/article/managing-program-partners",
-                  "help/article/partner-details"
+                  "help/article/partner-groups",
+                  "help/article/partner-tags"
                 ]
               },
               {
