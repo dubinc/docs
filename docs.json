@@ -1157,6 +1157,10 @@
     {
       "source": "/help/article/custom-domain-deep-links",
       "destination": "/docs/concepts/deep-links/quickstart"
+    },
+    {
+      "source": "/help/article/submitted-referrals",
+      "destination": "/help/article/submitted-leads"
     }
   ]
 }
