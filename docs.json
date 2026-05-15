@@ -147,7 +147,6 @@
                 "group": "Rewards and commissions",
                 "pages": [
                   "help/article/partner-rewards",
-                  "help/article/referral-rewards",
                   "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
@@ -183,7 +182,8 @@
                 "pages": [
                   "help/article/program-bounties",
                   "help/article/email-campaigns",
-                  "help/article/messaging-partners"
+                  "help/article/messaging-partners",
+                  "help/article/partner-referrals"
                 ]
               },
               {
