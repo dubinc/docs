@@ -230,9 +230,9 @@
                 "group": "Receiving payouts",
                 "pages": [
                   "help/article/receiving-payouts",
-                  "help/article/network-referrals",
-                  "help/article/partner-payout-invoice",
-                  "help/article/commissions-payouts"
+                  "help/article/commissions-payouts",
+                  "help/article/network-referral-bonus",
+                  "help/article/partner-payout-invoice"
                 ]
               }
             ]
