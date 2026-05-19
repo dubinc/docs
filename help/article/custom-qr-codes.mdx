@@ -3,25 +3,36 @@ title: "Custom QR codes"
 description: "Learn how custom QR codes work on Dub."
 ---
 
+
+With Dub you customize your short link QR codes, giving you many options to make it your own. This can be done during link creation or editing your link later.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode.png"
+    alt="Default QR Code editor"
+  />
+</Frame>
+
+## Logo controls
+
 <Tip>
   This feature is only available on [Pro plans and
   above](https://dub.co/pricing).
 </Tip>
 
-As a freemium product, we rely on word of mouth to spread the word about Dub. Therefore, on Dub's free plan, you can only use the default QR code logo for your short links.
+With a paid plan, Dub gives you the ability to hide or show your logo on the QR code. For free users, the Dub logo will be shown by default and cannot be removed. 
 
 <Frame>
   <img
-    src="https://assets.dub.co/help/free-plan-qrcode.png"
-    alt="Default QR Code logo on Dub"
+    src="/images/dub-partners/qrcode-logo.png"
+    alt="QR Code logo controls"
   />
 </Frame>
 
 If you'd like to remove the Dub logo/upload your own, please consider [upgrading to a Pro plan](https://dub.co/pricing#how-to-upgrade-to-pro) to support us. Thank you!
 
-## How to set a custom QR code logo?
 
-Once you're on a Pro plan, you can set a custom QR code for your short links.
+### Setting a custom QR code logo
 
 There are two ways to set a custom QR code logo:
 
@@ -33,7 +44,7 @@ There are two ways to set a custom QR code logo:
   custom QR code logo for the domain will take precedence.
 </Tip>
 
-### Option 1: Set a custom QR code logo for your entire workspace
+#### Option 1: Set a custom QR code logo for your entire workspace
 
 To set a custom QR code logo for your entire workspace, you'll need to set your workspace's logo first by following the steps below:
 
@@ -42,21 +53,14 @@ To set a custom QR code logo for your entire workspace, you'll need to set your 
 
 <Frame>
   <img
-    src="https://assets.dub.co/help/workspace-logo-section.png"
+    src="/images/dub-partners/qrcode-workspace-logo.png"
     alt="Workspace Logo section"
   />
 </Frame>
 
 Once you've set your workspace's logo, your QR code will automatically update to use your workspace's logo.
 
-<Frame>
-  <img
-    src="https://assets.dub.co/changelog/custom-qr-codes.png"
-    alt="Custom QR Code logo"
-  />
-</Frame>
-
-### Option 2: Set a custom QR code logo for a specific domain
+#### Option 2: Set a custom QR code logo for a specific domain
 
 If you manage multiple brands/products on Dub, you can set custom QR code logos for each of them for better brand recognition.
 
@@ -83,6 +87,59 @@ To set a custom QR code logo for a specific domain, you'll need to follow the st
   />
 </Frame>
 
+## QR code styling
+Dub gives you the ability to customize the style of your QR code. You can customize the dot style, marker center, marker border, and colors of your QR code.
+
+### Dot style
+To change the dot style of your QR code, click on one of the three options below the QR code preview. You can choose between square, circles, and joined dot styles. The default dot style is square.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-dot.png"
+    alt="QR code dot style options"
+  />
+</Frame>
+
+### Marker center
+To change the marker center style of your QR code, click on one of the two options below the QR code preview. You can choose between square, or circle center styles. The default marker center style is square.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-markercenter.png"
+    alt="QR code marker center style options"
+  />
+</Frame>
+
+### Marker border
+To change the marker border style of your QR code, click on one of the three options below the QR code preview. You can choose between square, rounded, or circle border styles. The default marker border style is square.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-markerborder.png"
+    alt="QR code marker border style options"
+  />
+</Frame>
+
+### Colors
+Dub gives you the ability to edit both the dot and marker colors of your QR code. To change the colors of your QR code, you can either enter a custom hex color code or use the color palette picker. The default dot and marker color is black (#000000).
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-color.png"
+    alt="QR code color options"
+  />
+</Frame>
+
+By default, the dot and marker colors will be synced, but if you select a different color for the marker, they will be unsynced. If you want to sync the colors again, simply click on the **Match dot color** button above the marker color picker.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-colormatch.png"
+    alt="QR code color match"
+  />
+</Frame>
+
+
 ## Programmatically creating QR codes
 
 Once you've set a custom QR code logo, you can use our [QR Code API](/docs/api-reference/endpoint/retrieve-a-qr-code) to create QR codes programmatically as well.
@@ -92,3 +149,24 @@ On our Pro plans and above, you can choose to include your logo in the generated
 - If your workspace has a logo set, your QR codes will automatically have that logo as well, but you can choose to hide it using the `hideLogo` prop ([example](https://api.dub.co/qr?url=https://d.to/try?qr=1))
 - If your workspace has no logo set, your QR codes will have no logo.
 - Alternatively, you can also pass a custom logo in your QR codes using the `logo` prop ([example](https://api.dub.co/qr?url=https://d.to/try?qr=1&logo=https://assets.dub.co/wordmark-square.png)).
+
+
+## Downloading you QR code
+To download your QR code, click the **Download** button in the top right of the editor and select your format. You're able to download your QR code in SVG, PNG, or JPG formats.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-download.png"
+    alt="Downloading your QR code"
+  />
+</Frame>
+
+## Copying your QR code
+To copy your QR code, click the **Copy** button in the top right of the editor. You're able to copy the image version of your QR code, or the URL of the QR code image.
+
+<Frame>
+  <img
+    src="/images/dub-partners/qrcode-copy.png"
+    alt="Copying your QR code"
+  />
+</Frame>

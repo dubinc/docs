@@ -145,17 +145,16 @@
                 "group": "Getting started",
                 "pages": [
                   "help/article/setting-up-your-program",
-                  "help/article/partner-groups",
-                  "help/article/managing-program-partners",
-                  "help/article/dual-sided-incentives",
                   "help/article/program-resources",
-                  "help/article/partner-link-settings"
+                  "help/article/partner-link-settings",
+                  "help/article/importing-partners"
                 ]
               },
               {
                 "group": "Rewards and commissions",
                 "pages": [
                   "help/article/partner-rewards",
+                  "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
                 ]
@@ -171,6 +170,14 @@
                 ]
               },
               {
+                "group": "Managing partners",
+                "pages": [
+                  "help/article/managing-program-partners",
+                  "help/article/partner-groups",
+                  "help/article/partner-tags"
+                ]
+              },
+              {
                 "group": "Sending payouts",
                 "pages": [
                   "help/article/partner-payouts",
@@ -182,13 +189,16 @@
                 "pages": [
                   "help/article/program-bounties",
                   "help/article/email-campaigns",
-                  "help/article/messaging-partners"
+                  "help/article/messaging-partners",
+                  "help/article/partner-referrals"
                 ]
               },
               {
                 "group": "Insights and reporting",
                 "pages": [
                   "help/article/program-analytics",
+                  "help/article/commission-analytics",
+                  "help/article/application-analytics",
                   "help/article/fraud-detection"
                 ]
               },
@@ -227,8 +237,9 @@
                 "group": "Receiving payouts",
                 "pages": [
                   "help/article/receiving-payouts",
-                  "help/article/partner-payout-invoice",
-                  "help/article/commissions-payouts"
+                  "help/article/commissions-payouts",
+                  "help/article/network-referral-bonus",
+                  "help/article/partner-payout-invoice"
                 ]
               }
             ]
@@ -1155,6 +1166,10 @@
     {
       "source": "/help/article/custom-domain-deep-links",
       "destination": "/docs/concepts/deep-links/quickstart"
+    },
+    {
+      "source": "/help/article/submitted-referrals",
+      "destination": "/help/article/submitted-leads"
     }
   ]
 }
