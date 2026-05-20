@@ -309,6 +309,33 @@ For creating tiered rewards based on the sale amount. In this example, we're giv
 | If `Sale` `Amount` `is greater than or equal to` `$100` | Then pay a `Percentage` of `60%` per sale | Higher reward for sales over $100 |
 | If `Sale` `Amount` `is less than or equal to` `$100`    | Then pay a `Percentage` of `60%` per sale | Lower reward for sales under $100 |
 
+### New vs. recurring sales
+
+Tailor your reward amount based on whether the sale is the customer's first sale or a recurring sale. During reward creation, select `Sale` as the condition type and then choose `Type` as the condition field. This will allow you to differentiate between new and recurring sales.
+
+<Frame>
+  <img
+    src="/images/dub-partners/reward-example-firstsale.png"
+    alt="First-sale bonus condition example"
+  />
+</Frame>
+
+In this example, we're rewarding partners with a 80% reward for the first sale while keeping the standard recurring commission for all other sales:
+
+<Frame>
+  <img
+    src="/images/dub-partners/reward-example-firstsale-selected.png"
+    alt="First-sale bonus selected condition example"
+  />
+</Frame>
+
+This is especially useful for subscription-based products, where you may want to offer a higher reward for the first sale to incentivize partners to acquire new customers, while offering a lower reward for recurring sales, while combining with other conditions.
+
+| Condition                         | Reward                                    | Description                         |
+| --------------------------------- | ----------------------------------------- | ----------------------------------- |
+| If `Sale` `Type` `is` `new`       | Then pay a `Percentage` of `80%` per sale | First-sale bonus for new customers  |
+| If `Sale` `Type` `is` `recurring` | Then pay a `Percentage` of `30%` per sale | Standard reward for recurring sales |
+
 ## Updating a partner group's reward configuration
 
 You can update a [partner group's](/help/article/partner-groups) reward configuration at any time. When this happens, historical commissions won't be updated.
