@@ -387,6 +387,7 @@
                 "group": "SDKs",
                 "pages": [
                   "docs/sdks/overview",
+                  "docs/mcp",
                   {
                     "group": "Server-side SDKs",
                     "pages": [
