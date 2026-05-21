@@ -380,14 +380,14 @@
                 "pages": [
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
-                  "docs/api-reference/rate-limits",
-                  "docs/mcp-server"
+                  "docs/api-reference/rate-limits"
                 ]
               },
               {
                 "group": "SDKs",
                 "pages": [
                   "docs/sdks/overview",
+                  "docs/mcp-server",
                   {
                     "group": "Server-side SDKs",
                     "pages": [
