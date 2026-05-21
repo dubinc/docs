@@ -117,13 +117,6 @@
             "pages": ["docs/integrations", "docs/integrations/quickstart"]
           },
           {
-            "group": "MCP SERVERS",
-            "pages": [
-              "docs/sdks/mcp/dub-links",
-              "docs/sdks/mcp/dub-partners"
-            ]
-          },
-          {
             "group": "OPEN SOURCE",
             "pages": ["docs/local-development", "docs/self-hosting"]
           }
@@ -387,7 +380,8 @@
                 "pages": [
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
-                  "docs/api-reference/rate-limits"
+                  "docs/api-reference/rate-limits",
+                  "docs/mcp-server"
                 ]
               },
               {
