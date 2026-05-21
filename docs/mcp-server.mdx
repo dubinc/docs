@@ -4,9 +4,13 @@ description: "Use the Dub MCP server to manage your partner program with the AI 
 sidebarTitle: "MCP Server"
 ---
 
-The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
+## What is an MCP Server?
+
+MCP (Model Context Protocol) is an open standard for connecting AI applications to external tools and data. It gives your AI agent structured access to APIs so it can take actions on your behalf — like approving partner applications or updating commissions — using natural language.
 
 ## What can the Dub MCP server do?
+
+The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub Partners platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
 
 - **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
 - **Partner links** — Create and upsert links for enrolled partners
@@ -18,13 +22,26 @@ The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent na
 - **Commissions** — List and update commissions (e.g. for refunds or fraud)
 - **Payouts** — List payouts for your partner program
 
+As an example, you could use this to triage partner applications, adjust commissions after a refund, or pull attribution analytics for a top partner — all from your AI client.
+
+<Tip>
+  Looking for the [Dub Links](https://dub.co/links) MCP server? Check out the
+  [Dub Links MCP server docs](https://mcp.dub.sh/mcp/dub-links).
+</Tip>
+
 ## Prerequisites
 
-You'll need a Dub API key to authenticate with the MCP server. You can create one in your [Dub workspace settings](https://app.dub.co/settings/tokens).
+The Dub MCP server is hosted remotely and connects to any [supported MCP client](#mcp-client-integrations) via [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) and `npx`. To use the MCP server, you'll need to:
 
-## Setup
+- [Create a Dub API key](https://app.dub.co/settings/tokens) with access to your partner program
+
+## How to use the MCP Server
+
+Dub's MCP server runs over HTTP at `https://mcp.dub.sh/mcp/dub-partners`. Most clients connect through **`mcp-remote`**, which bridges stdio-based clients to the remote endpoint and forwards your API key in the `Mcp-Dub-Token` header.
 
 Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actual Dub API key.
+
+### MCP client integrations
 
 <Tabs>
   <Tab title="Claude Code">
@@ -35,25 +52,30 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
       --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
     ```
   </Tab>
-  <Tab title="VS Code Copilot">
-    Add the following to your `settings.json`:
+
+<Tab title="Codex">
+  ```bash codex mcp add dub-partners \ --env MCP_DUB_TOKEN=dub_xxxxxx \ -- npx
+  -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \ --header
+  "Mcp-Dub-Token:\${MCP_DUB_TOKEN}" ```
+</Tab>
+
+  <Tab title="Cursor">
+    Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
 
     ```json
     {
-      "mcp": {
-        "servers": {
-          "dub-partners": {
-            "command": "npx",
-            "args": [
-              "-y",
-              "mcp-remote@0.1.25",
-              "https://mcp.dub.sh/mcp/dub-partners",
-              "--header",
-              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-            ],
-            "env": {
-              "MCP_DUB_TOKEN": "dub_xxxxxx"
-            }
+      "mcpServers": {
+        "dub-partners": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
           }
         }
       }
@@ -61,6 +83,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```
 
   </Tab>
+
   <Tab title="Claude Desktop">
     Open **Claude Desktop** settings → **Developer** tab → **Edit Config** and add the following:
 
@@ -85,23 +108,26 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```
 
   </Tab>
-  <Tab title="Cursor">
-    Open **Cursor Settings** → **MCP** → **Add new global MCP server** and paste the following:
+
+  <Tab title="Copilot">
+    To use GitHub Copilot in VS Code, add the following to your `settings.json`:
 
     ```json
     {
-      "mcpServers": {
-        "dub-partners": {
-          "command": "npx",
-          "args": [
-            "-y",
-            "mcp-remote@0.1.25",
-            "https://mcp.dub.sh/mcp/dub-partners",
-            "--header",
-            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-          ],
-          "env": {
-            "MCP_DUB_TOKEN": "dub_xxxxxx"
+      "mcp": {
+        "servers": {
+          "dub-partners": {
+            "command": "npx",
+            "args": [
+              "-y",
+              "mcp-remote@0.1.25",
+              "https://mcp.dub.sh/mcp/dub-partners",
+              "--header",
+              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+            ],
+            "env": {
+              "MCP_DUB_TOKEN": "dub_xxxxxx"
+            }
           }
         }
       }
@@ -109,6 +135,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```
 
   </Tab>
+
   <Tab title="Gemini CLI">
     ```json
     {
@@ -130,6 +157,57 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     }
     ```
   </Tab>
+
+  <Tab title="OpenCode">
+    Add to your `opencode.json` config:
+
+    ```json
+    {
+      "$schema": "https://opencode.ai/config.json",
+      "mcp": {
+        "dub-partners": {
+          "type": "local",
+          "command": [
+            "npx",
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "enabled": true,
+          "environment": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="Windsurf">
+    ```json
+    {
+      "mcpServers": {
+        "dub-partners": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mcp-remote@0.1.25",
+            "https://mcp.dub.sh/mcp/dub-partners",
+            "--header",
+            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+          ],
+          "env": {
+            "MCP_DUB_TOKEN": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+
   <Tab title="Other clients">
     For any MCP client not listed above, use the raw configuration below:
 
@@ -151,3 +229,52 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
 
   </Tab>
 </Tabs>
+
+### Native HTTP
+
+Some MCP clients support connecting directly to a remote HTTP endpoint without `mcp-remote`. In that case, point your client at the Dub MCP URL and pass your API key in the `Mcp-Dub-Token` header.
+
+<Tabs>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add dub-partners \
+      --transport http https://mcp.dub.sh/mcp/dub-partners \
+      --header "Mcp-Dub-Token: dub_xxxxxx"
+    ```
+  </Tab>
+
+  <Tab title="Cursor">
+    Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
+
+    ```json
+    {
+      "mcpServers": {
+        "dub-partners": {
+          "url": "https://mcp.dub.sh/mcp/dub-partners",
+          "headers": {
+            "Mcp-Dub-Token": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="Other clients">
+    Use your client's remote MCP configuration with:
+
+    - **URL:** `https://mcp.dub.sh/mcp/dub-partners`
+    - **Header:** `Mcp-Dub-Token: dub_xxxxxx`
+
+  </Tab>
+</Tabs>
+
+### Environment variables
+
+- `MCP_DUB_TOKEN`: Your Dub API key (used by `mcp-remote` and referenced in client configs as `${MCP_DUB_TOKEN}`)
+
+<Info>
+  Store your API key in the `env` block or an environment variable rather than
+  hardcoding it in shared config files when possible.
+</Info>
