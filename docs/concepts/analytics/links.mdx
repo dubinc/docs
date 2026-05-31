@@ -1,139 +1,19 @@
 ---
-title: Partners data
-og:title: "Dub Analytics API – Aggregating analytics by partner"
-description: "Learn how to retrieve analytics data on Dub by partners, partner groups, and partner tags"
+title: Links data
+og:title: "Dub Analytics API – Aggregating analytics by links, folders, and tags"
+description: "Learn how to retrieve analytics data on Dub by links, folders, and tags"
 ---
 
 <Note>
   Analytics endpoints require a [Pro plan](https://dub.co/pricing) subscription
-  or higher. Partner-related analytics also require an active [Dub
-  Partners](https://dub.co/partners) program.
+  or higher.
 </Note>
 
-Partner data allows you to analyze how your partners, partner groups, and partner tags are driving clicks, leads, and sales across your program.
+Links data allows you to analyze how individual links and link collections are performing across your workspace.
 
-## Partner analytics
+## Link analytics
 
-The top partners by event count, including partner names and IDs.
-
-<CodeGroup>
-
-```javascript Node.js
-import { Dub } from "dub";
-
-export const dub = new Dub({
-  token: process.env.DUB_API_KEY,
-});
-
-const result = await dub.analytics.retrieve({
-  event: "sales",
-  groupBy: "top_partners",
-  interval: "30d",
-  // saleType: "new" // Optional: filter by new or recurring sales
-});
-```
-
-```python Python
-from dub import Dub
-
-with Dub(
-    token="DUB_API_KEY",
-) as d_client:
-    res = d_client.analytics.retrieve(request={
-        "event": "sales",
-        "groupBy": "top_partners",
-        "interval": "30d",
-        # "saleType": "new",  # Optional: filter by new or recurring sales
-    })
-    print(res)
-```
-
-```php PHP
-declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use Dub;
-use Dub\Models\Operations;
-
-$sdk = Dub\Dub::builder()
-    ->setSecurity('DUB_API_KEY')
-    ->build();
-
-$request = new Operations\RetrieveAnalyticsRequest(
-    event: 'sales',
-    groupBy: 'top_partners',
-    interval: '30d',
-    // saleType: 'new', // Optional: filter by new or recurring sales
-);
-
-$response = $sdk->analytics->retrieve(
-    request: $request
-);
-
-if ($response->oneOf !== null) {
-    // handle response
-}
-```
-
-```go Go
-package main
-
-import(
-    "context"
-    dubgo "github.com/dubinc/dub-go"
-    "github.com/dubinc/dub-go/models/operations"
-    "log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := dubgo.New(
-        dubgo.WithSecurity("DUB_API_KEY"),
-    )
-
-    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
-        Event: dubgo.String("sales"),
-        GroupBy: dubgo.String("top_partners"),
-        Interval: dubgo.String("30d"),
-        // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-```ruby Ruby
-require 'dub'
-
-s = ::OpenApiSDK::Dub.new(
-      security: ::OpenApiSDK::Shared::Security.new(
-        token: "DUB_API_KEY",
-      ),
-    )
-
-req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
-  event: "sales",
-  groupBy: "top_partners",
-  interval: "30d",
-  # saleType: "new", # Optional: filter by new or recurring sales
-)
-
-res = s.analytics.retrieve(req)
-
-if ! res.one_of.nil?
-  # handle response
-end
-```
-
-</CodeGroup>
-
-You can also filter analytics for a specific partner (or set of partners) by passing the `partnerId` parameter. It supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`).
+The top links by event count.
 
 <CodeGroup>
 
@@ -147,7 +27,6 @@ export const dub = new Dub({
 const result = await dub.analytics.retrieve({
   event: "sales",
   groupBy: "top_links",
-  partnerId: "pn_123",
   interval: "30d",
   // saleType: "new" // Optional: filter by new or recurring sales
 });
@@ -162,7 +41,6 @@ with Dub(
     res = d_client.analytics.retrieve(request={
         "event": "sales",
         "groupBy": "top_links",
-        "partnerId": "pn_123",
         "interval": "30d",
         # "saleType": "new",  # Optional: filter by new or recurring sales
     })
@@ -184,7 +62,6 @@ $sdk = Dub\Dub::builder()
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'sales',
     groupBy: 'top_links',
-    partnerId: 'pn_123',
     interval: '30d',
     // saleType: 'new', // Optional: filter by new or recurring sales
 );
@@ -218,7 +95,6 @@ func main() {
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("sales"),
         GroupBy: dubgo.String("top_links"),
-        PartnerID: dubgo.String("pn_123"),
         Interval: dubgo.String("30d"),
         // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
     })
@@ -243,7 +119,6 @@ s = ::OpenApiSDK::Dub.new(
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "sales",
   groupBy: "top_links",
-  partnerId: "pn_123",
   interval: "30d",
   # saleType: "new", # Optional: filter by new or recurring sales
 )
@@ -257,9 +132,7 @@ end
 
 </CodeGroup>
 
-## Partner group analytics
-
-The top partner groups by event count, including group names and IDs.
+You can also filter analytics for a specific link (or set of links) by passing the `linkId` parameter. It supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`).
 
 <CodeGroup>
 
@@ -272,7 +145,8 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "sales",
-  groupBy: "top_groups",
+  groupBy: "top_links",
+  linkId: "-fold_xxx...",
   interval: "30d",
   // saleType: "new" // Optional: filter by new or recurring sales
 });
@@ -286,7 +160,8 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "sales",
-        "groupBy": "top_groups",
+        "groupBy": "top_links",
+        "linkId": "-fold_xxx...",
         "interval": "30d",
         # "saleType": "new",  # Optional: filter by new or recurring sales
     })
@@ -307,7 +182,8 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'sales',
-    groupBy: 'top_groups',
+    groupBy: 'top_links',
+    linkId: '-fold_xxx...',
     interval: '30d',
     // saleType: 'new', // Optional: filter by new or recurring sales
 );
@@ -340,7 +216,8 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("sales"),
-        GroupBy: dubgo.String("top_groups"),
+        GroupBy: dubgo.String("top_links"),
+        LinkID: dubgo.String("-fold_xxx..."),
         Interval: dubgo.String("30d"),
         // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
     })
@@ -364,7 +241,8 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "sales",
-  groupBy: "top_groups",
+  groupBy: "top_links",
+  linkId: "-fold_xxx...",
   interval: "30d",
   # saleType: "new", # Optional: filter by new or recurring sales
 )
@@ -378,7 +256,9 @@ end
 
 </CodeGroup>
 
-You can also filter analytics by one or more partner groups by passing the `groupId` parameter. It supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`).
+## Link folder analytics
+
+The top link folders by event count, including folder names and IDs.
 
 <CodeGroup>
 
@@ -391,8 +271,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "sales",
-  groupBy: "top_partners",
-  groupId: "grp_123",
+  groupBy: "top_folders",
   interval: "30d",
   // saleType: "new" // Optional: filter by new or recurring sales
 });
@@ -406,8 +285,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "sales",
-        "groupBy": "top_partners",
-        "groupId": "grp_123",
+        "groupBy": "top_folders",
         "interval": "30d",
         # "saleType": "new",  # Optional: filter by new or recurring sales
     })
@@ -428,8 +306,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'sales',
-    groupBy: 'top_partners',
-    groupId: 'grp_123',
+    groupBy: 'top_folders',
     interval: '30d',
     // saleType: 'new', // Optional: filter by new or recurring sales
 );
@@ -462,8 +339,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("sales"),
-        GroupBy: dubgo.String("top_partners"),
-        GroupID: dubgo.String("grp_123"),
+        GroupBy: dubgo.String("top_folders"),
         Interval: dubgo.String("30d"),
         // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
     })
@@ -487,8 +363,7 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "sales",
-  groupBy: "top_partners",
-  groupId: "grp_123",
+  groupBy: "top_folders",
   interval: "30d",
   # saleType: "new", # Optional: filter by new or recurring sales
 )
@@ -502,9 +377,7 @@ end
 
 </CodeGroup>
 
-## Partner tag analytics
-
-The top partner tags by event count, including tag names and IDs.
+You can also filter analytics for a specific folder (or set of folders) by passing the `folderId` parameter. It supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`).
 
 <CodeGroup>
 
@@ -517,7 +390,8 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "sales",
-  groupBy: "top_partner_tags",
+  groupBy: "top_links",
+  folderId: "fold_xxx...",
   interval: "30d",
   // saleType: "new" // Optional: filter by new or recurring sales
 });
@@ -531,7 +405,8 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "sales",
-        "groupBy": "top_partner_tags",
+        "groupBy": "top_links",
+        "folderId": "fold_xxx...",
         "interval": "30d",
         # "saleType": "new",  # Optional: filter by new or recurring sales
     })
@@ -552,7 +427,8 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'sales',
-    groupBy: 'top_partner_tags',
+    groupBy: 'top_links',
+    folderId: 'fold_xxx...',
     interval: '30d',
     // saleType: 'new', // Optional: filter by new or recurring sales
 );
@@ -585,7 +461,8 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("sales"),
-        GroupBy: dubgo.String("top_partner_tags"),
+        GroupBy: dubgo.String("top_links"),
+        FolderID: dubgo.String("fold_xxx..."),
         Interval: dubgo.String("30d"),
         // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
     })
@@ -609,7 +486,8 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "sales",
-  groupBy: "top_partner_tags",
+  groupBy: "top_links",
+  folderId: "fold_xxx...",
   interval: "30d",
   # saleType: "new", # Optional: filter by new or recurring sales
 )
@@ -623,7 +501,9 @@ end
 
 </CodeGroup>
 
-You can also filter analytics by one or more partner tags by passing the `partnerTagId` parameter. It supports advanced filtering: single value, multiple values (comma-separated), or exclusion (prefix with `-`).
+## Link tag analytics
+
+The top link tags by event count, including tag names and IDs.
 
 <CodeGroup>
 
@@ -636,8 +516,7 @@ export const dub = new Dub({
 
 const result = await dub.analytics.retrieve({
   event: "sales",
-  groupBy: "top_partners",
-  partnerTagId: "ptag_123",
+  groupBy: "top_link_tags",
   interval: "30d",
   // saleType: "new" // Optional: filter by new or recurring sales
 });
@@ -651,8 +530,7 @@ with Dub(
 ) as d_client:
     res = d_client.analytics.retrieve(request={
         "event": "sales",
-        "groupBy": "top_partners",
-        "partnerTagId": "ptag_123",
+        "groupBy": "top_link_tags",
         "interval": "30d",
         # "saleType": "new",  # Optional: filter by new or recurring sales
     })
@@ -673,8 +551,7 @@ $sdk = Dub\Dub::builder()
 
 $request = new Operations\RetrieveAnalyticsRequest(
     event: 'sales',
-    groupBy: 'top_partners',
-    partnerTagId: 'ptag_123',
+    groupBy: 'top_link_tags',
     interval: '30d',
     // saleType: 'new', // Optional: filter by new or recurring sales
 );
@@ -707,8 +584,7 @@ func main() {
 
     res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
         Event: dubgo.String("sales"),
-        GroupBy: dubgo.String("top_partners"),
-        PartnerTagID: dubgo.String("ptag_123"),
+        GroupBy: dubgo.String("top_link_tags"),
         Interval: dubgo.String("30d"),
         // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
     })
@@ -732,8 +608,131 @@ s = ::OpenApiSDK::Dub.new(
 
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   event: "sales",
-  groupBy: "top_partners",
-  partnerTagId: "ptag_123",
+  groupBy: "top_link_tags",
+  interval: "30d",
+  # saleType: "new", # Optional: filter by new or recurring sales
+)
+
+res = s.analytics.retrieve(req)
+
+if ! res.one_of.nil?
+  # handle response
+end
+```
+
+</CodeGroup>
+
+You can also filter analytics by one or more tags by passing the `tagIds` parameter. It supports advanced filtering: single value, multiple values, or exclusion (prefix with `-`).
+
+<CodeGroup>
+
+```javascript Node.js
+import { Dub } from "dub";
+
+export const dub = new Dub({
+  token: process.env.DUB_API_KEY,
+});
+
+const result = await dub.analytics.retrieve({
+  event: "sales",
+  groupBy: "top_links",
+  tagId: ["tag_12345", "-tag_67890"],
+  interval: "30d",
+  // saleType: "new" // Optional: filter by new or recurring sales
+});
+```
+
+```python Python
+from dub import Dub
+
+with Dub(
+    token="DUB_API_KEY",
+) as d_client:
+    res = d_client.analytics.retrieve(request={
+        "event": "sales",
+        "groupBy": "top_links",
+        "tagIds": ["tag_12345", "-tag_67890"],
+        "interval": "30d",
+        # "saleType": "new",  # Optional: filter by new or recurring sales
+    })
+    print(res)
+```
+
+```php PHP
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Dub;
+use Dub\Models\Operations;
+
+$sdk = Dub\Dub::builder()
+    ->setSecurity('DUB_API_KEY')
+    ->build();
+
+$request = new Operations\RetrieveAnalyticsRequest(
+    event: 'sales',
+    groupBy: 'top_links',
+    tagId: ['tag_12345', '-tag_67890'],
+    interval: '30d',
+    // saleType: 'new', // Optional: filter by new or recurring sales
+);
+
+$response = $sdk->analytics->retrieve(
+    request: $request
+);
+
+if ($response->oneOf !== null) {
+    // handle response
+}
+```
+
+```go Go
+package main
+
+import(
+    "context"
+    dubgo "github.com/dubinc/dub-go"
+    "github.com/dubinc/dub-go/models/operations"
+    "log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := dubgo.New(
+        dubgo.WithSecurity("DUB_API_KEY"),
+    )
+
+    res, err := s.Analytics.Retrieve(ctx, operations.RetrieveAnalyticsRequest{
+        Event: dubgo.String("sales"),
+        GroupBy: dubgo.String("top_links"),
+        TagID: []string{"tag_12345", "-tag_67890"},
+        Interval: dubgo.String("30d"),
+        // SaleType: dubgo.String("new"), // Optional: filter by new or recurring sales
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+```ruby Ruby
+require 'dub'
+
+s = ::OpenApiSDK::Dub.new(
+      security: ::OpenApiSDK::Shared::Security.new(
+        token: "DUB_API_KEY",
+      ),
+    )
+
+req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
+  event: "sales",
+  groupBy: "top_links",
+  tagId: ["tag_12345", "-tag_67890"],
   interval: "30d",
   # saleType: "new", # Optional: filter by new or recurring sales
 )

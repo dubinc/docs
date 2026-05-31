@@ -101,12 +101,12 @@
                   {
                     "group": "Filtering and aggregation",
                     "pages": [
+                      "docs/concepts/analytics/partners",
+                      "docs/concepts/analytics/links",
                       "docs/concepts/analytics/location",
                       "docs/concepts/analytics/device",
                       "docs/concepts/analytics/referrers",
-                      "docs/concepts/analytics/utm",
-                      "docs/concepts/analytics/tags",
-                      "docs/concepts/analytics/partners"
+                      "docs/concepts/analytics/utm"
                     ]
                   }
                 ]
@@ -732,6 +732,10 @@
     {
       "source": "/docs/concepts/analytics",
       "destination": "/docs/concepts/analytics/introduction"
+    },
+    {
+      "source": "/docs/concepts/analytics/tags",
+      "destination": "/docs/concepts/analytics/links"
     },
     {
       "source": "/docs/concepts/webhooks/introduction",
