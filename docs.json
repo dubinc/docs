@@ -105,7 +105,8 @@
                       "docs/concepts/analytics/device",
                       "docs/concepts/analytics/referrers",
                       "docs/concepts/analytics/utm",
-                      "docs/concepts/analytics/tags"
+                      "docs/concepts/analytics/tags",
+                      "docs/concepts/analytics/partners"
                     ]
                   }
                 ]
