@@ -131,6 +131,26 @@ Set default [UTM parameters](/help/article/utm-builder) for all links in this gr
 When you update a group’s [UTM template](/help/article/how-to-create-utm-templates), all partner links in the
 group are refreshed and overwritten with the new UTM tags.
 
+## Changing your referral link domain
+
+If you need to change the domain used for your referral links (for example, from `ref.getacme.com` to `ref.acme.com`), you must follow the steps below in order. Skipping or reordering these steps will break your existing partner links.
+
+<Steps>
+  <Step title="Add your new domain in Dub">
+    Add your new domain (`ref.acme.com`) in your [domains settings page](https://app.dub.co/settings/domains).
+  </Step>
+
+  <Step title="Set up a redirect on your old domain">
+    Set up a redirect from your old domain to your new domain so that any traffic hitting an existing partner link is forwarded to the new domain. You'll want a wildcard redirect that maps `ref.getacme.com/:path*` to `ref.acme.com/:path*`.
+
+    Most hosting providers and CDNs support wildcard redirects. Check your provider's documentation for how to configure them (often via a configuration file, dashboard setting, or rewrite/redirect rule). If you're on [Vercel](https://vercel.com/docs/routing/redirects/configuration-redirects), you can add this to your `vercel.json` file.
+  </Step>
+
+  <Step title="Update your default link">
+    Once both the new domain and the redirect are in place, update your **Default Link** to use the new domain on your [group links page](https://app.dub.co/program/groups/default/links).
+  </Step>
+</Steps>
+
 ## How partner group changes affect referral links
 
 As mentioned earlier, a partner's link settings are tied to the [partner group](/help/article/partner-groups) they're in. When you update a partner's group, or delete groups, their partner links will be updated as well.
