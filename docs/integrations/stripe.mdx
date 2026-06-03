@@ -501,6 +501,27 @@ If you're not using Stripe Adaptive Pricing, Dub will record the sale amount in 
   add the ability to customize that in the future.
 </Note>
 
+## Multiple line items per invoice
+
+When a Stripe invoice or checkout session contains multiple line items (e.g. a base subscription plus an add-on, or several products purchased in a single transaction), Dub processes each line item individually to calculate the correct commission amount.
+
+For each line item, Dub:
+
+1. Resolves the Stripe product ID for that line item.
+2. Matches it against any [product-specific reward modifiers](/help/article/partner-rewards#product-spotlight) configured for the partner's group.
+3. Calculates the commission for that line item using the matching reward rate (falling back to the default reward if no modifier matches).
+
+The final commission recorded for the invoice is the sum of the per-line-item commissions.
+
+<Tip>
+  For example, if a partner has a `40%` reward for `prod_gold` and a `10%`
+  reward for everything else, an invoice with `$100` of `prod_gold` and `$50`
+  of `prod_addon` will generate a commission of `($100 × 40%) + ($50 × 10%) =
+  $45`.
+</Tip>
+
+The total `saleAmount` recorded on Dub still reflects the full invoice total (after [tax exclusion](#tax-handling) and [currency conversion](#currency-conversion-support)), so your revenue analytics remain accurate.
+
 ## Tax handling
 
 When tracking sale conversions from Stripe, Dub automatically excludes taxes from the final sale amount to ensure accurate revenue reporting.
