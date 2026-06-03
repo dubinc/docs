@@ -283,30 +283,19 @@ actual product ID, you can set the `Shown as` to `Gold Plan`.
   Where `Your product ID` is listed, you'll enter your product ID (the
   screenshot uses an example product ID)
 
-If you're using our Stripe integration, the product ID will be the Stripe
-product ID that the subscription is for (starts with `prod_xxx`).
-
 If you're manually tracking a sale event via our `/track/sale` endpoint, you
 can pass along the product ID via the [metadata
 prop](/docs/api-reference/track/sale#body-metadata-one-of-0)
 (e.g. `metadata.productId = "prod_xxx"`).
 
+If you're using our [Stripe
+integration](/docs/integrations/stripe), the product ID will be the Stripe
+product ID that the subscription is for (starts with `prod_xxx`). If a Stripe invoice contains multiple line
+items (e.g. a base subscription plus an add-on), Dub
+calculate the commission for each line item using the matching reward
+rate. [See full example here](/docs/integrations/stripe#multiple-line-items-per-invoice).
+
 </Info>
-
-<Tip>
-  **Multiple line items in a single invoice:** If you're using our [Stripe
-  integration](/docs/integrations/stripe) and an invoice contains multiple line
-  items (e.g. a base subscription plus an add-on), Dub will evaluate each line
-  item's product ID against your product-specific reward modifiers and
-  calculate the commission for each line item using the matching reward
-  rate. The final commission for the invoice is the sum of the per-line-item
-  commissions.
-
-For example, if a partner has a 40% reward for `prod_gold` and a 10% reward
-for everything else, an invoice with $100 of `prod_gold` and $50 of
-`prod_addon` will generate a commission of `($100 × 40%) + ($50 × 10%) = $45`.
-
-</Tip>
 
 ### Sale amount modifiers
 
