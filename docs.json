@@ -1131,6 +1131,10 @@
       "destination": "/help/article/what-is-a-workspace"
     },
     {
+      "source": "/help/article/how-to-get-workspace-id",
+      "destination": "/help/article/what-is-a-workspace"
+    },
+    {
       "source": "/help/article/custom-social-media-cards",
       "destination": "/help/article/custom-link-previews"
     },
