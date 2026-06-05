@@ -501,6 +501,7 @@
                     "group": "Commissions",
                     "pages": [
                       "docs/api-reference/commissions/list",
+                      "docs/api-reference/commissions/create",
                       "docs/api-reference/commissions/update"
                     ]
                   },
