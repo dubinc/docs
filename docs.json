@@ -193,7 +193,7 @@
                   "help/article/program-analytics",
                   "help/article/commission-analytics",
                   "help/article/application-analytics",
-                  "help/article/risk-center"
+                  "help/article/risk-monitoring"
                 ]
               },
               {
@@ -676,7 +676,7 @@
     },
     {
       "source": "/help/article/fraud-detection",
-      "destination": "/help/article/risk-center"
+      "destination": "/help/article/risk-monitoring"
     },
     {
       "source": "/docs/examples",
