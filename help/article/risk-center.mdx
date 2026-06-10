@@ -12,34 +12,59 @@ sidebarTitle: "Risk center"
 Dub's Risk Center helps you catch and take action on any potentially fraudulent or compliance activity in your program. We give you the details for each event so you can make the best decision for your program and customers.
 
 
-`!!! UPDATE THIS IMAGE !!!`
-
 <Frame>
-  <img src="https://assets.dub.co/cms/fraud-table.png" alt="Fraud table view" />
+  <img src="/images/dub-partners/risk-table.png" alt="Risk table view" />
 </Frame>
-
-`!!! UPDATE THIS IMAGE !!!`
 
 The table view contains the following columns:
 
-- **Event:** The specific unique fraud event associated with a partner.
-- **Partner:** The partner associated with the fraud event.
-- **Last Detected:** The date and time of the most recent occurrence of this fraud event.
+- **Event:** The specific unique risk event associated with a partner.
+- **Partner:** The partner associated with the risk event.
+- **Last Detected:** The date and time of the most recent occurrence of this risk event.
 
 Each row is a single event type for a given partner and can contain multiple event occurrences within it. There may be times when you see multiple rows for the same partner, and in this scenario, the partner has been flagged for multiple events that require your review.
 
 ## Risk event types
-
 Here are the event types you might see flagged and detected in your program.
 
-| Event  | Description  |
-| --- | ---- |
-| Duplicate account detected  | This partner was flagged by our system for having 2 or more Dub accounts. Please review to prevent abuse of program restrictions, caps, or bonuses. |
-| Matching customer email  | Partner's email matches a customer's email and could be a self-referral. |
-| Suspicious customer email domain | Customer's email uses a disposable or temporary domain, which could be a fraud attempt. |
-| Banned referral source | A conversion, event, or click was made on a banned referral domain. |
-| Paid traffic | A conversion, event, or click was made from paid advertising traffic. |
-| Cross-program ban | This partner was banned from another program on Dub. Our team reviewed this decision and confirmed the fraudulent behavior or terms of service violation. |
+### Duplicate account detected
+This partner was flagged by our system for having 2 or more Dub accounts. Please review to prevent abuse of program restrictions, caps, or bonuses. 
+
+If the partner is legitamate and has multiple accounts, it's receommended they [merge their accounts](/help/article/merging-partner-accounts#merging-your-partner-accounts) to prevent any future issues. If the accounts are not merged, this can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards. 
+
+### Matching customer email
+This partner's email address matches with a customer's email address in your system. This can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards. 
+
+### Suspicious customer email domain
+This partner has referred a customer with an email address that uses a suspicious domain, such as a disposable or temporary email provider. This can be a sign of fraudulent activity, as these types of email addresses are often used to create fake accounts or to hide the identity of the referrer.
+
+### Banned referral source
+This partner has traffic coming from a referral source that you've banned in your [risk rules](#risk-rules). This can be a violation of your program's terms if you don't allow traffic from certain sources, and can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions.
+
+### Paid traffic
+This partner has traffic coming from paid sources like Google Ads, Facebook Ads, etc. and can be a violation of your program's terms. It can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions. 
+
+We recommend getting clarification from the partner before banning them from your program. To make this easier, you can click the **Request details** button to auto-generate a message to the partner. 
+
+<Frame>
+  <img
+    src="/images/dub-partners/risk-event-paid-traffic.png"
+    alt="Paid traffic event details"
+  />
+</Frame>
+
+Click **Send** when you're ready to send the message, and then wait for the partner's response before making a decision on whether to ban or resolve the event.
+
+<Frame>
+  <img
+    src="/images/dub-partners/risk-event-request-details.png"
+    alt="Request details"
+  />
+</Frame>
+
+### Cross-program ban
+This partner was banned from one-or-more programs on Dub. Our risk team has reviewed this decision and confirmed the fraudulent behavior or terms of service violation.
+
 
 ## Reviewing risk events
 
@@ -49,35 +74,29 @@ Here are the event types you might see flagged and detected in your program.
 
 Click on any table row to open the review panel. When reviewing events, there are three panels of information for each item.
 
-`!!! UPDATE THIS IMAGE !!!`
 <Frame>
-  <img src="/images/dub-partners/fraud-review.png" alt="Fraud review" />
+  <img src="/images/dub-partners/risk-review.png" alt="Risk review" />
 </Frame>
-`!!! UPDATE THIS IMAGE !!!`
 
 <Steps>  
 <Step title="Partner information">  
 This is the partner associated with the event. From this section, you can click to message them or to view their profile.
 
-`!!! UPDATE THIS IMAGE !!!`
 <Frame>
   <img
-    src="https://assets.dub.co/cms/fraud-event-partner.png"
+    src="/images/dub-partners/risk-event-partner.png"
     alt="Event partner"
   />
 </Frame>
-`!!! UPDATE THIS IMAGE !!!`
 
 </Step>
 
 <Step title="Event details">  
 Here you'll see the event type, description, and a line item for each flagged event for the same type associated with this partner.
 
-`!!! UPDATE THIS IMAGE !!!`
 <Frame>
-  <img src="https://assets.dub.co/cms/fraud-event-type.png" alt="Event type" />
+  <img src="/images/dub-partners/risk-event-type.png" alt="Event type" />
 </Frame>
-`!!! UPDATE THIS IMAGE !!!`
 
 </Step>
 
@@ -125,14 +144,14 @@ If a risk event is deemed to be benign, you can select the **Resolve event** opt
 
 When confirming the decision, you're able to provide optional additional notes about the steps taken to confirm the details, or any other information.
 
-`!!! UPDATE THIS IMAGE AND ADD INFO WITH TOGGLE !!!`
+If you trust this partner completely, you're also able to **Exclude from risk monitoring**. When enabled, any future risk events won't be flagged for this partner. This can be changed anytime in the partner's [advanced settings](/help/article/managing-program-partners#advanced-settings).
+
 <Frame>
   <img
-    src="https://assets.dub.co/cms/fraud-review-resolve.png"
+    src="/images/dub-partners/risk-resolve-event-modal.png"
     alt="Resolving"
   />
 </Frame>
-`!!! UPDATE THIS IMAGE AND ADD INFO WITH TOGGLE !!!`
 
 ### Ban partner
 
@@ -174,41 +193,35 @@ Our fraud team will review your submission, and if deemed fraudulent, will ban t
 
 To view your resolved events, click the `⋮` dropdown in the top right and select **Resolved events**.
 
-`!!! UPDATE THIS IMAGE - THE SPACING IS OFF !!!`
 <Frame>
   <img
-    src="https://assets.dub.co/cms/fraud-resolved-events.png"
+    src="/images/dub-partners/risk-resolved-events.png"
     alt="Resolved events"
   />
 </Frame>
-`!!! UPDATE THIS IMAGE - THE SPACING IS OFF !!!`
 
 Click on any of the resolved items to see the event details, who resolved the event, and any additional notes.
 
-## Risk signals
+## Risk rules
 
 We give you the option to customize risk signal detection settings on a program-level, as well as choose which [risk event types](#risk-event-types) you want to receive alerts for.
 
-To edit these, click the **Risk signals** button in the top right.
+To edit these, click the **Risk rules** button in the top right.
 
-`!!! UPDATE THIS IMAGE !!!`
 <Frame>
-  <img src="/images/dub-partners/fraud-settings.png" alt="Fraud settings" />
+  <img src="/images/dub-partners/risk-rules-button.png" alt="Risk rules button" />
 </Frame>
-`!!! UPDATE THIS IMAGE !!!`
 
 ### Paid traffic
 
 If your program doesn't allow traffic from advertisers, ensure this setting is enabled.
 
-`!!! UPDATE THIS IMAGE !!!`
 <Frame>
   <img
-    src="/images/dub-partners/fraud-settings-paid-traffic.png"
-    alt="Fraud settings paid traffic"
+    src="/images/dub-partners/risk-rules-paid-traffic.png"
+    alt="Risk rules paid traffic"
   />
 </Frame>
-`!!! UPDATE THIS IMAGE !!!`
 
 When enabled, it will flag all partner traffic that has been generated from several sources, including:
 
@@ -253,10 +266,10 @@ When adding URLs, you can also use `*` wildcards to match any part of a domain. 
 
 ### Disabling fraud settings
 
-If you don't want to receive alerts for a specific fraud event type, you can disable it by toggling the switch to the right of the event type.
+If you don't want to receive alerts for a specific risk event type, you can disable it by toggling the switch to the right of the event type.
 
 <Frame>
-  <img src="/images/dub-partners/fraud-settings.png" alt="Fraud settings" />
+  <img src="/images/dub-partners/risk-rules.png" alt="Risk rules" />
 </Frame>
 
 When you disable any of the current active settings, you're also given the option to mark and pending events that match that criteria as "Resolved".
