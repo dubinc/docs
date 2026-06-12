@@ -50,7 +50,8 @@
                   "docs/integrations/google-tag-manager",
                   "docs/integrations/shopify",
                   "docs/integrations/hubspot",
-                  "docs/integrations/segment"
+                  "docs/integrations/segment",
+                  "docs/integrations/appsflyer"
                 ]
               }
             ]
