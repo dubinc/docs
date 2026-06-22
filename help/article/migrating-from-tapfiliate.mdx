@@ -7,8 +7,7 @@ sidebarTitle: "Tapfiliate"
 import { ImageLink } from "/snippets/components/image-link.jsx";
 
 <Tip>
-  Dub Partners is only available on [Business plans and
-  above](https://dub.co/pricing/partners).
+  Dub Partners is only available on [Business plans and above](https://dub.co/pricing/partners).
 </Tip>
 
 Tapfiliate is a popular affiliate and referral management platform for SMBs that want to track and manage their partnership programs.
@@ -16,76 +15,60 @@ Tapfiliate is a popular affiliate and referral management platform for SMBs that
 However, Tapfiliate has several limitations that become apparent as your program grows:
 
 1. **Affiliate and click caps**: The entry-level plan is capped at 50 affiliates and 5,000 clicks/month, with expensive overage fees. Growing programs quickly find themselves forced into higher-tier plans just to accommodate their affiliate base.
-2. **Automated payouts gated behind Enterprise**: In-platform automated payouts are only available on the Enterprise plan. On lower tiers, you're responsible for managing payouts manually through Trolley.
+2. **Manual payouts**: Since the payout process is not automated, you will need to manually handle all payouts and tax compliance. 
 3. **No embedded referral dashboard**: Tapfiliate doesn't support embedding the affiliate dashboard directly inside your application, making for a disjointed partner experience.
-4. **Limited affiliate network**: While Tapfiliate has a marketplace, it lacks a curated network of high-performing affiliates — you're largely on your own when it comes to recruiting quality partners.
+4. **Limited affiliate network**: While Tapfiliate has a marketplace, it lacks a curated network of high-performing affiliates – you're largely on your own when it comes to recruiting quality partners.
 
 **This is where [Dub Partners](https://dub.co/partners) comes in.**
 
-1. **Payouts you can rely on:** We let you [pay your partners globally](/help/article/partner-payouts) in 1-click, with tax compliance built-in, so you can have peace of mind knowing that all payouts are completed successfully.
-2. **Advanced reward structures**: On Dub, you can choose between [3 reward types](/help/article/partner-rewards#configuring-reward-types) – per click, per lead, and per sale (flat/percentage). You can also set different [reward conditions](/help/article/partner-rewards#adding-reward-conditions) (e.g., a higher reward for customers based in the U.S. vs other countries) and create [bounties](/help/article/program-bounties) to provide additional rewards for your affiliates.
+1. **Automated payouts:** You can [pay your partners globally](/help/article/partner-payouts) in 1-click, with tax compliance built-in, so you can have peace of mind knowing that all payouts are completed successfully.
+2. **Advanced reward structures**: You can choose between [3 reward types](/help/article/partner-rewards#configuring-reward-types) – per click, per lead, and per sale (flat/percentage). You can also set different [reward conditions](/help/article/partner-rewards#adding-reward-conditions) (e.g., a higher reward for customers based in the U.S. vs other countries) and create [bounties](/help/article/program-bounties) to provide additional rewards for your affiliates.
 3. **White-labeling**: You can [embed a white-labeled referral dashboard into your application](/docs/partners/embedded-referrals) for a better user experience.
-4. **Powerful affiliate network**: With over 5,000 active affiliates in our network, Dub makes it easy to find and recruit high-performing partners with a proven track record of driving results.
+4. **Powerful partner network**: With over 7,000 active partners in our network, Dub makes it easy to find and recruit high-performing partners with a proven track record of driving results.
 
 In this article, we'll learn how to import your Tapfiliate affiliate program to [Dub Partners](/help/article/dub-partners) for a more powerful, scalable, and branded partner management experience.
 
 ## How to migrate from Tapfiliate to Dub?
 
-If you're looking to migrate from Tapfiliate to Dub Partners, we've built a custom migration tool that will help you migrate everything over in just a few clicks – without breaking any existing Tapfiliate affiliate links.
+If you're looking to migrate from Tapfiliate to Dub Partners, we have a custom migration tool that will help you migrate everything over in just a few clicks – without breaking any existing Tapfiliate affiliate links.
 
 <Steps>
-<Step title="Add a custom domain to your Dub workspace">
-Before starting the migration process, you'll need to add a custom domain to Dub. This domain will be used to create short links for each affiliate link that we import from Tapfiliate.
+  <Step title="Add a custom domain to your Dub workspace">
+    Before starting the migration process, you'll need to add a custom domain to Dub. This domain will be used to create short links for each affiliate link that we import from Tapfiliate.
 
-If you haven't added a custom domain to Dub yet, you can [follow this guide to set that up](/help/article/how-to-add-custom-domain).
+    If you haven't added a custom domain to Dub yet, you can [follow this guide to set that up](/help/article/how-to-add-custom-domain).
+  </Step>
+  <Step title="Set up conversion tracking + client-side click-tracking">
+    Next, [set up conversion tracking](/docs/quickstart/server) to track signup and sale events. We also have some [in-app guides that you can reference here](https://app.dub.co/guides).
 
-</Step>
+    For backward compatibility, we also recommend setting up [client-side click-tracking](/docs/sdks/client-side/features/click-tracking) when installing the [Dub Analytics script](/docs/sdks/client-side/introduction) on your site. This will ensure all your existing `domain.com?ref=affiliate` links will keep working as expected, which gives affiliates time to update their links to the new format.
 
-<Step title="Set up conversion tracking + client-side click-tracking">
+    You can [follow our guide](/docs/sdks/client-side/features/click-tracking) on how to set up client-side click-tracking for your Dub short links to set that up.
+  </Step>
+  <Step title="Get your Tapfiliate API Key">
+    Go to your [Profile settings page on Tapfiliate](https://app.tapfiliate.com/profile/) and scroll down to the **API Key** section to retrieve your Tapfiliate API key:
 
-Next, [set up conversion tracking](/docs/quickstart/server) to track signup and sale events. We also have some [in-app guides that you can reference here](https://app.dub.co/guides).
+    <Frame>
+      ![Tapfiliate API key](https://assets.dub.co/cms/tapfiliate-api-key.png)
+    </Frame>
 
-For backward compatibility, we also recommend setting up [client-side click-tracking](/docs/sdks/client-side/features/click-tracking) when installing the [Dub Analytics script](/docs/sdks/client-side/introduction) on your site. This will ensure all your existing `domain.com?ref=affiliate` links will keep working as expected, which gives affiliates time to update their links to the new format.
+    We will use this API key to retrieve and import your existing Tapfiliate program to Dub.
+  </Step>
+  <Step title="Import your Tapfiliate program in the Partners tab">
+    Once you've [set up your Dub partner program](/help/article/setting-up-your-program), go to your [Partners tab](https://app.dub.co/program/partners), click on the `⋮` button and select "Import from Tapfiliate".
 
-You can [follow our guide](/docs/sdks/client-side/features/click-tracking) on how to set up client-side click-tracking for your Dub short links to set that up.
+    To save you some time, [here's a quicklink](https://app.dub.co/program/partners?import=tapfiliate) that will get you directly to the Tapfiliate import flow.
 
-</Step>
+    <Frame>
+      ![Import Tapfiliate modal](https://assets.dub.co/cms/import-tapfiliate-modal.png)
+    </Frame>
 
-<Step title="Get your Tapfiliate API Key">
-Go to your [Profile settings page on Tapfiliate](https://app.tapfiliate.com/profile/) and scroll down to the **API Key** section to retrieve your Tapfiliate API key:
+    Enter your Tapfiliate API key and click **Continue**. We'll validate your key and automatically fetch the list of programs in your account. Select the program you want to import and click **Continue** to kick off the import.
 
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/tapfiliate-api-key.png"
-    alt="Tapfiliate API key"
-  />
-</Frame>
-
-We will use this API key to retrieve and import your existing Tapfiliate program to Dub.
-
-</Step>
-
-<Step title="Import your Tapfiliate program in the Partners tab">
-
-Once you've [set up your Dub partner program](/help/article/setting-up-your-program), go to your [Partners tab](https://app.dub.co/program/partners), click on the `⋮` button and select "Import from Tapfiliate".
-
-To save you some time, [here's a quicklink](https://app.dub.co/program/partners?import=tapfiliate) that will get you directly to the Tapfiliate import flow.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/import-tapfiliate-modal.png"
-    alt="Import Tapfiliate modal"
-  />
-</Frame>
-
-Enter your Tapfiliate API key and click **Continue**. We'll validate your key and automatically fetch the list of programs in your account. Select the program you want to import and click **Continue** to kick off the import.
-
-<Tip>
-  If you have multiple programs on Tapfiliate, you can [import multiple
-  programs](#migrating-multiple-programs) into Dub as well.
-</Tip>
-
-</Step>
+    <Tip>
+      If you have multiple programs on Tapfiliate, you can [import multiple programs](#migrating-multiple-programs) into Dub as well.
+    </Tip>
+  </Step>
 </Steps>
 
 ## What data is migrated?
@@ -98,7 +81,7 @@ Each of your [affiliate groups](https://support.tapfiliate.com/en/articles/13407
 
 ### Affiliates / Partners
 
-We import all affiliates from your Tapfiliate program, then run a cleanup pass at the end. Any affiliate whose link has **zero leads** — meaning they never referred a single customer — is removed along with their enrollment and link. Affiliates without a Dub account who are not enrolled in any other program are deleted entirely.
+We import all affiliates from your Tapfiliate program, then run a cleanup pass at the end. Any affiliate whose link has **zero leads** – meaning they never referred a single customer – is removed along with their enrollment and link. Affiliates without a Dub account who are not enrolled in any other program are deleted entirely.
 
 In practice, only affiliates who have referred at least one customer will be present in Dub after the import completes.
 
@@ -114,9 +97,9 @@ After partners and customers are imported, we run a separate step to match each 
 
 We also import all commissions associated with any customers that were imported above. Tapfiliate tracks commissions using an `approved` boolean field, which maps to Dub as follows:
 
-| Tapfiliate                  | Dub       |
-| --------------------------- | --------- |
-| `approved: true`            | `Paid`    |
+| Tapfiliate | Dub |
+| --- | --- |
+| `approved: true` | `Paid` |
 | `approved: false` or `null` | `Pending` |
 
 Additionally, Dub also supports 3 extra commission states:
@@ -127,8 +110,7 @@ Additionally, Dub also supports 3 extra commission states:
 - `Duplicate`: Useful for marking if a commission was rewarded more than once and needs to be marked as a duplicate event.
 
 <Warning>
-  Commissions that cannot be matched to an imported customer, partner link, or
-  click event will not be imported.
+  Commissions that cannot be matched to an imported customer, partner link, or click event will not be imported.
 </Warning>
 
 If there are any other attributes that you'd like to see migrated (or if you would like to customize any of the rules above), please [reach out to us](https://dub.co/contact/support) and let us know!
@@ -140,18 +122,15 @@ If needed, you can migrate multiple Tapfiliate programs to Dub. We recommend sta
 To start another import flow, go to your program's **Partners** tab and click on the `⋮` button next to **Invite partner**. From the dropdown, select **Import from Tapfiliate**.
 
 <Frame>
-  <img
-    src="https://assets.dub.co/cms/import-tapfiliate-modal.png"
-    alt="Import from Tapfiliate"
-  />
+  ![Import from Tapfiliate](https://assets.dub.co/cms/import-tapfiliate-modal.png)
 </Frame>
 
 This will open up the Tapfiliate importer, which you can then use to import more programs to Dub.
 
 <Info>
-Affiliate groups in Tapfiliate are account-level, not program-level. The importer maps your existing Tapfiliate affiliate groups to Dub [partner groups](/help/article/partner-groups) — re-running the import for a second program will reuse those same groups. Affiliates who are not assigned to any Tapfiliate group are placed into your program's default group.
+  Affiliate groups in Tapfiliate are account-level, not program-level. The importer maps your existing Tapfiliate affiliate groups to Dub [partner groups](/help/article/partner-groups) – re-running the import for a second program will reuse those same groups. Affiliates who are not assigned to any Tapfiliate group are placed into your program's default group.
 
-If your Tapfiliate account doesn't use affiliate groups, all imported partners will land in the default group regardless of which program they came from.
+  If your Tapfiliate account doesn't use affiliate groups, all imported partners will land in the default group regardless of which program they came from.
 </Info>
 
 ## Next steps
@@ -164,12 +143,7 @@ Dub Partners supports [1-click payouts](/help/article/partner-payouts) to partne
 
 We generally recommend using ACH for partner payouts as it is the most cost-effective option. Here's [how you can set up your bank account](/help/article/how-to-set-up-bank-account) for ACH payouts.
 
-<ImageLink
-  src="https://assets.dub.co/cms/stripe-connect-mercury-bank-account.png"
-  href="https://dub.co/help/article/how-to-set-up-bank-account"
-  alt="connect bank account"
-  cta="Read the guide ↗"
-/>
+<ImageLink src="https://assets.dub.co/cms/stripe-connect-mercury-bank-account.png" href="https://dub.co/help/article/how-to-set-up-bank-account" alt="connect bank account" cta="Read the guide ↗" />
 
 ### 2. Notify your affiliates about the platform change
 
@@ -177,7 +151,7 @@ Next, you'd want to reach out to your existing partners and let them know about 
 
 > Hey,
 >
-> Starting today, we are switching the [Your Company] Affiliate Program from Tapfiliate to [Dub Partners](https://dub.co/partners/).
+> Starting today, we are switching the \[Your Company\] Affiliate Program from Tapfiliate to [Dub Partners](https://dub.co/partners/).
 >
 > To get started, follow these steps:
 >
@@ -189,6 +163,6 @@ Next, you'd want to reach out to your existing partners and let them know about 
 
 ## Take your affiliate program to the next level with Dub
 
-Ready to take your affiliate program to the next level? [Sign up today](https://app.dub.co/register) and join thousands of companies who use Dub Partners to run high-performing affiliate programs.
+Ready to take your affiliate program to the next level? [Sign up today](https://app.dub.co/register) and join companies like **Beehiiv**, **[Framer](https://dub.co/customers/framer), Superhuman, Granola**, and more that use Dub Partners to run high-performing affiliate programs.
 
 Have any questions? Feel free to [reach out to us](https://dub.co/contact)!
