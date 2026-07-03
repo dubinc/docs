@@ -382,14 +382,14 @@
                 "pages": [
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
-                  "docs/api-reference/rate-limits"
+                  "docs/api-reference/rate-limits",
+                  "docs/mcp-server"
                 ]
               },
               {
                 "group": "SDKs",
                 "pages": [
                   "docs/sdks/overview",
-                  "docs/mcp-server",
                   {
                     "group": "Server-side SDKs",
                     "pages": [
@@ -459,7 +459,7 @@
                     ]
                   },
                   {
-                    "group": "Applications",
+                    "group": "Partner applications",
                     "pages": [
                       "docs/api-reference/partners/applications/list",
                       "docs/api-reference/partners/applications/approve",
@@ -467,7 +467,7 @@
                     ]
                   },
                   {
-                    "group": "Analytics",
+                    "group": "Analytics & events",
                     "pages": [
                       "docs/api-reference/analytics/retrieve",
                       "docs/api-reference/events/list"
@@ -491,7 +491,7 @@
                     ]
                   },
                   {
-                    "group": "Bounties",
+                    "group": "Bounty submissions",
                     "pages": [
                       "docs/api-reference/bounties/list",
                       "docs/api-reference/bounties/approve",
