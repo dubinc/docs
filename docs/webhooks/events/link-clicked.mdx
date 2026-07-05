@@ -8,13 +8,14 @@ import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-p
 Event triggered when an end user clicks on a short link.
 
 <Tip>
-  Due to the high volume nature of these events, you can scope which links trigger a `link.clicked` webhook. When creating or editing the webhook in the dashboard, choose one of the following:
+  You can scope which links trigger a `link.clicked` webhook. When creating or editing the webhook in the dashboard, choose one of the following:
 
-  * **All links** – trigger the webhook for every link in your workspace.
-  * **Include specific folders** (recommended) – trigger the webhook for all links in the selected folders.
-  * **Include specific links** – trigger the webhook only for the links you explicitly select.
+1. **All links** – trigger the webhook for every link in your workspace.
+2. **Include specific folders** (recommended) – trigger the webhook for all links in the selected folders.
+3. **Include specific links** – trigger the webhook only for the links you explicitly select.
 
-  You can also associate specific links with a `link.clicked` webhook programmatically using the [`webhookIds` prop in the Links API](/docs/api-reference/links/create#body-webhook-ids-one-of-0).
+If you select the 3rd option, you can associate specific links with a `link.clicked` webhook programmatically by passing the webhook ID under the `webhookIds` [prop](/docs/api-reference/links/create#body-webhook-ids-one-of-0) when creating or updating a link.
+
 </Tip>
 
 <WebhookResponseBodyParameters type="link.clicked">
