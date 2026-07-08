@@ -146,6 +146,12 @@ When you update the payout holding period, you can apply the new setting to ever
   />
 </Frame>
 
+<Note>
+  The payout holding period only applies to `click`, `lead`, and `sale` commissions – it does **not** apply to `custom` commissions.
+
+  This means that [bounty commissions](/help/article/program-bounties) and [manually created one-time commissions](/help/article/partner-commissions#one-time-commissions) (which are both recorded as `custom` commissions) become eligible for payout immediately at the next payout cycle, regardless of your group's holding period. This applies whether the commission is created via the dashboard or the [API](/docs/api-reference/commissions/create).
+</Note>
+
 ## Minimum payout amount
 
 You can also set an optional "minimum payout amount" (e.g. $100). When this is set, partners with earnings below the minimum payout amount won't be eligible for payout until they reach the specific threshold set.
