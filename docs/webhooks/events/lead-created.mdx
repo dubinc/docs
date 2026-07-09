@@ -18,9 +18,6 @@ Event triggered when a [new lead is tracked](/docs/api-reference/track/lead).
       <ParamField body="id" type="string">
         Unique identifier for the customer.
       </ParamField>
-      <ParamField body="externalId" type="string">
-        Your external customer ID, if provided when tracking.
-      </ParamField>
       <ParamField body="name" type="string">
         Customer name.
       </ParamField>
@@ -30,8 +27,26 @@ Event triggered when a [new lead is tracked](/docs/api-reference/track/lead).
       <ParamField body="avatar" type="string | null">
         URL to the customer's avatar image.
       </ParamField>
+      <ParamField body="externalId" type="string">
+        Your external customer ID, if provided when tracking.
+      </ParamField>
+      <ParamField body="stripeCustomerId" type="string | null">
+        The customer's Stripe customer ID, if linked.
+      </ParamField>
+      <ParamField body="sales" type="number | null">
+        Total number of sales for the customer.
+      </ParamField>
+      <ParamField body="saleAmount" type="number | null">
+        Total sale amount for the customer in cents.
+      </ParamField>
       <ParamField body="createdAt" type="string">
         ISO 8601 timestamp when the customer was first seen.
+      </ParamField>
+      <ParamField body="firstSaleAt" type="string | null">
+        ISO 8601 timestamp of the customer's first sale.
+      </ParamField>
+      <ParamField body="subscriptionCanceledAt" type="string | null">
+        ISO 8601 timestamp when the customer canceled their subscription, if applicable.
       </ParamField>
     </Expandable>
 
@@ -110,11 +125,16 @@ Event triggered when a [new lead is tracked](/docs/api-reference/track/lead).
     "eventName": "Signup",
     "customer": {
       "id": "cus_Ql3PvCTbPXBpp6vn7x5oHb5G",
-      "externalId": "cus_BH6tDUWc9n0Y2pf55tVbk1hc",
       "name": "Tiny Beige Badger",
       "email": "tiny.beige.badger@example.com",
       "avatar": "https://api.dub.co/og/avatar/cus_BH6tDUWc9n0Y2pf55tVbk1hc",
-      "createdAt": "2025-01-14T04:49:23.385Z"
+      "externalId": "cus_BH6tDUWc9n0Y2pf55tVbk1hc",
+      "stripeCustomerId": null,
+      "sales": 0,
+      "saleAmount": 0,
+      "createdAt": "2025-01-14T04:49:23.385Z",
+      "firstSaleAt": null,
+      "subscriptionCanceledAt": null
     },
     "click": {
       "id": "GWGrkftJdYlZD2mq",
