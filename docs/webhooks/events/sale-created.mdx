@@ -12,10 +12,96 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
     Name of the tracked event (e.g. <code>Purchased</code>).
   </ParamField>
   <ParamField body="customer" type="object">
-    The customer that made the purchase (id, name, email, avatar).
+    The customer that made the purchase.
+
+    <Expandable title="customer object">
+      <ParamField body="id" type="string">
+        Unique identifier for the customer.
+      </ParamField>
+      <ParamField body="name" type="string">
+        Customer name.
+      </ParamField>
+      <ParamField body="email" type="string">
+        Customer email address.
+      </ParamField>
+      <ParamField body="avatar" type="string | null">
+        URL to the customer's avatar image.
+      </ParamField>
+      <ParamField body="externalId" type="string">
+        Your external customer ID, if provided when tracking.
+      </ParamField>
+      <ParamField body="stripeCustomerId" type="string | null">
+        The customer's Stripe customer ID, if linked.
+      </ParamField>
+      <ParamField body="sales" type="number | null">
+        Total number of sales for the customer.
+      </ParamField>
+      <ParamField body="saleAmount" type="number | null">
+        Total sale amount for the customer in cents.
+      </ParamField>
+      <ParamField body="createdAt" type="string">
+        ISO 8601 timestamp when the customer was first seen.
+      </ParamField>
+      <ParamField body="firstSaleAt" type="string | null">
+        ISO 8601 timestamp of the customer's first sale.
+      </ParamField>
+      <ParamField body="subscriptionCanceledAt" type="string | null">
+        ISO 8601 timestamp when the customer canceled their subscription, if applicable.
+      </ParamField>
+    </Expandable>
+
   </ParamField>
   <ParamField body="click" type="object">
-    The click event that led to the sale (id, url, ip, continent, country, city, device, browser, os, ua, bot, qr, referer).
+    The click event that led to the sale.
+
+    <Expandable title="click object">
+      <ParamField body="id" type="string">
+        Unique identifier for the click.
+      </ParamField>
+      <ParamField body="timestamp" type="string">
+        ISO 8601 timestamp when the click occurred.
+      </ParamField>
+      <ParamField body="url" type="string">
+        The destination URL that was visited.
+      </ParamField>
+      <ParamField body="country" type="string">
+        Country code (e.g. <code>US</code>).
+      </ParamField>
+      <ParamField body="city" type="string">
+        City name.
+      </ParamField>
+      <ParamField body="region" type="string">
+        Region or region code.
+      </ParamField>
+      <ParamField body="continent" type="string">
+        Continent code (e.g. <code>NA</code>).
+      </ParamField>
+      <ParamField body="device" type="string">
+        Device type (e.g. <code>Desktop</code>, <code>Mobile</code>).
+      </ParamField>
+      <ParamField body="browser" type="string">
+        Browser name (e.g. <code>Chrome</code>).
+      </ParamField>
+      <ParamField body="os" type="string">
+        Operating system (e.g. <code>Mac OS</code>).
+      </ParamField>
+      <ParamField body="ua" type="string">
+        User agent string.
+      </ParamField>
+      <ParamField body="referer" type="string">
+        Referrer hostname or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="refererUrl" type="string">
+        Full referrer URL or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="qr" type="boolean">
+        Whether the click came from a QR code scan.
+      </ParamField>
+      <ParamField body="ip" type="string">
+        IP address of the visitor.
+      </ParamField>
+    </Expandable>
+
   </ParamField>
   <ParamField body="link" type="object">
     The referral link the sale is associated with (full link object).
@@ -60,33 +146,46 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
       "id": "cm0gjdvr20001dkbha2n9gt2b",
       "name": "John",
       "email": "john@example.com",
-      "avatar": "https://example.com/john.jpeg"
+      "avatar": "https://example.com/john.jpeg",
+      "externalId": "",
+      "stripeCustomerId": null,
+      "sales": 0,
+      "saleAmount": 0,
+      "createdAt": "2024-08-30T09:57:51.245Z",
+      "firstSaleAt": null,
+      "subscriptionCanceledAt": null
     },
     "click": {
       "id": "d0UtZqE0BZuBPrJS",
+      "timestamp": "2024-08-30T09:57:51.245Z",
       "url": "https://github.com/dubinc/dub",
-      "ip": "63.141.57.109",
-      "continent": "NA",
       "country": "US",
       "city": "San Francisco",
+      "region": "CA",
+      "continent": "NA",
       "device": "Desktop",
       "browser": "Chrome",
       "os": "Mac OS",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-      "bot": false,
+      "referer": "(direct)",
+      "refererUrl": "(direct)",
       "qr": false,
-      "referer": "(direct)"
+      "ip": "63.141.57.109"
     },
     "link": {
       "id": "cm0faqkyn0001txvfwjfeq7gl",
       "domain": "dub.sh",
       "key": "79ys3WA",
-      "externalId": null,
       "url": "https://github.com/dubinc/dub",
       "trackConversion": true,
+      "externalId": null,
+      "tenantId": null,
+      "partnerId": null,
+      "programId": null,
       "archived": false,
       "expiresAt": null,
       "expiredUrl": null,
+      "disabledAt": null,
       "password": null,
       "proxy": false,
       "title": null,
@@ -99,6 +198,10 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
       "android": null,
       "geo": null,
       "publicStats": false,
+      "folderId": null,
+      "tagId": null,
+      "tags": [],
+      "webhookIds": [],
       "comments": null,
       "shortLink": "https://dub.sh/79ys3WA",
       "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
@@ -116,6 +219,8 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
       "saleAmount": 20000,
       "createdAt": "2024-08-29T13:03:59.098Z",
       "updatedAt": "2024-08-30T09:57:50.891Z",
+      "projectId": null,
+      "testVariants": null,
       "testCompletedAt": null,
       "testStartedAt": null
     },
