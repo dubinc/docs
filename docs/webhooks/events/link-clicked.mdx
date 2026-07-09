@@ -32,17 +32,17 @@ If you select the 3rd option, you can programmatically associate specific links 
       <ParamField body="url" type="string">
         The destination URL that was visited.
       </ParamField>
-      <ParamField body="ip" type="string">
-        IP address of the visitor.
-      </ParamField>
-      <ParamField body="continent" type="string">
-        Continent code (e.g. <code>NA</code>).
-      </ParamField>
       <ParamField body="country" type="string">
         Country code (e.g. <code>US</code>).
       </ParamField>
       <ParamField body="city" type="string">
         City name.
+      </ParamField>
+      <ParamField body="region" type="string">
+        Region or region code.
+      </ParamField>
+      <ParamField body="continent" type="string">
+        Continent code (e.g. <code>NA</code>).
       </ParamField>
       <ParamField body="device" type="string">
         Device type (e.g. <code>Desktop</code>, <code>Mobile</code>).
@@ -53,14 +53,20 @@ If you select the 3rd option, you can programmatically associate specific links 
       <ParamField body="os" type="string">
         Operating system (e.g. <code>Mac OS</code>).
       </ParamField>
-      <ParamField body="bot" type="boolean">
-        Whether the request was identified as a bot.
+      <ParamField body="ua" type="string">
+        User agent string.
+      </ParamField>
+      <ParamField body="referer" type="string">
+        Referrer hostname or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="refererUrl" type="string">
+        Full referrer URL or <code>(direct)</code>.
       </ParamField>
       <ParamField body="qr" type="boolean">
         Whether the click came from a QR code scan.
       </ParamField>
-      <ParamField body="referer" type="string">
-        Referrer URL or <code>(direct)</code>.
+      <ParamField body="ip" type="string">
+        IP address of the visitor.
       </ParamField>
     </Expandable>
 
@@ -76,39 +82,44 @@ If you select the 3rd option, you can programmatically associate specific links 
 {
   "id": "evt_b9ywgxWqai2glUpCQjclB17kM",
   "event": "link.clicked",
-  "createdAt": "2024-08-30T10:16:13.149Z",
+  "createdAt": "2025-02-03T09:35:58.000Z",
   "data": {
     "click": {
-      "id": "d0UtZqE0BZuBPrJS",
-      "timestamp": "2024-08-30T10:16:12.124Z",
+      "id": "yNrYm0F6r1KMnq6N",
+      "timestamp": "2025-02-03T09:35:57.926Z",
       "url": "https://github.com/dubinc/dub",
-      "ip": "63.141.57.109",
-      "continent": "NA",
       "country": "US",
-      "city": "San Francisco",
+      "city": "San Jose",
+      "region": "CA",
+      "continent": "NA",
       "device": "Desktop",
-      "browser": "Chrome",
-      "os": "Mac OS",
+      "browser": "Unknown",
+      "os": "Unknown",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-      "bot": false,
+      "referer": "(direct)",
+      "refererUrl": "(direct)",
       "qr": false,
-      "referer": "(direct)"
+      "ip": "52.234.41.119"
     },
     "link": {
-      "id": "cm0faqkyn0001txvfwjfeq7gl",
+      "id": "cm0lcuvtz000xcutmqw4a7wi3",
       "domain": "dub.sh",
-      "key": "79ys3WA",
-      "externalId": null,
+      "key": "track-test",
       "url": "https://github.com/dubinc/dub",
       "trackConversion": true,
+      "externalId": null,
+      "tenantId": null,
+      "partnerId": "pn_cm0lcuvtz000xcutmqw4a7wi3",
+      "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
       "archived": false,
       "expiresAt": null,
       "expiredUrl": null,
+      "disabledAt": null,
       "password": null,
       "proxy": false,
-      "title": null,
-      "description": null,
-      "image": null,
+      "title": "GitHub - dubinc/dub: Open-source link management infrastructure. Loved by modern marketing teams like Vercel, Raycast...",
+      "description": "Open-source link management infrastructure. Loved by modern marketing teams like Vercel, Raycast, and Perplexity. - dubinc/dub",
+      "image": "https://repository-images.githubusercontent.com/529708137/419e9be4-a9d1-4c85-9f83-47a78ad92583",
       "video": null,
       "rewrite": false,
       "doIndex": false,
@@ -116,23 +127,29 @@ If you select the 3rd option, you can programmatically associate specific links 
       "android": null,
       "geo": null,
       "publicStats": false,
+      "folderId": null,
+      "tagId": null,
+      "tags": [],
+      "webhookIds": [],
       "comments": null,
-      "shortLink": "https://dub.sh/79ys3WA",
-      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
+      "shortLink": "https://dub.sh/track-test",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/track-test?qr=1",
       "utm_source": null,
       "utm_medium": null,
       "utm_campaign": null,
       "utm_term": null,
       "utm_content": null,
-      "userId": "cm022rkcw0000ikt14mscg9sg",
-      "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
-      "clicks": 11,
-      "lastClicked": "2024-08-30T07:45:09.000Z",
-      "leads": 6,
-      "sales": 10,
-      "saleAmount": 200000,
-      "createdAt": "2024-08-29T13:03:59.098Z",
-      "updatedAt": "2024-08-30T10:16:12.126Z",
+      "userId": "cludszk1h0000wmd2e0ea2b0p",
+      "workspaceId": "ws_clrei1gld0002vs9mzn93p8ik",
+      "clicks": 882,
+      "lastClicked": "2025-01-14T04:49:10.000Z",
+      "leads": 3631,
+      "sales": 2811,
+      "saleAmount": 290300,
+      "createdAt": "2024-09-02T18:49:56.136Z",
+      "updatedAt": "2025-01-13T22:46:22.152Z",
+      "projectId": "clrei1gld0002vs9mzn93p8ik",
+      "testVariants": null,
       "testCompletedAt": null,
       "testStartedAt": null
     }

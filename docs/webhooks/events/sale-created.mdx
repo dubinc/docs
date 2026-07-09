@@ -12,10 +12,81 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
     Name of the tracked event (e.g. <code>Purchased</code>).
   </ParamField>
   <ParamField body="customer" type="object">
-    The customer that made the purchase (id, name, email, avatar).
+    The customer that made the purchase.
+
+    <Expandable title="customer object">
+      <ParamField body="id" type="string">
+        Unique identifier for the customer.
+      </ParamField>
+      <ParamField body="externalId" type="string">
+        Your external customer ID, if provided when tracking.
+      </ParamField>
+      <ParamField body="name" type="string">
+        Customer name.
+      </ParamField>
+      <ParamField body="email" type="string">
+        Customer email address.
+      </ParamField>
+      <ParamField body="avatar" type="string | null">
+        URL to the customer's avatar image.
+      </ParamField>
+      <ParamField body="createdAt" type="string">
+        ISO 8601 timestamp when the customer was first seen.
+      </ParamField>
+    </Expandable>
+
   </ParamField>
   <ParamField body="click" type="object">
-    The click event that led to the sale (id, url, ip, continent, country, city, device, browser, os, ua, bot, qr, referer).
+    The click event that led to the sale.
+
+    <Expandable title="click object">
+      <ParamField body="id" type="string">
+        Unique identifier for the click.
+      </ParamField>
+      <ParamField body="timestamp" type="string">
+        ISO 8601 timestamp when the click occurred.
+      </ParamField>
+      <ParamField body="url" type="string">
+        The destination URL that was visited.
+      </ParamField>
+      <ParamField body="country" type="string">
+        Country code (e.g. <code>US</code>).
+      </ParamField>
+      <ParamField body="city" type="string">
+        City name.
+      </ParamField>
+      <ParamField body="region" type="string">
+        Region or region code.
+      </ParamField>
+      <ParamField body="continent" type="string">
+        Continent code (e.g. <code>NA</code>).
+      </ParamField>
+      <ParamField body="device" type="string">
+        Device type (e.g. <code>Desktop</code>, <code>Mobile</code>).
+      </ParamField>
+      <ParamField body="browser" type="string">
+        Browser name (e.g. <code>Chrome</code>).
+      </ParamField>
+      <ParamField body="os" type="string">
+        Operating system (e.g. <code>Mac OS</code>).
+      </ParamField>
+      <ParamField body="ua" type="string">
+        User agent string.
+      </ParamField>
+      <ParamField body="referer" type="string">
+        Referrer hostname or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="refererUrl" type="string">
+        Full referrer URL or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="qr" type="boolean">
+        Whether the click came from a QR code scan.
+      </ParamField>
+      <ParamField body="ip" type="string">
+        IP address of the visitor.
+      </ParamField>
+    </Expandable>
+
   </ParamField>
   <ParamField body="link" type="object">
     The referral link the sale is associated with (full link object).
@@ -53,45 +124,53 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
 {
   "id": "evt_WHjyHhqsfYOrlJOOVJSoHXysD",
   "event": "sale.created",
-  "createdAt": "2024-08-30T09:57:51.245Z",
+  "createdAt": "2025-02-03T09:35:58.000Z",
   "data": {
-    "eventName": "Purchased",
+    "eventName": "Subscription",
     "customer": {
-      "id": "cm0gjdvr20001dkbha2n9gt2b",
-      "name": "John",
-      "email": "john@example.com",
-      "avatar": "https://example.com/john.jpeg"
+      "id": "cm25onzuv0001s1bbxchrc0ae",
+      "externalId": "cus_jTrfVKYN3Buc3F80JoqBiY0g",
+      "name": "Rural Red Goldfish",
+      "email": "rural.red.goldfish@example.com",
+      "avatar": "https://api.dub.co/og/avatar/cus_jTrfVKYN3Buc3F80JoqBiY0g",
+      "createdAt": "2024-10-12T04:55:36.007Z"
     },
     "click": {
-      "id": "d0UtZqE0BZuBPrJS",
+      "id": "GWGrkftJdYlZD2mq",
+      "timestamp": "2025-02-03T09:35:57.926Z",
       "url": "https://github.com/dubinc/dub",
-      "ip": "63.141.57.109",
-      "continent": "NA",
       "country": "US",
-      "city": "San Francisco",
+      "city": "San Jose",
+      "region": "sfo1",
+      "continent": "NA",
       "device": "Desktop",
       "browser": "Chrome",
       "os": "Mac OS",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-      "bot": false,
+      "referer": "(direct)",
+      "refererUrl": "(direct)",
       "qr": false,
-      "referer": "(direct)"
+      "ip": "185.211.32.242"
     },
     "link": {
-      "id": "cm0faqkyn0001txvfwjfeq7gl",
+      "id": "cm0lcuvtz000xcutmqw4a7wi3",
       "domain": "dub.sh",
-      "key": "79ys3WA",
-      "externalId": null,
+      "key": "track-test",
       "url": "https://github.com/dubinc/dub",
       "trackConversion": true,
+      "externalId": null,
+      "tenantId": null,
+      "partnerId": "pn_cm0lcuvtz000xcutmqw4a7wi3",
+      "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
       "archived": false,
       "expiresAt": null,
       "expiredUrl": null,
+      "disabledAt": null,
       "password": null,
       "proxy": false,
-      "title": null,
-      "description": null,
-      "image": null,
+      "title": "GitHub - dubinc/dub: Open-source link management infrastructure. Loved by modern marketing teams like Vercel, Raycast...",
+      "description": "Open-source link management infrastructure. Loved by modern marketing teams like Vercel, Raycast, and Perplexity. - dubinc/dub",
+      "image": "https://repository-images.githubusercontent.com/529708137/419e9be4-a9d1-4c85-9f83-47a78ad92583",
       "video": null,
       "rewrite": false,
       "doIndex": false,
@@ -99,23 +178,29 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
       "android": null,
       "geo": null,
       "publicStats": false,
+      "folderId": null,
+      "tagId": null,
+      "tags": [],
+      "webhookIds": [],
       "comments": null,
-      "shortLink": "https://dub.sh/79ys3WA",
-      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
+      "shortLink": "https://dub.sh/track-test",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/track-test?qr=1",
       "utm_source": null,
       "utm_medium": null,
       "utm_campaign": null,
       "utm_term": null,
       "utm_content": null,
-      "userId": "cm022rkcw0000ikt14mscg9sg",
-      "workspaceId": "ws_cm022sis60003ikt1syy7kfhl",
-      "clicks": 10,
-      "lastClicked": "2024-08-30T07:45:09.000Z",
-      "leads": 5,
-      "sales": 1,
-      "saleAmount": 20000,
-      "createdAt": "2024-08-29T13:03:59.098Z",
-      "updatedAt": "2024-08-30T09:57:50.891Z",
+      "userId": "cludszk1h0000wmd2e0ea2b0p",
+      "workspaceId": "ws_clrei1gld0002vs9mzn93p8ik",
+      "clicks": 882,
+      "lastClicked": "2025-01-14T04:49:10.000Z",
+      "leads": 3632,
+      "sales": 2812,
+      "saleAmount": 290400,
+      "createdAt": "2024-09-02T18:49:56.136Z",
+      "updatedAt": "2025-01-14T04:49:30.459Z",
+      "projectId": "clrei1gld0002vs9mzn93p8ik",
+      "testVariants": null,
       "testCompletedAt": null,
       "testStartedAt": null
     },
@@ -135,10 +220,10 @@ Event triggered when a [new sale is tracked](/docs/api-reference/track/sale).
       "totalCommissions": 7500
     },
     "sale": {
-      "amount": 4500,
+      "amount": 100,
       "currency": "usd",
       "paymentProcessor": "stripe",
-      "invoiceId": null
+      "invoiceId": "INV_AUTi534JCiBUVdYmevCSYQ9G"
     },
     "metadata": null
   }

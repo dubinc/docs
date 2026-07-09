@@ -55,8 +55,8 @@ Use the `userId` field to distinguish between manual commissions from automatic 
   <ParamField body="partner" type="object">
     The partner that earned the commission (id, name, email, image, country, groupId, totalClicks, totalLeads, totalSales, totalSaleAmount, totalCommissions).
   </ParamField>
-  <ParamField body="customer" type="object">
-    The customer associated with the conversion.
+  <ParamField body="customer" type="object | null">
+    The customer associated with the conversion. Null for click-based or custom commissions.
 
     <Expandable title="customer object">
       <ParamField body="id" type="string">
@@ -85,6 +85,25 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       </ParamField>
       <ParamField body="createdAt" type="string">
         ISO 8601 timestamp when the customer was first seen.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="link" type="object | null">
+    The referral link associated with the commission.
+
+    <Expandable title="link object">
+      <ParamField body="id" type="string">
+        Link ID.
+      </ParamField>
+      <ParamField body="shortLink" type="string">
+        Full short link URL.
+      </ParamField>
+      <ParamField body="domain" type="string">
+        Short link domain.
+      </ParamField>
+      <ParamField body="key" type="string">
+        Short link path/slug.
       </ParamField>
     </Expandable>
 
@@ -118,7 +137,6 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       "image": null,
       "payoutsEnabledAt": null,
       "country": "US",
-      "groupId": "grp_1K6K3HD0QE7XTX5HSVR77AK5B",
       "totalClicks": 50,
       "totalLeads": 15,
       "totalConversions": 10,
@@ -136,6 +154,12 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       "sales": 1,
       "saleAmount": 50000,
       "createdAt": "2025-07-16T10:48:01.739Z"
+    },
+    "link": {
+      "id": "cm0lcuvtz000xcutmqw4a7wi3",
+      "shortLink": "https://dub.sh/track-test",
+      "domain": "dub.sh",
+      "key": "track-test"
     }
   }
 }

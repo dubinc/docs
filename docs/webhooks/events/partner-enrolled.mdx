@@ -14,6 +14,9 @@ Event triggered when a [new partner is enrolled](/docs/api-reference/partners/cr
   <ParamField body="name" type="string">
     Partner name.
   </ParamField>
+  <ParamField body="username" type="string | null">
+    Partner username.
+  </ParamField>
   <ParamField body="email" type="string">
     Partner email address.
   </ParamField>
@@ -26,32 +29,47 @@ Event triggered when a [new partner is enrolled](/docs/api-reference/partners/cr
   <ParamField body="country" type="string">
     Country code (e.g. <code>US</code>).
   </ParamField>
+  <ParamField body="companyName" type="string | null">
+    Partner company name, if provided.
+  </ParamField>
+  <ParamField body="tenantId" type="string | null">
+    Your external system's identifier for this partner.
+  </ParamField>
+  <ParamField body="programId" type="string">
+    ID of the partner program.
+  </ParamField>
+  <ParamField body="partnerId" type="string">
+    Partner ID (same as <code>id</code>).
+  </ParamField>
+  <ParamField body="groupId" type="string | null">
+    Partner group ID.
+  </ParamField>
+  <ParamField body="status" type="string">
+    Partner status (e.g. <code>approved</code>).
+  </ParamField>
   <ParamField body="payoutsEnabledAt" type="string | null">
     ISO 8601 timestamp when payouts were enabled for this partner.
   </ParamField>
   <ParamField body="createdAt" type="string">
     ISO 8601 timestamp when the partner was enrolled.
   </ParamField>
-  <ParamField body="status" type="string">
-    Partner status (e.g. <code>approved</code>).
-  </ParamField>
-  <ParamField body="programId" type="string">
-    ID of the partner program.
-  </ParamField>
-  <ParamField body="clicks" type="number">
+  <ParamField body="totalClicks" type="number">
     Total clicks across the partner's links.
   </ParamField>
-  <ParamField body="leads" type="number">
+  <ParamField body="totalLeads" type="number">
     Total leads attributed to the partner.
   </ParamField>
-  <ParamField body="sales" type="number">
+  <ParamField body="totalConversions" type="number">
+    Total conversions attributed to the partner.
+  </ParamField>
+  <ParamField body="totalSales" type="number">
     Total sales attributed to the partner.
   </ParamField>
-  <ParamField body="saleAmount" type="number">
+  <ParamField body="totalSaleAmount" type="number">
     Total sale amount in cents.
   </ParamField>
-  <ParamField body="earnings" type="number">
-    Total earnings in cents.
+  <ParamField body="totalCommissions" type="number">
+    Total commissions in cents.
   </ParamField>
   <ParamField body="website" type="string | null">
     Partner website URL.
@@ -81,6 +99,9 @@ Event triggered when a [new partner is enrolled](/docs/api-reference/partners/cr
       <ParamField body="leads" type="number">
         Lead count for this link.
       </ParamField>
+      <ParamField body="conversions" type="number">
+        Conversion count for this link.
+      </ParamField>
       <ParamField body="sales" type="number">
         Sale count for this link.
       </ParamField>
@@ -98,44 +119,68 @@ Event triggered when a [new partner is enrolled](/docs/api-reference/partners/cr
 {
   "id": "evt_ovabfqva8oqZzmLPN1JnwIfdt",
   "event": "partner.enrolled",
-  "createdAt": "2025-04-08T17:11:56.492Z",
+  "createdAt": "2025-02-07T17:58:18.793Z",
   "data": {
-    "id": "pn_1JRB6678XHGBZE95R5PH5QVGS",
-    "name": "Asleep Pink Mammal",
-    "email": "chosen.blush.barracuda@dub-internal-test.com",
-    "image": "https://api.dub.co/og/avatar?seed=Asleep Pink Mammal",
-    "description": null,
-    "country": "US",
-    "payoutsEnabledAt": null,
+    "id": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+    "name": "Matthew Hayden",
+    "username": "matthew-hayden",
+    "email": "matthew@example.com",
+    "image": null,
+    "country": "MR",
+    "companyName": null,
+    "description": "I'm a content creator who works with brands to grow their business.",
+    "networkStatus": "draft",
+    "tenantId": "64dc9a8c-5cf9-4446-b53b-cdc15199fafc",
+    "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
+    "partnerId": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+    "groupId": "grp_1KEC01MXCWZW95SMYMV85NBYM",
+    "status": "approved",
+    "defaultPayoutMethod": null,
     "paypalEmail": null,
     "stripeConnectId": null,
-    "createdAt": "2025-04-08T17:11:56.446Z",
-    "status": "approved",
-    "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
-    "tenantId": null,
-    "clicks": 0,
-    "leads": 0,
-    "sales": 0,
-    "saleAmount": 0,
-    "earnings": 0,
+    "payoutsEnabledAt": null,
+    "identityVerifiedAt": null,
+    "trustedAt": null,
+    "createdAt": "2025-02-07T17:58:18.793Z",
     "applicationId": null,
-    "website": "https://example.com",
+    "website": null,
     "youtube": null,
     "twitter": null,
     "linkedin": null,
     "instagram": null,
     "tiktok": null,
+    "totalCommissions": 2500,
+    "clickRewardId": null,
+    "leadRewardId": null,
+    "saleRewardId": "rw_1KEC01MXCW9RK7PQMCTZQCPB3",
+    "referralRewardId": null,
+    "discountId": "disc_1KEC01MXC5H50XQMSN83VCW65",
+    "bannedAt": null,
+    "bannedReason": null,
+    "totalClicks": 100,
+    "totalLeads": 70,
+    "totalConversions": 10,
+    "totalSales": 10,
+    "totalSaleAmount": 2500,
+    "netRevenue": 0,
+    "earningsPerClick": 25,
+    "averageLifetimeValue": null,
+    "clickToLeadRate": 0.7,
+    "clickToConversionRate": 0.1,
+    "leadToConversionRate": 0.142857,
+    "returnOnAdSpend": null,
     "links": [
       {
-        "id": "link_1JRB6677YXQB49RC1HKH7TPJE",
-        "domain": "getacme.link",
-        "key": "uvYO5pMIpctKdUVJlL3jIL4o",
-        "shortLink": "https://getacme.link/uvYO5pMIpctKdUVJlL3jIL4o",
-        "url": "https://acme.com",
-        "clicks": 0,
-        "leads": 0,
-        "sales": 0,
-        "saleAmount": 0
+        "id": "link_5myDHLqhIQvUmUPjchVygF9R",
+        "domain": "refer.dub.co",
+        "key": "track-test",
+        "shortLink": "https://refer.dub.co/track-test",
+        "url": "https://refer.dub.co",
+        "clicks": 100,
+        "leads": 70,
+        "conversions": 10,
+        "sales": 10,
+        "saleAmount": 2500
       }
     ]
   }

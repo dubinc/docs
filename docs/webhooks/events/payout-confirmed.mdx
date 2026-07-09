@@ -25,7 +25,10 @@ Event triggered when a payout is confirmed and ready for [external processing](/
     Currency code (e.g. <code>USD</code>).
   </ParamField>
   <ParamField body="status" type="string">
-    Payout status (e.g. <code>processing</code> for external payouts).
+    Payout status (e.g. <code>completed</code>).
+  </ParamField>
+  <ParamField body="method" type="string | null">
+    Payout method, if set.
   </ParamField>
   <ParamField body="description" type="string">
     Human-readable description of the payout (e.g. <code>Dub Partners payout (Acme)</code>).
@@ -38,6 +41,9 @@ Event triggered when a payout is confirmed and ready for [external processing](/
   </ParamField>
   <ParamField body="createdAt" type="string">
     ISO 8601 timestamp when the payout was created.
+  </ParamField>
+  <ParamField body="initiatedAt" type="string | null">
+    ISO 8601 timestamp when the payout was initiated.
   </ParamField>
   <ParamField body="paidAt" type="string | null">
     ISO 8601 timestamp when the payout was marked as paid (null until you complete it).
@@ -87,11 +93,13 @@ Event triggered when a payout is confirmed and ready for [external processing](/
     "invoiceId": "inv_1K94KX5ZWHTWFG07NP96AY90F",
     "amount": 5000,
     "currency": "USD",
-    "status": "processing",
+    "status": "completed",
+    "method": null,
     "description": "Dub Partners payout (Acme)",
     "periodStart": "2025-10-22T15:49:33.343Z",
     "periodEnd": "2025-10-31T18:29:59.999Z",
     "createdAt": "2025-10-22T15:50:13.661Z",
+    "initiatedAt": "2025-10-22T15:50:13.661Z",
     "paidAt": null,
     "mode": "external",
     "partner": {
