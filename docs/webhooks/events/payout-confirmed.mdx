@@ -25,7 +25,7 @@ Event triggered when a payout is confirmed and ready for [external processing](/
     Currency code (e.g. <code>USD</code>).
   </ParamField>
   <ParamField body="status" type="string">
-    Payout status (e.g. <code>completed</code>).
+    Payout status (e.g. <code>processing</code> for external payouts).
   </ParamField>
   <ParamField body="method" type="string | null">
     Payout method, if set.
@@ -93,7 +93,7 @@ Event triggered when a payout is confirmed and ready for [external processing](/
     "invoiceId": "inv_1K94KX5ZWHTWFG07NP96AY90F",
     "amount": 5000,
     "currency": "USD",
-    "status": "completed",
+    "status": "processing",
     "method": null,
     "description": "Dub Partners payout (Acme)",
     "periodStart": "2025-10-22T15:49:33.343Z",
