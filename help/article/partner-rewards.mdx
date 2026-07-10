@@ -128,7 +128,7 @@ Each metadata condition supports two groups of operators, depending on whether y
   />
 </Frame>
 
-You can also attach metadata via the `metadata` prop on the [`/track/lead`](/docs/api-reference/track/lead) and [`/track/sale`](/docs/api-reference/track/sale) endpoints. If you're using our [Stripe integration](/docs/integrations/stripe), sale metadata is automatically pulled from your Stripe `charge` metadata for one-time checkouts and your invoice metadata for recurring invoices.
+You can also attach metadata via the `metadata` prop on the [`/track/lead`](/docs/api-reference/track/lead) and [`/track/sale`](/docs/api-reference/track/sale) endpoints. If you're using our [Stripe integration](/docs/integrations/stripe), sale metadata is automatically pulled from your Stripe [`charge` metadata](https://docs.stripe.com/api/charges/object#charge_object-metadata) for one-time checkouts and your Stripe [`invoice` metadata](https://docs.stripe.com/api/invoices/object#invoice_object-metadata) for recurring invoices.
 
 For end-to-end examples, see [Company size tiers](#company-size-tiers) (lead) and [Annual vs. monthly billing](#annual-vs-monthly-billing) (sale).
 
