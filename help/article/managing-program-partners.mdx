@@ -113,7 +113,59 @@ These additional controls include:
   Ban partner.
 - **Banned partners**: View commissions, Archive partner, and Unban partner.
 
-You can also **permanently delete** a partner from the ⋯ menu. Deletion is only available for **banned** or **deactivated** partners, and only if the partner has **no clicks, leads, sales, and commissions**. To delete an approved partner, deactivate them first.
+You can also **permanently delete** a partner from the ⋯ menu. See [Permanently deleting a partner](#permanently-deleting-a-partner) below for the full requirements and flow.
+
+### Permanently deleting a partner
+
+<Warning>
+  Permanently deleting a partner cannot be undone. All of the partner's links,
+  messages, and program-specific data will be removed from your program.
+</Warning>
+
+If you need to fully remove a partner from your program — not just archive or ban them — you can permanently delete them from the ⋯ menu on the partner's row (or from the ⋯ menu on the partner's detail page). Select **Permanently delete** to open the confirmation modal.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-more-dropdown.png"
+    alt="Permanently delete a partner from the more dropdown"
+  />
+</Frame>
+
+To confirm, type `confirm delete partner` in the input field and click **Permanently delete**.
+
+#### Requirements
+
+A partner can only be permanently deleted when **all** of the following are true:
+
+- The partner's status is **Banned** or **Deactivated**. Approved, invited, archived, and declined partners cannot be permanently deleted. To delete an approved partner, deactivate or ban them first.
+- The partner has **no clicks** on any of their referral links.
+- The partner has **no leads** attributed to them.
+- The partner has **no sales** attributed to them.
+- The partner has **no commissions** (of any status, including pending, processed, paid, canceled, refunded, fraud, or duplicate).
+- The partner has **no payouts** associated with them.
+
+If any of these conditions are not met, the **Permanently delete** option will not be available for that partner, and the API will reject the request.
+
+<Tip>
+  For partners that have activity you want to remove from your program but
+  cannot delete, use **Ban partner** (for abuse or fraud) or **Deactivate
+  partner** (for non abuse-related reasons) instead. Their commissions and
+  payout history stay intact for your records.
+</Tip>
+
+#### What gets removed
+
+When you permanently delete a partner, Dub processes the deletion in the background and removes the following from your program:
+
+- The partner's **program enrollment** (their membership in your program)
+- All of the partner's **referral links** for this program
+- All **discount codes** issued to the partner
+- All **partner tag assignments** for this program
+- All **messages** exchanged with the partner in this program
+- Any **submitted leads**, **fraud events**, and **discovered partner** records tied to this enrollment
+- The action is recorded in your workspace's audit log as `partner.deleted`
+
+The partner's underlying Dub account is not deleted — only their enrollment and data in **your** program. Your workspace's partner usage count is decremented by one.
 
 ## Viewing partner details
 
