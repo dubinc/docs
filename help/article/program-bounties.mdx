@@ -32,6 +32,7 @@ Click **Create bounty** (or use the `C` keyboard shortcut) to open the bounty cr
 
 - [Performance bounties](#performance-bounties)
 - [Submission bounties](#submission-bounties)
+- [Social metrics bounties](#social-metrics)
 
 <Info>
   Whenever you create a new bounty, an email notification will be sent to all
@@ -52,7 +53,7 @@ Performance bounties reward partners for achieving measurable milestones, such a
 
 <Frame>
   <img
-    src="/images/dub-partners/performance-bounty.png"
+    src="/images/dub-partners/bounty-performance.png"
     alt="Create performance bounty"
   />
 </Frame>
@@ -85,7 +86,7 @@ When setting the logic for a performance bounty, you can choose from several opt
 
 **Scope** determines how performance is tracked over a specific period.
 
-- **New** - Tracks only performance generated after the bounty is created. For example, if you set a bounty that rewards partners after 10 leads, each partner must generate 10 new leads after the bounty goes live, regardless of how many leads they had before.
+- **New** - Tracks only performance generated after the bounty starts. For example, if you set a bounty that rewards partners after 10 leads, each partner must generate 10 new leads after the bounty goes live, regardless of how many leads they had before. For revenue-based bounties, only revenue from customers whose first sale happens after the bounty starts is counted.
 - **Lifetime** - Counts performance across the partner’s entire lifetime. For example, if you set a bounty that rewards after 10 leads, any partner who already has at least 10 leads will immediately qualify for the reward.
 
 **Activity** determines which metric is tracked for the bounty. Revenue and commissions require a dollar amount to be set.
@@ -101,7 +102,7 @@ Submission bounties reward partners for completing activities that require revie
 
 <Frame>
   <img
-    src="/images/dub-partners/submission-bounty.png"
+    src="/images/dub-partners/bounty-submission.png"
     alt="Create submission bounty"
   />
 </Frame>
@@ -121,7 +122,7 @@ Examples:
 | Allowed submissions                                      | The number of submissions required for a partner to complete the bounty. Partners must submit this many entries to complete it.                                   |
 | [Submission window](#submission-window) (optional)       | Set how many days before the end date partners can start submitting entries. An end date is required to enter a submission window.                                |
 | [Submission frequency](#submission-frequency) (optional) | Set the time between submissions partners can make.                                                                                                               |
-| Submission type                                          | This is the criteria for which partners will submit their entry. Select between manual submission and social metrics.                                             |
+| Criteria                                                 | Set the partner submission requirements.                                                                                                                          |
 | Reward                                                   | The reward amount the partner will receive upon completing the bounty.                                                                                            |
 | Groups                                                   | Partner group eligibility. The same bounty can be applied to multiple [partner groups](/help/article/partner-groups) – or all groups in your program.             |
 
@@ -155,21 +156,21 @@ Set the time between submissions partners can make when `Allowed submissions` is
 
 If no submission frequency is set, partners can submit all required entries any time the bounty is open for submissions.
 
-### Manual submission
+### Submission criteria
 
-Manual submission is best used for when you want to reward partners for specific actions or achievements, such as publishing a blog post highlighting your product or hosting an event (in-person or online) promoting your brand.
+Add additional requirements to be able to submit a bounty. This includes:
 
-During bounty creation, you can optionally require partners to include images
-and URLs as part of their submission.
+- **Requiring at least one image**: Helpful when a partner needs to provide proof of completion. Up to four images can be included.
+- **Requiring at least one URL**: Helpful when a partner needs to provide a URL as proof of completion. Up to 100 URLs can be provided, and the [allowed domains](#allowed-domains) can be configured.
 
 <Frame>
   <img
-    src="/images/dub-partners/manual-submission.png"
+    src="/images/dub-partners/bounty-submission-criteria.png"
     alt="Submission requirements"
   />
 </Frame>
 
-By default, partners claiming a manual submission reward are asked to describe how they completed the bounty using a text field.
+By default, partners claiming a submission bounty are asked to describe how they completed the bounty using a text field.
 
 <Frame>
   <img
@@ -177,16 +178,6 @@ By default, partners claiming a manual submission reward are asked to describe h
     alt="Submission default"
   />
 </Frame>
-
-#### Require at least one image
-
-When enabled, partners must upload at least one
-image as part of their submission. Up to four images can be included.
-
-#### Require at least one URL
-
-Require at least one URL When enabled, partners must include at least one URL in
-their submission. Up to 100 URLs can be provided.
 
 #### Allowed domains
 
@@ -212,7 +203,7 @@ For certain submission bounties, you may want to have a custom reward for each s
 
 <Frame>
   <img
-    src="/images/dub-partners/custom-bounty.png"
+    src="/images/dub-partners/bounty-submission-custom-amount.png"
     alt="Create submission bounty"
   />
 </Frame>
@@ -224,34 +215,59 @@ For certain submission bounties, you may want to have a custom reward for each s
   above](https://dub.co/pricing/partners).
 </Tip>
 
-Social metric submissions are best used for when you want to reward partners based on the performance of their social posts. Their performance is automatically tracked and measured against your set criteria.
-
-When submitting these bounties, the partner can only provide one link, and it's required to be from a verified account on their profile. The post they submit must also be created after the bounty has started. This is to avoid partners submitting older content that already has activity.
+Social metrics bounties are a type of submission bounty that is best used to reward partners based on the performance of their social posts.
 
 <Frame>
   <img
-    src="/images/dub-partners/social-metric-empty.png"
-    alt="Social metric — empty state (no data)"
+    src="/images/dub-partners/bounty-social-metrics.png"
+    alt="Create submission bounty"
   />
 </Frame>
+
+When submitting these bounties, partners can only provide one link, and it's required to be from a verified social account on their [partner profile](/help/article/partner-profile#website-and-socials).
+
+The post they submit must also be created after the bounty has started. This is to avoid partners submitting older content that already has activity.
+
+<Frame>
+  <img
+    src="/images/dub-partners/bounty-social-metric-criteria.png"
+    alt="Setting social metric submissions criteria"
+  />
+</Frame>
+
+<Tip>
+  Similar to submission bounties, you can also set a [submission
+  window](#submission-window) and [submission frequency](#submission-frequency)
+  for social metrics bounties.
+</Tip>
 
 #### Select a social platform and target metric
 
 You can track performance on one social platform per bounty, and can select from:
 
-- YouTube
-- Instagram
-- TikTok
-- X/Twitter
+| YouTube |                   |
+| ------- | ----------------- |
+| Likes   | Total video likes |
+| Views   | Total video views |
 
-And for each social platform, you can track either likes or views.
+| Instagram |                          |
+| --------- | ------------------------ |
+| Likes     | Total post or reel likes |
+| Views     | Total post or reel views |
 
-<Frame>
-  <img
-    src="/images/dub-partners/social-metric.png"
-    alt="Social metric — populated state with platform and target metric selected"
-  />
-</Frame>
+| TikTok |                  |
+| ------ | ---------------- |
+| Likes  | Total post likes |
+| Views  | Total post views |
+
+| X/Twitter |                  |
+| --------- | ---------------- |
+| Likes     | Total post likes |
+| Views     | Total post views |
+
+| LinkedIn  |                      |
+| --------- | -------------------- |
+| Reactions | Total post reactions |
 
 #### Add a variable bonus
 
@@ -259,12 +275,12 @@ You can also optionally reward for additional performance beyond the base criter
 
 <Frame>
   <img
-    src="/images/dub-partners/social-metric-variable.png"
+    src="/images/dub-partners/bounty-social-metric-criteria-variable.png"
     alt="Social metric — variable bonus configuration"
   />
 </Frame>
 
-In this example, the program is rewarding an additional \$5 per 100 views on the submitted post, up to 1,000 views.
+In this example, the program is rewarding an additional \$10 per 100 likes on the submitted post, up to 1,000 likes.
 
 ## Reviewing bounties
 
@@ -291,6 +307,15 @@ From this view, you can either [approve](#approving-submissions) or [reject](#re
 ### Approving submissions
 
 Once you approve a bounty submission, a [commission](/help/article/partner-commissions) will be automatically created and due at your next payout. The partner will also receive a notification email:
+
+<Note>
+  Bounty commissions are recorded as `custom` commissions, which are **not**
+  subject to your program's [payout holding
+  period](/help/article/partner-payouts#payout-holding-period). They become
+  eligible for payout immediately at the next payout cycle – whether the
+  submission is approved via the dashboard or the
+  [API](/docs/api-reference/endpoint/approve-a-bounty-submission).
+</Note>
 
 <Frame>
   <img

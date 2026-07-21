@@ -27,7 +27,7 @@ jobs:
       - name: Re-embed changed articles
         if: steps.changed.outputs.files != ''
         env:
-          EMBEDDING_SYNC_SECRET: ${{ secrets.EMBEDDING_SYNC_SECRET }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           for file in ${{ steps.changed.outputs.files }}; do
             # Map file path to public URL
@@ -47,7 +47,7 @@ jobs:
 
             echo "Re-embedding: $url"
             curl -sf -X POST https://app.dub.co/api/ai/sync-embeddings \
-              -H "Authorization: Bearer $EMBEDDING_SYNC_SECRET" \
+              -H "Authorization: Bearer $CRON_SECRET" \
               -H "Content-Type: application/json" \
               -d "{\"url\": \"$url\", \"delay\": 600}" \
               && echo "  ✓ Done" \

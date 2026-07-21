@@ -120,6 +120,8 @@ A clean, branded short link that’s easy to remember and perfect for sharing in
 
 Appends the partner name as a query string on your destination URL. Ideal for users who are [migrating from Rewardful](/help/article/migrating-from-rewardful) and want to maintain backwards compatibility for existing partner links.
 
+Query parameter links do not carry UTM parameters. Because the partner key is already appended as a query string on your destination URL, group UTM settings are not applied with this link structure. Use [**Short Links**](/help/article/partner-link-settings#option-1-short-links) if you want default UTM tags on partner referral links.
+
 ### UTM parameters
 
 Set default [UTM parameters](/help/article/utm-builder) for all links in this group. This gives you group-specific insights in analytics.
@@ -130,6 +132,28 @@ Set default [UTM parameters](/help/article/utm-builder) for all links in this gr
 
 When you update a group’s [UTM template](/help/article/how-to-create-utm-templates), all partner links in the
 group are refreshed and overwritten with the new UTM tags.
+
+These settings only apply when the group uses the [**Short Links** structure](/help/article/partner-link-settings#option-1-short-links). They are not applied when [**Query Parameter**](/help/article/partner-link-settings#option-2-query-parameter) is selected.
+
+## Changing your referral link domain
+
+If you need to change the domain used for your referral links (for example, from `ref.getacme.com` to `ref.acme.com`), you must follow the steps below in order. Skipping or reordering these steps will break your existing partner links.
+
+<Steps>
+  <Step title="Add your new domain in Dub">
+    Add your new domain (`ref.acme.com`) in your [domains settings page](https://app.dub.co/settings/domains).
+  </Step>
+
+  <Step title="Set up a redirect on your old domain">
+    Set up a redirect from your old domain to your new domain so that any traffic hitting an existing partner link is forwarded to the new domain. You'll want a wildcard redirect that maps `ref.getacme.com/:path*` to `ref.acme.com/:path*`.
+
+    Most hosting providers and CDNs support wildcard redirects. Check your provider's documentation for how to configure them (often via a configuration file, dashboard setting, or rewrite/redirect rule). If you're on [Vercel](https://vercel.com/docs/routing/redirects/configuration-redirects), you can add this to your `vercel.json` file.
+  </Step>
+
+  <Step title="Update your default link">
+    Once both the new domain and the redirect are in place, update your **Default Link** to use the new domain on your [group links page](https://app.dub.co/program/groups/default/links).
+  </Step>
+</Steps>
 
 ## How partner group changes affect referral links
 

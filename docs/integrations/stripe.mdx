@@ -119,8 +119,8 @@ Once the integration is installed, Dub will automatically listen to the followin
 Depending on your setup, there are a few ways you can track sales with the Dub Stripe integration.
 
 - [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
-- [Option 2: Using Stripe Checkout (recommended)](#option-2%3A-using-stripe-checkout-recommended)
-- [Option 3: Using Stripe Customers](#option-3%3A-using-stripe-customers)
+- [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
+- [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
 
 ### Option 1: Using Stripe Payment Links
 
@@ -136,7 +136,9 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
   When using Stripe Payment Links, lead and sale events are tracked but lead
   webhooks and [lead
   rewards](/help/article/partner-rewards#configuring-reward-types) will not be
-  generated.
+  generated. [Sale
+  rewards](/help/article/partner-rewards#configuring-reward-types) (both
+  recurring and one time rewards) will still be generated as usual.
 </Note>
 
 If you're using [Stripe Payment Links](https://docs.stripe.com/payment-links), simply add a `?dub_client_reference_id=1` query parameter to your Stripe Payment Link when shortening it on Dub.
@@ -203,7 +205,7 @@ export default PricingPage;
 </Accordion>
 <Accordion title="What if I'm using Stripe's Checkout Sessions API?">
 
-If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2%3A-using-stripe-checkout-recommended) instead.
+If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2-using-stripe-checkout-recommended) instead.
 
 If your setup doesn't involve a lead/signup event and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID (prefixed with `dub_id_`) as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id) to enable conversion tracking with Dub.
 
@@ -356,7 +358,7 @@ const stripeSession = await stripe.checkout.sessions.create({
 
 ### Option 3: Using Stripe Customers
 
-Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2%3A-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
+Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
 
 First, you'll need to complete the following prerequisites:
 
@@ -413,7 +415,9 @@ This way, when the customer makes a purchase, Dub will automatically associate t
 <Note>
   When using Stripe Customers, lead and sale events are tracked but [lead
   rewards](/help/article/partner-rewards#configuring-reward-types) will not be
-  generated.
+  generated. [Sale
+  rewards](/help/article/partner-rewards#configuring-reward-types) (both
+  recurring and one-time rewards) will still be generated as usual.
 </Note>
 
 ## Tracking free trials
@@ -443,6 +447,36 @@ To differentiate between [manually tracked lead events](/docs/quickstart/server#
   />
 </Frame>
 </Tip>
+
+## Tax handling
+
+When tracking sale conversions from Stripe, Dub automatically excludes taxes from the final sale amount to ensure accurate revenue reporting.
+
+For **checkout sessions**, Dub calculates the sale amount by subtracting the tax amount from the total:
+
+```javascript
+// Sale amount calculation for checkout sessions
+saleAmount = amount_total - total_details.amount_tax;
+```
+
+For **invoices**, Dub uses the `total_excluding_tax` field when available:
+
+```javascript
+// Sale amount calculation for invoices
+saleAmount = total_excluding_tax ?? amount_paid;
+```
+
+This ensures that the sale amounts recorded in Dub reflect the actual revenue before taxes, providing more accurate metrics for:
+
+- Revenue tracking and reporting
+- Partner commission calculations
+- Analytics and conversion metrics
+
+<Note>
+  Tax amounts are automatically excluded from all sale events tracked through
+  the Stripe integration, including one-time purchases, subscriptions, and
+  recurring invoices.
+</Note>
 
 ## Currency conversion support
 
@@ -497,35 +531,25 @@ If you're not using Stripe Adaptive Pricing, Dub will record the sale amount in 
   add the ability to customize that in the future.
 </Note>
 
-## Tax handling
+## Multiple line items per invoice
 
-When tracking sale conversions from Stripe, Dub automatically excludes taxes from the final sale amount to ensure accurate revenue reporting.
+When a Stripe invoice or checkout session contains multiple line items (e.g. a base subscription plus an add-on, or several products purchased in a single transaction), Dub processes each line item individually to calculate the correct commission amount.
 
-For **checkout sessions**, Dub calculates the sale amount by subtracting the tax amount from the total:
+For each line item, Dub:
 
-```javascript
-// Sale amount calculation for checkout sessions
-saleAmount = amount_total - total_details.amount_tax;
-```
+1. Resolves the Stripe product ID for that line item.
+2. Matches it against any [product-specific reward modifiers](/help/article/partner-rewards#product-spotlight) configured for the partner's group.
+3. Calculates the commission for that line item using the matching reward rate (falling back to the default reward if no modifier matches).
 
-For **invoices**, Dub uses the `total_excluding_tax` field when available:
+The final commission recorded for the invoice is the sum of the per-line-item commissions.
 
-```javascript
-// Sale amount calculation for invoices
-saleAmount = total_excluding_tax ?? amount_paid;
-```
+<Tip>
+  For example, if a partner has a `40%` reward for `prod_gold` and a `10%`
+  reward for everything else, an invoice with `$100` of `prod_gold` and `$50` of
+  `prod_addon` will generate a commission of `($100 × 40%) + ($50 × 10%) = $45`.
+</Tip>
 
-This ensures that the sale amounts recorded in Dub reflect the actual revenue before taxes, providing more accurate metrics for:
-
-- Revenue tracking and reporting
-- Partner commission calculations
-- Analytics and conversion metrics
-
-<Note>
-  Tax amounts are automatically excluded from all sale events tracked through
-  the Stripe integration, including one-time purchases, subscriptions, and
-  recurring invoices.
-</Note>
+The total `saleAmount` recorded on Dub still reflects the full invoice total (after [tax exclusion](#tax-handling) and [currency conversion](#currency-conversion-support)), so your revenue analytics remain accurate.
 
 ## View conversion results
 

@@ -101,11 +101,12 @@
                   {
                     "group": "Filtering and aggregation",
                     "pages": [
+                      "docs/concepts/analytics/partners",
+                      "docs/concepts/analytics/links",
                       "docs/concepts/analytics/location",
                       "docs/concepts/analytics/device",
                       "docs/concepts/analytics/referrers",
-                      "docs/concepts/analytics/utm",
-                      "docs/concepts/analytics/tags"
+                      "docs/concepts/analytics/utm"
                     ]
                   }
                 ]
@@ -138,17 +139,16 @@
                 "group": "Getting started",
                 "pages": [
                   "help/article/setting-up-your-program",
-                  "help/article/partner-groups",
-                  "help/article/managing-program-partners",
-                  "help/article/dual-sided-incentives",
                   "help/article/program-resources",
-                  "help/article/partner-link-settings"
+                  "help/article/partner-link-settings",
+                  "help/article/importing-partners"
                 ]
               },
               {
                 "group": "Rewards and commissions",
                 "pages": [
                   "help/article/partner-rewards",
+                  "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
                 ]
@@ -164,6 +164,14 @@
                 ]
               },
               {
+                "group": "Managing partners",
+                "pages": [
+                  "help/article/managing-program-partners",
+                  "help/article/partner-groups",
+                  "help/article/partner-tags"
+                ]
+              },
+              {
                 "group": "Sending payouts",
                 "pages": [
                   "help/article/partner-payouts",
@@ -175,14 +183,17 @@
                 "pages": [
                   "help/article/program-bounties",
                   "help/article/email-campaigns",
-                  "help/article/messaging-partners"
+                  "help/article/messaging-partners",
+                  "help/article/partner-referrals"
                 ]
               },
               {
                 "group": "Insights and reporting",
                 "pages": [
                   "help/article/program-analytics",
-                  "help/article/fraud-detection"
+                  "help/article/commission-analytics",
+                  "help/article/application-analytics",
+                  "help/article/risk-monitoring"
                 ]
               },
               {
@@ -191,6 +202,7 @@
                   "help/article/migrating-from-rewardful",
                   "help/article/migrating-from-partnerstack",
                   "help/article/migrating-from-firstpromoter",
+                  "help/article/migrating-from-tapfiliate",
                   "help/article/migrating-from-tolt"
                 ]
               }
@@ -220,8 +232,9 @@
                 "group": "Receiving payouts",
                 "pages": [
                   "help/article/receiving-payouts",
-                  "help/article/partner-payout-invoice",
-                  "help/article/commissions-payouts"
+                  "help/article/commissions-payouts",
+                  "help/article/network-referral-bonus",
+                  "help/article/partner-payout-invoice"
                 ]
               }
             ]
@@ -329,6 +342,7 @@
               {
                 "group": "Billing & subscription",
                 "pages": [
+                  "help/article/free-trial",
                   "help/article/how-to-change-billing-information",
                   "help/article/how-to-download-invoice",
                   "help/article/how-to-cancel-subscription"
@@ -368,7 +382,8 @@
                 "pages": [
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
-                  "docs/api-reference/rate-limits"
+                  "docs/api-reference/rate-limits",
+                  "docs/mcp-server"
                 ]
               },
               {
@@ -443,21 +458,29 @@
                       "docs/api-reference/partners/retrieve-links"
                     ]
                   },
-              {
-                "group": "Analytics",
-                "pages": [
-                  "docs/api-reference/analytics/retrieve",
-                  "docs/api-reference/events/list"
-                ]
-              },
-              {
-                "group": "Tracking",
-                "pages": [
-                  "docs/api-reference/track/lead",
-                  "docs/api-reference/track/sale",
-                  "docs/api-reference/track/open"
-                ]
-              },
+                  {
+                    "group": "Partner applications",
+                    "pages": [
+                      "docs/api-reference/partners/applications/list",
+                      "docs/api-reference/partners/applications/approve",
+                      "docs/api-reference/partners/applications/reject"
+                    ]
+                  },
+                  {
+                    "group": "Analytics & events",
+                    "pages": [
+                      "docs/api-reference/analytics/retrieve",
+                      "docs/api-reference/events/list"
+                    ]
+                  },
+                  {
+                    "group": "Tracking",
+                    "pages": [
+                      "docs/api-reference/track/lead",
+                      "docs/api-reference/track/sale",
+                      "docs/api-reference/track/open"
+                    ]
+                  },
                   {
                     "group": "Customers",
                     "pages": [
@@ -468,7 +491,7 @@
                     ]
                   },
                   {
-                    "group": "Bounties",
+                    "group": "Bounty submissions",
                     "pages": [
                       "docs/api-reference/bounties/list",
                       "docs/api-reference/bounties/approve",
@@ -479,6 +502,7 @@
                     "group": "Commissions",
                     "pages": [
                       "docs/api-reference/commissions/list",
+                      "docs/api-reference/commissions/create",
                       "docs/api-reference/commissions/update"
                     ]
                   },
@@ -652,6 +676,10 @@
       "destination": "/docs"
     },
     {
+      "source": "/help/article/fraud-detection",
+      "destination": "/help/article/risk-monitoring"
+    },
+    {
       "source": "/docs/examples",
       "destination": "https://github.com/dubinc/examples"
     },
@@ -710,6 +738,10 @@
     {
       "source": "/docs/concepts/analytics",
       "destination": "/docs/concepts/analytics/introduction"
+    },
+    {
+      "source": "/docs/concepts/analytics/tags",
+      "destination": "/docs/concepts/analytics/links"
     },
     {
       "source": "/docs/concepts/webhooks/introduction",
@@ -1105,6 +1137,10 @@
       "destination": "/help/article/what-is-a-workspace"
     },
     {
+      "source": "/help/article/how-to-get-workspace-id",
+      "destination": "/help/article/what-is-a-workspace"
+    },
+    {
       "source": "/help/article/custom-social-media-cards",
       "destination": "/help/article/custom-link-previews"
     },
@@ -1139,6 +1175,10 @@
     {
       "source": "/help/article/custom-domain-deep-links",
       "destination": "/docs/concepts/deep-links/quickstart"
+    },
+    {
+      "source": "/help/article/submitted-referrals",
+      "destination": "/help/article/submitted-leads"
     }
   ]
 }

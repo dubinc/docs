@@ -15,7 +15,7 @@ When viewing your Partner Program navigation, click on the **Commissions** pag
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/commission-dashboard-1.png"
+    src="/images/dub-partners/commissions-nav.png"
     alt="Commissions page within your dashboard"
   />
 </Frame>
@@ -24,7 +24,7 @@ This opens up the commissions table view, where you can see a list of your histo
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/commission-table.png"
+    src="/images/dub-partners/commission-table.png"
     alt="Commissions page within your dashboard"
   />
 </Frame>
@@ -34,11 +34,17 @@ This opens up the commissions table view, where you can see a list of your histo
 | Date      | Commission date |
 | Customer    | The customer associated with the lead or sale |
 | Partner        | The partner earning the commission |
+| Group | The group the partner belongs to |
 | Type        | The commission type (custom, click, lead, or sale)                  |
 | Amount        | The sale amount, or single count for custom, click, or lead rewards |
 | Commission         | The amount the partner will receive                                 |
 | Status             | Current status of the commission. [Learn more about statuses](/help/article/partner-commissions#commission-statuses).        |
 | Additional actions | Actions to edit the commission, and copy the invoice ID     |
+
+<Note>
+  To analyze commission earnings over time, see [Commission
+  analytics](/help/article/commission-analytics).
+</Note>
 
 ## Commission statuses
 
@@ -47,6 +53,7 @@ When a commission is recorded on Dub, it goes through the following statuses:
 - `Pending`: This is the initial status for a commission. Depending on your program's [holding period](/help/article/partner-payouts#payout-holding-period), commissions can stay in "pending" status anywhere from less than a day to 90 days.
 - `Processed`: When a commission has been added to a payout (after any applicable [holding period](/help/article/partner-payouts#payout-holding-period)), its status will change from "pending" to "processed".
 - `Paid`: When the payout containing the commission has been paid, the commission will be updated to "paid" status.
+- `On Hold`: When a commission is paused due to a pending [risk event](/help/article/risk-monitoring). On-hold commissions cannot be added to a payout until the risk event is resolved.
 
 If needed, you can also update the status for a given commission accordingly:
 
@@ -105,7 +112,7 @@ With the edit commission modal open, you can change the status and earnings amou
   />
 </Frame>
 
-<Tip>You can also bulk edit the status of the commissions, only if their statuses are the same.</Tip>
+
 
 If you change a commission's status to `Canceled` or `Fraud`, you're also able to mark all previous commissions for this customer-partner pair as that status too. This will also prevent the partner from earning future commissions from this customer.
 
@@ -115,6 +122,39 @@ If you change a commission's status to `Canceled` or `Fraud`, you're also able t
     alt="Mark all commissions"
   />
 </Frame>
+
+### Earnings amount
+You can only edit the earnings amount for [custom commissions](#one-time-commissions) that haven't been paid yet. If the earnings amount is changed, it will also appear in the activity log on the [commissions page](/help/article/partner-commissions#single-commission-view).
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-commission-custom-1.png"
+    alt="Edit commission earnings modal"
+  />
+</Frame>
+
+### Bulk editing
+You can bulk edit the status of multiple commissions at once by clicking the checkboxes next to the commissions you want to edit, then click **Edit commissions**. 
+
+<Frame>
+  <img
+    src="/images/dub-partners/bulk-edit-commissions.png"
+    alt="Bulk edit commissions selection"
+  />
+</Frame>
+
+From the modal, select the new status for the commissions and click **save**.
+
+<Frame>
+  <img
+    src="/images/dub-partners/bulk-edit-commission-modal.png"
+    alt="Bulk edit commissions editing"
+  />
+</Frame>
+
+<Tip>
+  You can only bulk edit the status of commissions that haven't been paid yet.
+</Tip>
 
 
 
@@ -126,7 +166,7 @@ This can be accomplished by clicking **Create commission** from your **Commissio
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/create-commission-main.png"
+    src="/images/dub-partners/create-commission-main.png"
     alt="Create one-time commission"
   />
 </Frame>
@@ -156,6 +196,10 @@ Manual one-time commissions are often used when you want to send a thank-you or 
 | Amount           | Commission amount                                                                                         | ✅       |
 | Description      | Add a custom description                                                                                  | ❌       |
 | Commission date  | Enable to add a custom date. If a custom date isn't added, it will auto-fill to the current date and time | ❌       |
+
+<Note>
+  One-time commissions are recorded as `custom` commissions, which are **not** subject to your program's [payout holding period](/help/article/partner-payouts#payout-holding-period). They become eligible for payout immediately at the next payout cycle. The same applies to [bounty commissions](/help/article/program-bounties) and `custom` commissions created via the [API](/docs/api-reference/commissions/create).
+</Note>
 
 ### Lead commission
 
@@ -278,7 +322,7 @@ To create a clawback, click the **More button** next to **Create commissions**, 
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/commissions-dropdown.png"
+    src="/images/dub-partners/commissions-create-clawback.png"
     alt="Commissions dropdown"
   />
 </Frame>
@@ -304,5 +348,39 @@ The partner affected will see this reflected in their earnings view on their das
   <img
     src="https://assets.dub.co/cms/clawback-partner-view.png"
     alt="Clawback partner view"
+  />
+</Frame>
+
+## Exporting commissions
+To export your commissions, click the more button next to **Create commissions** then **Export as CSV**. 
+
+<Frame>
+  <img
+    src="/images/dub-partners/commissions-export-csv.png"
+    alt="Commissions dropdown with export option"
+  />
+</Frame>
+
+In the **Export commissions** modal, select which fields you want to include in your export, then click **Export commissions** to initiate. An email will be sent to you with a link to download the CSV file.
+
+<Frame>
+  <img
+    src="/images/dub-partners/commissions-export-options.png"
+    alt="Commission export options modal"
+  />
+</Frame>
+
+<Tip>
+   To export commissions with any filters you currently have applied, make sure to toggle on "Apply current filters". This will ensure that only the commissions matching your current filters will be included in the export.
+</Tip>
+
+
+
+After receiving the email, click **Download export** to download your commissions CSV file. 
+
+<Frame>
+  <img
+    src="/images/dub-partners/commissions-export-email.png"
+    alt="Commission export email"
   />
 </Frame>
