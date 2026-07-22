@@ -1,0 +1,65 @@
+---
+title: "AppsFlyer"
+"og:title": "How to track mobile app conversion events with AppsFlyer and Dub"
+description: "Learn how to track mobile app conversion events with AppsFlyer and Dub."
+---
+
+<Tip>
+  This feature is only available on [Business plans and
+  above](https://dub.co/pricing/partners).
+</Tip>
+
+Dub's AppsFlyer integration lets you attribute mobile app installs, in-app leads, and purchases back to the Dub partner that drove them – powering accurate payouts in your [Dub Partners](https://dub.co/partners) program.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- A [Dub Partners](https://dub.co/partners) program set up.
+- An AppsFlyer account with admin access to the app you want to track.
+- A configured [OneLink template](https://support.appsflyer.com/hc/en-us/articles/207032246-OneLink-links-and-experiences) in AppsFlyer.
+
+## Step 1: Install the AppsFlyer integration
+
+Head to your [AppsFlyer integration settings](https://app.dub.co/settings/integrations/appsflyer) in Dub and install the integration to your workspace.
+
+## Step 2: Configure the partner link destination URL
+
+In AppsFlyer, configure the OneLink template you want to use for your Dub program, then set it as the **partner link destination URL** in your Dub program settings.
+
+When choosing your attribution link type, select **Use OneLink** and pick the OneLink template you configured.
+
+## Step 3: Configure event mappings
+
+In your [AppsFlyer integration settings](https://app.dub.co/settings/integrations/appsflyer), map the in-app events you want to track to Dub's `lead` and `sale` events, and set the **including** option to **Values & revenue** so that revenue data is forwarded to Dub.
+
+| AppsFlyer event | Mapped to partner event | Including |
+| --- | --- | --- |
+| Your lead-style event (e.g. `af_complete_registration`) | `lead` | Values & revenue |
+| Your purchase event (e.g. `af_purchase`) | `sale` | Values & revenue |
+
+## Step 4: Test the integration
+
+Before going live, run a few test installs to make sure events are flowing into Dub correctly.
+
+<Steps>
+  <Step title="Turn off Aggregated Advanced Privacy (AAP)">
+    AAP delays and aggregates postbacks, which makes individual test events hard to verify. Turn AAP **off** both globally and for the Dub integration during testing.
+
+    See AppsFlyer's guide on [applying the Aggregated Advanced Privacy framework](https://support.appsflyer.com/hc/en-us/articles/360018515798-Apply-Aggregated-Advanced-Privacy-framework) for details.
+
+    <Tip>
+      Remember to re-enable AAP once you're done testing and ready to go live.
+    </Tip>
+  </Step>
+
+  <Step title="Register your device as a test device">
+    Register your device's IDFA (iOS) or GAID (Android) as a test device in AppsFlyer so that your test installs and events are recognized.
+
+    Follow AppsFlyer's guide on [registering test devices](https://support.appsflyer.com/hc/en-us/articles/207031996-Registering-test-devices#register-a-device-manually) to add your device manually.
+  </Step>
+
+  <Step title="Trigger a test install and conversion">
+    Click a Dub partner link on your test device, install the app, and trigger the in-app events you mapped in Step 3. The corresponding lead and sale events should appear on your Dub partner's profile shortly after.
+  </Step>
+</Steps>
