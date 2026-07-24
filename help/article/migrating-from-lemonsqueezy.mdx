@@ -119,16 +119,6 @@ Lemon Squeezy's order/invoice status maps to Dub commission statuses as follows:
 
 We use `subtotal_usd` for the sale amount where available, falling back to a currency conversion of `subtotal` otherwise.
 
-<Warning>
-  Lemon Squeezy doesn't expose a per-order commission amount for affiliates.
-  Because of this, **earnings for imported commissions are calculated using your
-  Dub program's configured sale reward** (not your historical Lemon Squeezy
-  commission rates). If you had custom commission rates set per affiliate or per
-  product on Lemon Squeezy, those are not carried over – make sure your Dub
-  program's [reward](/help/article/partner-rewards) is configured before
-  importing.
-</Warning>
-
 Additionally, Dub also supports 3 extra commission states that aren't set by the importer, but that you can use going forward:
 
 - `Processed`: When a commission has been added to a [payout](/help/article/partner-payouts) (after any applicable holding period).
