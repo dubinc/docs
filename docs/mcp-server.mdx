@@ -1,47 +1,177 @@
 ---
 title: "Dub MCP Server"
-description: "Use the Dub MCP server to manage your partner program with the AI agent of your choice."
+description: "Use the Dub MCP server to manage your Dub resources with the AI agent of your choice."
 sidebarTitle: "MCP Server"
 ---
 
-## What is an MCP Server?
+MCP is an open protocol that standardizes how applications provide context to LLMs. Among other benefits, it provides LLMs tools to act on your behalf. Dub offers both a [remote MCP server](#remote-mcp-server-recommended) and a [local MCP server](#local-mcp-server).
 
-MCP (Model Context Protocol) is an open standard for connecting AI applications to external tools and data. It gives your AI agent structured access to APIs so it can take actions on your behalf — like approving partner applications or updating commissions — using natural language.
-
-## What can the Dub MCP server do?
-
-The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
-
-- **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
-- **Partner links** — Create and upsert links for enrolled partners
-- **Applications** — List, approve, and reject pending partner applications
-- **Analytics** — Retrieve analytics and list events for any partner, [partner groups](/help/article/partner-groups), or their specific links
-- **Customers** — List, retrieve, update, and delete customers
-- **Tracking** — Track lead, sale, and deep link open events
-- **Bounties** — List, approve, and reject bounty submissions
-- **Commissions** — List and update commissions (e.g. for refunds or fraud)
-- **Payouts** — List payouts for your partner program
-
-As an example, you could use this to triage partner applications, adjust commissions after a refund, or pull attribution analytics for a top partner — all from your AI client.
+<Frame>
+  <img src="/images/mcp-server.png" alt="MCP Server" />
+</Frame>
 
 <Tip>
   Looking for the [Dub Links](https://dub.co/links) MCP server? Check out the
   [Dub Links MCP server docs](https://mcp.dub.sh/mcp/dub-links).
 </Tip>
 
-## Prerequisites
+## Remote MCP Server (recommended)
 
-The Dub MCP server is hosted remotely and connects to any [supported MCP client](#mcp-client-integrations) via [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) and `npx`. To use the MCP server, you'll need to:
+Dub's MCP server is hosted at:
 
-- [Create a Dub API key](https://app.dub.co/settings/tokens) with access to your partner program
+```
+https://mcp.dub.sh/mcp/dub-partners
+```
 
-## How to use the MCP Server
+Connect any MCP client that supports remote servers (Streamable HTTP). There's nothing to install and no local process to run, which makes it the best option for web-based clients like Claude and hosted agent platforms.
 
-Dub's MCP server runs over HTTP at `https://mcp.dub.sh/mcp/dub-partners`. Most clients connect through **`mcp-remote`**, which bridges stdio-based clients to the remote endpoint and forwards your API key in the `Mcp-Dub-Token` header.
+When you connect, your client opens a browser window to log in to Dub and approve access using OAuth.
 
-Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actual Dub API key.
+<Tabs>
+  <Tab title="Claude">
+    You can install the Dub MCP server as a [custom connector in
+    Claude](https://claude.ai/new#settings/customize-connectors):
 
-### MCP client integrations
+    <Frame>
+      <video
+        src="https://assets.dub.co/misc/install-claude-custom-connector.mp4"
+        loop
+        autoPlay
+        muted
+        playsInline
+      />
+    </Frame>
+
+    To install only the MCP server, add it manually in Claude (web or desktop) from **Settings** > **Connectors** > **Add custom connector**:
+
+    ```
+    https://mcp.dub.sh/mcp/dub-partners
+    ```
+
+  </Tab>
+
+  <Tab title="ChatGPT">
+    You can install the Dub MCP server as a [ChatGPT
+    plugin](https://chatgpt.com/plugins):
+
+    <Tip>
+      Make sure to enable [Developer Mode](https://developers.openai.com/api/docs/guides/developer-mode) in ChatGPT first before installing the plugin.
+    </Tip>
+
+    <Frame>
+      <video
+        src="https://assets.dub.co/misc/install-chatgpt-plugin.mp4"
+        loop
+        autoPlay
+        muted
+        playsInline
+      />
+    </Frame>
+
+  </Tab>
+
+  <Tab title="Cursor">
+    Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
+
+    ```json
+    {
+      "mcpServers": {
+        "dub": {
+          "url": "https://mcp.dub.sh/mcp/dub-partners"
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="Copilot">
+    To use GitHub Copilot in VS Code, add the following to your `settings.json`:
+
+    ```json
+    {
+      "mcp": {
+        "servers": {
+          "dub": {
+            "type": "http",
+            "url": "https://mcp.dub.sh/mcp/dub-partners"
+          }
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="Windsurf">
+
+    In Windsurf's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
+
+    ```json
+    {
+      "mcpServers": {
+        "dub": {
+          "serverUrl": "https://mcp.dub.sh/mcp/dub-partners"
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
+  <Tab title="Warp">
+    In Warp's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
+
+    ```json
+    {
+      "dub": {
+        "serverUrl": "https://mcp.dub.sh/mcp/dub-partners"
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+_If your client runs somewhere a browser login isn't possible_ (a server, CI, or a headless agent), pass a [Dub API key](/docs/api-reference/authentication#api-keys) in the `Mcp-Dub-Token` header instead of using OAuth.
+
+<Tabs>
+  <Tab title="Claude Code">
+    ```bash
+    claude mcp add dub-partners \
+      --transport http https://mcp.dub.sh/mcp/dub-partners \
+      --header "Mcp-Dub-Token: dub_xxxxxx"
+    ```
+  </Tab>
+
+  <Tab title="JSON config">
+    For clients configured with JSON (Cursor, Windsurf, and others), add a `Mcp-Dub-Token` header:
+
+    ```json
+    {
+      "mcpServers": {
+        "dub": {
+          "url": "https://mcp.dub.sh/mcp/dub-partners",
+          "headers": {
+            "Mcp-Dub-Token": "dub_xxxxxx"
+          }
+        }
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Local MCP Server
+
+If your MCP client doesn't support connecting directly to a remote HTTP endpoint, use [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) to run a local process that proxies requests to Dub's hosted server. You can integrate it into any supported MCP client using `npx`. You'll need a [Dub API key](/docs/api-reference/authentication#api-keys).
+
+Choose your client below to get started. Remember to replace `dub_xxxxxx` with your actual API key.
+
+### Stdio Transport (Default)
 
 <Tabs>
   <Tab title="Claude Code">
@@ -53,14 +183,11 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```
   </Tab>
 
-  <Tab title="Codex">
-    ```bash
-    codex mcp add dub-partners \
-      --env MCP_DUB_TOKEN=dub_xxxxxx \
-      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \
-      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
-    ```
-  </Tab>
+<Tab title="Codex">
+  ```bash codex mcp add dub-partners \ --env MCP_DUB_TOKEN=dub_xxxxxx \ -- npx
+  -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \ --header
+  "Mcp-Dub-Token:\${MCP_DUB_TOKEN}" ```
+</Tab>
 
   <Tab title="Cursor">
     Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
@@ -68,7 +195,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```json
     {
       "mcpServers": {
-        "dub-partners": {
+        "dub": {
           "command": "npx",
           "args": [
             "-y",
@@ -93,7 +220,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```json
     {
       "mcpServers": {
-        "dub-partners": {
+        "dub": {
           "command": "npx",
           "args": [
             "-y",
@@ -119,7 +246,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     {
       "mcp": {
         "servers": {
-          "dub-partners": {
+          "dub": {
             "command": "npx",
             "args": [
               "-y",
@@ -143,7 +270,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```json
     {
       "mcpServers": {
-        "dub-partners": {
+        "dub": {
           "command": "npx",
           "args": [
             "-y",
@@ -168,7 +295,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     {
       "$schema": "https://opencode.ai/config.json",
       "mcp": {
-        "dub-partners": {
+        "dub": {
           "type": "local",
           "command": [
             "npx",
@@ -193,7 +320,7 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```json
     {
       "mcpServers": {
-        "dub-partners": {
+        "dub": {
           "command": "npx",
           "args": [
             "-y",
@@ -211,64 +338,26 @@ Choose your MCP client below to get started. Replace `dub_xxxxxx` with your actu
     ```
   </Tab>
 
-  <Tab title="Other clients">
-    For any MCP client not listed above, use the raw configuration below:
+  <Tab title="Warp">
+    In Warp's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
 
     ```json
     {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@0.1.25",
-        "https://mcp.dub.sh/mcp/dub-partners",
-        "--header",
-        "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-      ],
-      "env": {
-        "MCP_DUB_TOKEN": "dub_xxxxxx"
-      }
-    }
-    ```
-
-  </Tab>
-</Tabs>
-
-### Native HTTP
-
-Some MCP clients support connecting directly to a remote HTTP endpoint without `mcp-remote`. In that case, point your client at the Dub MCP URL and pass your API key in the `Mcp-Dub-Token` header.
-
-<Tabs>
-  <Tab title="Claude Code">
-    ```bash
-    claude mcp add dub-partners \
-      --transport http https://mcp.dub.sh/mcp/dub-partners \
-      --header "Mcp-Dub-Token: dub_xxxxxx"
-    ```
-  </Tab>
-
-  <Tab title="Cursor">
-    Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
-
-    ```json
-    {
-      "mcpServers": {
-        "dub-partners": {
-          "url": "https://mcp.dub.sh/mcp/dub-partners",
-          "headers": {
-            "Mcp-Dub-Token": "dub_xxxxxx"
-          }
+      "dub": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "mcp-remote@0.1.25",
+          "https://mcp.dub.sh/mcp/dub-partners",
+          "--header",
+          "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+        ],
+        "env": {
+          "MCP_DUB_TOKEN": "dub_xxxxxx"
         }
       }
     }
     ```
-
-  </Tab>
-
-  <Tab title="Other clients">
-    Use your client's remote MCP configuration with:
-
-    - **URL:** `https://mcp.dub.sh/mcp/dub-partners`
-    - **Header:** `Mcp-Dub-Token: dub_xxxxxx`
 
   </Tab>
 </Tabs>
@@ -281,3 +370,24 @@ Some MCP clients support connecting directly to a remote HTTP endpoint without `
   Store your API key in the `env` block or an environment variable rather than
   hardcoding it in shared config files when possible.
 </Info>
+
+## MCP Server tools
+
+The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
+
+- **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
+- **Partner links** — Create and upsert links for enrolled partners
+- **Applications** — List, approve, and reject pending partner applications
+- **Analytics** — Retrieve analytics and list events for any partner, [partner groups](/help/article/partner-groups), or their specific links
+- **Customers** — List, retrieve, update, and delete customers
+- **Tracking** — Track lead, sale, and deep link open events
+- **Bounties** — List, approve, and reject bounty submissions
+- **Commissions** — List and update commissions (e.g. for refunds or fraud)
+- **Payouts** — List payouts for your partner program
+
+Here are some real examples of what your agent can do with these tools:
+
+- Triage pending partner applications and approve or reject them in bulk
+- Adjust commissions after a refund or flag suspicious activity
+- Pull attribution analytics for a top partner or [partner group](/help/article/partner-groups)
+- Create partner links and track lead or sale conversion events
