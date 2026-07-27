@@ -61,7 +61,7 @@ If you're looking to migrate from Lemon Squeezy to Dub Partners, we have a custo
   <Step title="Import your Lemon Squeezy store in the Partners tab">
     Once you've [set up your Dub partner program](/help/article/setting-up-your-program), go to your [Partners tab](https://app.dub.co/program/partners), click on the `⋮` button and select "Import from Lemon Squeezy".
 
-    To save you some time, [here's a quicklink](https://app.dub.co/program/partners?import=lemonsqueezy) that will get you directly to the Lemon Squeezy import flow.
+    To save you some time, [here's a quick link](https://app.dub.co/program/partners?import=lemonsqueezy) that will get you directly to the Lemon Squeezy import flow.
 
     <Frame>
       ![Import Lemon Squeezy modal](https://assets.dub.co/cms/import-lemonsqueezy-modal.png)
@@ -83,13 +83,13 @@ Our Lemon Squeezy migration tool imports the following attributes to Dub Partner
 
 ### Affiliates / Partners
 
-We only import affiliates with a `status` of `active` on Lemon Squeezy – pending or disabled affiliates are skipped, along with any affiliate that doesn't have an email on file. Since Lemon Squeezy doesn't have the concept of affiliate groups or campaigns, all imported affiliates land in your program's default [partner group](/help/article/partner-groups).
+We only import affiliates with a `status` of `active` on Lemon Squeezy – pending or disabled affiliates are skipped, along with any affiliate that doesn't have an email on file. Since Lemon Squeezy doesn't have affiliate groups or campaigns, all imported affiliates land in your program's default [partner group](/help/article/partner-groups).
 
-Each imported partner gets a Dub partner link, where the link's key is set to their Lemon Squeezy affiliate ID – this is used to attribute future sales correctly. We also import each partner's `user_email` and `user_name`.
+Each imported partner gets a Dub partner link, where the link's key is set to their Lemon Squeezy affiliate ID, ensuring future sales are attributed correctly. We also import each partner's `user_email` and `user_name`.
 
 ### Customers
 
-We only import customers that have a non-empty affiliates relationship on Lemon Squeezy – customers with no associated affiliate are not imported. Each customer's `externalId` is set to their Lemon Squeezy customer ID, and they're attributed to the first affiliate ID (that we've imported a partner link for) associated with them.
+We only import customers who are associated with an affiliate in Lemon Squeezy; customers without an affiliate are excluded. Each customer's `externalId` is set to their Lemon Squeezy customer ID, and the customer is attributed to the first associated affiliate for whom a partner link was successfully imported.
 
 <Warning>
   Customers that can't be matched to an imported partner link are skipped.
@@ -104,7 +104,7 @@ We import commissions from two sources on Lemon Squeezy:
 
 Lemon Squeezy's order/invoice status maps to Dub commission statuses as follows:
 
-| Lemon Squeezy status | Dub |
+| Lemon Squeezy | Dub |
 | --- | --- |
 | `paid` | `Paid` |
 | `pending` | `Pending` |
