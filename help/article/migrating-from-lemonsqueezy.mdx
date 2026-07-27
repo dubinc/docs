@@ -7,25 +7,24 @@ sidebarTitle: "Lemon Squeezy"
 import { ImageLink } from "/snippets/components/image-link.jsx";
 
 <Tip>
-  Dub Partners is only available on [Business plans and
-  above](https://dub.co/pricing/partners).
+  Dub Partners is only available on [Business plans and above](https://dub.co/pricing/partners).
 </Tip>
 
 Lemon Squeezy is a popular merchant-of-record platform with a built-in Affiliate Hub, making it easy to launch an affiliate program alongside your store.
 
 As your affiliate program grows, a few limitations tend to show up:
 
-1. **Rigid payouts**: Payouts only run on Lemon Squeezy's own fixed schedule (created on the 1st/15th, paid on the 14th/28th), with a mandatory 30-day hold on every commission – there's no way to run payouts on your own schedule.
-2. **Only per-sale commissions**: You can only set a flat-rate or percentage commission per sale (per affiliate or per product) – there's no support for per-click or per-lead rewards, conditional rewards, or bounties.
+1. **Rigid payouts**: Payouts only run on Lemon Squeezy's own fixed schedule (created on the 1st/15th, paid on the 14th/28th), with a mandatory 30-day hold on every commission, so you cannot set your own payout schedule.
+2. **Only per-sale commissions**: You can only set a flat-rate or percentage-based commission per sale (per affiliate or per product) – there's no support for per-click or per-lead rewards, conditional rewards, or bounties.
 3. **No affiliate groups or tiers**: Every affiliate in a program is treated the same way – there's no way to segment partners into groups or tiers with different terms.
 4. **No embedded, white-labeled dashboard**: Affiliates manage their links, referrals, and payouts entirely from Lemon Squeezy's own hosted Affiliate Hub, which can't be embedded or white-labeled inside your own application.
 
 **This is where [Dub Partners](https://dub.co/partners) comes in.**
 
-1. **Automated payouts:** You can [pay your partners globally](/help/article/partner-payouts) in 1-click, with tax compliance built-in, so you can have peace of mind knowing that all payouts are completed successfully.
+1. **Automated payouts:** You can set your own payout schedule and [pay your partners globally](/help/article/partner-payouts) in 1-click, with tax compliance built-in. And Dub’s automated [risk detection](https://dub.co/help/article/risk-monitoring) helps ensure that only legitimate affiliate activity is rewarded.
 2. **Advanced reward structures**: You can choose between [3 reward types](/help/article/partner-rewards#configuring-reward-types) – per click, per lead, and per sale (flat/percentage). You can also set different [reward conditions](/help/article/partner-rewards#adding-reward-conditions) (e.g., a higher reward for customers based in the U.S. vs other countries) and create [bounties](/help/article/program-bounties) to provide additional rewards for your affiliates.
-3. **White-labeling**: You can [embed a white-labeled referral dashboard into your application](/docs/partners/embedded-referrals) for a better user experience.
-4. **Powerful partner network**: With over 7,000 active partners in our network, Dub makes it easy to find and recruit high-performing partners with a proven track record of driving results.
+3. **Partner groups:** You can organize partners into [groups](https://dub.co/help/article/partner-groups) based on rewards, performance, location, and more, making it easier to tailor incentives and track results. You can also use [tags](https://dub.co/help/article/partner-tags) to classify partners by type, campaign, outreach status, or any other criteria.
+4. **White-labeling**: You can [embed a white-labeled referral dashboard into your application](/docs/partners/embedded-referrals) for a better user experience.
 
 In this article, we'll learn how to import your Lemon Squeezy affiliate program to [Dub Partners](/help/article/dub-partners) for a more powerful, scalable, and branded partner management experience.
 
@@ -38,7 +37,6 @@ If you're looking to migrate from Lemon Squeezy to Dub Partners, we have a custo
     Before starting the migration process, you'll need to add a custom domain **and** set a default URL on your Dub program. This is used to create short links for each affiliate link that we import from Lemon Squeezy, and the import will fail without both set up.
 
     If you haven't added a custom domain to Dub yet, you can [follow this guide to set that up](/help/article/how-to-add-custom-domain).
-
   </Step>
   <Step title="Set up conversion tracking + client-side click-tracking">
     Next, [set up conversion tracking](/docs/quickstart/server) to track signup and sale events. We also have some [in-app guides that you can reference here](https://app.dub.co/guides).
@@ -46,7 +44,6 @@ If you're looking to migrate from Lemon Squeezy to Dub Partners, we have a custo
     For backward compatibility, we also recommend setting up [client-side click-tracking](/docs/sdks/client-side/features/click-tracking) when installing the [Dub Analytics script](/docs/sdks/client-side/introduction) on your site. This will ensure all your existing `domain.com?aff=1234` links will keep working as expected, which gives affiliates time to update their links to the new format.
 
     You can [follow our guide](/docs/sdks/client-side/features/click-tracking) on how to set up client-side click-tracking for your Dub short links to set that up.
-
   </Step>
   <Step title="Get your Lemon Squeezy API key">
     Go to [Settings → API on Lemon Squeezy](https://app.lemonsqueezy.com/settings/api) and create a new API key:
@@ -60,7 +57,6 @@ If you're looking to migrate from Lemon Squeezy to Dub Partners, we have a custo
     </Warning>
 
     We will use this API key to retrieve and import your existing Lemon Squeezy store to Dub.
-
   </Step>
   <Step title="Import your Lemon Squeezy store in the Partners tab">
     Once you've [set up your Dub partner program](/help/article/setting-up-your-program), go to your [Partners tab](https://app.dub.co/program/partners), click on the `⋮` button and select "Import from Lemon Squeezy".
@@ -78,7 +74,6 @@ If you're looking to migrate from Lemon Squeezy to Dub Partners, we have a custo
     </Tip>
 
     The import runs in the background, and you'll receive an email once it's complete.
-
   </Step>
 </Steps>
 
@@ -109,13 +104,13 @@ We import commissions from two sources on Lemon Squeezy:
 
 Lemon Squeezy's order/invoice status maps to Dub commission statuses as follows:
 
-| Lemon Squeezy status           | Dub          |
-| ------------------------------ | ------------ |
-| `paid`                         | `Paid`       |
-| `pending`                      | `Pending`    |
-| `refunded`, `partial_refund`   | `Canceled`   |
+| Lemon Squeezy status | Dub |
+| --- | --- |
+| `paid` | `Paid` |
+| `pending` | `Pending` |
+| `refunded`, `partial_refund` | `Canceled` |
 | `void`, `failed`, `fraudulent` | Not imported |
-| Any other status               | `Pending`    |
+| Any other status | `Pending` |
 
 We use `subtotal_usd` for the sale amount where available, falling back to a currency conversion of `subtotal` otherwise.
 
@@ -149,7 +144,7 @@ To start another import flow, go to your program's **Partners** tab and click on
 
 <Frame>
   ![Select a Lemon Squeezy store to
-  import](https://assets.dub.co/cms/select-store-to-import.png)
+import](https://assets.dub.co/cms/select-store-to-import.png)
 </Frame>
 
 Our importer is built in an idempotent fashion (partners are matched by email, customers by external ID, and commissions by invoice ID), so it will import everything only once – it's always safe to re-run.
@@ -164,12 +159,7 @@ Dub Partners supports [1-click payouts](/help/article/partner-payouts) to partne
 
 We generally recommend using ACH for partner payouts as it is the most cost-effective option. Here's [how you can set up your bank account](/help/article/how-to-set-up-bank-account) for ACH payouts.
 
-<ImageLink
-  src="https://assets.dub.co/cms/stripe-connect-mercury-bank-account.png"
-  href="https://dub.co/help/article/how-to-set-up-bank-account"
-  alt="connect bank account"
-  cta="Read the guide ↗"
-/>
+<ImageLink src="https://assets.dub.co/cms/stripe-connect-mercury-bank-account.png" href="https://dub.co/help/article/how-to-set-up-bank-account" alt="connect bank account" cta="Read the guide ↗" />
 
 ### 2. Notify your affiliates about the platform change
 
