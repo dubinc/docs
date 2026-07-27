@@ -16,7 +16,7 @@ As your affiliate program grows, a few limitations tend to show up:
 
 1. **Rigid payouts**: Payouts only run on Lemon Squeezy's own fixed schedule (created on the 1st/15th, paid on the 14th/28th), with a mandatory 30-day hold on every commission, so you cannot set your own payout schedule.
 2. **Only per-sale commissions**: You can only set a flat-rate or percentage-based commission per sale (per affiliate or per product) – there's no support for per-click or per-lead rewards, conditional rewards, or bounties.
-3. **No affiliate groups or tiers**: Every affiliate in a program is treated the same way – there's no way to segment partners into groups or tiers with different terms.
+3. **No affiliate groups or tiers**: Every affiliate is treated the same way – there's no way to segment partners into groups or tiers with different terms.
 4. **No embedded, white-labeled dashboard**: Affiliates manage their links, referrals, and payouts entirely from Lemon Squeezy's own hosted Affiliate Hub, which can't be embedded or white-labeled inside your own application.
 
 **This is where [Dub Partners](https://dub.co/partners) comes in.**
@@ -108,16 +108,15 @@ Lemon Squeezy's order/invoice status maps to Dub commission statuses as follows:
 | --- | --- |
 | `paid` | `Paid` |
 | `pending` | `Pending` |
-| `refunded`, `partial_refund` | `Canceled` |
-| `void`, `failed`, `fraudulent` | Not imported |
-| Any other status | `Pending` |
+| `refunded`, `partial_refund` | `Refunded` |
+| `void`, `failed` | `Canceled` |
+| `fraudulent` | `Fraud` |
 
 We use `subtotal_usd` for the sale amount where available, falling back to a currency conversion of `subtotal` otherwise.
 
-Additionally, Dub also supports 3 extra commission states that aren't set by the importer, but that you can use going forward:
+Additionally, Dub also supports 2 extra commission states that aren't set by the importer, but that you can use going forward:
 
 - `Processed`: When a commission has been added to a [payout](/help/article/partner-payouts) (after any applicable holding period).
-- `Fraud`: Useful for marking a sale as fraudulent and excluding it from any future payouts.
 - `Duplicate`: Useful for marking if a commission was rewarded more than once and needs to be marked as a duplicate event.
 
 The importer is idempotent – each imported order/invoice is tracked using an `invoiceId` of the form `ls_order_{id}` or `ls_invoice_{id}`, so it's always safe to re-run.
