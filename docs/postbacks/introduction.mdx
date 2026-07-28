@@ -116,3 +116,26 @@ Postbacks are retried until they are successfully delivered – with an exponent
 | 5th           | 24h      |
 | 6th           | 24h      |
 | ...           | ...      |
+
+## IP allowlist
+
+If your postback endpoint sits behind a firewall or IP allowlist, you'll need to allow traffic from the following IP addresses – these are the IPs that Dub uses to deliver postback events (and retries):
+
+```
+3.125.136.186/32
+18.198.95.233/32
+3.69.157.89/32
+3.69.220.58/32
+52.58.170.183/32
+3.74.98.166/32
+100.51.235.36/32
+3.230.190.166/32
+3.232.167.47/32
+34.198.105.68/32
+34.199.12.224/32
+18.206.116.131/32
+```
+
+<Note>
+  This list can change over time. For the most up-to-date list, fetch it directly from [api.upstash.com/v2/qstash/ipv4](https://api.upstash.com/v2/qstash/ipv4).
+</Note>
