@@ -1,13 +1,9 @@
-export const DeliveryIpAllowlist = ({ type = "webhook" }) => (
-  <div>
-    <h2>IP allowlist</h2>
-    <p>
-      If your {type} endpoint sits behind a firewall or IP allowlist, you'll
-      need to allow traffic from the following IP addresses – these are the IPs
-      that Dub uses to deliver {type} events (and retries):
-    </p>
-    <pre>
-      <code>{`3.125.136.186/32
+## IP allowlist
+
+If your endpoint sits behind a firewall or IP allowlist, you'll need to allow traffic from the following IP addresses – these are the IPs that Dub uses to deliver events (and retries):
+
+```
+3.125.136.186/32
 18.198.95.233/32
 3.69.157.89/32
 3.69.220.58/32
@@ -18,15 +14,9 @@ export const DeliveryIpAllowlist = ({ type = "webhook" }) => (
 3.232.167.47/32
 34.198.105.68/32
 34.199.12.224/32
-18.206.116.131/32`}</code>
-    </pre>
-    <Note>
-      This list can change over time. For the most up-to-date list, fetch it
-      directly from{" "}
-      <a href="https://api.upstash.com/v2/qstash/ipv4">
-        api.upstash.com/v2/qstash/ipv4
-      </a>
-      .
-    </Note>
-  </div>
-);
+18.206.116.131/32
+```
+
+<Note>
+  This list can change over time. For the most up-to-date list, fetch it directly from [api.upstash.com/v2/qstash/ipv4](https://api.upstash.com/v2/qstash/ipv4).
+</Note>
