@@ -5,40 +5,96 @@ description: "Learn how to track mobile app conversion events with AppsFlyer and
 ---
 
 <Tip>
-  This feature is only available on [Business plans and
-  above](https://dub.co/pricing/partners).
+  This feature is only available on [Advanced and Enterprise
+  plans](https://dub.co/pricing/partners).
 </Tip>
 
-Dub's AppsFlyer integration lets you attribute mobile app installs, in-app leads, and purchases back to the Dub partner that drove them – powering accurate payouts in your [Dub Partners](https://dub.co/partners) program.
+Dub's AppsFlyer integration lets you attribute in-app leads and purchases from AppsFlyer-attributed installs back to the Dub partner that drove them – powering accurate payouts in your [Dub Partners](https://dub.co/partners) program.
+
+When a user clicks a Dub partner link that points at an AppsFlyer [OneLink](https://support.appsflyer.com/hc/en-us/articles/207032246-OneLink-links-and-experiences) URL, Dub appends AppsFlyer attribution parameters (including `pid=dubinc_int` and a `clickid`). AppsFlyer attributes the install, then sends lead and sale postbacks back to Dub so conversions can be attributed to the correct partner.
 
 ## Prerequisites
 
 Before you start, make sure you have:
 
-- A [Dub Partners](https://dub.co/partners) program set up.
+- A [Dub Partners](https://dub.co/partners) program set up on an Advanced or Enterprise workspace.
 - An AppsFlyer account with admin access to the app you want to track.
-- A configured [OneLink template](https://support.appsflyer.com/hc/en-us/articles/207032246-OneLink-links-and-experiences) in AppsFlyer.
+- A configured [OneLink template](https://support.appsflyer.com/hc/en-us/articles/207032246-OneLink-links-and-experiences) whose URL uses a `*.onelink.me` host (custom OneLink domains are not supported).
 
-## Step 1: Install the AppsFlyer integration
+## Step 1: Install the AppsFlyer integration in Dub
 
-Head to your [AppsFlyer integration settings](https://app.dub.co/settings/integrations/appsflyer) in Dub and install the integration to your workspace.
+Head to your [AppsFlyer integration settings](https://app.dub.co/settings/integrations/appsflyer) and enable the integration for your workspace.
 
-## Step 2: Configure the partner link destination URL
+After enabling it, add your AppsFlyer **App ID(s)** (for example your Android package name, or your iOS app ID such as `id123456789`). Dub uses these App IDs to route AppsFlyer postbacks to the correct workspace.
 
-In AppsFlyer, configure the OneLink template you want to use for your Dub program, then set it as the **partner link destination URL** in your Dub program settings.
+You can also review the tracking parameters Dub uses for OneLink destinations. Required macros like `c` and `af_siteid` are applied when partner links are created or updated; `pid` and `clickid` are added when the partner link is clicked.
 
-When choosing your attribution link type, select **Use OneLink** and pick the OneLink template you configured.
+<Frame>
+  <img
+    src="/images/appsflyer/dub-appsflyer-settings.png"
+    alt="AppsFlyer integration settings in Dub showing App IDs and tracking parameters"
+  />
+</Frame>
 
-## Step 3: Configure event mappings
+## Step 2: Activate Dub in AppsFlyer
 
-In your [AppsFlyer integration settings](https://app.dub.co/settings/integrations/appsflyer), map the in-app events you want to track to Dub's `lead` and `sale` events, and set the **including** option to **Values & revenue** so that revenue data is forwarded to Dub.
+In AppsFlyer, open **Collaborate → Partner Integrations → Marketplace**, search for **Dub**, and set up the integration for your app.
 
-| AppsFlyer event | Mapped to partner event | Including |
-| --- | --- | --- |
-| Your lead-style event (e.g. `af_complete_registration`) | `lead` | Values & revenue |
-| Your purchase event (e.g. `af_purchase`) | `sale` | Values & revenue |
+1. Turn **Activate partner** **ON**.
+2. On the **Attribution link** tab, select **Use OneLink** and choose the OneLink template you configured for this app.
 
-## Step 4: Test the integration
+<Frame>
+  <img
+    src="/images/appsflyer/af-attribution-link-onelink.png"
+    alt="AppsFlyer Attribution link tab with Use OneLink selected for Dub"
+  />
+</Frame>
+
+## Step 3: Configure event mappings in AppsFlyer
+
+Still in the Dub partner integration in AppsFlyer, open the **Integration** tab and configure **In-app event postbacks**:
+
+1. Turn **In-app event postbacks** **ON**.
+2. Set the postback window (use **Lifetime** unless you have a reason to limit it).
+3. Map your SDK events to Dub's partner event IDs. The partner event ID must be exactly `lead` or `sale`.
+4. Set **Including** to **Values & revenue** so revenue is forwarded for sale events.
+
+| AppsFlyer event                                         | Mapped to partner event | Including        |
+| ------------------------------------------------------- | ----------------------- | ---------------- |
+| Your lead-style event (e.g. `af_complete_registration`) | `lead`                  | Values & revenue |
+| Your purchase event (e.g. `af_purchase`)                | `sale`                  | Values & revenue |
+
+<Frame>
+  <img
+    src="/images/appsflyer/af-event-mappings.png"
+    alt="AppsFlyer in-app event postbacks mapped to Dub lead and sale events"
+  />
+</Frame>
+
+## Step 4: Set the partner link destination URL in Dub
+
+In your Dub Partners program (group default links or partner links), set the destination URL to your AppsFlyer OneLink URL (for example `https://yourapp.onelink.me/...`).
+
+Dub detects `*.onelink.me` destinations and automatically appends AppsFlyer parameters such as:
+
+- `pid=dubinc_int` and `clickid` (added on click)
+- `c` / `af_siteid` (from your integration macros, applied when partner links are created)
+
+<Frame>
+  <img
+    src="/images/appsflyer/dub-partner-destination-onelink.png"
+    alt="Dub partner link destination set to an AppsFlyer OneLink URL"
+  />
+</Frame>
+
+<Tip>
+  Lead and sale postbacks require a `customerExternalId`. Set an AppsFlyer
+  [Customer User ID](https://dev.appsflyer.com/hc/docs/integrate-android-sdk#setting-the-customer-user-id)
+  in your app (for example with `setCustomerUserId`) so AppsFlyer can forward it
+  to Dub.
+</Tip>
+
+## Step 5: Test the integration
 
 Before going live, run a few test installs to make sure events are flowing into Dub correctly.
 
@@ -51,15 +107,33 @@ Before going live, run a few test installs to make sure events are flowing into 
     <Tip>
       Remember to re-enable AAP once you're done testing and ready to go live.
     </Tip>
+
   </Step>
 
   <Step title="Register your device as a test device">
-    Register your device's IDFA (iOS) or GAID (Android) as a test device in AppsFlyer so that your test installs and events are recognized.
+    Register your device's IDFA (iOS) or GAID (Android) as a test device in AppsFlyer so repeated test installs are recorded as new installs.
 
     Follow AppsFlyer's guide on [registering test devices](https://support.appsflyer.com/hc/en-us/articles/207031996-Registering-test-devices#register-a-device-manually) to add your device manually.
+
   </Step>
 
   <Step title="Trigger a test install and conversion">
-    Click a Dub partner link on your test device, install the app, and trigger the in-app events you mapped in Step 3. The corresponding lead and sale events should appear on your Dub partner's profile shortly after.
+    On your test device:
+
+    1. Make sure the app is **not** installed (uninstall it first if needed).
+    2. Click a Dub partner link that points at your OneLink destination.
+    3. Install and open the app.
+    4. Confirm the install is attributed to Dub in AppsFlyer (media source `dubinc_int`) and that conversion data includes a `clickid`.
+    5. Trigger the in-app events you mapped in Step 3 (for example registration + purchase).
+
+    The corresponding lead and sale events should appear on your Dub partner's profile shortly after. You can also verify delivery in your workspace [request logs](https://app.dub.co/settings/logs) for `GET /appsflyer/webhook`.
+
+    <Frame>
+      <img
+        src="/images/appsflyer/dub-partner-lead-sale.png"
+        alt="Dub partner profile showing tracked lead and sale events from AppsFlyer"
+      />
+    </Frame>
+
   </Step>
 </Steps>
