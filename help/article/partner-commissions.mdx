@@ -53,6 +53,7 @@ When a commission is recorded on Dub, it goes through the following statuses:
 - `Pending`: This is the initial status for a commission. Depending on your program's [holding period](/help/article/partner-payouts#payout-holding-period), commissions can stay in "pending" status anywhere from less than a day to 90 days.
 - `Processed`: When a commission has been added to a payout (after any applicable [holding period](/help/article/partner-payouts#payout-holding-period)), its status will change from "pending" to "processed".
 - `Paid`: When the payout containing the commission has been paid, the commission will be updated to "paid" status.
+- `On Hold`: When a commission is paused due to a pending [risk event](/help/article/risk-monitoring). On-hold commissions cannot be added to a payout until the risk event is resolved.
 
 If needed, you can also update the status for a given commission accordingly:
 
@@ -195,6 +196,10 @@ Manual one-time commissions are often used when you want to send a thank-you or 
 | Amount           | Commission amount                                                                                         | ✅       |
 | Description      | Add a custom description                                                                                  | ❌       |
 | Commission date  | Enable to add a custom date. If a custom date isn't added, it will auto-fill to the current date and time | ❌       |
+
+<Note>
+  One-time commissions are recorded as `custom` commissions, which are **not** subject to your program's [payout holding period](/help/article/partner-payouts#payout-holding-period). They become eligible for payout immediately at the next payout cycle. The same applies to [bounty commissions](/help/article/program-bounties) and `custom` commissions created via the [API](/docs/api-reference/commissions/create).
+</Note>
 
 ### Lead commission
 
@@ -379,4 +384,3 @@ After receiving the email, click **Download export** to download your commission
     alt="Commission export email"
   />
 </Frame>
-

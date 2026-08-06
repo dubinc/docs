@@ -30,6 +30,7 @@ Payouts on Dub go through the following statuses:
 
 - `Pending`: When you start earning commissions from a program, they'll be accrued under a payout entry. If the program has a [minimum payout amount](#what-does-minimum-payout-amount-mean) set, your payout amount will need to reach the threshold to become eligible for payment.
 - `Processing`: When a program initiates a payout to you, the payout will be updated to a "processing" state until the payment settles on Dub. This process can take up to 5 business days.
+- `On Hold`: When a commission is temporarily paused due to pending risk events. On-hold commissions cannot be paid out until the program reviews and resolves the issue. If you believe this is incorrect, reach out to the program’s support team.
 - `Processed`: Once the program's payout has settled on Dub, the payout will be updated to a "processed" state. If the payout amount is above your [minimum withdrawal balance](/help/article/receiving-payouts#what-is-the-minimum-withdrawal-amount-and-how-does-it-work), the funds will be automatically paid out to your connected bank account.
 - `Sent`: When your payout is on its way to your connected bank account, it will be updated to a "sent" state. Depending on your bank location, this can take anywhere from 1 to 14 business days (you will see the estimated arrival date in the notification email from Dub).
 - `Completed`: When the payout is completed and the funds are deposited into your bank account.
@@ -56,6 +57,8 @@ Programs can set certain **holding periods** for earned commissions, during whic
 - 90 days
 
 This is usually done for security / fraud prevention purposes, as well as to account for potential refunds/chargebacks from referred customers.
+
+Note that the holding period only applies to commissions from `click`, `lead`, and `sale` events. Commissions from [bounties](/help/article/program-bounties) or one-time custom commissions from the program are **not** subject to the holding period, and become eligible for payout at the next payout cycle.
 
 ### What does "minimum payout amount" mean?
 

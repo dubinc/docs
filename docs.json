@@ -193,7 +193,7 @@
                   "help/article/program-analytics",
                   "help/article/commission-analytics",
                   "help/article/application-analytics",
-                  "help/article/fraud-detection"
+                  "help/article/risk-monitoring"
                 ]
               },
               {
@@ -202,6 +202,7 @@
                   "help/article/migrating-from-rewardful",
                   "help/article/migrating-from-partnerstack",
                   "help/article/migrating-from-firstpromoter",
+                  "help/article/migrating-from-tapfiliate",
                   "help/article/migrating-from-tolt"
                 ]
               }
@@ -361,6 +362,7 @@
                 "group": "Additional guides",
                 "pages": [
                   "help/article/how-to-change-default-workspace",
+                  "help/article/how-to-change-default-product",
                   "help/article/how-to-delete-account"
                 ]
               }
@@ -381,14 +383,14 @@
                 "pages": [
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
-                  "docs/api-reference/rate-limits"
+                  "docs/api-reference/rate-limits",
+                  "docs/mcp-server"
                 ]
               },
               {
                 "group": "SDKs",
                 "pages": [
                   "docs/sdks/overview",
-                  "docs/mcp-server",
                   {
                     "group": "Server-side SDKs",
                     "pages": [
@@ -458,7 +460,7 @@
                     ]
                   },
                   {
-                    "group": "Applications",
+                    "group": "Partner applications",
                     "pages": [
                       "docs/api-reference/partners/applications/list",
                       "docs/api-reference/partners/applications/approve",
@@ -466,7 +468,7 @@
                     ]
                   },
                   {
-                    "group": "Analytics",
+                    "group": "Analytics & events",
                     "pages": [
                       "docs/api-reference/analytics/retrieve",
                       "docs/api-reference/events/list"
@@ -490,7 +492,7 @@
                     ]
                   },
                   {
-                    "group": "Bounties",
+                    "group": "Bounty submissions",
                     "pages": [
                       "docs/api-reference/bounties/list",
                       "docs/api-reference/bounties/approve",
@@ -501,6 +503,7 @@
                     "group": "Commissions",
                     "pages": [
                       "docs/api-reference/commissions/list",
+                      "docs/api-reference/commissions/create",
                       "docs/api-reference/commissions/update"
                     ]
                   },
@@ -672,6 +675,10 @@
     {
       "source": "/docs/introduction",
       "destination": "/docs"
+    },
+    {
+      "source": "/help/article/fraud-detection",
+      "destination": "/help/article/risk-monitoring"
     },
     {
       "source": "/docs/examples",
@@ -1128,6 +1135,10 @@
     },
     {
       "source": "/help/article/what-is-a-project",
+      "destination": "/help/article/what-is-a-workspace"
+    },
+    {
+      "source": "/help/article/how-to-get-workspace-id",
       "destination": "/help/article/what-is-a-workspace"
     },
     {

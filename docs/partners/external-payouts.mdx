@@ -1,7 +1,6 @@
 ---
 title: External payouts
 description: Learn how to process partner payouts externally through your own payment systems using webhooks.
-og:title: "Dub Partners – External payouts"
 ---
 
 External payouts allow you to process partner payments through your own internal systems while still leveraging Dub's tracking, commission calculation, and partner management features.
@@ -60,8 +59,9 @@ The external payout flow follows these steps:
 </Step>
 
 <Step title="Webhook event sent">
-  Once the payout is processed by Stripe, Dub sends a [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook
-  event for each external payout.
+  Once the payout is processed by Stripe, Dub sends a
+  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook event for
+  each external payout.
 </Step>
 
 <Step title="Process the webhook">
@@ -82,8 +82,8 @@ If the webhook fails after all retries, you'll need to manually process the payo
 
 <Note>
   External payout modes require an active webhook subscribed to the
-  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event. You'll be prompted to set one up if you haven't
-  already.
+  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event. You'll be
+  prompted to set one up if you haven't already.
 </Note>
 
 ## Setting up external payouts
@@ -262,7 +262,8 @@ Log all webhook events for debugging and reconciliation.
 <AccordionGroup>
 
 <Accordion title="Webhook not receiving events">
-  - Verify your webhook is subscribed to the [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event - Check
+  - Verify your webhook is subscribed to the
+  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event - Check
   that your webhook URL is publicly accessible - Ensure your endpoint returns a
   2xx status code - Review webhook logs in your [webhook
   settings](https://app.dub.co/settings/webhooks)

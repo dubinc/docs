@@ -5,13 +5,16 @@ icon: link
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Event triggered when an end user clicks on a short link.
+Event triggered when a link is clicked by a user.
 
 <Tip>
-  Due to the high volume nature of these events, these events are scoped to a
-  specific link. This means that you need to specify the link when creating a webhook for this event.
+  You can scope which links trigger a `link.clicked` webhook. When creating or editing the webhook in the dashboard, choose one of the following:
 
-You can also include multiple links in the same `link.clicked` webhook – either via the dashboard or using the [`webhookIds` prop in the Links API](/docs/api-reference/links/create#body-webhook-ids-one-of-0).
+1. **All links** – trigger the webhook for every link in your workspace.
+2. **Include specific folders** (recommended) – trigger the webhook for all links in the selected folders.
+3. **Include specific links** – trigger the webhook only for the links you explicitly select.
+
+If you select the 3rd option, you can programmatically associate specific links with your `link.clicked` webhook by passing the webhook ID under the `webhookIds` [prop](/docs/api-reference/links/create#body-webhook-ids-one-of-0) when creating or updating a link.
 
 </Tip>
 
@@ -29,17 +32,17 @@ You can also include multiple links in the same `link.clicked` webhook – eithe
       <ParamField body="url" type="string">
         The destination URL that was visited.
       </ParamField>
-      <ParamField body="ip" type="string">
-        IP address of the visitor.
-      </ParamField>
-      <ParamField body="continent" type="string">
-        Continent code (e.g. <code>NA</code>).
-      </ParamField>
       <ParamField body="country" type="string">
         Country code (e.g. <code>US</code>).
       </ParamField>
       <ParamField body="city" type="string">
         City name.
+      </ParamField>
+      <ParamField body="region" type="string">
+        Region or region code.
+      </ParamField>
+      <ParamField body="continent" type="string">
+        Continent code (e.g. <code>NA</code>).
       </ParamField>
       <ParamField body="device" type="string">
         Device type (e.g. <code>Desktop</code>, <code>Mobile</code>).
@@ -50,14 +53,20 @@ You can also include multiple links in the same `link.clicked` webhook – eithe
       <ParamField body="os" type="string">
         Operating system (e.g. <code>Mac OS</code>).
       </ParamField>
-      <ParamField body="bot" type="boolean">
-        Whether the request was identified as a bot.
+      <ParamField body="ua" type="string">
+        User agent string.
+      </ParamField>
+      <ParamField body="referer" type="string">
+        Referrer hostname or <code>(direct)</code>.
+      </ParamField>
+      <ParamField body="refererUrl" type="string">
+        Full referrer URL or <code>(direct)</code>.
       </ParamField>
       <ParamField body="qr" type="boolean">
         Whether the click came from a QR code scan.
       </ParamField>
-      <ParamField body="referer" type="string">
-        Referrer URL or <code>(direct)</code>.
+      <ParamField body="ip" type="string">
+        IP address of the visitor.
       </ParamField>
     </Expandable>
 
@@ -79,28 +88,33 @@ You can also include multiple links in the same `link.clicked` webhook – eithe
       "id": "d0UtZqE0BZuBPrJS",
       "timestamp": "2024-08-30T10:16:12.124Z",
       "url": "https://github.com/dubinc/dub",
-      "ip": "63.141.57.109",
-      "continent": "NA",
       "country": "US",
       "city": "San Francisco",
+      "region": "CA",
+      "continent": "NA",
       "device": "Desktop",
       "browser": "Chrome",
       "os": "Mac OS",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-      "bot": false,
+      "referer": "(direct)",
+      "refererUrl": "(direct)",
       "qr": false,
-      "referer": "(direct)"
+      "ip": "63.141.57.109"
     },
     "link": {
       "id": "cm0faqkyn0001txvfwjfeq7gl",
       "domain": "dub.sh",
       "key": "79ys3WA",
-      "externalId": null,
       "url": "https://github.com/dubinc/dub",
       "trackConversion": true,
+      "externalId": null,
+      "tenantId": null,
+      "partnerId": null,
+      "programId": null,
       "archived": false,
       "expiresAt": null,
       "expiredUrl": null,
+      "disabledAt": null,
       "password": null,
       "proxy": false,
       "title": null,
@@ -113,6 +127,10 @@ You can also include multiple links in the same `link.clicked` webhook – eithe
       "android": null,
       "geo": null,
       "publicStats": false,
+      "folderId": null,
+      "tagId": null,
+      "tags": [],
+      "webhookIds": [],
       "comments": null,
       "shortLink": "https://dub.sh/79ys3WA",
       "qrCode": "https://api.dub.co/qr?url=https://dub.sh/79ys3WA?qr=1",
@@ -130,6 +148,8 @@ You can also include multiple links in the same `link.clicked` webhook – eithe
       "saleAmount": 200000,
       "createdAt": "2024-08-29T13:03:59.098Z",
       "updatedAt": "2024-08-30T10:16:12.126Z",
+      "projectId": null,
+      "testVariants": null,
       "testCompletedAt": null,
       "testStartedAt": null
     }

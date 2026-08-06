@@ -1,28 +1,85 @@
 ---
 title: "How to change my Dub billing information?"
-description: "Learn how to change your billing information on Dub."
+description: "Learn how to add a new payment method, change your default payment method, remove a payment method, and change your billing information."
 sidebarTitle: "Updating billing information"
 ---
 
-First of all, thank you for upgrading to a paid plan on Dub!
+To manage your billing information on Dub, please follow the steps below:
 
-As an [open-source](https://d.to/github) company, your support means the world to us and helps us continue
-to build and improve Dub.
-
-## Change your billing information on Stripe
-
-Since we use [Stripe](https://stripe.com) to process payments, you can change your billing information on Stripe by following the steps below:
-
-1. From your workspace dashboard (e.g. `app.dub.co/your-workspace`), click on the **Settings** tab.
-2. On the left sidebar, click on **Billing**.
-3. Click on the **Open billing portal** button to access your Stripe dashboard.
+1. Go to your workspace's billing settings page by following this link: https://app.dub.co/settings/billing
+2. Scroll down to the **Payment Method** section.
+3. Here, you can add a new payment method or update your existing payment methods. You can also see which payment method is currently being used as the default payment method.
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/billing-subscription.png"
-    alt="Billing section on Dub"
+    src="/images/workspace/manage-payment-methods.png"
+    alt="Manage payment methods"
   />
 </Frame>
 
-4. Scroll down to the **Payment Method** section.
-5. Here, you can add a new payment method or update your existing payment method.
+## Adding a new payment method
+
+To add a new payment method, click on the **Add Payment Method** button.
+
+<Frame>
+  <img
+    src="/images/workspace/add-payment-method.png"
+    alt="Add payment method"
+  />
+</Frame>
+
+This will redirect you to the Stripe payment method creation flow, where you can enter your payment method details and save it.
+
+## Changing your default payment method
+
+To change your default payment method, click on the payment method you want to set as the default and click on the **Set as default** button.
+
+<Frame>
+  <img
+    src="/images/workspace/set-default-payment-method.png"
+    alt="Set default payment method"
+  />
+</Frame>
+
+This will set the selected payment method as your default payment method for your [subscription](https://app.dub.co/settings/billing/invoices?type=subscription) and [domain renewal](https://app.dub.co/settings/billing/invoices?type=domainRenewal) payments.
+
+<Note>
+  For [partner payouts](/help/article/partner-payouts), Dub will default to your
+  [connected bank account](/help/article/how-to-set-up-bank-account) if it is
+  configured (since it has [lower
+  fees](/help/article/partner-payouts#payout-fees-and-timing)). If you prefer to
+  have payouts default to your credit card, remove your connected bank account
+  and set your credit card as the default payment method.
+</Note>
+
+## Removing a payment method
+
+To remove a payment method, click on the payment method you want to remove and click on the **Remove** button.
+
+<Frame>
+  <img
+    src="/images/workspace/remove-payment-method.png"
+    alt="Remove payment method"
+  />
+</Frame>
+
+This will remove the selected payment method from your workspace. You can add it back again by [following the steps above](#adding-a-new-payment-method) to add a new payment method.
+
+<Warning>
+  You won't be able to remove your default payment method if it's the only
+  payment method in your workspace. To remove your default payment method,
+  you'll need to add a new payment method as the default first.
+</Warning>
+
+## Changing your billing information
+
+If you want to change your billing information (e.g. company name, address, billing email, tax ID), you can do so by clicking on the **Open billing portal** button:
+
+<Frame>
+  <img
+    src="/images/workspace/open-billing-portal.png"
+    alt="Open billing portal"
+  />
+</Frame>
+
+This will redirect you to the Stripe billing portal, where you can change your billing information.
