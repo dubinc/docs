@@ -163,34 +163,43 @@ Next, you'll need to set up the [Tinybird](https://tinybird.co) Clickhouse datab
 
   <Step title="Install Tinybird CLI and authenticate">
 
-In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
+    In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
-    If you have `brew`, install `pipx` by running `brew install pipx`. If not, you can check [installation guide](https://pipx.pypa.io/stable/installation/) for other options. After that, install the Tinybird CLI with `pipx install tinybird-cli` (requires Python >= 3.8).
+    Install the Tinybird CLI:
 
-    Run `tb auth --interactive` and paste your `admin` Auth Token.
+    ```bash Terminal
+    curl https://tinybird.co | sh
+    ```
+
+    Then authenticate with Tinybird:
+
+    ```bash Terminal
+    tb login
+    ```
 
   </Step>
 
   <Step title="Publish Tinybird datasource and endpoints">
 
-    Run `tb deploy` to publish the datasource and endpoints in the `packages/tinybird` directory. You should see the following output (truncated for brevity):
+    Run `tb --cloud deploy` to publish the datasource and endpoints to your Tinybird Cloud workspace.
 
     ```bash Terminal
-    $ tb deploy
+    tb --cloud deploy
+    ```
 
-    ** Processing ./datasources/click_events.datasource
-    ** Processing ./endpoints/clicks.pipe
-    ...
-    ** Building dependencies
-    ** Running 'click_events'
-    ** 'click_events' created
-    ** Running 'device'
-    ** => Test endpoint at https://api.us-east.tinybird.co/v0/pipes/device.json
-    ** Token device_endpoint_read_8888 not found, creating one
-    ** => Test endpoint with:
-    ** $ curl https://api.us-east.tinybird.co/v0/pipes/device.json?token=p.ey...NWeaoTLM
-    ** 'device' created
-    ...
+    You should see output like this when the deployment is live:
+
+    ```bash Terminal
+    Deployment URL: https://cloud.tinybird.co/aws/us-east-1/<workspace-name>/deployments/<deployment-id>
+    Job API URL: https://api.us-east.aws.tinybird.co/v0/jobs/<job-id>
+    Jobs URL: https://cloud.tinybird.co/aws/us-east-1/<workspace-name>/jobs
+
+    * Deployment submitted. It will be auto-promoted when ready.
+    » Waiting for deployment to be ready...
+    ✓ Deployment is ready
+    » Waiting for deployment to be promoted...
+    ✓ Deployment promoted
+    ✓ Deployment #1 is live!
     ```
 
   </Step>
@@ -199,16 +208,16 @@ In your newly-cloned Dub repo, navigate to the `packages/tinybird` directory.
 
     You will then need to update your [Tinybird API base URL](https://www.tinybird.co/docs/api-reference/api-reference.html#regions-and-endpoints) to match the region of your database.
 
-    From the previous step, take note of the **Test endpoint** URL. It should look something like this:
+    From the previous step, take note of the **Job API URL** in the deployment output. It should look something like this:
 
     ```bash Terminal
-    Test endpoint at https://api.us-east.tinybird.co/v0/pipes/device.json
+    Job API URL: https://api.us-east.aws.tinybird.co/v0/jobs/<job-id>
     ```
 
-    Copy the base URL and paste it as the `TINYBIRD_API_URL` environment variable in your `.env` file.
+    Copy the base URL before `/v0/jobs` and paste it as the `TINYBIRD_API_URL` environment variable in your `.env` file.
 
     ```bash Terminal
-    TINYBIRD_API_URL=https://api.us-east.tinybird.co
+    TINYBIRD_API_URL=https://api.us-east.aws.tinybird.co
     ```
 
   </Step>
@@ -223,9 +232,7 @@ Next, you'll need to set up the [Upstash](https://upstash.com) Redis database. T
 
   <Step title="Create Upstash database">
 
-In your [Upstash account](https://console.upstash.com/), create a new database.
-
-For better performance & read times, we recommend setting up a global database with several read regions.
+In your [Upstash account](https://console.upstash.com/), create a new database in the `us-east-1` region.
 
 <Frame>![Upstash Redis database](/images/upstash-create-db.png)</Frame>
 
@@ -237,7 +244,7 @@ Once your database is created, copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_RE
 
 <Frame>![Upstash Redis tokens](/images/upstash-redis-tokens.png)</Frame>
 
-Navigate to the [QStash tab](https://console.upstash.com/qstash) and copy the `QSTASH_TOKEN`, `QSTASH_CURRENT_SIGNING_KEY`, and `QSTASH_NEXT_SIGNING_KEY` from the **Request Builder** section into your `.env` file.
+Navigate to the [QStash tab](https://console.upstash.com/qstash) and copy `QSTASH_TOKEN`, `QSTASH_CURRENT_SIGNING_KEY`, and `QSTASH_NEXT_SIGNING_KEY` into your `.env` file. You don't need to copy `QSTASH_URL` for local Dub setup.
 
 <Frame>![Upstash QStash tokens](/images/upstash-qstash-tokens.png)</Frame>
 
@@ -245,7 +252,7 @@ Navigate to the [QStash tab](https://console.upstash.com/qstash) and copy the `Q
 
   <Step title="Optional: Set up Ngrok tunnel">
 
-    If you're planning to run Qstash-powered background jobs locally, you'll need to set up an Ngrok tunnel to expose your local server to the internet.
+    If you're testing features that enqueue QStash background jobs locally, you'll need to set up an Ngrok tunnel to expose your local server to the internet. Dub uses QStash for workflows like imports, exports, webhooks, payouts, and other `/api/cron/*` jobs. Without a tunnel, QStash won't be able to call back into your local app.
 
     Follow [these steps](https://ngrok.com/docs/getting-started/) to setup `ngrok`, and then run the following command to start an Ngrok tunnel at port `8888`:
 
@@ -253,7 +260,7 @@ Navigate to the [QStash tab](https://console.upstash.com/qstash) and copy the `Q
     ngrok http 8888
     ```
 
-    Copy the `https` URL and paste it as the `NEXT_PUBLIC_NGROK_URL` environment variable in your `.env` file.
+    Copy the `https` URL and paste it as the `NEXT_PUBLIC_NGROK_URL` environment variable in your `.env` file. If you're using a free Ngrok account, this URL can change when you restart Ngrok, so make sure to update `NEXT_PUBLIC_NGROK_URL` whenever it changes.
 
   </Step>
 
