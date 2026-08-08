@@ -43,6 +43,10 @@ Click **Add domain**, and enter the domain you want to send emails from.
 
 You’ll receive DNS setup instructions and values to connect the domain. A **DMARC** record will also be provided — we strongly recommend adding it to help prevent email spoofing.
 
+If your email domain's DNS is hosted on **Vercel** or **Cloudflare**, you can skip manual DNS setup entirely. Click **Auto configure with Vercel** or **Auto configure with Cloudflare** on the DNS records screen, approve the request on your provider's side, and the correct MX, SPF, DKIM, and DMARC records will be added for you automatically.
+
+If you don't have access to your domain's DNS settings yourself, click **Forward instructions** to email the exact records needed straight to whoever manages your DNS (e.g. your IT team or domain registrar) - no manual copy/pasting required.
+
 <Frame>
   <img
     src="https://assets.dub.co/cms/email-domain-records-3.png"
@@ -173,16 +177,16 @@ As you're creating content, you can use markdown for the following content style
 | ----------------- | -------------------------------------------- |
 | Bold              | `**Bold text**`                              |
 | Italic            | `*italic text*`                              |
-| Strikethrough      | `~~Strikethrough text~~`                     |
+| Strikethrough     | `~~Strikethrough text~~`                     |
 | Inline Hyperlinks | `[Dub](https://dub.co)`                      |
-| Ordered lists    | `1. First item` `2. Second item`             |
-| Bulleted lists     | `- First item` `- Second item`               |
+| Ordered lists     | `1. First item` `2. Second item`             |
+| Bulleted lists    | `- First item` `- Second item`               |
 | Headings          | `# Heading level 1` and `## Heading level 2` |
 | Partner variables | `@PartnerName` and `@PartnerEmail`           |
 
 ### Images
 
-You can also enrich your emails with images by clicking the **Insert image** button in the content editor. 
+You can also enrich your emails with images by clicking the **Insert image** button in the content editor.
 
 <Frame>
   <img src="/images/dub-partners/email-image.png" alt="Email image button" />
@@ -193,7 +197,10 @@ Clicking will open your system file browser to select an image to use. It will b
 To add alternative text to images, hover over the added image and click the **Alt** button in the bottom-right corner. Then you can add a short description of the image for accessibility and SEO purposes.
 
 <Frame>
-  <img src="/images/dub-partners/email-image-alt-text.png" alt="Email alt text" />
+  <img
+    src="/images/dub-partners/email-image-alt-text.png"
+    alt="Email alt text"
+  />
 </Frame>
 
 ## Email previews

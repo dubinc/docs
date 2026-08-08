@@ -59,6 +59,19 @@ After adding your domain, you'll be presented with a DNS record that you'll need
   />
 </Frame>
 
+If your domain is hosted on **Vercel** or **Cloudflare**, you can skip manual DNS setup entirely. Click **Auto configure with Vercel** or **Auto configure with Cloudflare** on the domain configuration screen, approve the request on your provider's side, and the correct records (including TXT verification, if needed) will be added for you automatically.
+
+<Frame>
+  <img
+    src="/images/help/domain-connect-auto-configure.png"
+    alt="Auto configure and Forward instructions buttons on the domain configuration screen"
+  />
+</Frame>
+
+If you don't have access to your domain's DNS settings yourself, click **Forward instructions** to email the exact records needed straight to whoever manages your DNS (e.g. your IT team or domain registrar) - no manual copy/pasting required.
+
+Otherwise, follow the manual steps below based on whether you're adding an apex domain or a subdomain.
+
 ## Step 2a: Adding an apex domain
 
 If you're adding an apex domain (e.g. `example.com`), you'll need to add an `A` record with the following values:
@@ -99,6 +112,11 @@ We recommend using the following variations for your subdomains:
 </Info>
 
 Since we use Vercel as the DNS provider for Dub, you'll need to verify that you own the domain before you can add it to your Dub workspace.
+
+<Info>
+  If you used **Auto configure** in Step 2, this TXT record is added
+  automatically and you can skip the rest of this step.
+</Info>
 
 <Frame>
   <img
