@@ -77,15 +77,15 @@ await dub.links.createMany([
 ```python Python
 res = d.links.create_many(request=[
   {
-    url: "https://google.com",
+    "url": "https://google.com",
   },
   {
-    url: "https://twitter.com",
+    "url": "https://twitter.com",
   },
   {
-    url: "https://linkedin.com",
+    "url": "https://linkedin.com",
   },
-]);
+])
 ```
 
 ```go Go
@@ -103,6 +103,12 @@ var request []operations.RequestBody =
   }
 ctx := context.Background()
 res, err := s.Links.CreateMany(ctx, request)
+if err != nil {
+  panic(err)
+}
+if res != nil {
+  // handle response
+}
 ```
 
 ```ruby Ruby
@@ -141,7 +147,7 @@ await dub.analytics.retrieve({
 ```python Python
 res = d.analytics.retrieve(request={
     "groupBy": "top_links",
-    "start": "4 hours ago", // we support natural language for start/end params
+    "start": "4 hours ago",  # we support natural language for start/end params
 })
 ```
 
@@ -167,7 +173,7 @@ func main() {
 ```ruby Ruby
 req = ::OpenApiSDK::Operations::RetrieveAnalyticsRequest.new(
   group_by: ::OpenApiSDK::Operations::GroupBy::TOP_LINKS,
-  start: "4 hours ago", // we support natural language for start/end params
+  start: "4 hours ago",  # we support natural language for start/end params
 )
 
 res = dub.analytics.retrieve(req)
