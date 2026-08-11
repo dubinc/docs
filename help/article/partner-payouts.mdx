@@ -149,7 +149,8 @@ When you update the payout holding period, you can apply the new setting to ever
 <Note>
   The payout holding period only applies to `click`, `lead`, and `sale` commissions – it does **not** apply to `custom` commissions.
 
-  This means that [bounty commissions](/help/article/program-bounties) and [manually created one-time commissions](/help/article/partner-commissions#one-time-commissions) (which are both recorded as `custom` commissions) become eligible for payout immediately at the next payout cycle, regardless of your group's holding period. This applies whether the commission is created via the dashboard or the [API](/docs/api-reference/commissions/create).
+This means that [bounty commissions](/help/article/program-bounties) and [manually created one-time commissions](/help/article/partner-commissions#one-time-commissions) (which are both recorded as `custom` commissions) become eligible for payout immediately at the next payout cycle, regardless of your group's holding period. This applies whether the commission is created via the dashboard or the [API](/docs/api-reference/commissions/create).
+
 </Note>
 
 ## Minimum payout amount
@@ -200,13 +201,15 @@ If everything looks right, click **Confirm payout** to trigger a new payout to y
 </Frame>
 
 ### Selecting payouts
-When confirming payouts, it will include all pending payouts, but there are times you only want to payout certain partners. 
+
+When confirming payouts, it will include all pending payouts, but there are times you only want to payout certain partners.
 
 To do this, select the `Pending` status payouts and click **Confirm selected** at the top of the table. This will allow to review andconfirm payouts for the selected partners only.
 
 <Frame>
   <img
-    src="/images/dub-partners/payout-multi-select.png" alt="Multi-selecting partners for payout"
+    src="/images/dub-partners/payout-multi-select.png"
+    alt="Multi-selecting partners for payout"
   />
 </Frame>
 
@@ -215,10 +218,7 @@ To do this, select the `Pending` status payouts and click **Confirm selected** a
 If you need to exclude specific partners when confirming payouts, hover over the partner row in the payouts table and click **Exclude**. This excludes the partner from the current payout batch.
 
 <Frame>
-  <img
-    src="/images/dub-partners/exclude-payout.png"
-    alt="Excluding payouts"
-  />
+  <img src="/images/dub-partners/exclude-payout.png" alt="Excluding payouts" />
 </Frame>
 
 If you need to include the partner again, hover over their row and click **Include**.
@@ -227,9 +227,9 @@ If you need to include the partner again, hover over their row and click **Inclu
 
 On Dub, you can send payouts using various payment methods such as ACH, credit card, and more. Depending on your Dub plan and the payment method you choose, your payout fees and timing will vary:
 
-| Payment method                                                       | Fee                                                                                                 | Timing                |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------- |
-| [ACH](/help/article/how-to-set-up-bank-account)                      | [Business / Advanced](https://dub.co/pricing): 5% <br/> [Enterprise](https://dub.co/enterprise): 3% | Up to 4 business days |
-| Credit card / [Link](https://link.com/) <br/> Apple Pay / Google Pay | [Business / Advanced](https://dub.co/pricing): 8% <br/> [Enterprise](https://dub.co/enterprise): 6% | Instant               |
+| Payment method                                  | Fee                                                                                                 | Timing                |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------- |
+| [ACH](/help/article/how-to-set-up-bank-account) | [Business / Advanced](https://dub.co/pricing): 5% <br/> [Enterprise](https://dub.co/enterprise): 3% | Up to 4 business days |
+| Credit card                                     | [Business / Advanced](https://dub.co/pricing): 8% <br/> [Enterprise](https://dub.co/enterprise): 6% | Instant               |
 
 For larger payouts, we recommend using ACH as it is the most cost-effective option. Here's [how you can set up your bank account](/help/article/how-to-set-up-bank-account) for ACH payouts.
