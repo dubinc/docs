@@ -13,7 +13,7 @@ Depending on your [country of residence](#supported-payout-countries), you can c
 
 |                     | Stablecoin                                 | Bank account                               |
 | ------------------- | ------------------------------------------ | ------------------------------------------ |
-| Fees                | 0.5% transaction fee                       | 1% FX conversion fee                       |
+| Fees                | 0.5% transaction fee                       | No transaction fee                         |
 | Payout currency     | USDC                                       | Local currency                             |
 | Payout timing       | Within minutes                             | Up to 15 business days                     |
 | Supported countries | [Refer below](#supported-payout-countries) | [Refer below](#supported-payout-countries) |
@@ -30,7 +30,8 @@ Stablecoin payouts is the easiest and fastest way to receive payouts on Dub (esp
 
 - **Get paid in USD** – instead of your local currency, you can receive payouts in USDC all around the world
 - **Faster payouts** – payouts are sent within minutes instead of having to wait up to 15 business days for regular bank transfers
-- **Lower fees** – 0.5% transaction fee vs 1% FX conversion fee for international payouts
+
+<Note>Stablecoin payouts are subject to a 0.5% transaction fee.</Note>
 
 <Steps>
 <Step title="Initiate the connect payouts flow">
@@ -82,10 +83,6 @@ Then, follow the steps in the onboarding flow to connect your stablecoin wallet.
 ## Connecting a bank account
 
 Dub partners with Stripe for secure global payouts. To receive payouts directly to your bank account, you'll need to follow these steps to set up a [Stripe Express](https://support.stripe.com/express) account and connect your bank account:
-
-<Note>
-  International (non-US) bank payouts are subject to a 1% FX conversion fee.
-</Note>
 
 <Steps>
 <Step title="Initiate the connect payouts flow">
@@ -166,6 +163,7 @@ Related FAQ: ["Can I receive payouts in USD?"](#can-i-receive-payouts-in-usd)
 </Steps>
 
 ## Default payout method
+
 If you reside in a [country](#supported-payout-countries) that supports multiple payout methods, you can select a default payout method if more than one has been added.
 
 From the payout settings panel, click the payout account dropdown and select **"Set as default"** on the payout method you want to set as your default:
