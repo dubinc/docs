@@ -178,7 +178,29 @@ As you're creating content, you can use markdown for the following content style
 | Ordered lists    | `1. First item` `2. Second item`             |
 | Bulleted lists     | `- First item` `- Second item`               |
 | Headings          | `# Heading level 1` and `## Heading level 2` |
-| Partner variables | `@PartnerName` and `@PartnerEmail`           |
+| Partner variables | `@PartnerName`, `@PartnerEmail`, `@PartnerLink`, `@SaleReward`, `@LeadReward`, `@ClickReward`, `@ReferralReward`, [Learn more](/help/articles/email-campaigns/#partner-variables)           |
+
+### Partner Variables
+
+Use the `@` button in the email editor to insert personalized partner information and reward details. Dub replaces these variables with the corresponding values when the email is sent.
+
+<Frame>
+  <img src="/images/dub-partners/email-partnervariables.png" alt="Partner email variables" />
+</Frame>
+
+| Variable          | Output                                                       | Example                                             |
+| ----------------- | ------------------------------------------------------------ | --------------------------------------------------- |
+| `PartnerName`     | The partner’s name                                          | Alex Johnson                                        |
+| `PartnerEmail`    | The partner’s email address                                  | alex@email.com                                    |
+| `PartnerLink`     | The partner’s first enrollment referral link                 | getacme.link/alex                  |
+| `SaleReward`      | A simplified description of the partner’s sale reward        | 30% per sale for 6 months                           |
+| `LeadReward`      | A simplified description of the partner’s lead reward        | $10 per lead                                        |
+| `ClickReward`     | A simplified description of the partner’s click reward       | $0.50 per click                                     |
+| `ReferralReward`  | A simplified description of the partner’s referral reward    | 10% per referred partner’s commission for 1 year   |
+
+<Tip>
+  If you're using a custom description for your rewards, the custom description will show instead of the simplified version.
+</Tip>
 
 ### Images
 
