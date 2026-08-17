@@ -28,7 +28,7 @@ Here's how you can connect your bank account to Dub for partner payouts:
 
 <Steps>
 
-<Step title="Add a new direct debit method">
+<Step title="Add a new direct debit method" id="add-new-direct-debit-method">
 
 On your [workspace's billing tab](https://app.dub.co/settings/billing), scroll down to **Payment methods** section.
 
@@ -77,11 +77,13 @@ If you selected SEPA direct debit in the previous step, you will need to manuall
 
 </Step>
 
-<Step title="Manually verify bank account" optional>
+</Steps>
+
+## Manual bank verification
 
 Alternatively, you can also manually verify your bank account via the [micro-deposits verification method](https://stripe.com/ie/resources/more/what-is-micro-deposit-verification-here-is-how-it-works).
 
-To do that, select the **Enter bank details manually** option:
+To do that, follow [step one in bank connection steps](#add-new-direct-debit-method), then select the **Enter bank details manually** option:
 
 <Frame>
   <img src="https://assets.dub.co/cms/enter-bank-details-manually.png" alt="" />
@@ -99,11 +101,24 @@ You'll receive a micro deposit in your account within 1-2 business days that wil
 SMXXXX
 ```
 
-Once you receive the micro-deposit, [reach out to us](https://dub.co/contact/support) with the code and we'll help you verify your bank account.
+Once you receive the micro-deposit, click `Verify` on the added bank account record on your billing settings page. This will open a verification modal.
 
-</Step>
+<Frame>
+  <img src="/images/dub-partners/bank-account-unverified.png" alt="" />
+</Frame>
 
-</Steps>
+With the bank account verification modal open, enter the 6-digit code in the statement descriptor of the deposit you received from Dub, then click `Verify`.
+
+<Frame>
+  <img src="/images/dub-partners/bank-account-verification.png" alt="" />
+</Frame>
+
+When your bank account is verified and ready for use, you'll see the `Verified` on your bank account payment method.
+
+<Frame>
+  <img src="/images/dub-partners/bank-account-verified.png" alt="" />
+</Frame>
+
 
 ## My bank account is currently unavailable
 
@@ -116,4 +131,4 @@ Depending on which bank you select, Stripe might show an error that the bank is 
   />
 </Frame>
 
-If that happens, follow step 3 above to manually verify your bank account.
+If that happens, follow the instructions above to [manually verify your bank account](/help/article/how-to-set-up-bank-account/#manual-bank-verification).
