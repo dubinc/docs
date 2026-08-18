@@ -59,12 +59,18 @@ After adding your domain, you'll be presented with a DNS record that you'll need
   />
 </Frame>
 
-If your domain is hosted on **Vercel** or **Cloudflare**, you can skip manual DNS setup entirely. Click **Auto configure with Vercel** or **Auto configure with Cloudflare** on the domain configuration screen, approve the request on your provider's side, and the correct records (including TXT verification, if needed) will be added for you automatically.
+If your domain is hosted on **Vercel** or **Cloudflare**, you can skip manual DNS setup entirely.
+
+Click **Auto configure with Vercel** or **Auto configure with Cloudflare** on the domain configuration screen, approve the request on your provider's side, and the correct records (including [TXT verification](#step-3-optional--verify-domain-ownership), if needed) will be added for you automatically.
 
 <Frame>
-  <img
-    src="/images/help/domain-connect-auto-configure.png"
-    alt="Auto configure and Forward instructions buttons on the domain configuration screen"
+  <video
+    src="https://assets.dub.co/help/dub-domain-connect.mp4"
+    loop
+    autoPlay
+    muted
+    playsInline
+    controls
   />
 </Frame>
 
@@ -108,15 +114,12 @@ We recommend using the following variations for your subdomains:
 
 <Info>
   This step is only applicable if you are adding a domain that is currently
-  being used on [Vercel](https://vercel.com/).
+  being used on [Vercel](https://vercel.com/). If you used **Auto configure** in
+  Step 2, this TXT record is added automatically and you can skip the rest of
+  this step.
 </Info>
 
 Since we use Vercel as the DNS provider for Dub, you'll need to verify that you own the domain before you can add it to your Dub workspace.
-
-<Info>
-  If you used **Auto configure** in Step 2, this TXT record is added
-  automatically and you can skip the rest of this step.
-</Info>
 
 <Frame>
   <img
