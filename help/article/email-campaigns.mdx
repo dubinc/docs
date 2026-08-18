@@ -43,6 +43,10 @@ Click **Add domain**, and enter the domain you want to send emails from.
 
 You’ll receive DNS setup instructions and values to connect the domain. A **DMARC** record will also be provided — we strongly recommend adding it to help prevent email spoofing.
 
+If your email domain's DNS is hosted on **Vercel** or **Cloudflare**, you can skip manual DNS setup entirely. Click **Auto configure with Vercel** or **Auto configure with Cloudflare** on the DNS records screen, approve the request on your provider's side, and the correct MX, SPF, DKIM, and DMARC records will be added for you automatically.
+
+If you don't have access to your domain's DNS settings yourself, click **Forward instructions** to email the exact records needed straight to whoever manages your DNS (e.g. your IT team or domain registrar) - no manual copy/pasting required.
+
 <Frame>
   <img
     src="https://assets.dub.co/cms/email-domain-records-3.png"
