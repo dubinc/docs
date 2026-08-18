@@ -71,6 +71,28 @@ For sale rewards, you can further customize the recurring nature of the commissi
 - For a set period (anywhere between 3 months to 3 years)
 - For the customer's lifetime
 
+### Using the AI reward builder
+
+Dub also has an AI reward builder that can help you create rewards quickly and easily.
+
+All you need to do is describe the reward structure you want, and our AI agent will automatically generate the reward based on our reward schema:
+
+<Frame>
+  <video
+    src="https://assets.dub.co/blog/dub-ai-reward-builder.mp4"
+    loop
+    autoPlay
+    muted
+    playsInline
+  />
+</Frame>
+
+Some examples include:
+
+- "\$5 cpc for US + EU countries, else \$1 for RoW"
+- "50% lifetime for customers who joined before Jan 2026, else \$100 one time"
+- "\$500 if productId = 'prod_xxx' (Pro Plan), else \$100 one time"
+
 ### Adding reward conditions
 
 <Tip>
@@ -208,6 +230,26 @@ Hover over the quality score to see which specific reward factors are contributi
   <img
     src="/images/dub-partners/reward-quality-hover.png"
     alt="Reward quality score example"
+  />
+</Frame>
+
+### Confirm reward creation
+
+Before the reward is created, you'll be prompted to confirm the details. This is a good opportunity to review the reward and make any final adjustments. Here you can also provide optional notes to your partners that will be added to the reward notification email they'll receive upon creation.
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-modal.png"
+    alt="Reward creation confirmation"
+  />
+</Frame>
+
+Here's an example of the reward notification email that will be sent to your partners:
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-email.png"
+    alt="Reward notification email"
   />
 </Frame>
 
@@ -405,6 +447,12 @@ You can update a [partner group's](/help/article/partner-groups) reward configur
 However, the reward configuration for a partner-customer pair will be updated. E.g., if a partner used to be on a one-time reward and was switched to recurring rewards, all subsequent subscription renewals from their **previous referrals** will be eligible for commission again.
 
 To avoid this, instead of editing a given partner group's reward configuration directly, create separate partner groups for one-time vs recurring rewards. This way, when you move partners from one group to the other, the reward configuration for the partner's previous referrals will be preserved.
+
+<Tip>
+  When updating a reward, you'll be prompted to [confirm your
+  changes](#confirm-reward-creation), and are able to provide optional notes to
+  your partners in the update email.
+</Tip>
 
 ### Group reward update logs
 

@@ -127,7 +127,8 @@ Both Marketing and Transactional emails include:
 
 - **Name**: Internal name of your campaign
 - **From**: The sender's name and email address. You can customize the username (the part before the `@`). Replies are sent to your program's [support email address](/help/article/program-resources#support-email).
-- **To**: Choose specific partner groups or send to All Groups
+- **Groups**: Choose specific [partner groups](/help/article/partner-groups) or send to `All Groups`
+- **Tags**: Choose specific [partner tags](/help/article/partner-tags), or send to `All Tags`
 - **Subject**: The subject line of the email
 - **Preview**: The short text shown next to or below the subject line in the recipient’s inbox
 - **Body:** The main content of your email — include text, images, or links
@@ -163,6 +164,20 @@ Transactional campaigns include trigger settings instead of a date selector sinc
 | Total revenue       | Sends an email when a partner earns a specific amount in revenue         |
 | Total commissions   | Sends an email when a partner earns a specific amount in commissions     |
 
+<Frame>
+  <img
+    src="/images/dub-partners/email-content-logic.png"
+    alt="Transactional logic"
+  />
+</Frame>
+
+Click **Add condition** to add additional logic conditions. You're able to add one condition of each logic type, targeting the exact partners you need for the campaign.
+
+<Tip>
+  **Joins the program** logic cannot be combined with other conditions, as the
+  partner will never have additional stats at that time.
+</Tip>
+
 ### Text content
 
 The email builder supports a wide variety of styling and content, including markdown support. In the control area above the content, you can use these buttons to change the styling of the content or add partner variables using the `@` button.
@@ -173,16 +188,42 @@ The email builder supports a wide variety of styling and content, including mark
 
 As you're creating content, you can use markdown for the following content styles and types:
 
-| Type              | Markdown                                     |
-| ----------------- | -------------------------------------------- |
-| Bold              | `**Bold text**`                              |
-| Italic            | `*italic text*`                              |
-| Strikethrough     | `~~Strikethrough text~~`                     |
-| Inline Hyperlinks | `[Dub](https://dub.co)`                      |
-| Ordered lists     | `1. First item` `2. Second item`             |
-| Bulleted lists    | `- First item` `- Second item`               |
-| Headings          | `# Heading level 1` and `## Heading level 2` |
-| Partner variables | `@PartnerName` and `@PartnerEmail`           |
+| Type              | Markdown                                                                                                                                                                         |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bold              | `**Bold text**`                                                                                                                                                                  |
+| Italic            | `*italic text*`                                                                                                                                                                  |
+| Strikethrough     | `~~Strikethrough text~~`                                                                                                                                                         |
+| Inline Hyperlinks | `[Dub](https://dub.co)`                                                                                                                                                          |
+| Ordered lists     | `1. First item` `2. Second item`                                                                                                                                                 |
+| Bulleted lists    | `- First item` `- Second item`                                                                                                                                                   |
+| Headings          | `# Heading level 1` and `## Heading level 2`                                                                                                                                     |
+| Partner variables | `@PartnerName`, `@PartnerEmail`, `@PartnerLink`, `@SaleReward`, `@LeadReward`, `@ClickReward`, `@ReferralReward`, [Learn more](/help/article/email-campaigns/#partner-variables) |
+
+### Partner Variables
+
+Use the `@` button in the email editor to insert personalized partner information and reward details. Dub replaces these variables with the corresponding values when the email is sent.
+
+<Frame>
+  <img
+    src="/images/dub-partners/email-partnervariables.png"
+    alt="Partner email variables"
+  />
+</Frame>
+
+| Variable         | Output                                                                                                                           | Example                                          |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `PartnerName`    | The partner’s name                                                                                                               | Alex Johnson                                     |
+| `PartnerEmail`   | The partner’s email address                                                                                                      | alex@email.com                                   |
+| `PartnerLink`    | The partner’s first enrollment referral link                                                                                     | getacme.link/alex                                |
+| `SaleReward`     | A simplified description of the partner’s sale reward                                                                            | 30% per sale for 6 months                        |
+| `LeadReward`     | A simplified description of the partner’s lead reward                                                                            | $10 per lead                                     |
+| `ClickReward`    | A simplified description of the partner’s click reward                                                                           | $0.50 per click                                  |
+| `ReferralReward` | A simplified description of the partner’s referral reward. [Learn more about partner referrals](/help/article/partner-referrals) | 10% per referred partner’s commission for 1 year |
+
+<Tip>
+  If you're using a custom description for your rewards, the custom description
+  will show instead of the simplified version.
+</Tip>
 
 ### Images
 
