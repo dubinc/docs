@@ -30,9 +30,13 @@ Some examples include:
 
 This can drive powerful word-of-mouth growth as partners are more likely to share their link if it gives their audience/user base additional discounts, and on the other hand, their users are more likely to click on their links as well if they're getting a special deal.
 
-In this article, we'll learn how to set up dual-sided incentives with Dub Partners.
+In this article, we'll learn how to set up dual-sided incentives with Dub.
 
-## Option 1: Direct link-based discounts (recommended)
+## Stripe coupons / promotion codes
+
+There are two ways to set up dual-sided incentives if you're using Stripe:
+
+### Option 1: Direct link-based discounts (recommended)
 
 If you're using Stripe for payments, you can follow these steps to set up direct link-based discounts for your partner referral links:
 
@@ -83,12 +87,12 @@ Note: Deleting a discount on Dub does not delete the corresponding Stripe coupon
 </Step>
 
 <Step title="Add coupon logic to checkout flow">
-The key to implementing link-based discounts is to check if a customer is eligible for a discount using Dub's Customers API, then automatically apply the appropriate Stripe coupon to their checkout session.
+The key to implementing link-based discounts is to check if a customer is eligible for a discount using Dub's [Customers API](/docs/api-reference/customers/list), then automatically apply the appropriate Stripe coupon to their checkout session.
 
 Here's how the flow works:
 
 1. When a user clicks a partner referral link, Dub tracks them as a potential customer
-2. During checkout, you query the Dub Customers API using the user's ID
+2. During checkout, you query the Dub [Customers API](/docs/api-reference/customers/list) using the user's ID
 3. If they're eligible for a discount, you apply the coupon to their Stripe checkout session
 4. If not, you allow them to enter promotion codes manually
 
@@ -351,7 +355,7 @@ Once this is set up, eligible customers will automatically see the coupon code a
     
 </Steps>
 
-## Option 2: Using Stripe promo codes (no code required)
+### Option 2: Using Stripe promo codes (no code required)
 
 If you prefer a no-code solution, you can set up Stripe promo-code-based discounts for your partners.
 
@@ -400,17 +404,6 @@ Note: Deleting a discount on Dub does not delete the corresponding Stripe coupon
 
 </Warning>
 
-### Auto-provision discount codes
-
-When enabled, discount codes will be automatically created for all existing partners in this group and future partners when they join this group.
-
-<Frame>
-  <img
-    src="/images/dub-partners/auto-provision-code.png"
-    alt="Auto provision discount codes"
-  />
-</Frame>
-
 </Step>
 
 <Step title="Create your partner code">
@@ -448,6 +441,226 @@ After the code has been created, you'll see its value populated in the Discount 
 
 </Step>
 </Steps>
+
+## Shopify discount codes
+
+Use the **Shopify** discount provider when you sell through Shopify. Dub creates partner discount codes in your store automatically, and attributes the sale when a customer applies a partner's code at checkout — even if they didn't click a referral link.
+
+<Note>
+  This requires the [Dub Shopify app](/docs/integrations/shopify). Dub creates
+  and deletes discount codes in your Shopify store automatically.
+</Note>
+
+<Steps>
+<Step title="Connect the Dub Shopify app">
+Install the [Dub Shopify App](https://d.to/shopify/app) and connect it to your Dub workspace. Follow the [Shopify integration guide](/docs/integrations/shopify) if you haven't already.
+
+<Frame>
+  <img src="/images/shopify/shopify-app.png" alt="The Dub Shopify app" />
+</Frame>
+
+The app needs permission to create discount codes (`write_discounts`). If you installed it before this permission was added, reinstall or upgrade the app from the [Shopify App Store](https://apps.shopify.com/dub-conversion-tracking).
+
+</Step>
+
+<Step title="Create a Shopify discount on Dub">
+First, navigate to the partner group that you want to create a discount for. Under the Discount tab, you'll be able to create a discount for the group.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/group-discounts-empty.png"
+    alt="Group discounts page"
+  />
+</Frame>
+
+If you already have a discount set up for your default group, you can just duplicate it. If not, click **Create** to create your first group discount:
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-shopify-discount.png"
+    alt="Program discounts tab"
+  />
+</Frame>
+
+Set **Discount provider** to **Shopify**, then choose the discount type (percentage vs flat), amount, and duration.
+
+<Warning>
+Since discount conditions can't be updated after creation, you'd need to delete your discount in Dub and create a new one if you want to change the type, amount, or duration.
+
+Deleting a discount or discount code on Dub also disables the corresponding codes in Shopify.
+
+</Warning>
+</Step>
+
+<Step title="Create partner discount codes">
+Open the partner profile that you'd like to create a discount code for, then click **Create Code** in the Discount codes section.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-create-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+Select which referral link you'd like to associate the code with, then create the discount code. If you omit a custom code, Dub generates one from the partner's name.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/new-discount-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+Dub immediately creates a matching code in your Shopify store. Shopify codes created by Dub:
+
+- Apply to all products
+- Can be used once per customer
+- Work on one-time purchases and subscriptions
+- Use your discount duration as Shopify subscription billing cycles (one-time → first cycle, a set number of months → that many cycles, lifetime → applies indefinitely)
+
+<Warning>
+  Discount codes cannot be edited after creation, so ensure that you have
+  everything correct before creating the code.
+</Warning>
+
+After the code has been created, you'll see its value populated in the Discount Code section, and it is ready for use. In the Partner Dashboard, they'll also see the associated discount code within their partner links.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-code-created.png"
+    alt="Partner links page with discount code"
+  />
+</Frame>
+
+</Step>
+</Steps>
+
+## Custom discount provider
+
+Use the **Custom** discount provider when you manage promo codes in your own system (eg: WooCommerce, Squarespace, etc.) instead of Stripe or Shopify. Dub remains the source of truth for partner discounts and discount codes; your application creates and disables the matching codes by listening to webhooks.
+
+<Steps>
+<Step title="Create a custom discount on Dub">
+First, navigate to the partner group that you want to create a discount for. Under the Discount tab, you'll be able to create a discount for the group.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/group-discounts-empty.png"
+    alt="Group discounts page"
+  />
+</Frame>
+
+If you already have a discount set up for your default group, you can just duplicate it. If not, click **Create** to create your first group discount:
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-custom-discount.png"
+    alt="Program discounts tab"
+  />
+</Frame>
+
+Set **Discount provider** to **Custom**, then choose the discount type (percentage vs flat), amount, and duration.
+
+<Warning>
+Since discount conditions can't be updated after creation, you'd need to delete your discount in Dub and create a new one if you want to change the type, amount, or duration.
+</Warning>
+</Step>
+
+<Step title="Create partner discount codes">
+Open the partner profile that you'd like to create a discount code for, then click **Create Code** in the Discount codes section.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-create-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+Select which referral link you'd like to associate the code with, then create the discount code. If you omit a custom code, Dub generates one from the partner's name.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/new-discount-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+<Tip>
+  You can also [create](/docs/api-reference/discount-codes/create) or
+  [delete](/docs/api-reference/discount-codes/delete) discount codes via the
+  API.
+</Tip>
+
+<Warning>
+  Discount codes cannot be edited after creation, so ensure that you have
+  everything correct before creating the code.
+</Warning>
+
+</Step>
+
+<Step title="Sync codes with your system">
+Create a [webhook](/docs/webhooks/introduction) subscribed to [`discount_code.created`](/docs/webhooks/events/discount-code-created) and [`discount_code.deleted`](/docs/webhooks/events/discount-code-deleted).
+
+Your endpoint should:
+
+1. [Verify the webhook signature](/docs/webhooks/verify-webhook-requests)
+2. On `discount_code.created`, create the matching promo code in your system using `data.code` and the nested `discount` (amount, type, duration)
+3. On `discount_code.deleted`, disable or delete that promo code in your system
+4. Return a 2xx status code on success
+
+These events also fire when codes are [auto-provisioned](#auto-provision-discount-codes), and when a code is removed automatically (for example if a partner is banned, deactivated, or moved to a group without an equivalent discount).
+
+```typescript
+export const POST = async (req: Request) => {
+  const webhookSignature = req.headers.get("Dub-Signature");
+  if (!webhookSignature) {
+    return new Response("No signature provided.", { status: 401 });
+  }
+
+  const secret = process.env.DUB_WEBHOOK_SECRET;
+  if (!secret) {
+    return new Response("No secret provided.", { status: 401 });
+  }
+
+  const rawBody = await req.text();
+  const computedSignature = crypto
+    .createHmac("sha256", secret)
+    .update(rawBody)
+    .digest("hex");
+
+  if (webhookSignature !== computedSignature) {
+    return new Response("Invalid signature", { status: 400 });
+  }
+
+  const payload = JSON.parse(rawBody);
+
+  if (payload.event === "discount_code.created") {
+    // Create the promo code in your system
+    // payload.data.code, payload.data.discount
+  }
+
+  if (payload.event === "discount_code.deleted") {
+    // Disable the promo code in your system
+    // payload.data.code
+  }
+
+  return new Response("OK");
+};
+```
+
+</Step>
+</Steps>
+
+## Auto-provision discount codes
+
+When enabled, discount codes will be automatically created for all existing partners in this group and future partners when they join this group.
+
+<Frame>
+  <img
+    src="/images/dub-partners/auto-provision-code.png"
+    alt="Auto provision discount codes"
+  />
+</Frame>
 
 ## Displaying discount banner
 
