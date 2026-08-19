@@ -439,7 +439,98 @@ After the code has been created, you'll see its value populated in the Discount 
   />
 </Frame>
 
-You can also [list](/docs/api-reference/discount-codes/list), [create](/docs/api-reference/discount-codes/create), and [delete](/docs/api-reference/discount-codes/delete) discount codes via the API.
+</Step>
+</Steps>
+
+## Shopify
+
+Use the **Shopify** discount provider when you sell through Shopify. Dub creates partner discount codes in your store automatically, and attributes the sale when a customer applies a partner's code at checkout — even if they didn't click a referral link.
+
+<Note>
+  This requires the [Dub Shopify app](/docs/integrations/shopify). Dub creates
+  and deletes discount codes in your Shopify store automatically.
+</Note>
+
+<Steps>
+<Step title="Connect the Dub Shopify app">
+Install the [Dub Shopify App](https://d.to/shopify/app) and connect it to your Dub workspace. Follow the [Shopify integration guide](/docs/integrations/shopify) if you haven't already.
+
+<Frame>
+  <img src="/images/shopify/shopify-app.png" alt="The Dub Shopify app" />
+</Frame>
+
+The app needs permission to create discount codes (`write_discounts`). If you installed it before this permission was added, reinstall or upgrade the app from the [Shopify App Store](https://apps.shopify.com/dub-conversion-tracking).
+
+</Step>
+
+<Step title="Create a Shopify discount on Dub">
+First, navigate to the partner group that you want to create a discount for. Under the Discount tab, you'll be able to create a discount for the group.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/group-discounts-empty.png"
+    alt="Group discounts page"
+  />
+</Frame>
+
+If you already have a discount set up for your default group, you can just duplicate it. If not, click **Create** to create your first group discount:
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-shopify-discount.png"
+    alt="Program discounts tab"
+  />
+</Frame>
+
+Set **Discount provider** to **Shopify**, then choose the discount type (percentage vs flat), amount, and duration.
+
+<Warning>
+Since discount conditions can't be updated after creation, you'd need to delete your discount in Dub and create a new one if you want to change the type, amount, or duration.
+
+Deleting a discount or discount code on Dub also deletes the corresponding codes in Shopify.
+
+</Warning>
+</Step>
+
+<Step title="Create partner discount codes">
+Open the partner profile that you'd like to create a discount code for, then click **Create Code** in the Discount codes section.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-create-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+Select which referral link you'd like to associate the code with, then create the discount code. If you omit a custom code, Dub generates one from the partner's name.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/new-discount-code.png"
+    alt="Partner links page"
+  />
+</Frame>
+
+Dub immediately creates a matching code in your Shopify store. Shopify codes created by Dub:
+
+- Apply to all products
+- Can be used once per customer
+- Work on one-time purchases and subscriptions
+- Use your discount duration as Shopify subscription billing cycles (one-time → first cycle, a set number of months → that many cycles, lifetime → applies indefinitely)
+
+<Warning>
+  Discount codes cannot be edited after creation, so ensure that you have
+  everything correct before creating the code.
+</Warning>
+
+After the code has been created, you'll see its value populated in the Discount Code section, and it is ready for use. In the Partner Dashboard, they'll also see the associated discount code within their partner links.
+
+<Frame>
+  <img
+    src="https://assets.dub.co/cms/partner-code-created.png"
+    alt="Partner links page with discount code"
+  />
+</Frame>
 
 </Step>
 </Steps>
@@ -470,8 +561,6 @@ If you already have a discount set up for your default group, you can just dupli
 
 Set **Discount provider** to **Custom**, then choose the discount type (percentage vs flat), amount, and duration.
 
-You can optionally [auto-provision discount codes](#auto-provision-discount-codes) so codes are created for existing and future partners in this group.
-
 <Warning>
 Since discount conditions can't be updated after creation, you'd need to delete your discount in Dub and create a new one if you want to change the type, amount, or duration.
 </Warning>
@@ -500,8 +589,6 @@ Select which referral link you'd like to associate the code with, then create th
   Discount codes cannot be edited after creation, so ensure that you have
   everything correct before creating the code.
 </Warning>
-
-You can also [list](/docs/api-reference/discount-codes/list), [create](/docs/api-reference/discount-codes/create), and [delete](/docs/api-reference/discount-codes/delete) codes via the API. Each referral link can only have one discount code.
 
 </Step>
 
