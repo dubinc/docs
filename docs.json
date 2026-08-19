@@ -492,6 +492,14 @@
                     ]
                   },
                   {
+                    "group": "Discount codes",
+                    "pages": [
+                      "docs/api-reference/discount-codes/list",
+                      "docs/api-reference/discount-codes/create",
+                      "docs/api-reference/discount-codes/delete"
+                    ]
+                  },
+                  {
                     "group": "Bounty submissions",
                     "pages": [
                       "docs/api-reference/bounties/list",
@@ -597,7 +605,9 @@
                   "docs/webhooks/events/partner-application-submitted",
                   "docs/webhooks/events/lead-created",
                   "docs/webhooks/events/sale-created",
-                  "docs/webhooks/events/commission-created"
+                  "docs/webhooks/events/commission-created",
+                  "docs/webhooks/events/discount-code-created",
+                  "docs/webhooks/events/discount-code-deleted"
                 ]
               },
               {
@@ -787,6 +797,14 @@
     {
       "source": "/docs/webhooks/event-types#commission-created",
       "destination": "/docs/webhooks/events/commission-created"
+    },
+    {
+      "source": "/docs/webhooks/event-types#discount-code-created",
+      "destination": "/docs/webhooks/events/discount-code-created"
+    },
+    {
+      "source": "/docs/webhooks/event-types#discount-code-deleted",
+      "destination": "/docs/webhooks/events/discount-code-deleted"
     },
     {
       "source": "/docs/webhooks/event-types#payout-confirmed",

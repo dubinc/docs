@@ -1,0 +1,91 @@
+---
+title: discount_code.deleted
+icon: ticket
+---
+
+import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
+
+Event triggered when a [discount code is deleted](/docs/api-reference/discount-codes/delete).
+
+<Tip>
+  This event is also sent when a discount code is removed automatically — for
+  example when a partner is banned or deactivated, a linked referral link is
+  deleted, or a partner is moved to a group without an equivalent discount.
+
+If the discount uses the **custom** provider, listen to this webhook to
+disable the corresponding promo code in your own system. For Stripe
+and Shopify discounts, Dub disables the code in the connected provider
+automatically.
+
+</Tip>
+
+<WebhookResponseBodyParameters type="discount_code.deleted">
+  <ParamField body="id" type="string">
+    Unique identifier for the discount code (e.g. <code>dcode_...</code>).
+  </ParamField>
+  <ParamField body="code" type="string">
+    The alphanumeric discount code that was deleted.
+  </ParamField>
+  <ParamField body="partnerId" type="string">
+    ID of the partner this discount code was assigned to.
+  </ParamField>
+  <ParamField body="linkId" type="string">
+    ID of the partner's referral link this discount code was associated with.
+  </ParamField>
+  <ParamField body="disabledAt" type="string | null">
+    ISO 8601 timestamp when the code was disabled. Set when a partner is banned
+    or deactivated; otherwise <code>null</code>.
+  </ParamField>
+  <ParamField body="discount" type="object | null">
+    The discount this code belonged to.
+
+    <Expandable title="discount object">
+      <ParamField body="id" type="string">
+        Unique identifier for the discount.
+      </ParamField>
+      <ParamField body="amount" type="number">
+        Discount amount. For <code>percentage</code> discounts this is the
+        percent off (e.g. <code>10</code> = 10% off). For <code>flat</code>
+        discounts this is the amount in cents (e.g. <code>500</code> = $5.00).
+      </ParamField>
+      <ParamField body="type" type="string">
+        Discount type: <code>percentage</code> or <code>flat</code>.
+      </ParamField>
+      <ParamField body="maxDuration" type="number | null">
+        Maximum duration in months. <code>0</code> is one-time,
+        <code>null</code> is lifetime.
+      </ParamField>
+      <ParamField body="provider" type="string">
+        Discount provider: <code>stripe</code>, <code>shopify</code>, or
+        <code>custom</code>.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+</WebhookResponseBodyParameters>
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "evt_64dv6vxYVgltzJBKc9ujJ1ghL",
+  "event": "discount_code.deleted",
+  "createdAt": "2026-08-19T10:48:15.468Z",
+  "data": {
+    "id": "dcode_1K39DGZG3MHY9RP4PD0AS2C5P",
+    "code": "STEVEN10OFF",
+    "partnerId": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+    "linkId": "link_5myDHLqhIQvUmUPjchVygF9R",
+    "disabledAt": null,
+    "discount": {
+      "id": "disc_1KEC01MXC5H50XQMSN83VCW65",
+      "amount": 10,
+      "type": "percentage",
+      "maxDuration": 6,
+      "provider": "custom"
+    }
+  }
+}
+```
+
+</ResponseExample>
