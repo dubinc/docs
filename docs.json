@@ -492,14 +492,6 @@
                     ]
                   },
                   {
-                    "group": "Discount codes",
-                    "pages": [
-                      "docs/api-reference/discount-codes/list",
-                      "docs/api-reference/discount-codes/create",
-                      "docs/api-reference/discount-codes/delete"
-                    ]
-                  },
-                  {
                     "group": "Bounty submissions",
                     "pages": [
                       "docs/api-reference/bounties/list",
@@ -518,6 +510,14 @@
                   {
                     "group": "Payouts",
                     "pages": ["docs/api-reference/payouts/list"]
+                  },
+                  {
+                    "group": "Discount codes",
+                    "pages": [
+                      "docs/api-reference/discount-codes/list",
+                      "docs/api-reference/discount-codes/create",
+                      "docs/api-reference/discount-codes/delete"
+                    ]
                   }
                 ]
               },
