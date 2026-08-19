@@ -30,9 +30,9 @@ Some examples include:
 
 This can drive powerful word-of-mouth growth as partners are more likely to share their link if it gives their audience/user base additional discounts, and on the other hand, their users are more likely to click on their links as well if they're getting a special deal.
 
-In this article, we'll learn how to set up dual-sided incentives with Dub Partners.
+In this article, we'll learn how to set up dual-sided incentives with Dub.
 
-## Stripe
+## Stripe coupons / promotion codes
 
 There are two ways to set up dual-sided incentives if you're using Stripe:
 
@@ -87,12 +87,12 @@ Note: Deleting a discount on Dub does not delete the corresponding Stripe coupon
 </Step>
 
 <Step title="Add coupon logic to checkout flow">
-The key to implementing link-based discounts is to check if a customer is eligible for a discount using Dub's Customers API, then automatically apply the appropriate Stripe coupon to their checkout session.
+The key to implementing link-based discounts is to check if a customer is eligible for a discount using Dub's [Customers API](/docs/api-reference/customers/list), then automatically apply the appropriate Stripe coupon to their checkout session.
 
 Here's how the flow works:
 
 1. When a user clicks a partner referral link, Dub tracks them as a potential customer
-2. During checkout, you query the Dub Customers API using the user's ID
+2. During checkout, you query the Dub [Customers API](/docs/api-reference/customers/list) using the user's ID
 3. If they're eligible for a discount, you apply the coupon to their Stripe checkout session
 4. If not, you allow them to enter promotion codes manually
 
@@ -442,7 +442,7 @@ After the code has been created, you'll see its value populated in the Discount 
 </Step>
 </Steps>
 
-## Shopify
+## Shopify discount codes
 
 Use the **Shopify** discount provider when you sell through Shopify. Dub creates partner discount codes in your store automatically, and attributes the sale when a customer applies a partner's code at checkout — even if they didn't click a referral link.
 
@@ -535,7 +535,7 @@ After the code has been created, you'll see its value populated in the Discount 
 </Step>
 </Steps>
 
-## Custom provider
+## Custom discount provider
 
 Use the **Custom** discount provider when you manage promo codes in your own system (eg: WooCommerce, Squarespace, etc.) instead of Stripe or Shopify. Dub remains the source of truth for partner discounts and discount codes; your application creates and disables the matching codes by listening to webhooks.
 
@@ -584,6 +584,12 @@ Select which referral link you'd like to associate the code with, then create th
     alt="Partner links page"
   />
 </Frame>
+
+<Tip>
+  You can also [create](/docs/api-reference/discount-codes/create) or
+  [delete](/docs/api-reference/discount-codes/delete) discount codes via the
+  API.
+</Tip>
 
 <Warning>
   Discount codes cannot be edited after creation, so ensure that you have
