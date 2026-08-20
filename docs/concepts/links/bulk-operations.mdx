@@ -53,16 +53,22 @@ func main() {
   s := dubgo.New(
     dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
   )
-}
 
-res, err := s.Links.CreateMany(ctx, []operations.RequestBody{
-  operations.RequestBody{
-    URL: "https://google.com",
-  },
-  operations.RequestBody{
-    URL: "https://google.uk",
-  },
-})
+  res, err := s.Links.CreateMany(ctx, []operations.RequestBody{
+    operations.RequestBody{
+      URL: "https://google.com",
+    },
+    operations.RequestBody{
+      URL: "https://google.uk",
+    },
+  })
+  if err != nil {
+    log.Fatal(err)
+  }
+  if res != nil {
+    // handle response
+  }
+}
 ```
 
 ```python Python
@@ -74,7 +80,7 @@ d = dub.Dub(
   token=os.environ['DUB_API_KEY'],
 )
 
-res = dub.links.create_many(request=[
+res = d.links.create_many(request=[
   {
      "url": "https://google.com",
   },
@@ -134,7 +140,7 @@ $response = $sdk->links->createMany(
 curl --request POST \
   --url https://api.dub.co/links/bulk \
   --header 'Authorization: Bearer <token>' \
-  --header 'Content-Type: application/json'
+  --header 'Content-Type: application/json' \
   --data '[
     {
       "url": "https://google.com"
@@ -201,16 +207,22 @@ func main() {
     dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
   )
 
-  res, err := s.Links.UpdateMany(ctx, operations.BulkUpdateLinksRequestBody{
+  res, err := s.Links.UpdateMany(ctx, &operations.BulkUpdateLinksRequestBody{
     LinkIds: []string{
       "clux0rgak00011...",
       "clux0rgak00022...",
     },
-    Data: map[string]string{
-      "utm_source": "facebook",
-      "utm_medium": "cpc",
+    Data: operations.Data{
+      UtmSource: dubgo.Pointer("facebook"),
+      UtmMedium: dubgo.Pointer("cpc"),
     },
   })
+  if err != nil {
+    log.Fatal(err)
+  }
+  if res != nil {
+    // handle response
+  }
 }
 ```
 
@@ -223,7 +235,7 @@ d = dub.Dub(
   token=os.environ['DUB_API_KEY'],
 )
 
-res = dub.links.update_many(request={
+res = d.links.update_many(request={
   "link_ids": [
     "clux0rgak00011...",
     "clux0rgak00022...",
@@ -269,15 +281,19 @@ use Dub\Models\Operations;
 
 $sdk = Dub\Dub::builder()->setSecurity('DUB_API_KEY')->build();
 
-$response = $sdk->links->updateMany(
+$request = new Operations\BulkUpdateLinksRequestBody(
+  data: new Operations\Data(
+    utmSource: 'facebook',
+    utmMedium: 'cpc',
+  ),
   linkIds: [
     'clux0rgak00011...',
     'clux0rgak00022...',
   ],
-  data: {
-    "utm_source": "facebook",
-    "utm_medium": "cpc",
-  },
+);
+
+$response = $sdk->links->updateMany(
+  request: $request
 );
 ```
 
@@ -335,12 +351,18 @@ func main() {
     dubgo.WithSecurity(os.Getenv("DUB_API_KEY")),
   )
 
-   res, err := s.Links.DeleteMany(ctx, operations.BulkDeleteLinksRequest{
+  res, err := s.Links.DeleteMany(ctx, operations.BulkDeleteLinksRequest{
     LinkIds: []string{
       "clux0rgak00011...",
       "clux0rgak00022...",
     },
   })
+  if err != nil {
+    log.Fatal(err)
+  }
+  if res != nil {
+    // handle response
+  }
 }
 ```
 
@@ -353,7 +375,7 @@ d = dub.Dub(
   token=os.environ['DUB_API_KEY'],
 )
 
- res = dub.links.delete_many(request={
+res = d.links.delete_many(request={
   "link_ids": [
     "clux0rgak00011...",
     "clux0rgak00022...",
