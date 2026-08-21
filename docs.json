@@ -603,6 +603,7 @@
                 "pages": [
                   "docs/webhooks/events/partner-enrolled",
                   "docs/webhooks/events/partner-application-submitted",
+                  "docs/webhooks/events/partner-merged",
                   "docs/webhooks/events/lead-created",
                   "docs/webhooks/events/sale-created",
                   "docs/webhooks/events/commission-created",
