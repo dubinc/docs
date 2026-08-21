@@ -5,16 +5,17 @@ icon: users
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Event triggered when two partner accounts are merged in your partner program.
+Event triggered when [two partner accounts are merged](/help/article/merging-partner-accounts) in your partner program.
 
 <Tip>
-  When a partner is merged, the `sourcePartner` account is collapsed into the
+  When [two partner accounts are merged](/help/article/merging-partner-accounts), the `sourcePartner` account is collapsed into the
   `targetPartner` account. The source partner's enrollment in the program no
   longer exists after the merge, so any future API calls or webhook events for
   this partner will reference `targetPartner.id` instead.
 
-  If you store partner IDs in your own system, listen to this webhook to update
-  your records to use the `targetPartner.id`.
+If you store partner IDs in your own system, listen to this webhook to update
+your records to use the `targetPartner.id`.
+
 </Tip>
 
 <WebhookResponseBodyParameters type="partner.merged">
@@ -33,6 +34,7 @@ Event triggered when two partner accounts are merged in your partner program.
         The partner's email address.
       </ParamField>
     </Expandable>
+
   </ParamField>
 
   <ParamField body="targetPartner" type="object">
@@ -49,6 +51,7 @@ Event triggered when two partner accounts are merged in your partner program.
         The partner's email address.
       </ParamField>
     </Expandable>
+
   </ParamField>
 
   <ParamField body="targetAlreadyEnrolled" type="boolean">
@@ -61,6 +64,7 @@ Event triggered when two partner accounts are merged in your partner program.
     If <code>false</code>, only the source partner account was enrolled in the
     program, which means the partner's ID in your program was updated to the
     target partner's ID.
+
   </ParamField>
 </WebhookResponseBodyParameters>
 
