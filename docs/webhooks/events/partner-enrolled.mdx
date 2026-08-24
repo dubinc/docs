@@ -5,7 +5,7 @@ icon: users
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Event triggered when a [new partner is enrolled](/docs/api-reference/partners/create) in your partner program.
+Occurs whenever a [partner is enrolled](/docs/api-reference/partners/create) in your program (either their application was approved, they accepted your invite, or via the API).
 
 <WebhookResponseBodyParameters type="partner.enrolled">
   <ParamField body="id" type="string">

@@ -5,7 +5,7 @@ icon: money-bill
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Event triggered when a [new commission is created](/docs/api-reference/commissions/list).
+Occurs whenever a [commission is created](/docs/api-reference/commissions/create) for a partner (clawbacks will also trigger this event with a negative amount).
 
 <Tip>
   When enabled, this webhook is triggered when a commission is created either
