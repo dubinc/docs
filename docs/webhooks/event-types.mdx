@@ -22,23 +22,26 @@ Webhooks send real-time notifications when events happen in your Dub workspace. 
 
 ## Dub Partners
 
-[Dub Partners](https://dub.co/partners) lets you run a partner program with referral links, commissions, and payouts. Here are the webhook events that are available for Dub Partners:
+Here are the webhook events that are available for [Dub Partners](https://dub.co/partners):
 
-| Event Type                                                                             | Description                                                                                                     |
-| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| [`partner.enrolled`](/docs/webhooks/events/partner-enrolled)                           | Occurs when a **new partner is enrolled** in your partner program.                                              |
-| [`partner.application_submitted`](/docs/webhooks/events/partner-application-submitted) | Occurs when a **partner submits an application** to join your partner program.                                  |
-| [`lead.created`](/docs/webhooks/events/lead-created)                                   | Occurs when a **new lead is tracked**.                                                                          |
-| [`sale.created`](/docs/webhooks/events/sale-created)                                   | Occurs when a **new sale is tracked**.                                                                          |
-| [`commission.created`](/docs/webhooks/events/commission-created)                       | Occurs when a **new commission is generated** — from a tracked conversion or created manually in the dashboard. |
+| Event Type                                                                             | Description                                                                                                                                   |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`partner.enrolled`](/docs/webhooks/events/partner-enrolled)                           | Occurs whenever a **partner is enrolled** in your program (either their application was approved, they accepted your invite, or via the API). |
+| [`partner.application_submitted`](/docs/webhooks/events/partner-application-submitted) | Occurs whenever a **partner submits an application** to your program.                                                                         |
+| [`partner.merged`](/docs/webhooks/events/partner-merged)                               | Occurs when **two partner accounts are merged**.                                                                                              |
+| [`lead.created`](/docs/webhooks/events/lead-created)                                   | Occurs whenever a **lead is created**.                                                                                                        |
+| [`sale.created`](/docs/webhooks/events/sale-created)                                   | Occurs whenever a **sale is created**.                                                                                                        |
+| [`commission.created`](/docs/webhooks/events/commission-created)                       | Occurs whenever a **commission is created** for a partner (clawbacks will also trigger this event with a negative amount).                    |
+| [`discount_code.created`](/docs/webhooks/events/discount-code-created)                 | Occurs whenever a **discount code is created** for a partner.                                                                                 |
+| [`discount_code.deleted`](/docs/webhooks/events/discount-code-deleted)                 | Occurs whenever a **discount code** for a partner is deleted.                                                                                 |
 
 ## Dub Links
 
-[Dub Links](https://dub.co/links) is your short link and analytics platform for creating, managing, and tracking links. Here are the webhook events that are available for Dub Links:
+Here are the webhook events that are available for [Dub Links](https://dub.co/links):
 
-| Event Type                                           | Description                                              |
-| ---------------------------------------------------- | -------------------------------------------------------- |
-| [`link.created`](/docs/webhooks/events/link-created) | Occurs when a **new link is created** in your workspace. |
-| [`link.updated`](/docs/webhooks/events/link-updated) | Occurs when a **link is updated** in your workspace.     |
-| [`link.deleted`](/docs/webhooks/events/link-deleted) | Occurs when a **link is deleted** in your workspace.     |
-| [`link.clicked`](/docs/webhooks/events/link-clicked) | Occurs when a **link is clicked** by a user.             |
+| Event Type                                           | Description                            |
+| ---------------------------------------------------- | -------------------------------------- |
+| [`link.created`](/docs/webhooks/events/link-created) | Occurs whenever a **link is created**. |
+| [`link.updated`](/docs/webhooks/events/link-updated) | Occurs whenever a **link is updated**. |
+| [`link.deleted`](/docs/webhooks/events/link-deleted) | Occurs whenever a **link is deleted**. |
+| [`link.clicked`](/docs/webhooks/events/link-clicked) | Occurs whenever a **link is clicked**. |

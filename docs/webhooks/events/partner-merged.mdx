@@ -1,0 +1,94 @@
+---
+title: partner.merged
+icon: users
+---
+
+import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
+
+Occurs when two [partner accounts are merged](/help/article/merging-partner-accounts).
+
+<Tip>
+  When [two partner accounts are merged](/help/article/merging-partner-accounts), the `sourcePartner` account is collapsed into the
+  `targetPartner` account. The source partner's enrollment in the program no
+  longer exists after the merge, so any future API calls or webhook events for
+  this partner will reference `targetPartner.id` instead.
+
+If you store partner IDs in your own system, listen to this webhook to update
+your records to use the `targetPartner.id`.
+
+</Tip>
+
+<WebhookResponseBodyParameters type="partner.merged">
+  <ParamField body="sourcePartner" type="object">
+    The source partner account that was merged away. Its enrollment in this
+    program no longer exists; use <code>targetPartner.id</code> instead.
+
+    <Expandable title="sourcePartner object">
+      <ParamField body="id" type="string">
+        The partner's unique ID on Dub.
+      </ParamField>
+      <ParamField body="tenantId" type="string | null">
+        The partner's unique ID in your system.
+      </ParamField>
+      <ParamField body="email" type="string | null">
+        The partner's email address.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+
+  <ParamField body="targetPartner" type="object">
+    The target partner account that the source account was merged into.
+
+    <Expandable title="targetPartner object">
+      <ParamField body="id" type="string">
+        The partner's unique ID on Dub.
+      </ParamField>
+      <ParamField body="tenantId" type="string | null">
+        The partner's unique ID in your system.
+      </ParamField>
+      <ParamField body="email" type="string | null">
+        The partner's email address.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+
+  <ParamField body="targetAlreadyEnrolled" type="boolean">
+    Whether the target partner account was already enrolled in this program
+    before the merge.
+
+    If <code>true</code>, both partners were already enrolled in the program and
+    the merge process collapsed the source account into the target account.
+
+    If <code>false</code>, only the source partner account was enrolled in the
+    program, which means the partner's ID in your program was updated to the
+    target partner's ID.
+
+  </ParamField>
+</WebhookResponseBodyParameters>
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "partner.merged",
+  "createdAt": "2026-08-20T16:41:52.346Z",
+  "data": {
+    "sourcePartner": {
+      "id": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+      "tenantId": "64dc9a8c-5cf9-4446-b53b-cdc15199fafc",
+      "email": "source@example.com"
+    },
+    "targetPartner": {
+      "id": "pn_1K06X6FX2GRB31NCM2VVCGJ72",
+      "tenantId": "64dc9a8c-5cf9-4446-b53b-cdc15199fafc",
+      "email": "target@example.com"
+    },
+    "targetAlreadyEnrolled": false
+  }
+}
+```
+
+</ResponseExample>
