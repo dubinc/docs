@@ -448,6 +448,24 @@ To differentiate between [manually tracked lead events](/docs/quickstart/server#
 </Frame>
 </Tip>
 
+## First-time order restriction
+
+By default, discount codes created via Dub are restricted to [first-time orders](https://docs.stripe.com/payments/advanced/discounts#limit-by-first-time-order) in Stripe. That means the code can only be redeemed by customers who have never made a purchase (Stripe treats any successful payment or paid invoice as a prior purchase).
+
+If your signup flow creates a trial subscription or a $0 invoice, Stripe may classify those customers as returning purchasers and reject the code. In that case, go to your Stripe integration settings and disable **Eligible for first-time order only**:
+
+<Frame>
+  <img
+    src="/images/stripe/stripe-integration-settings-first-time.png"
+    alt="The Stripe integration settings page"
+  />
+</Frame>
+
+<Note>
+  Changes will only take effect for future discount codes. Existing promotion
+  codes keep the restriction they were created with.
+</Note>
+
 ## Tax handling
 
 When tracking sale conversions from Stripe, Dub automatically excludes taxes from the final sale amount to ensure accurate revenue reporting.
