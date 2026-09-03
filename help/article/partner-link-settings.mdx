@@ -127,13 +127,36 @@ Query parameter links do not carry UTM parameters. Because the partner key is al
 Set default [UTM parameters](/help/article/utm-builder) for all links in this group. This gives you group-specific insights in analytics.
 
 <Frame>
-  <img src="https://assets.dub.co/cms/link-utm.png" alt="Link UTM" />
+  <img src="/images/dub-partners/link-utm.png" alt="Link UTM" />
 </Frame>
 
-When you update a group’s [UTM template](/help/article/how-to-create-utm-templates), all partner links in the
+You can set a value for any of the following parameters:, Source, Medium, Campaign, Term, Content, and Referral.
+
+When you update a group's [UTM template](/help/article/how-to-create-utm-templates), all partner links in the
 group are refreshed and overwritten with the new UTM tags.
 
 These settings only apply when the group uses the [**Short Links** structure](/help/article/partner-link-settings#option-1-short-links). They are not applied when [**Query Parameter**](/help/article/partner-link-settings#option-2-query-parameter) is selected.
+
+#### Dynamic values
+
+Group UTM parameters are shared by every partner in the group, but you can personalize them per partner using dynamic values. Dynamic values are placeholders that Dub replaces with partner-specific information when a link is created or synced.
+
+<Frame>
+  <img src="/images/dub-partners/link-utm-input.png" alt="Link UTM input" />
+</Frame>
+
+
+The following dynamic values are supported:
+
+| Dynamic value          | Replaced with                                 | 
+| ---------------------- | --------------------------------------------- | 
+| `{{PARTNER_NAME}}`     | The partner's name                            | 
+| `{{PARTNER_LINK_KEY}}` | The key (slug) of the partner's referral link | 
+
+To use a dynamic value, type it into any of the UTM fields above. As you type `{{` in a field, Dub will suggest the available dynamic values so you can pick one without typing it out in full.
+
+Dynamic values can also be combined with static text in the same field. For example, if you input `partner-{{PARTNER_NAME}}` as the UTM source, the link would track as `acme.com/partern-link?utm_source=partner-steven`.
+
 
 ## Changing your referral link domain
 
