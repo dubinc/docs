@@ -1,0 +1,116 @@
+---
+title: "Retainer style custom rewards"
+description: "Learn how to pay partners a fixed amount on a recurring schedule, independent of program performance."
+---
+
+<Tip>
+  This feature is only available on [Advanced plans and
+  above](https://dub.co/pricing/partners).
+</Tip>
+
+
+With Dub's custom rewards, you can pay partners a **fixed amount on a regular cadence** – daily, weekly, monthly, quarterly, or yearly – regardless of how many clicks, leads, or sales they generate.
+
+This is ideal for **retainer-style agreements**, where you've negotiated a set fee with a partner in exchange for ongoing promotion, content, or sponsorship placements.
+
+## How custom rewards work
+
+Unlike [click, lead, and sale rewards](/help/article/partner-rewards), custom rewards aren't triggered by a partner's conversion events. Instead, Dub automatically creates a commission for every eligible partner in the group each time the reward's schedule comes due.
+
+For example, if you set up a custom reward of **\$1,500 monthly, starting October 1st**, every approved partner in that group will receive a \$1,500 commission on October 1st, November 1st, December 1st, and so on.
+
+These commissions flow through the same [commission and payout process](/help/article/partner-payouts) as any other reward, so partners get paid via their regular payouts.
+
+## Creating a custom reward
+
+In your [group rewards](https://app.dub.co/program/groups/default/rewards) tab, you'll see the **Custom reward** type. Click **Create** to set up a custom reward for that group.
+
+<Frame>
+  <img
+    src="/images/dub-partners/rewards-retainer.png"
+    alt="Custom reward in the group rewards view"
+  />
+</Frame>
+
+The reward builder lets you configure the [amount](#amount), [cadence](#cadence), [start date](#start-date), and [duration](#duration). See [limitations](#limitations) for options that don't apply to custom rewards.
+
+<Frame>
+  <img
+    src="/images/dub-partners/reward-create-retainer.png"
+    alt="Custom reward builder"
+  />
+</Frame>
+
+### Amount
+
+Custom rewards are always a **flat amount** in USD. Percentage-based amounts aren't supported, since there's no sale value to calculate a percentage from.
+
+### Cadence
+
+Choose how often the reward is paid out:
+
+| Cadence       | Description                     |
+| ------------- | ------------------------------- |
+| **Daily**     | Every day                       |
+| **Weekly**    | Every 7 days                    |
+| **Biweekly**  | Every 14 days                   |
+| **Monthly**   | Once a month                    |
+| **Quarterly** | Every 3 months                  |
+| **Yearly**    | Once a year                     |
+
+### Start date
+
+The start date is the first day the reward will be paid, and it sets the schedule for all future payments. For example, a monthly reward starting on **October 15th** will pay on the 15th of every month.
+
+The start date must be today or a date in the future – it can't be set in the past.
+
+<Info>
+  Dates are evaluated in **UTC**. If the start date falls on a day that doesn't exist in a shorter month (e.g. the 31st), the reward is paid on the last day of that month instead.
+</Info>
+
+### Duration
+
+You can pay the reward **indefinitely**, or for a set number of months:
+
+| Duration         | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| **Indefinitely** | The reward is paid every period until you remove it |
+| **3 months**     | The reward is paid for 3 months                     |
+| **6 months**     | The reward is paid for 6 months                     |
+| **1 year**       | The reward is paid for 12 months                    |
+| **2 years**      | The reward is paid for 24 months                    |
+| **Custom**       | Any number of months, from 1 month and up   |
+
+When a duration is set, the clock starts from each partner's **first custom commission**, so partners who join the group later still receive the full duration.
+
+<Note>
+  Custom rewards can't be configured as a one-time payment. To pay a partner a single, one-off amount, [create a manual commission](/help/article/partner-commissions#creating-manual-commissions) instead.
+</Note>
+
+## Limitations
+
+Because custom rewards aren't tied to a conversion event, a few options available on other reward types don't apply:
+
+- **No reward modifiers** – you can't add conditions based on customer or sale attributes.
+- **No spend limits** – the reward is a fixed amount per period, so there's nothing to cap.
+- **One custom reward per group** – each partner group can have a single custom reward, alongside its click, lead, sale, and [partner referral](/help/article/partner-referrals) rewards.
+
+## Viewing custom commissions
+
+Custom commissions appear in your [commissions](/help/article/partner-commissions) view alongside your other commissions, with the type **Custom commission**. Each commission's description shows the amount, cadence, and period it covers, e.g. `$500 monthly · Oct 2026`.
+
+
+Like any other commission, custom commissions can be [edited or clawed back](/help/article/partner-commissions#editing-commissions) if needed.
+
+## Partner view
+
+Partners will see the custom reward in the **Rewards** section of their program overview page, described as "\$1,500 monthly for 12 months" (or "\$1,500 monthly" if the reward runs indefinitely).
+
+<Frame>
+  <img
+    src="/images/dub-partners/partner-overview-retainer.png"
+    alt="Custom reward in the partner view"
+  />
+</Frame>
+
+You can also add a [custom reward description](/help/article/partner-rewards#custom-reward-descriptions) to explain the terms of the retainer to your partners.
