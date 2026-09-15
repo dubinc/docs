@@ -121,6 +121,7 @@ Depending on your setup, there are a few ways you can track sales with the Dub S
 - [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
 - [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
 - [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
+- [Option 4: Using Stripe Coupons and Promotion Codes](#option-4-using-stripe-discounts-and-promotion-codes)
 
 ### Option 1: Using Stripe Payment Links
 
@@ -418,6 +419,27 @@ This way, when the customer makes a purchase, Dub will automatically associate t
   generated. [Sale
   rewards](/help/article/partner-rewards#configuring-reward-types) (both
   recurring and one-time rewards) will still be generated as usual.
+</Note>
+
+### Option 4: Using Stripe Coupons and Promotion Codes
+
+If you're using [Stripe Coupons and Promotion Codes](https://docs.stripe.com/billing/subscriptions/coupons), you can start tracking sale conversions simply by [installing the Stripe integration](#installing-the-dub-stripe-integration) in your Dub workspace.
+
+Then, [follow these steps](/help/article/dual-sided-incentives#option-2-using-stripe-promo-codes-no-code-required) to generate discount codes for your partners on Dub, and you are all set!
+
+<Frame>
+  <img
+    src="/images/dub-partners/new-discount-reward.png"
+    alt="Program discounts tab"
+  />
+</Frame>
+
+<Note>
+  While Stripe promo-code-based discounts is much easier to set up (no code
+  required), you sacrifice attribution accuracy since you won't have any
+  insights into the customer's geolocation, device info, referrer details, and
+  UTM data. Our Stripe integration will try to derive the customer's location
+  based on their Stripe billing address, but it can sometimes be inaccurate.
 </Note>
 
 ## Tracking free trials
