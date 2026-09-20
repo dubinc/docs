@@ -1,7 +1,6 @@
 ---
 title: "Managing partner commissions"
 description: "Learn how partner commissions work on Dub, and how to create manual commissions or clawbacks (negative commissions)."
-sidebarTitle: "Managing commissions"
 ---
 
 <Tip>
@@ -29,17 +28,17 @@ This opens up the commissions table view, where you can see a list of your histo
   />
 </Frame>
 
-| Column | Data |
-| --- | ---- |
-| Date      | Commission date |
-| Customer    | The customer associated with the lead or sale |
-| Partner        | The partner earning the commission |
-| Group | The group the partner belongs to |
-| Type        | The commission type (custom, click, lead, or sale)                  |
-| Amount        | The sale amount, or single count for custom, click, or lead rewards |
-| Commission         | The amount the partner will receive                                 |
-| Status             | Current status of the commission. [Learn more about statuses](/help/article/partner-commissions#commission-statuses).        |
-| Additional actions | Actions to edit the commission, and copy the invoice ID     |
+| Column             | Data                                                                                                                  |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Date               | Commission date                                                                                                       |
+| Customer           | The customer associated with the lead or sale                                                                         |
+| Partner            | The partner earning the commission                                                                                    |
+| Group              | The group the partner belongs to                                                                                      |
+| Type               | The commission type (custom, click, lead, or sale)                                                                    |
+| Amount             | The sale amount, or single count for custom, click, or lead rewards                                                   |
+| Commission         | The amount the partner will receive                                                                                   |
+| Status             | Current status of the commission. [Learn more about statuses](/help/article/partner-commissions#commission-statuses). |
+| Additional actions | Actions to edit the commission, and copy the invoice ID                                                               |
 
 <Note>
   To analyze commission earnings over time, see [Commission
@@ -65,6 +64,7 @@ If needed, you can also update the status for a given commission accordingly:
 [Learn more about changing commissions statuses](/help/article/partner-commissions#commission-status).
 
 ## Single commission view
+
 Each commission has its own page that provides further details about the commission, associated payout, and activity. This can be helpful when you need more details about a commission, or you want to know when something changed.
 
 <Frame>
@@ -74,32 +74,31 @@ Each commission has its own page that provides further details about the commiss
   />
 </Frame>
 
-
 ## Editing commissions
 
 You can change a commission's status and edit the earnings amount for all unpaid commissions. This can be completed from one of two areas:
 
 <Steps>
   <Step title="Commissions table">
-      From the Commissions table, click the `⋯` button and select **Edit commission**.
-      
-      <Frame>
-        <img
-          src="/images/dub-partners/edit-commission-table.png"
-          alt="Edit commission table"
-        />
-      </Frame>
-      
+    From the Commissions table, click the `⋯` button and select **Edit
+    commission**.
+    <Frame>
+      <img
+        src="/images/dub-partners/edit-commission-table.png"
+        alt="Edit commission table"
+      />
+    </Frame>
   </Step>
   <Step title="Single commission page">
-      From the [single commission page](/help/article/partner-commissions#single-commission-view), click the **Edit** button in the top right.
-      
-      <Frame>
-        <img
-          src="/images/dub-partners/edit-commission-single.png"
-          alt="Single commission edit"
-        />
-      </Frame>
+    From the [single commission
+    page](/help/article/partner-commissions#single-commission-view), click the
+    **Edit** button in the top right.
+    <Frame>
+      <img
+        src="/images/dub-partners/edit-commission-single.png"
+        alt="Single commission edit"
+      />
+    </Frame>
   </Step>
 </Steps>
 
@@ -112,8 +111,6 @@ With the edit commission modal open, you can change the status and earnings amou
   />
 </Frame>
 
-
-
 If you change a commission's status to `Canceled` or `Fraud`, you're also able to mark all previous commissions for this customer-partner pair as that status too. This will also prevent the partner from earning future commissions from this customer.
 
 <Frame>
@@ -124,6 +121,7 @@ If you change a commission's status to `Canceled` or `Fraud`, you're also able t
 </Frame>
 
 ### Earnings amount
+
 You can only edit the earnings amount for [custom commissions](#one-time-commissions) that haven't been paid yet. If the earnings amount is changed, it will also appear in the activity log on the [commissions page](/help/article/partner-commissions#single-commission-view).
 
 <Frame>
@@ -134,7 +132,8 @@ You can only edit the earnings amount for [custom commissions](#one-time-commiss
 </Frame>
 
 ### Bulk editing
-You can bulk edit the status of multiple commissions at once by clicking the checkboxes next to the commissions you want to edit, then click **Edit commissions**. 
+
+You can bulk edit the status of multiple commissions at once by clicking the checkboxes next to the commissions you want to edit, then click **Edit commissions**.
 
 <Frame>
   <img
@@ -155,8 +154,6 @@ From the modal, select the new status for the commissions and click **save**.
 <Tip>
   You can only bulk edit the status of commissions that haven't been paid yet.
 </Tip>
-
-
 
 ## Creating manual commissions
 
@@ -198,7 +195,12 @@ Manual one-time commissions are often used when you want to send a thank-you or 
 | Commission date  | Enable to add a custom date. If a custom date isn't added, it will auto-fill to the current date and time | ❌       |
 
 <Note>
-  One-time commissions are recorded as `custom` commissions, which are **not** subject to your program's [payout holding period](/help/article/partner-payouts#payout-holding-period). They become eligible for payout immediately at the next payout cycle. The same applies to [bounty commissions](/help/article/program-bounties) and `custom` commissions created via the [API](/docs/api-reference/commissions/create).
+  One-time commissions are recorded as `custom` commissions, which are **not**
+  subject to your program's [payout holding
+  period](/help/article/partner-payouts#payout-holding-period). They become
+  eligible for payout immediately at the next payout cycle. The same applies to
+  [bounty commissions](/help/article/program-bounties) and `custom` commissions
+  created via the [API](/docs/api-reference/commissions/create).
 </Note>
 
 ### Lead commission
@@ -241,7 +243,8 @@ Manual sale commissions are recurring and based on your [reward settings](/help/
 | Product ID    | The product ID of the sale. Can be used to fetch the commission later via the API              | ❌                                      |
 
 ### Creating a new customer
-If the customer you need to associate the commission with doesn't exist, you can create one in Dub to match your records. To do this, when searching for a customer in the customer field, click on **Create new customer**. 
+
+If the customer you need to associate the commission with doesn't exist, you can create one in Dub to match your records. To do this, when searching for a customer in the customer field, click on **Create new customer**.
 
 This will open up a modal where you can add your customer's details or import from Stripe.
 
@@ -251,8 +254,6 @@ This will open up a modal where you can add your customer's details or import fr
     alt="Create new customer location"
   />
 </Frame>
-
-
 
 Once the customer is created, you can then associate any commissions to them, and future commissions will automatically be associated with that customer.
 
@@ -352,7 +353,8 @@ The partner affected will see this reflected in their earnings view on their das
 </Frame>
 
 ## Exporting commissions
-To export your commissions, click the more button next to **Create commissions** then **Export as CSV**. 
+
+To export your commissions, click the more button next to **Create commissions** then **Export as CSV**.
 
 <Frame>
   <img
@@ -371,12 +373,12 @@ In the **Export commissions** modal, select which fields you want to include in 
 </Frame>
 
 <Tip>
-   To export commissions with any filters you currently have applied, make sure to toggle on "Apply current filters". This will ensure that only the commissions matching your current filters will be included in the export.
+  To export commissions with any filters you currently have applied, make sure
+  to toggle on "Apply current filters". This will ensure that only the
+  commissions matching your current filters will be included in the export.
 </Tip>
 
-
-
-After receiving the email, click **Download export** to download your commissions CSV file. 
+After receiving the email, click **Download export** to download your commissions CSV file.
 
 <Frame>
   <img
