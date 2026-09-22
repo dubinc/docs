@@ -169,10 +169,10 @@ Tailor your reward amount by customer country. In this example, we're rewarding 
   />
 </Frame>
 
-| Condition                                                   | Reward                                    | Description                                 |
-| ----------------------------------------------------------- | ----------------------------------------- | ------------------------------------------- |
-| If `Customer` `Country` `is one of` `Canada, United States` | Then pay a `Percentage` of `40%` per sale | Higher reward for US and Canadian customers |
-| If `Customer` `Country` `is not` `United States`            | Then pay a `Percentage` of `10%` per sale | Lower reward for non-US customers           |
+| Condition                                                       | Reward                                    | Description                                          |
+| --------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------- |
+| If `Customer` `Country` `is one of` `Canada, United States`     | Then pay a `Percentage` of `40%` per sale | Higher reward for US and Canadian customers          |
+| If `Customer` `Country` `is not one of` `Canada, United States` | Then pay a `Percentage` of `30%` per sale | Lower reward for customers outside the US and Canada |
 
 ### Product spotlight
 
@@ -231,7 +231,7 @@ For creating tiered rewards based on the sale amount. In this example, we're giv
 | Condition                                               | Reward                                    | Description                       |
 | ------------------------------------------------------- | ----------------------------------------- | --------------------------------- |
 | If `Sale` `Amount` `is greater than or equal to` `$100` | Then pay a `Percentage` of `60%` per sale | Higher reward for sales over $100 |
-| If `Sale` `Amount` `is less than or equal to` `$100`    | Then pay a `Percentage` of `60%` per sale | Lower reward for sales under $100 |
+| If `Sale` `Amount` `is less than or equal to` `$100`    | Then pay a `Percentage` of `25%` per sale | Lower reward for sales under $100 |
 
 ### Partner performance tiers
 
