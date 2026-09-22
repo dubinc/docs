@@ -9,7 +9,7 @@ import ViewConversions from "/snippets/view-conversions.mdx";
 
 <Tip>
   This feature is only available on [Business plans and
-  above](https://dub.co/pricing/partners).
+  above](https://dub.co/pricing).
 </Tip>
 
 Dub's best-in-class [Stripe integration](https://dub.co/integrations/stripe) listens to payment events on Stripe and tracks them as sales on Dub.
@@ -578,7 +578,7 @@ When a Stripe invoice or checkout session contains multiple line items (e.g. a b
 For each line item, Dub:
 
 1. Resolves the Stripe product ID for that line item.
-2. Matches it against any [product-specific reward modifiers](/help/article/partner-rewards#product-spotlight) configured for the partner's group.
+2. Matches it against any [product-specific reward modifiers](/help/article/sale-rewards#product-spotlight) configured for the partner's group.
 3. Calculates the commission for that line item using the matching reward rate (falling back to the default reward if no modifier matches).
 
 The final commission recorded for the invoice is the sum of the per-line-item commissions.

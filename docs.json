@@ -147,9 +147,18 @@
               {
                 "group": "Rewards and commissions",
                 "pages": [
-                  "help/article/partner-rewards",
-                  "help/article/partner-referrals",
-                  "help/article/retainer-rewards",
+                  {
+                    "group": "Configuring partner rewards",
+                    "root": "help/article/partner-rewards",
+                    "expanded": true,
+                    "pages": [
+                      "help/article/sale-rewards",
+                      "help/article/lead-rewards",
+                      "help/article/click-rewards",
+                      "help/article/partner-referrals",
+                      "help/article/retainer-rewards"
+                    ]
+                  },
                   "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
