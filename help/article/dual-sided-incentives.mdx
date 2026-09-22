@@ -30,6 +30,8 @@ Some examples include:
 
 This can drive powerful word-of-mouth growth as partners are more likely to share their link if it gives their audience/user base additional discounts, and on the other hand, their users are more likely to click on their links as well if they're getting a special deal.
 
+By default, the discount is configured at the [partner group](/help/article/partner-groups) level. You can also override it for an individual [partner](#partner-level-discounts) or [link](#link-level-discounts).
+
 In this article, we'll learn how to set up dual-sided incentives with Dub.
 
 ## Stripe coupons / promotion codes
@@ -661,6 +663,153 @@ When enabled, discount codes will be automatically created for all existing part
     alt="Auto provision discount codes"
   />
 </Frame>
+
+## Partner-level discounts
+
+<Tip>
+  Partner-level and link-level discounts are only available on [Advanced plans
+  and above](https://dub.co/pricing/partners).
+</Tip>
+
+By default, every partner uses the discount configured for their [partner group](/help/article/partner-groups). If you want to make an exception without creating a whole new group, you can override the discount for a single partner.
+
+Partner-level discounts apply to one partner across all of their links, including links they create later, unless a link has its own [link-level override](#link-level-discounts).
+
+Open the partner's details page from **All Partners**. The **Rewards** card on the right shows the discount currently in effect for that partner.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-partnerlocation.png"
+    alt="Partner details"
+  />
+</Frame>
+
+Click the **edit** icon on the discount row to open the override modal.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-partnerlocation-edit.png"
+    alt="Partner edit"
+  />
+</Frame>
+
+The modal lists every discount in the partner's group, with the group default marked and shown first. Select a different discount to override it for this partner.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-edit.png"
+    alt="Discount selection"
+  />
+</Frame>
+
+Before saving, you'll be asked to confirm the change and can add an optional note to the partner.
+
+If the partner has [Stripe discount codes](#option-2-using-stripe-promo-codes-no-code-required), Dub automatically remaps their discount codes to the new discount so the customer-facing coupon matches what the partner advertises.
+
+To override a reward for an individual partner instead, see [partner-level rewards](/help/article/partner-rewards#partner-level-rewards).
+
+## Link-level discounts
+
+Link-level discounts apply to one link only. They're useful when the same partner runs several campaigns with different customer offers, for example:
+
+- A **limited-time promotion** with a deeper customer discount tied to one link only
+- A **conference or event link** with a special attendee discount that shouldn't apply to the partner's other traffic
+- A **product-specific landing page** where you want a different coupon than the partner's everyday links
+
+Open the partner's details page from **All Partners**, then click the **Links** tab to see their referral links.
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-link.png"
+    alt="Partner links tab"
+  />
+</Frame>
+
+Click the `⋯` button and choose **Edit discount** for this selected link.
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-linklevel.png"
+    alt="Partner links dropdown"
+  />
+</Frame>
+
+The override modal works the same way as the partner-level one: pick an existing discount from the group, then confirm the change with an optional note to the partner.
+
+<Tip>
+  You can also set a link-level discount when you [create a link for a
+  partner](/help/article/managing-program-partners#links). The **New partner
+  link** modal has a discount selector.
+</Tip>
+
+If the partner has [Stripe discount codes](#option-2-using-stripe-promo-codes-no-code-required), Dub automatically remaps their discount codes to the new discount so the customer-facing coupon matches what the link advertises.
+
+To override a reward for a single link instead, see [link-level rewards](/help/article/partner-rewards#link-level-rewards).
+
+### Override indicators
+
+Partners with a discount override show a blue dot next to the icon. Click **Edit** to modify the override.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-indicatorpartner.png"
+    alt="Partner discount indicator"
+  />
+</Frame>
+
+Links with a link-level discount show an override icon next to the link name. Hover the icon to see that the discount is overridden, and click it to jump straight to the override modal.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-indicatorlinks.png"
+    alt="Link level indicator"
+  />
+</Frame>
+
+### Removing an override
+
+Open the override modal and select the **group** discount.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-remove.png"
+    alt="Removing override"
+  />
+</Frame>
+
+Before deleting a discount that's used as an override, switch the affected partners or links back to the group discount or to another discount so they don't lose their customer offer.
+
+### What the partner sees
+
+Partners see their effective discount on their program **Overview** page in the partner dashboard, and can select from the dropdown to view their other links and associated discounts.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-partner-overview.png"
+    alt="Partner overview"
+  />
+</Frame>
+
+On their **Links** page, each link card shows the primary offer for that link, and a **+N** badge expands to show every reward and discount that applies to it, so partners always know which link offers what.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-partner-links.png"
+    alt="Partner links"
+  />
+</Frame>
+
+When you change a partner-level or link-level discount, the partner also receives an email notification with the updated discount and any note you included.
+
+### How overrides are resolved
+
+When a customer is eligible for a discount, Dub picks the discount to apply in this order:
+
+1. **Link-level discount** – The single link that triggered the event
+2. **Partner-level discount** – Every link belonging to that partner
+3. **Group discount** – Every partner in the group
+
+Every partner-level and link-level discount change is recorded in the partner's activity log, including who made the change, the previous and new discount, the link it applied to (for link-level changes), and any note you added.
 
 ## Displaying discount banner
 

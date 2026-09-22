@@ -20,13 +20,13 @@ description: "Learn how to create custom rewards (pay-per-click, pay-per-lead, p
 
 On [Dub Partners](/help/article/dub-partners), you can offer different incentives for your partners to incentivize them to create high-quality content to spread the word about your product:
 
-| Reward type                                                | Description                                                                                                                                            |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Sale-based (pay-per-sale)](/help/article/sale-rewards)    | This is the most common reward type, where you reward partners for driving sales to your product either via a rev-share or fixed-price commission.     |
-| [Lead-based (pay-per-lead)](/help/article/lead-rewards)    | A more effective alternative to pay-per-click, where you reward partners for leads generated (e.g. demo requests, free trial signups, etc.)            |
-| [Click-based (pay-per-click)](/help/article/click-rewards) | Rewarding partners for driving clicks to your product – similar to how Google Ads' pay-per-click works.                                                |
+| Reward type                                                | Description                                                                                                                                           |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Sale-based (pay-per-sale)](/help/article/sale-rewards)    | This is the most common reward type, where you reward partners for driving sales to your product either via a rev-share or fixed-price commission.    |
+| [Lead-based (pay-per-lead)](/help/article/lead-rewards)    | A more effective alternative to pay-per-click, where you reward partners for leads generated (e.g. demo requests, free trial signups, etc.)           |
+| [Click-based (pay-per-click)](/help/article/click-rewards) | Rewarding partners for driving clicks to your product – similar to how Google Ads' pay-per-click works.                                               |
 | [Partner referral](/help/article/partner-referrals)        | Rewarding partners for referring other influencers, affiliates, and publishers to your program, paid out when the referred partner meets a condition. |
-| [Retainer (custom reward)](/help/article/retainer-rewards) | Paying partners a fixed amount on a recurring schedule (e.g. monthly or quarterly), independent of the clicks, leads, or sales they generate.           |
+| [Retainer (custom reward)](/help/article/retainer-rewards) | Paying partners a fixed amount on a recurring schedule (e.g. monthly or quarterly), independent of the clicks, leads, or sales they generate.         |
 
 During the program onboarding flow, you'll be asked to create a [default group reward](#default-group-rewards) that will be automatically applied to all new partners who join your program.
 
@@ -45,7 +45,7 @@ After initial onboarding, you can create additional rewards for clicks, leads, o
 
 You can also create [partner referral rewards](/help/article/partner-referrals), which allow partners to earn from bringing on new partners to your program, and [retainer rewards](/help/article/retainer-rewards), which pay partners a fixed amount on a recurring schedule.
 
-If a specific partner or link needs different terms than the rest of the group, you can override the group reward with a [partner-level or link-level reward](/help/article/link-level-rewards).
+If a specific partner or link needs different terms than the rest of the group, you can override the group reward with a [partner-level](#partner-level-rewards) or [link-level](#link-level-rewards) reward.
 
 ## Creating a reward
 
@@ -204,10 +204,7 @@ If you want to remove your custom content, click the **X** icon next to the cust
 During the creation of your rewards, the reward preview will populate with the settings you've provided. This preview allows you to see exactly what your partner will see on your [program details](/help/article/program-marketplace#program-details) and within [their dashboard](/help/article/navigating-partner-program#overview).
 
 <Frame>
-  <img
-    src="/images/dub-partners/reward-preview-01.png"
-    alt="Reward preview"
-  />
+  <img src="/images/dub-partners/reward-preview-01.png" alt="Reward preview" />
 </Frame>
 
 ### Reward quality
@@ -257,46 +254,148 @@ Here's an example of the reward notification email that will be sent to your par
   />
 </Frame>
 
-## Reward examples
-
-Here are a few reward examples with their conditions to give you some starting ideas.
+## Partner-level rewards
 
 <Tip>
-  Customizing reward conditions is only available on the [Advanced plan and
+  Partner-level and link-level rewards are only available on [Advanced plans and
   above](https://dub.co/pricing/partners).
 </Tip>
 
-### Geo-specific
+By default, every partner earns the rewards configured for their [partner group](/help/article/partner-groups). If you want to make an exception without creating a whole new group, you can override the [click](/help/article/click-rewards), [lead](/help/article/lead-rewards), or [sale](/help/article/sale-rewards) reward for a single partner.
 
-Tailor your reward amount by customer country. See the [geo-specific sale reward example](/help/article/sale-rewards#geo-specific) and the [geo-specific lead reward example](/help/article/lead-rewards#geo-specific).
+Partner-level rewards apply to one partner across all of their links, including links they create later, unless a link has its own [link-level override](#link-level-rewards).
 
-### Staggered reward durations
+Open the partner's details page from **All Partners**. The **Rewards** card on the right shows the rewards currently in effect for that partner.
 
-Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date. See the [staggered reward durations example](/help/article/sale-rewards#staggered-reward-durations).
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-partnerlocation.png"
+    alt="Partner details"
+  />
+</Frame>
 
-### Partner performance tiers
+Hover over a reward and click the **edit** button to open the override modal for that reward type.
 
-Tailor your reward amount by partner performance. See the [sale performance tiers example](/help/article/sale-rewards#partner-performance-tiers) and the [lead performance tiers example](/help/article/lead-rewards#partner-performance-tiers).
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-partnerlocation-edit.png"
+    alt="Partner edit"
+  />
+</Frame>
 
-### Product spotlight
+The modal lists every reward of that type in the partner's group, with the group default marked and shown first. Select a different reward to override it for this partner, or click **Create reward** to build a new one on the spot using the [reward builder](#creating-a-reward).
 
-Tailor your reward amount by product. See the [product spotlight example](/help/article/sale-rewards#product-spotlight).
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-edit.png"
+    alt="Partner reward override"
+  />
+</Frame>
 
-### Sale amount modifiers
+Before saving, you'll be asked to [confirm the change](#confirm-reward-creation) and can add an optional note to the partner.
 
-Create tiered rewards based on the sale amount. See the [sale amount modifiers example](/help/article/sale-rewards#sale-amount-modifiers).
+To override the discount for an individual partner instead, see [partner-level discounts](/help/article/dual-sided-incentives#partner-level-discounts).
 
-### New vs. recurring sales
+## Link-level rewards
 
-Tailor your reward amount based on whether the sale is the customer's first sale or a recurring sale. See the [new vs. recurring sales example](/help/article/sale-rewards#new-vs-recurring-sales).
+Link-level rewards apply to one link only. They're useful when the same partner runs several campaigns with different economics, for example:
 
-### Company size tiers
+- A **sponsored newsletter placement** that pays a higher rate than the partner's everyday links
+- A **conference or event link** with a one-off bonus that shouldn't apply to the partner's other traffic
+- A **product-specific landing page** where you want a flat bounty instead of a revenue share
 
-Tailor your pay-per-lead reward based on a [metadata condition](#metadata-conditions). See the [company size tiers example](/help/article/lead-rewards#company-size-tiers).
+Open the partner's details page from **All Partners**, then click the **Links** tab to see their referral links.
 
-### Annual vs. monthly billing
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-link.png"
+    alt="Partner links tab"
+  />
+</Frame>
 
-Tailor your reward amount based on a [metadata condition](#metadata-conditions). See the [annual vs. monthly billing example](/help/article/sale-rewards#annual-vs-monthly-billing).
+Click the `⋯` button to select which reward to edit for this selected link.
+
+<Frame>
+  <img
+    src="/images/dub-partners/create-reward-linklevel.png"
+    alt="Partner links dropdown"
+  />
+</Frame>
+
+The override modal works the same way as the partner-level one: pick an existing reward from the group, or click **Create reward** to build a new one, then confirm the change with an optional note to the partner.
+
+<Tip>
+  You can also set link-level rewards when you [create a link for a
+  partner](/help/article/managing-program-partners#links). The **New partner
+  link** modal has reward selectors for each type.
+</Tip>
+
+To override the discount for a single link instead, see [link-level discounts](/help/article/dual-sided-incentives#link-level-discounts).
+
+### Override indicators
+
+Partners with a reward override show a blue dot next to the icon. Click **Edit** to modify the override.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-indicatorpartner.png"
+    alt="Partner reward indicator"
+  />
+</Frame>
+
+Links with a link-level reward show an override icon next to the link name. Hover the icon to see which reward type is overridden, and click it to jump straight to the override modal for that type.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-indicatorlinks.png"
+    alt="Link level indicator"
+  />
+</Frame>
+
+### Removing an override
+
+Open the override modal for the reward type and select the **group** reward.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-reward-remove.png"
+    alt="Removing override"
+  />
+</Frame>
+
+Before deleting a reward that's used as an override, switch the affected partners or links back to the group reward or to another reward so they don't lose their payout.
+
+### Partner reward view
+
+Partners see their effective rewards on their program **Overview** page in the partner dashboard, and can select from the dropdown to view their other links and associated rewards.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-partner-overview.png"
+    alt="Partner overview"
+  />
+</Frame>
+
+On their **Links** page, each link card shows the primary reward for that link, and a **+N** badge expands to show every reward that applies to it, so partners always know which link pays what.
+
+<Frame>
+  <img
+    src="/images/dub-partners/linklevel-discount-partner-links.png"
+    alt="Partner links"
+  />
+</Frame>
+
+When you change a partner-level or link-level reward, the partner also receives an email notification with the updated reward and any note you included, the same as when you [update a group reward](#updating-a-partner-groups-reward-configuration).
+
+### How overrides are resolved
+
+When a click, lead, or sale event comes in, Dub picks the reward to apply in this order:
+
+1. **Link-level reward** – If a link-level reward is set for the link that triggered the event, it will be applied.
+2. **Partner-level reward** – If no link-level reward is set, the partner-level reward will be applied.
+3. **Group reward** – If no partner-level reward is set, the group reward will be applied.
+
+Every partner-level and link-level reward change is recorded in the partner's activity log, including who made the change, the previous and new reward, the link it applied to (for link-level changes), and any note you added. This keeps overrides as auditable as [group reward updates](#group-reward-update-logs).
 
 ## Updating a partner group's reward configuration
 

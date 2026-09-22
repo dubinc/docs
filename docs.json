@@ -159,7 +159,6 @@
                       "help/article/retainer-rewards"
                     ]
                   },
-                  "help/article/link-level-rewards",
                   "help/article/dual-sided-incentives",
                   "help/article/partner-commissions",
                   "help/article/non-monetary-rewards"
@@ -1211,6 +1210,10 @@
     {
       "source": "/help/article/submitted-referrals",
       "destination": "/help/article/submitted-leads"
+    },
+    {
+      "source": "/help/article/link-level-rewards",
+      "destination": "/help/article/partner-rewards#partner-level-rewards"
     }
   ]
 }
