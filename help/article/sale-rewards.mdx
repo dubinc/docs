@@ -29,10 +29,7 @@ If a sale is later refunded or disputed, Dub automatically creates a [clawback](
 In your [group rewards](https://app.dub.co/program/groups/default/rewards) tab, click **Create** next to the **Sale reward** type.
 
 <Frame>
-  <img
-    src="/images/dub-partners/create-reward-sale.png"
-    alt="Group rewards"
-  />
+  <img src="/images/dub-partners/create-reward-sale.png" alt="Group rewards" />
 </Frame>
 
 When the reward builder open, set your amount per sale, and optionally set your [sale reward conditions](#sale-reward-conditions).
@@ -69,12 +66,11 @@ Percentage rewards are calculated on the sale amount Dub receives. For Stripe, t
 
 The duration controls how long a partner keeps earning on a given customer after the first sale:
 
-| Duration           | Description                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| **One time**       | The partner earns on the customer's first sale only.                               |
+| Duration           | Description                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **One time**       | The partner earns on the customer's first sale only.                                                                                 |
 | **1 to 24 months** | The partner earns on every sale from that customer within the window (presets: 1, 3, 6, 12, 24 months, or a custom amount of months. |
-| **Lifetime**       | The partner earns on every sale from that customer, forever.                       |
-
+| **Lifetime**       | The partner earns on every sale from that customer, forever.                                                                         |
 
 ## Sale reward conditions
 
@@ -92,42 +88,34 @@ Conditions let you pay a different amount when a sale meets certain criteria. Cl
   />
 </Frame>
 
-### Customer
+### Customer attributes
 
-| Attribute | Description |
-| ---   | -------- |
-| **Country** | The customer's country, based on the location of the click that led to the signup.                                          |
-| **Source**  | How the customer was created. See [sale sources](#sale-sources).                       |
-| **Subscription duration**   | How many months the customer has been subscribed, counted from their first sale.                                            |
-| **Subscription start date**    | The date of the customer's first sale.                                                                                      |
-| **Signup date**        | The date the customer was created on Dub (usually their lead event).                                                        |
+| Attribute                   | Description                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| **Country**                 | The customer's country, based on the location of the click that led to the signup. |
+| **Subscription duration**   | How many months the customer has been subscribed, counted from their first sale.   |
+| **Subscription start date** | The date of the customer's first sale.                                             |
+| **Signup date**             | The date the customer was created on Dub (usually their lead event).               |
 
-#### Sale sources
+### Partner attributes
 
-| Source | When it applies |
-| --------- | ------------ |
-| `tracked sale`    | The sale was tracked via the [`/track/sale`](/docs/api-reference/track/sale) endpoint, an SDK, or the [Stripe integration](/docs/integrations/stripe).     |
+| Attribute             | Description                                                        |
+| --------------------- | ------------------------------------------------------------------ |
+| **Country**           | The country on the partner's profile.                              |
+| **Total clicks**      | Total clicks the partner has driven.                               |
+| **Total leads**       | Total leads the partner has generated.                             |
+| **Total conversions** | Total sale conversions the partner has generated.                  |
+| **Total revenue**     | Total sale amount the partner has driven (in USD).                 |
+| **Total commissions** | Total commissions the partner has earned in your program (in USD). |
 
-### Partner
+### Sale attributes
 
-| Attribute | Description |
-| --------   | ------------------- |
-| **Country**    | The country on the partner's profile.                              |
-| **Total clicks**   | Total clicks the partner has driven.                               |
-| **Total leads**   | Total leads the partner has generated.                             |
-| **Total conversions**  | Total sale conversions the partner has generated.                  |
-| **Total revenue**   | Total sale amount the partner has driven (in USD).                 |
-| **Total commissions**   | Total commissions the partner has earned in your program (in USD). |
-
-### Sale
-
-| Attribute   | Description |
-| ---------  | -------------- |
-| **Product ID**  | The product ID the sale is for. Use `Shown as` to modify how the reward shows to your partners. |
-| **Amount**   | The sale amount in USD. |
-| **Type**     | `new` for the customer's first sale, `recurring` for every sale after that. |
-| **Metadata**    | Any custom field attached to the sale via the `metadata`, or pulled from Stripe checkout session or invoice metadata. |
-
+| Attribute      | Description                                                                                                           |
+| -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Product ID** | The product ID the sale is for. Use `Shown as` to modify how the reward shows to your partners.                       |
+| **Amount**     | The sale amount in USD.                                                                                               |
+| **Type**       | `new` for the customer's first sale, `recurring` for every sale after that.                                           |
+| **Metadata**   | Any custom field attached to the sale via the `metadata`, or pulled from Stripe checkout session or invoice metadata. |
 
 Learn more about [metadata conditions](/help/article/partner-rewards#metadata-conditions).
 
@@ -270,7 +258,7 @@ Tailor your reward amount by partner performance. In this example, we offer a 50
 
 ### Annual vs. monthly billing
 
-Tailor your reward amount based on a [metadata condition](#metadata-conditions). In this example, we're passing a `billingCycle` field on each sale (via the `metadata` prop on [`/track/sale`](/docs/api-reference/track/sale)) and rewarding partners more for driving annual plans over monthly plans:
+Tailor your reward amount based on a [metadata condition](/help/article/partner-rewards#metadata-conditions). In this example, we're passing a `billingCycle` field on each sale (via the `metadata` prop on [`/track/sale`](/docs/api-reference/track/sale)) and rewarding partners more for driving annual plans over monthly plans:
 
 | Condition                               | Reward                                    | Description                       |
 | --------------------------------------- | ----------------------------------------- | --------------------------------- |
@@ -310,7 +298,6 @@ This is especially useful for subscription-based products, where you may want to
 | --------------------------------- | ----------------------------------------- | ----------------------------------- |
 | If `Sale` `Type` `is` `new`       | Then pay a `Percentage` of `80%` per sale | First-sale bonus for new customers  |
 | If `Sale` `Type` `is` `recurring` | Then pay a `Percentage` of `30%` per sale | Standard reward for recurring sales |
-
 
 ## Updating a sale reward
 

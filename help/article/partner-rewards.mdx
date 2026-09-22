@@ -28,7 +28,7 @@ On [Dub Partners](/help/article/dub-partners), you can offer different incentive
 | [Partner referral](/help/article/partner-referrals)        | Rewarding partners for referring other influencers, affiliates, and publishers to your program, paid out when the referred partner meets a condition. |
 | [Retainer (custom reward)](/help/article/retainer-rewards) | Paying partners a fixed amount on a recurring schedule (e.g. monthly or quarterly), independent of the clicks, leads, or sales they generate.           |
 
-During the program onboarding flow, you'll be asked to create a [default group reward](#program-wide-rewards) that will be automatically applied to all new partners who join your program.
+During the program onboarding flow, you'll be asked to create a [default group reward](#default-group-rewards) that will be automatically applied to all new partners who join your program.
 
 This initial reward will be either a lead or a sale-based reward by default, but you can customize the reward terms accordingly.
 
@@ -156,7 +156,7 @@ Each metadata condition supports two groups of operators, depending on whether y
 
 You can also attach metadata via the `metadata` prop on the [`/track/lead`](/docs/api-reference/track/lead) and [`/track/sale`](/docs/api-reference/track/sale) endpoints. If you're using our [Stripe integration](/docs/integrations/stripe), sale metadata is automatically pulled from your Stripe [`checkout.session` metadata](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-metadata) for one-time/subscription checkouts and/or your Stripe [`invoice` metadata](https://docs.stripe.com/api/invoices/object#invoice_object-metadata) for recurring invoice payments.
 
-For end-to-end examples, see [Company size tiers](#company-size-tiers) (lead) and [Annual vs. monthly billing](#annual-vs-monthly-billing) (sale).
+For end-to-end examples, see [Company size tiers](/help/article/lead-rewards#company-size-tiers) (lead) and [Annual vs. monthly billing](/help/article/sale-rewards#annual-vs-monthly-billing) (sale).
 
 ### Custom reward descriptions
 
@@ -257,7 +257,46 @@ Here's an example of the reward notification email that will be sent to your par
   />
 </Frame>
 
+## Reward examples
 
+Here are a few reward examples with their conditions to give you some starting ideas.
+
+<Tip>
+  Customizing reward conditions is only available on the [Advanced plan and
+  above](https://dub.co/pricing/partners).
+</Tip>
+
+### Geo-specific
+
+Tailor your reward amount by customer country. See the [geo-specific sale reward example](/help/article/sale-rewards#geo-specific) and the [geo-specific lead reward example](/help/article/lead-rewards#geo-specific).
+
+### Staggered reward durations
+
+Tailor your reward amount by the customer's subscription duration, subscription start date, or signup date. See the [staggered reward durations example](/help/article/sale-rewards#staggered-reward-durations).
+
+### Partner performance tiers
+
+Tailor your reward amount by partner performance. See the [sale performance tiers example](/help/article/sale-rewards#partner-performance-tiers) and the [lead performance tiers example](/help/article/lead-rewards#partner-performance-tiers).
+
+### Product spotlight
+
+Tailor your reward amount by product. See the [product spotlight example](/help/article/sale-rewards#product-spotlight).
+
+### Sale amount modifiers
+
+Create tiered rewards based on the sale amount. See the [sale amount modifiers example](/help/article/sale-rewards#sale-amount-modifiers).
+
+### New vs. recurring sales
+
+Tailor your reward amount based on whether the sale is the customer's first sale or a recurring sale. See the [new vs. recurring sales example](/help/article/sale-rewards#new-vs-recurring-sales).
+
+### Company size tiers
+
+Tailor your pay-per-lead reward based on a [metadata condition](#metadata-conditions). See the [company size tiers example](/help/article/lead-rewards#company-size-tiers).
+
+### Annual vs. monthly billing
+
+Tailor your reward amount based on a [metadata condition](#metadata-conditions). See the [annual vs. monthly billing example](/help/article/sale-rewards#annual-vs-monthly-billing).
 
 ## Updating a partner group's reward configuration
 

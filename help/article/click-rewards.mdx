@@ -14,13 +14,10 @@ Click rewards are the simplest way to get partners paid, since they don't depend
 
 ## Creating a click reward
 
-In your [group rewards](https://app.dub.co/program/groups/default/rewards) tab, click **Create** next to the **Click reward** type. 
+In your [group rewards](https://app.dub.co/program/groups/default/rewards) tab, click **Create** next to the **Click reward** type.
 
 <Frame>
-  <img
-    src="/images/dub-partners/create-reward-click.png"
-    alt="Group rewards"
-  />
+  <img src="/images/dub-partners/create-reward-click.png" alt="Group rewards" />
 </Frame>
 
 When the reward builder open, set your amount per click, and optionally set your [click reward conditions](#click-reward-conditions).
@@ -58,19 +55,18 @@ Conditions let you pay a different per-click amount when a click meets certain c
   />
 </Frame>
 
-### Customer
+### Customer attributes
 
-| Attribute   | Operators                                    | Description                                                                 |
-| -----------  | -------------------------------------------- | --------------------------------------------------------------------------- |
-| **Country**  | `is`, `is not`, `is one of`, `is not one of` | The country the click originated from, based on the visitor's IP geolocation. |
+| Attribute   | Operators                                    | Description                                                                   |
+| ----------- | -------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Country** | `is`, `is not`, `is one of`, `is not one of` | The country the click originated from, based on the visitor's IP geolocation. |
 
-| Operator        | Matches when                                          |
-| --------------- | -----------------------------------------------  |
-| `is`            | The click's country equals the value            | 
-| `is not`        | The click's country is anything but the value   | 
-| `is one of`     | The click's country is in the list              | 
-| `is not one of` | The click's country is not in the list          | 
-
+| Operator        | Matches when                                  |
+| --------------- | --------------------------------------------- |
+| `is`            | The click's country equals the value          |
+| `is not`        | The click's country is anything but the value |
+| `is one of`     | The click's country is in the list            |
+| `is not one of` | The click's country is not in the list        |
 
 ## Click reward examples
 
@@ -78,26 +74,25 @@ Conditions let you pay a different per-click amount when a click meets certain c
 
 The simplest setup: every click is worth the same amount, wherever it comes from.
 
-| Condition  | Reward                    |
-| ---------- | ------------------------- | 
-| All clicks | Pay `$0.50` per click     | 
+| Condition  | Reward                |
+| ---------- | --------------------- |
+| All clicks | Pay `$0.50` per click |
 
 ### Geo-tiered CPC
 
 Pay more for traffic from your core markets and less for the rest of the world:
 
-| Condition                                                   | Reward                |
-| ----------------------------------------------------------- | --------------------- |
+| Condition                                                   | Reward                  |
+| ----------------------------------------------------------- | ----------------------- |
 | If `Customer` `Country` `is one of` `United States, Canada` | Then pay `$2` per click |
 | If `Customer` `Country` `is one of` `Germany, France, UK`   | Then pay `$1` per click |
-| All other clicks                                            | Pay `$0.25` per click |
-
+| All other clicks                                            | Pay `$0.25` per click   |
 
 ### Single-market only
 
 Reward only the traffic you can actually serve, and pay nothing for the rest:
 
-| Condition                                        | Reward                |
-| ------------------------------------------------ | --------------------- |
-| If `Customer` `Country` `is` `United States`     | Then pay `$1` per click | 
-| All other clicks                                 | Pay `$0` per click    |
+| Condition                                    | Reward                  |
+| -------------------------------------------- | ----------------------- |
+| If `Customer` `Country` `is` `United States` | Then pay `$1` per click |
+| All other clicks                             | Pay `$0` per click      |
