@@ -18,9 +18,14 @@ Sale rewards are triggered by **sale events** on Dub. A sale event is created wh
 
 - You track a sale via the [`/track/sale`](/docs/api-reference/track/sale) endpoint or one of our [SDKs](/docs/sdks/overview)
 - A payment or invoice is paid via your [Stripe integration](/docs/integrations/stripe)
-- A [submitted lead](/help/article/submitted-leads) is marked as `Closed won`
 
-Each sale event creates a [commission](/help/article/partner-commissions) for the partner whose link the customer came from. The commission amount is determined by the sale reward configured for that partner's [group](/help/article/partner-groups), plus any [conditions](#sale-reward-conditions) that match the sale.
+Each sale event creates a [commission](/help/article/partner-commissions) for the partner whose link the customer came from. Dub applies the sale reward in this order:
+
+1. a [link-level](/help/article/partner-rewards#link-level-rewards) reward if one is set,
+2. otherwise a [partner-level](/help/article/partner-rewards#partner-level-rewards) reward,
+3. otherwise the partner's [group](/help/article/partner-groups) reward.
+
+The commission amount is determined by that reward, plus any [conditions](#sale-reward-conditions) that match the sale.
 
 If a sale is later refunded or disputed, Dub automatically creates a [clawback](/help/article/partner-commissions#creating-a-clawback) for the associated commission. See [handling refunds](/docs/conversions/sales/refunds).
 
@@ -301,4 +306,4 @@ This is especially useful for subscription-based products, where you may want to
 
 ## Updating a sale reward
 
-When you change a group's sale reward, historical commissions aren't changed, but the new configuration applies to all future sales, including renewals from customers the partner referred before the change. If you switch a group from one-time to recurring, previously referred customers' renewals become eligible for commission again.
+When you change a group's sale reward, historical commissions aren't changed. The new configuration applies to future sales – including renewals from customers the partner referred before the change – only when no [link-level](/help/article/partner-rewards#link-level-rewards) or [partner-level](/help/article/partner-rewards#partner-level-rewards) override is configured. If you switch a group from one-time to recurring, previously referred customers' renewals become eligible for commission again.
