@@ -183,11 +183,14 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
     ```
   </Tab>
 
-<Tab title="Codex">
-  ```bash codex mcp add dub-partners \ --env MCP_DUB_TOKEN=dub_xxxxxx \ -- npx
-  -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \ --header
-  "Mcp-Dub-Token:\${MCP_DUB_TOKEN}" ```
-</Tab>
+  <Tab title="Codex">
+    ```bash
+    codex mcp add dub-partners \
+      --env MCP_DUB_TOKEN=dub_xxxxxx \
+      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \
+      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
+    ```
+  </Tab>
 
   <Tab title="Cursor">
     Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
