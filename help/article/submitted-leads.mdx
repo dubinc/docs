@@ -1,5 +1,5 @@
 ---
-title: "Managing submitted leads"
+title: "Submitted leads"
 description: "Learn how to review and manage submitted leads in Dub."
 sidebarTitle: "Submitted leads"
 ---
@@ -68,7 +68,7 @@ This view will show all partner-submitted leads in one table, including:
 - Company
 - Submitting partner
 - Submitted date
-- [Current status](#lead-statuses)
+- [Current status](#submitted-lead-statuses)
 
 Click any row to open the lead details panel and review the submission more closely.
 
@@ -94,7 +94,28 @@ When you click a lead row in the **Submitted leads** table, a drawer view opens 
 
 This drawer is designed for quickly reviewing the submission, updating the lead stage, and seeing the history of changes without leaving the table. You're also able to edit the lead details by clicking the **Edit** button on the lead details card.
 
-## Changing statuses
+## Submitted lead statuses
+
+Submitted leads move through a simple pipeline inside Dub:
+
+| Status          | What it means                                                                  |
+| --------------- | ------------------------------------------------------------------------------ |
+| **New**         | The lead was submitted and has not been reviewed yet.                          |
+| **Qualified**   | The lead is valid and worth pursuing. This also creates a lead event + reward. |
+| **Meeting**     | The lead prospect has progressed to a meeting stage.                           |
+| **Negotiation** | The lead prospect is in an active deal cycle.                                  |
+| **Unqualified** | The lead is not a fit and will not move forward.                               |
+| **Closed won**  | The lead became a customer. This also creates a sale record.                   |
+| **Closed lost** | The opportunity did not convert.                                               |
+
+- All submitted leads start in **New**
+- **Unqualified**, **Closed won**, and **Closed lost** are final states
+- You can move submitted leads forward or backward between **Qualified**, **Meeting**, and **Negotiation**
+- A submitted lead must have an associated customer before it can be moved to **Closed won**
+
+In practice, that means you should typically mark a submitted lead as **Qualified** before marking it as **Closed won**.
+
+## Updating lead statuses
 
 If you select a new stage, Dub shows **Save changes** and **Cancel** actions at the bottom of the drawer before the update is finalized.
 
@@ -132,26 +153,3 @@ This change will also ask for a required sale amount and optional Stripe custome
 </Frame>
 
 When changing to `closed won`, this creates a sale record.
-
-## Lead statuses
-
-Submitted leads move through a simple pipeline inside Dub:
-
-| Status          | What it means                                                                  |
-| --------------- | ------------------------------------------------------------------------------ |
-| **New**         | The lead was submitted and has not been reviewed yet.                          |
-| **Qualified**   | The lead is valid and worth pursuing. This also creates a lead event + reward. |
-| **Meeting**     | The lead prospect has progressed to a meeting stage.                           |
-| **Negotiation** | The lead prospect is in an active deal cycle.                                  |
-| **Unqualified** | The lead is not a fit and will not move forward.                               |
-| **Closed won**  | The lead became a customer. This also creates a sale record.                   |
-| **Closed lost** | The opportunity did not convert.                                               |
-
-### Status rules
-
-- All submitted leads start in **New**
-- **Unqualified**, **Closed won**, and **Closed lost** are final states
-- You can move submitted leads forward or backward between **Qualified**, **Meeting**, and **Negotiation**
-- A submitted lead must have an associated customer before it can be moved to **Closed won**
-
-In practice, that means you should typically mark a submitted lead as **Qualified** before marking it as **Closed won**.
