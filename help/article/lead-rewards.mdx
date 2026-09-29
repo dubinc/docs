@@ -70,20 +70,7 @@ Conditions let you pay a different amount when a lead meets certain criteria. Cl
 | Attribute | Description |
 | ---- | ---- |
 | **Country** | The customer's country, based on the location of the click that led to the signup. |
-| **Source**  | How the lead was created. Learn about the different [lead sources below](#lead-sources).
-
-#### Lead Sources
-- `tracked lead` - The lead was tracked programmatically via the [`/track/lead`](/docs/api-reference/track/lead) endpoint, an SDK, or a [client-side integration](/docs/conversions/leads/client-side).
-- `submitted lead`: The lead was [submitted by a partner](/help/article/submitted-leads).
-- `Stripe free trial`: The lead was created automatically when a customer started a Stripe subscription trial with [free trial tracking](/docs/integrations/stripe#tracking-free-trials) enabled. Requires the [Stripe integration](https://dub.co/integrations/stripe).
-- `HubSpot lead`: The lead was recorded in [HubSpot](/docs/integrations/hubspot)). Requires the [Hubspot integration](https://dub.co/integrations/hubspot).
-
-<Frame>
-  <img
-    src="/images/dub-partners/lead-reward-customer-source.png"
-    alt="Customer source selection"
-  />
-</Frame>
+| **Source**  | How the lead was created: <ul><li>`tracked lead` - The lead was tracked programmatically via the [`/track/lead`](/docs/api-reference/track/lead) endpoint, an SDK, or a [client-side integration](/docs/conversions/leads/client-side).</li><li>`submitted lead`: The lead was [submitted by a partner](/help/article/submitted-leads).</li><li>`Stripe free trial`: The lead was created automatically when a customer started a Stripe subscription trial with [free trial tracking](/docs/integrations/stripe#tracking-free-trials) enabled. Requires the [Stripe integration](https://dub.co/integrations/stripe).</li><li>`HubSpot lead`: The lead was recorded in [HubSpot](/docs/integrations/hubspot)). Requires the [Hubspot integration](https://dub.co/integrations/hubspot).</li></ul> |
 
 ### Partner attributes
 
