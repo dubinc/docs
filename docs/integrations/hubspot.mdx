@@ -30,7 +30,7 @@ Finally, install the [HubSpot Dub Integration](https://app.dub.co/integrations/h
 
 During the installation, Dub will create 3 properties to your contact object on HubSpot:
 
-- **Dub Id** - Unique identifier that Dub uses to track clicks
+- **Dub ID** - Unique identifier that Dub uses to track clicks
 - **Dub Link** - The short link that the contact clicked to reach your site
 - **Dub Partner Email** - Email address of the partner associated with the short link
 
@@ -47,18 +47,46 @@ During the installation, Dub will create 3 properties to your contact object on 
   [contact us](https://dub.co/contact/support) for assistance.
 </Tip>
 
-### Set Your Closed Won Deal Stage ID
+### Configure lead and sale tracking
 
-You can define which HubSpot deal stage should be treated as **Closed Won** for automatic sales tracking in Dub.
+In your [HubSpot Integration Settings](https://app.dub.co/settings/integrations/hubspot), choose which HubSpot event should be tracked as a lead in Dub:
 
-If you've customized your pipeline (i.e. changed or added deal stages in HubSpot), enter the stage ID corresponding to your custom **Closed Won** stage in the [HubSpot Integration Settings](https://app.dub.co/settings/integrations/hubspot).
+| Lead trigger                | When the lead is tracked                                                  |
+| --------------------------- | ------------------------------------------------------------------------- |
+| **Lifecycle Stage Reached** | The contact's lifecycle stage changes to the lifecycle stage you specify. |
+| **New Deal Created**        | A deal is created for the contact.                                        |
+| **Deal Stage Reached**      | A deal associated with the contact moves into the deal stage you specify. |
 
-Once set, any HubSpot deal marked as **Closed Won** will automatically be tracked in Dub as a sale conversion event, including its deal value.
+Every option includes a **Closed Won Deal Stage ID** field. This is the deal stage that gets tracked as a sale in Dub. It defaults to HubSpot's standard `closedwon` stage, so you only need to change it if you've customized your pipeline stages.
+
+#### Lifecycle Stage Reached
+Enter the internal ID of the contact lifecycle stage that represents a qualified lead in the **Lead Lifecycle Stage ID** field (e.g. `salesqualifiedlead`). A lead is tracked in Dub when a contact reaches this lifecycle stage.
 
 <Frame>
   <img
-    src="/images/conversions/hubspot/hubspot-custom-deal-stage-id.png"
-    alt="Add custom deal stage ID to HubSpot Integration Settings"
+    src="/images/conversions/hubspot/hubspot-lifecycle-stage.png"
+    alt="HubSpot Integration Settings with Lifecycle Stage Reached selected"
+  />
+</Frame>
+
+#### New Deal Created
+A lead is tracked in Dub as soon as a deal is created for the contact in HubSpot.
+
+<Frame>
+  <img
+    src="/images/conversions/hubspot/hubspot-new-deal.png"
+    alt="HubSpot Integration Settings with New Deal Created selected"
+  />
+</Frame>
+
+#### Deal Stage Reached
+
+Enter the internal ID of the deal stage that represents a qualified lead in the **Lead Deal Stage ID** field (e.g. `qualifiedtobuy`). A lead is tracked in Dub when a deal associated with the contact moves into this stage. This must be different from your **Closed Won Deal Stage ID**.
+
+<Frame>
+  <img
+    src="/images/conversions/hubspot/hubspot-deal-stage.png"
+    alt="HubSpot Integration Settings with Deal Stage Reached selected"
   />
 </Frame>
 
@@ -72,7 +100,7 @@ Here's how you can set it up:
 
 <Steps>
   <Step title="Add a hidden field to your form">
-    In the HubSpot form builder, add a hidden field and map it to the **Dub Id** contact property.
+    In the HubSpot form builder, add a hidden field and map it to the **Dub Click ID** contact property.
     
     This makes sure the value captured by your script is stored on the contact record. Without mapping to a property, HubSpot won’t persist the `dub_id` value.
 
@@ -260,19 +288,25 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
 
 ## Tracking conversion events
 
-After a prospect attends your demo call, you'll typically create a deal in HubSpot to track the sales opportunity.
+Dub's HubSpot integration automatically sets up webhooks to track contact, deal, and lifecycle stage changes, providing complete visibility into your sales funnel.
 
-Dub's HubSpot integration automatically sets up webhooks to track both deal creation and deal closure events, providing complete visibility into your sales funnel.
+### When a contact is created
 
-### When a deal is created (lead event)
+When a new contact is created in HubSpot with a **Dub Click ID** (e.g. via a [HubSpot form](#option-1-using-hubspot-forms)), Dub records a [deferred lead](/docs/conversions/leads/deferred) that links the contact to the Dub link they came from. The integration also fills in the contact's **Dub Link** and **Dub Partner Email** properties.
 
-When you create a deal in HubSpot for a contact who came through your Dub links, the integration automatically tracks this as a [lead event](/docs/quickstart/server#tracking-lead-events) in Dub.
+### When the lead trigger fires (lead event)
+
+When the [lead trigger](#configure-lead-and-sale-tracking) you configured happens – a deal is created, a deal reaches your lead deal stage, or the contact reaches your lead lifecycle stage – the integration tracks a [lead event](/docs/quickstart/server#tracking-lead-events) in Dub for that contact.
+
+Leads tracked by the HubSpot integration show up as `HubSpot lead` in the `Customer` `Source` [lead reward condition](/help/article/lead-rewards#customer-attributes), so you can pay partners a different amount for them.
 
 ### When a deal is closed (sale event)
 
 When a deal moves to a **Closed Won** status in HubSpot, the integration automatically [tracks a sale event](/docs/quickstart/server#tracking-sale-events) in Dub using the deal amount as the sale value.
 
-If a deal is not being tracked as a sale in Dub, make sure you've set the correct Closed Won Deal Stage ID in your [HubSpot Integration Settings](#set-your-closed-won-deal-stage-id).
+Sales tracked by the HubSpot integration show up as `HubSpot closed won deal` in the `Customer` `Source` [sale reward condition](/help/article/sale-rewards#customer-attributes), so you can pay partners a different amount for them.
+
+If a deal is not being tracked as a sale in Dub, make sure you've set the correct Closed Won Deal Stage ID in your [HubSpot Integration Settings](#configure-lead-and-sale-tracking).
 
 ## Example apps
 

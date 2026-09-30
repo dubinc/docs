@@ -18,6 +18,8 @@ Sale rewards are triggered by **sale events** on Dub. A sale event is created wh
 
 - You track a sale via the [`/track/sale`](/docs/api-reference/track/sale) endpoint or one of our [SDKs](/docs/sdks/overview)
 - A payment or invoice is paid via your [Stripe integration](/docs/integrations/stripe)
+- A lead [submitted by a partner](/help/article/submitted-leads) reaches **Closed won**
+- A deal is marked as `closed won` in HubSpot via your [HubSpot integration](/docs/integrations/hubspot#when-a-deal-is-closed-sale-event)
 
 Each sale event creates a [commission](/help/article/partner-commissions) for the partner whose link the customer came from. Dub applies the sale reward in this order:
 
@@ -98,6 +100,7 @@ Conditions let you pay a different amount when a sale meets certain criteria. Cl
 | Attribute                   | Description                                                                        |
 | --------------------------- | ---------------------------------------------------------------------------------- |
 | **Country**                 | The customer's country, based on the location of the click that led to the signup. |
+| **Source**                  | How the sale was created: <ul><li>`tracked sale` - The sale was tracked via the [`/track/sale`](/docs/api-reference/track/sale) endpoint, an SDK, or the [Stripe integration](/docs/integrations/stripe).</li><li>`closed won deal`: A lead [submitted by a partner](/help/article/submitted-leads) reached **Closed won**.</li><li>`HubSpot closed won deal`: A deal was marked as closed won in HubSpot via the [HubSpot integration](/docs/integrations/hubspot#when-a-deal-is-closed-sale-event).</li></ul> |
 | **Subscription duration**   | How many months the customer has been subscribed, counted from their first sale.   |
 | **Subscription start date** | The date of the customer's first sale.                                             |
 | **Signup date**             | The date the customer was created on Dub (usually their lead event).               |
