@@ -471,11 +471,11 @@
                     ]
                   },
                   {
-                    "group": "Partner applications",
+                    "group": "Program applications",
                     "pages": [
-                      "docs/api-reference/partners/applications/list",
-                      "docs/api-reference/partners/applications/approve",
-                      "docs/api-reference/partners/applications/reject"
+                      "docs/api-reference/program-applications/list",
+                      "docs/api-reference/program-applications/approve",
+                      "docs/api-reference/program-applications/reject"
                     ]
                   },
                   {
@@ -665,7 +665,7 @@
     "href": "https://dub.co/home"
   },
   "api": {
-    "openapi": "https://spec.speakeasy.com/dub/dub/dub-with-code-samples"
+    "openapi": "https://api.dub.co"
   },
   "navbar": {
     "links": [
@@ -1210,6 +1210,10 @@
     {
       "source": "/help/article/submitted-referrals",
       "destination": "/help/article/submitted-leads"
+    },
+    {
+      "source": "/docs/api-reference/partners/applications/:slug*",
+      "destination": "/docs/api-reference/program-applications/:slug*"
     }
   ]
 }

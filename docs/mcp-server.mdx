@@ -183,14 +183,11 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
     ```
   </Tab>
 
-  <Tab title="Codex">
-    ```bash
-    codex mcp add dub-partners \
-      --env MCP_DUB_TOKEN=dub_xxxxxx \
-      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \
-      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
-    ```
-  </Tab>
+<Tab title="Codex">
+  ```bash codex mcp add dub-partners \ --env MCP_DUB_TOKEN=dub_xxxxxx \ -- npx
+  -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \ --header
+  "Mcp-Dub-Token:\${MCP_DUB_TOKEN}" ```
+</Tab>
 
   <Tab title="Cursor">
     Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
@@ -380,7 +377,7 @@ The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent na
 
 - **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
 - **Partner links** — Create and upsert links for enrolled partners
-- **Applications** — List, approve, and reject pending partner applications
+- **Program applications** — List, approve, and reject pending program applications
 - **Analytics** — Retrieve analytics and list events for any partner, [partner groups](/help/article/partner-groups), or their specific links
 - **Customers** — List, retrieve, update, and delete customers
 - **Tracking** — Track lead, sale, and deep link open events
@@ -390,7 +387,7 @@ The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent na
 
 Here are some real examples of what your agent can do with these tools:
 
-- Triage pending partner applications and approve or reject them in bulk
+- Triage pending program applications and approve or reject them in bulk
 - Adjust commissions after a refund or flag suspicious activity
 - Pull attribution analytics for a top partner or [partner group](/help/article/partner-groups)
 - Create partner links and track lead or sale conversion events
