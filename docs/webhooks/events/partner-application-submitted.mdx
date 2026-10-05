@@ -41,7 +41,7 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
       <ParamField body="description" type="string | null">
         Partner bio or description.
       </ParamField>
-      <ParamField body="country" type="string">
+      <ParamField body="country" type="string | null">
         Country code (e.g. <code>US</code>).
       </ParamField>
       <ParamField body="groupId" type="string">
@@ -71,7 +71,7 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
     </Expandable>
 
   </ParamField>
-  <ParamField body="applicationFormData" type="array">
+  <ParamField body="applicationFormData" type="array | null">
     Array of form fields submitted by the partner.
 
     <Expandable title="form field object">
