@@ -1,18 +1,15 @@
 ---
-title: partner.application_submitted
+title: program_application.created
 icon: users
-deprecated: true
 ---
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-<Warning>
-  This event is deprecated. Use [`program_application.created`](/docs/webhooks/events/program-application-created) instead. Dub still sends `partner.application_submitted` events for now.
-</Warning>
+Occurs whenever a partner applies to your program. This includes partners who apply directly and partners who complete their application after signing up for Dub Partners.
 
-Occurs whenever a partner submits an [application](/docs/api-reference/program-applications/list) to your program.
+The payload matches the application object returned by [`GET /program-applications`](/docs/api-reference/program-applications/list).
 
-<WebhookResponseBodyParameters type="partner.application_submitted">
+<WebhookResponseBodyParameters type="program_application.created">
   <ParamField body="id" type="string">
     The application ID.
   </ParamField>
@@ -68,10 +65,34 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
       <ParamField body="tiktok" type="string | null">
         TikTok profile URL.
       </ParamField>
+      <ParamField body="networkStatus" type="string">
+        The partner's network status on Dub. One of <code>draft</code>, <code>submitted</code>, <code>approved</code>, <code>rejected</code>, or <code>trusted</code>.
+      </ParamField>
+      <ParamField body="defaultPayoutMethod" type="string | null">
+        The partner's default payout method. One of <code>connect</code>, <code>stablecoin</code>, <code>paypal</code>, or <code>tremendous</code>.
+      </ParamField>
+      <ParamField body="payoutsEnabledAt" type="string | null">
+        ISO 8601 timestamp when the partner enabled payouts.
+      </ParamField>
+      <ParamField body="platforms" type="array | null">
+        The partner's website and social profiles, including when each was verified.
+
+        <Expandable title="platform object">
+          <ParamField body="type" type="string">
+            Platform type. One of <code>website</code>, <code>youtube</code>, <code>twitter</code>, <code>linkedin</code>, <code>instagram</code>, or <code>tiktok</code>.
+          </ParamField>
+          <ParamField body="identifier" type="string">
+            The partner's identifier on the platform (e.g. a username or website URL).
+          </ParamField>
+          <ParamField body="verifiedAt" type="string | null">
+            ISO 8601 timestamp when the platform was verified, or <code>null</code> if unverified.
+          </ParamField>
+        </Expandable>
+      </ParamField>
     </Expandable>
 
   </ParamField>
-  <ParamField body="applicationFormData" type="array">
+  <ParamField body="applicationFormData" type="array | null">
     Array of form fields submitted by the partner.
 
     <Expandable title="form field object">
@@ -91,7 +112,7 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
 ```json Response
 {
   "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
-  "event": "partner.application_submitted",
+  "event": "program_application.created",
   "createdAt": "2025-11-06T11:25:59.264Z",
   "data": {
     "id": "pga_1K9CEN4JWYACNHS4DR3PWNR2F",
@@ -106,12 +127,22 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
       "country": "US",
       "groupId": "grp_1K9BZE1K2RWYAWB2K1YN5TY7F",
       "status": "pending",
-      "website": null,
+      "website": "https://example.com",
       "youtube": null,
       "twitter": null,
       "linkedin": null,
       "instagram": null,
-      "tiktok": null
+      "tiktok": null,
+      "networkStatus": "approved",
+      "defaultPayoutMethod": "connect",
+      "payoutsEnabledAt": "2025-10-01T09:12:44.000Z",
+      "platforms": [
+        {
+          "type": "website",
+          "identifier": "https://example.com",
+          "verifiedAt": "2025-10-01T09:15:02.000Z"
+        }
+      ]
     },
     "applicationFormData": [
       {
