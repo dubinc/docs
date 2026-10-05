@@ -5,9 +5,7 @@ icon: users
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Occurs whenever a partner applies to your program. This includes partners who apply directly and partners who complete their application after signing up for Dub Partners.
-
-The payload matches the application object returned by [`GET /program-applications`](/docs/api-reference/program-applications/list).
+Occurs whenever a partner submits an [application](/docs/api-reference/program-applications/list) to your program.
 
 <WebhookResponseBodyParameters type="program_application.created">
   <ParamField body="id" type="string">
