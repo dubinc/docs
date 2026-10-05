@@ -42,7 +42,12 @@ Open the lead reward editor, and add a condition to pay out when the customer so
 
 ### Sale reward
 
-Open the sale reward editor, and add a condition to pay out when the customer source is `closed won deal`. This will create the customer record, and the partner will be rewarded.
+Open the sale reward editor, and add a condition on `Customer` `Source`, and select the source that matches how your deals are closed:
+
+- **`closed won deal`**: Pay out when you mark a submitted lead as **Closed won** in Dub. This creates the customer and sale records, and the partner is rewarded. Use this if you manage the deal stage directly from the [Submitted leads](#updating-lead-statuses) page.
+- **`HubSpot closed won deal`**: Pay out when a deal reaches your closed won stage in HubSpot. Use this if you track your sales pipeline in HubSpot with the [HubSpot integration](/docs/integrations/hubspot#when-a-deal-is-closed-sale-event).
+
+Choosing one of these sources keeps these rewards separate from `tracked sale` rewards, which apply to sales tracked via the API or the [Stripe integration](/docs/integrations/stripe). Learn more about [sale reward conditions](/help/article/sale-rewards#customer-attributes).
 
 <Frame>
   <img
@@ -93,6 +98,44 @@ When you click a lead row in the **Submitted leads** table, a drawer view opens 
 </Frame>
 
 This drawer is designed for quickly reviewing the submission, updating the lead stage, and seeing the history of changes without leaving the table. You're also able to edit the lead details by clicking the **Edit** button on the lead details card.
+
+## Commenting on submitted leads
+
+Use comments to keep notes on a submitted lead and share updates with the partner who submitted it. In the lead drawer, click the **Comments** tab next to **Lead Details**.
+
+<Frame>
+  <img
+    src="/images/dub-partners/submitted-lead-select-comments.png"
+    alt="Comments tab"
+  />
+</Frame>
+
+### Choosing who can see a comment
+
+Before posting, use the visibility selector next to the **Post** button to choose who can see the comment:
+
+| Visibility                | Who can see it                                                                     |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| **Workspace only**        | Only members of your workspace. Use this for internal notes about the lead.        |
+| **Workspace and partner** | Your workspace and the partner who submitted the lead, in their partner dashboard. |
+
+Comments default to **Workspace only**. When **Workspace and partner** is selected, the comment input turns orange, and the posted comment shows a **Partner visible** badge so it's easy to tell apart from internal notes.
+
+<Frame>
+  <img
+    src="/images/dub-partners/submitted-lead-comment-visibility.png"
+    alt="Comment visibility"
+  />
+</Frame>
+
+Partner can reply to a submitted lead from their partner dashboard. Their comments are always visible to your workspace and show a **Partner** badge next to their name.
+
+<Frame>
+  <img
+    src="/images/dub-partners/submitted-lead-partner-visibility.png"
+    alt="Comment types"
+  />
+</Frame>
 
 ## Submitted lead statuses
 
