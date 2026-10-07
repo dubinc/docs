@@ -136,17 +136,19 @@ Each group has individual settings that allow you to customize the name and addi
   />
 </Frame>
 
-### Group name
+### Name, slug, and ID
+
+**Group name**
 
 The name of the partner group can be changed at any time. It's for internal use only and is never visible to your partners.
 
-### Group slug
+**Group slug**
 
 By default, the group slug will auto-generate based on the group name, but you're able to change this at any time. For program landing pages and internal group page URLs.
 
 <Tip>The default group slug cannot be changed.</Tip>
 
-### Group ID
+**Group ID**
 
 When setting up the [Dub embedded referral dashboard](/docs/partners/embedded-referrals), you'll use this group ID. The ID cannot be changed.
 
@@ -188,7 +190,14 @@ You can also include/exclude certain groups from being subject to the move rule 
 After adding your performance condition, click **Add condition**, then choose whether the partner group **is**, **is not**, **is one of**, or **is not one of** the selected group or groups. The partner must meet both the performance criteria and this group condition to be moved.
 
 <Note>
-  Partners with a custom [partner-level or link-level reward](/help/article/partner-rewards#partner-level-rewards) or [discount](/help/article/dual-sided-incentives#partner-level-discounts) are automatically excluded from group move rules, so they won't be accidentally moved to another group and lose their custom reward or discount.
+  Partners that have [ignore group move rules](/help/article/managing-program-partners#ignore-group-move-rules) enabled will stay within their current group and not be affected by any move rules.
+
+Also, partners with a custom [partner-level or link-level
+reward](/help/article/partner-rewards#partner-level-rewards) or
+[discount](/help/article/dual-sided-incentives#partner-level-discounts) are
+automatically excluded from group move rules as well, so they won't be accidentally
+moved to another group and lose their custom reward or discount.
+
 </Note>
 
 ## Adding partners to a group
@@ -234,7 +243,7 @@ Simply click the checkbox beside their name and click **Add to group** to move t
 
 There are a few ways to move partners between groups:
 
-**Via the partner details page**
+### Via the partner details page
 
 You can move a partner to a new group from their [partner details page](/help/article/managing-program-partners#viewing-partner-details):
 
@@ -254,7 +263,7 @@ Anytime you're changing a partner's group, you can enable **keep partner in sele
   />
 </Frame>
 
-**Via the partner table**
+### Via the partner table
 
 As mentioned above, you can also use the multi-select function in the [partners table](http://app.dub.co/program/partners) to move one or many partners at a time to any group.
 
@@ -267,20 +276,11 @@ Simply click the checkbox beside their name and click **Add to group** to move t
   />
 </Frame>
 
-**Via group move rules**
+### Via group move rules
 
-You can also automatically move partners to a new group based on their performance metrics. This is useful when you want partners to earn higher rewards as they progress in your program, without needing to manage groups manually.
+You can also automatically move partners to a new group based on their performance metrics using [group move rules](#group-move-rules).
 
-<Frame>
-  <img
-    src="https://assets.dub.co/cms/move-group.png"
-    alt="Group move rules example"
-  />
-</Frame>
-
-Partners that have [ignore group move rules](/help/article/managing-program-partners#ignore-group-move-rules) enabled will stay within their current group and not be affected by any move rules.
-
-**Via group applications**
+### Via group applications
 
 Approved partners can also apply to join a different group in your program. Share another group's [application landing page](#inviting-partners-to-apply) with them, and they can submit an application to that group from there.
 
