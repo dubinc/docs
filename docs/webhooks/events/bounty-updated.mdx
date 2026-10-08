@@ -1,0 +1,162 @@
+---
+title: bounty.updated
+icon: trophy
+---
+
+import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
+
+Occurs whenever a [bounty](/help/article/program-bounties) in your program is updated.
+
+<Tip>
+  The payload contains the bounty's full, updated state. Deleting a bounty does
+  not trigger this event.
+</Tip>
+
+<WebhookResponseBodyParameters type="bounty.updated">
+  <ParamField body="id" type="string">
+    Unique identifier for the bounty (e.g. <code>bnty_...</code>).
+  </ParamField>
+  <ParamField body="name" type="string | null">
+    The name of the bounty.
+  </ParamField>
+  <ParamField body="description" type="string | null">
+    The description of the bounty, outlining its rules and requirements.
+  </ParamField>
+  <ParamField body="type" type="string">
+    The type of bounty: <code>submission</code> (awarded based on partner
+    submissions) or <code>performance</code> (awarded based on partner
+    performance).
+  </ParamField>
+  <ParamField body="startMode" type="string">
+    How the bounty's start date is determined: <code>absolute</code> (starts
+    at a specific date and time) or <code>relative</code> (starts when a partner
+    joins the program).
+  </ParamField>
+  <ParamField body="startsAt" type="string | null">
+    ISO 8601 timestamp when the bounty starts. Only applicable when{" "}
+    <code>startMode</code> is <code>absolute</code>.
+  </ParamField>
+  <ParamField body="endsAt" type="string | null">
+    ISO 8601 timestamp when the bounty ends. Only applicable when{" "}
+    <code>startMode</code> is <code>absolute</code>.
+  </ParamField>
+  <ParamField body="endsAfterDays" type="number | null">
+    Number of days after a partner joins the program that the bounty stays
+    open. Only applicable when <code>startMode</code> is <code>relative</code>.
+  </ParamField>
+  <ParamField body="submissionsOpenAt" type="string | null">
+    ISO 8601 timestamp after which partners can finalize their submissions.
+    Only applicable for <code>submission</code> bounties.
+  </ParamField>
+  <ParamField body="submissionFrequency" type="string | null">
+    How often partners can submit: <code>day</code>, <code>week</code>, or{" "}
+    <code>month</code>. Only applicable when <code>maxSubmissions</code> is
+    greater than 1.
+  </ParamField>
+  <ParamField body="maxSubmissions" type="number">
+    The maximum number of submissions a partner can enter.
+  </ParamField>
+  <ParamField body="rewardAmount" type="number | null">
+    The reward amount in cents (e.g. <code>50000</code> = $500.00).
+  </ParamField>
+  <ParamField body="rewardDescription" type="string | null">
+    A custom reward description for <code>submission</code> bounties.
+  </ParamField>
+  <ParamField body="performanceCondition" type="object | null">
+    The condition a partner must meet to be awarded a <code>performance</code>{" "}
+    bounty.
+
+    <Expandable title="performanceCondition object">
+      <ParamField body="attribute" type="string">
+        The metric being measured: <code>totalLeads</code>,{" "}
+        <code>totalConversions</code>, <code>totalSaleAmount</code>, or{" "}
+        <code>totalCommissions</code>.
+      </ParamField>
+      <ParamField body="operator" type="string">
+        The comparison operator. Currently always <code>gte</code> (greater
+        than or equal to).
+      </ParamField>
+      <ParamField body="value" type="number">
+        The target value. Amounts (<code>totalSaleAmount</code>,{" "}
+        <code>totalCommissions</code>) are in cents.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="performanceScope" type="string | null">
+    Which performance data counts toward a <code>performance</code> bounty:{" "}
+    <code>lifetime</code> (all-time data) or <code>new</code> (only data after
+    the bounty starts).
+  </ParamField>
+  <ParamField body="submissionRequirements" type="object | null">
+    The requirements a submission must meet to be finalized. Only applicable
+    for <code>submission</code> bounties.
+
+    <Expandable title="submissionRequirements object">
+      <ParamField body="image" type="object">
+        Present if image uploads are required. May include <code>max</code>,
+        the maximum number of images.
+      </ParamField>
+      <ParamField body="url" type="object">
+        Present if URLs are required. May include <code>max</code>, the
+        maximum number of URLs, and <code>domains</code>, an array of allowed
+        domains.
+      </ParamField>
+      <ParamField body="socialMetrics" type="object">
+        Present for social content bounties. Includes <code>platform</code>{" "}
+        (<code>youtube</code>, <code>tiktok</code>, <code>instagram</code>,{" "}
+        <code>twitter</code>, or <code>linkedin</code>), <code>metric</code>{" "}
+        (<code>views</code> or <code>likes</code>), and optionally{" "}
+        <code>minCount</code> and <code>incrementalBonus</code>.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="groups" type="array">
+    The partner groups this bounty is available to, as objects with an{" "}
+    <code>id</code>.
+  </ParamField>
+  <ParamField body="partnerTags" type="array">
+    The partner tags this bounty is available to, as objects with an{" "}
+    <code>id</code>.
+  </ParamField>
+</WebhookResponseBodyParameters>
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "evt_8nMWc3BdUKqWLVoHbHE2mlTzH",
+  "event": "bounty.updated",
+  "createdAt": "2026-10-09T09:12:45.000Z",
+  "data": {
+    "id": "bnty_1K39DGZG3MHY9RP4PD0AS2C5P",
+    "name": "Create a video about Dub and earn $1,000",
+    "description": "Create a video about Dub and earn $1,000.",
+    "type": "submission",
+    "startsAt": "2026-10-08T17:34:00.000Z",
+    "endsAt": "2026-11-08T17:34:00.000Z",
+    "startMode": "absolute",
+    "endsAfterDays": null,
+    "submissionsOpenAt": null,
+    "submissionFrequency": null,
+    "maxSubmissions": 1,
+    "rewardAmount": 100000,
+    "rewardDescription": null,
+    "performanceCondition": null,
+    "performanceScope": null,
+    "submissionRequirements": {
+      "image": {},
+      "url": {}
+    },
+    "groups": [
+      {
+        "id": "grp_1K2E25381GVMG7HHM057TB92F"
+      }
+    ],
+    "partnerTags": []
+  }
+}
+```
+
+</ResponseExample>

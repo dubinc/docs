@@ -26,7 +26,7 @@ Occurs whenever a [link is updated](/docs/api-reference/links/update).
   <ParamField body="qrCode" type="string">
     URL to the QR code image for this link.
   </ParamField>
-  <ParamField body="userId" type="string">
+  <ParamField body="userId" type="string | null">
     ID of the user who owns the link.
   </ParamField>
   <ParamField body="workspaceId" type="string">
@@ -93,6 +93,7 @@ Occurs whenever a [link is updated](/docs/api-reference/links/update).
     "clicks": 0,
     "lastClicked": null,
     "leads": 0,
+    "conversions": 0,
     "sales": 0,
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",

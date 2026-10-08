@@ -23,7 +23,7 @@ Occurs whenever a [link is deleted](/docs/api-reference/links/delete).
   <ParamField body="shortLink" type="string">
     Full short link URL.
   </ParamField>
-  <ParamField body="userId" type="string">
+  <ParamField body="userId" type="string | null">
     ID of the user who owned the link.
   </ParamField>
   <ParamField body="workspaceId" type="string">
@@ -81,6 +81,7 @@ Occurs whenever a [link is deleted](/docs/api-reference/links/delete).
     "clicks": 0,
     "lastClicked": null,
     "leads": 0,
+    "conversions": 0,
     "sales": 0,
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",

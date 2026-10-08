@@ -29,7 +29,7 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
       <ParamField body="name" type="string">
         Partner name.
       </ParamField>
-      <ParamField body="email" type="string">
+      <ParamField body="email" type="string | null">
         Partner email address.
       </ParamField>
       <ParamField body="companyName" type="string | null">
@@ -44,7 +44,7 @@ Occurs whenever a partner submits an [application](/docs/api-reference/program-a
       <ParamField body="country" type="string | null">
         Country code (e.g. <code>US</code>).
       </ParamField>
-      <ParamField body="groupId" type="string">
+      <ParamField body="groupId" type="string | null">
         ID of the partner group they applied to.
       </ParamField>
       <ParamField body="status" type="string">
