@@ -61,13 +61,13 @@ Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is 
       <ParamField body="name" type="string">
         Partner name.
       </ParamField>
-      <ParamField body="email" type="string">
+      <ParamField body="email" type="string | null">
         Partner email address.
       </ParamField>
       <ParamField body="image" type="string | null">
         URL to the partner's profile image.
       </ParamField>
-      <ParamField body="country" type="string">
+      <ParamField body="country" type="string | null">
         Country code.
       </ParamField>
       <ParamField body="tenantId" type="string">

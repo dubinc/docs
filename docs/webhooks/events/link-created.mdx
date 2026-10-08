@@ -26,7 +26,7 @@ Occurs whenever a [link is created](/docs/api-reference/links/create).
   <ParamField body="qrCode" type="string">
     URL to the QR code image for this link.
   </ParamField>
-  <ParamField body="userId" type="string">
+  <ParamField body="userId" type="string | null">
     ID of the user who created the link.
   </ParamField>
   <ParamField body="workspaceId" type="string">
@@ -37,6 +37,10 @@ Occurs whenever a [link is created](/docs/api-reference/links/create).
   </ParamField>
   <ParamField body="leads" type="number">
     Total lead count (when conversion tracking is enabled).
+  </ParamField>
+  <ParamField body="conversions" type="number">
+    Number of leads that converted to paying customers (when conversion
+    tracking is enabled).
   </ParamField>
   <ParamField body="sales" type="number">
     Total sale count (when conversion tracking is enabled).
@@ -102,6 +106,7 @@ Occurs whenever a [link is created](/docs/api-reference/links/create).
     "clicks": 0,
     "lastClicked": null,
     "leads": 0,
+    "conversions": 0,
     "sales": 0,
     "saleAmount": 0,
     "createdAt": "2024-08-26T16:41:52.084Z",

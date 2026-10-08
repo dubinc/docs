@@ -619,6 +619,8 @@
                   "docs/webhooks/events/lead-created",
                   "docs/webhooks/events/sale-created",
                   "docs/webhooks/events/commission-created",
+                  "docs/webhooks/events/bounty-created",
+                  "docs/webhooks/events/bounty-updated",
                   "docs/webhooks/events/discount-code-created",
                   "docs/webhooks/events/discount-code-deleted"
                 ]

@@ -21,7 +21,7 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       <ParamField body="name" type="string">
         Customer name.
       </ParamField>
-      <ParamField body="email" type="string">
+      <ParamField body="email" type="string | null">
         Customer email address.
       </ParamField>
       <ParamField body="avatar" type="string | null">
@@ -85,7 +85,7 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       <ParamField body="os" type="string">
         Operating system (e.g. <code>Mac OS</code>).
       </ParamField>
-      <ParamField body="ua" type="string">
+      <ParamField body="ua" type="string | null">
         User agent string.
       </ParamField>
       <ParamField body="referer" type="string">
@@ -124,7 +124,7 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
   "data": {
     "eventName": "Sign up",
     "customer": {
-      "id": "oU5P0SqI8fpwx5bxw1",
+      "id": "cus_1K09DJDEACR47NPYC93RM43WF",
       "name": "John",
       "email": "john@example.com",
       "avatar": "https://example.com/john.jpeg",
@@ -161,8 +161,8 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       "trackConversion": true,
       "externalId": null,
       "tenantId": null,
-      "partnerId": null,
-      "programId": null,
+      "partnerId": "pn_1JRB6678XHGBZE95R5PH5QVGS",
+      "programId": "prog_CYCu7IMAapjkRpTnr8F1azjN",
       "archived": false,
       "expiresAt": null,
       "expiredUrl": null,
@@ -196,11 +196,12 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       "clicks": 10,
       "lastClicked": "2024-08-30T07:45:09.000Z",
       "leads": 5,
+      "conversions": 0,
       "sales": 0,
       "saleAmount": 0,
       "createdAt": "2024-08-29T13:03:59.098Z",
       "updatedAt": "2024-08-30T09:53:49.505Z",
-      "projectId": null,
+      "projectId": "cm022sis60003ikt1syy7kfhl",
       "testVariants": null,
       "testCompletedAt": null,
       "testStartedAt": null

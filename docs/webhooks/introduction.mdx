@@ -6,6 +6,11 @@ description: "Use webhooks to get real-time notifications on events happening ac
 
 import DeliveryIpAllowlist from "/snippets/delivery-ip-allowlist.mdx";
 
+<Note>
+  Webhooks are available on the [Business plan](https://dub.co/pricing) and
+  above.
+</Note>
+
 Webhooks allows you to listen to real-time events happening across your Dub workspace. With webhooks, you can build custom integrations with Dub, such as:
 
 - Triggering a Zap on [Zapier](https://dub.co/integrations/zapier) when a new link is created in Dub
@@ -14,10 +19,14 @@ Webhooks allows you to listen to real-time events happening across your Dub work
 - Building gamified referral programs – e.g. increment usage credits for the referrer when a [new signup](/docs/conversions/leads) happens
 
 <Warning>
-  The following endpoints do not trigger webhook events: [Bulk create
-  links](/docs/api-reference/links/bulk-create), [Bulk update
-  links](/docs/api-reference/links/bulk-update), [Bulk delete
-  links](/docs/api-reference/links/bulk-delete).
+  The following actions do not trigger `link.*` webhook events:
+
+- [Bulk create links](/docs/api-reference/links/bulk-create), [Bulk update links](/docs/api-reference/links/bulk-update), and [Bulk delete links](/docs/api-reference/links/bulk-delete)
+- Creating a link with [Upsert a link](/docs/api-reference/links/upsert) (updating an existing link with it does trigger `link.updated`)
+- Links created, updated, or deleted by partners from the partner portal
+- Links created via imports or the Slack `/shorten` command
+- Links deleted as a result of deleting a domain or workspace
+
 </Warning>
 
 In this guide, we'll show you how to configure webhooks for your Dub workspace and a list of available events you can listen to.
@@ -32,7 +41,7 @@ Navigate to the [**Webhooks** settings page](https://app.dub.co/webhooks) in you
   <img src="/images/create-webhook.png" alt="Create Webhook" />
 </Frame>
 
-Click on **Create Webhook** to create a new webhook.
+Click on **Create webhook** to create a new webhook.
 
 <Frame>
   <img src="/images/create-webhook-form.png" alt="Create Webhook Form" />
@@ -42,16 +51,28 @@ Fill in the required fields in the webhook creation form:
 
 1. **Name**: Give your webhook a name that helps you identify it.
 2. **URL**: Enter the URL of the endpoint where you want to send the webhook. We recommend using [webhook.site](https://webhook.site/) to test your webhook.
-3. **Signing secret**: This is an auto-generated secret key that you can use to verify the authenticity of the webhook in your application. Learn more about [verifying webhook requests](/docs/webhooks/verify-webhook-requests).
-4. **Events**: Select the events you want to listen to. You can select multiple events. Refer to the [Event Types](/docs/webhooks/event-types) section to see the list of available events.
+3. **Webhook events**: Select the events you want to listen to. You can select multiple events. Refer to the [Event Types](/docs/webhooks/event-types) section to see the list of available events.
+
+<Note>
+  Partner events (e.g. `partner.enrolled`, `commission.created`) are only listed
+  if your workspace has a [Dub Partners](https://dub.co/partners) program.
+</Note>
+
+If you select `link.clicked`, you can also choose which links trigger the event:
+
+- **All links**: Trigger the webhook for every link in your workspace.
+- **Include specific folders** (recommended): Trigger the webhook for all links in the folders you select.
+- **Include specific links**: Trigger the webhook only for the links you select.
 
 Finally, click on **Create webhook** to create the webhook.
+
+Once the webhook is created, Dub generates a **signing secret** for it, which you can find in the webhook's **Configuration** tab. Use it to verify that incoming requests came from Dub. Learn more about [verifying webhook requests](/docs/webhooks/verify-webhook-requests).
 
 ## Viewing webhook event logs
 
 We also provide you with a webhook event logs page where you can view all the webhook events that have been sent to your webhook endpoint in real-time.
 
-To view the webhook event logs, select the webhook from the [**Webhooks** settings page](https://app.dub.co/webhooks) and click on the **Webhook Logs** tab.
+To view the webhook event logs, select the webhook from the [**Webhooks** settings page](https://app.dub.co/webhooks) and click on the **Event Logs** tab.
 
 Here, you'll see a list of all the webhook events that have been sent to your webhook endpoint:
 
@@ -76,7 +97,7 @@ You can send test events to your webhook URL to ensure that it's working correct
 <Step title="Go to the webhook details page">
 Navigate to the [**Webhooks** settings page](https://app.dub.co/webhooks) and select the webhook you want to test.
 
-Click on the **Update Details** tab to open the webhook details page.
+Click on the **Configuration** tab to open the webhook details page.
 
 </Step>
 <Step title="Open the test event modal">
@@ -127,13 +148,13 @@ Webhooks are retried until they are successfully delivered – with an exponenti
 
 If a webhook endpoint consistently fails, it will be automatically disabled after a series of failed attempts.
 
-Notifications will be sent to the Workspace owners at the following intervals:
+An email notification will be sent to a workspace owner at the following intervals:
 
 - After 5, 10, and 15 consecutive failed attempts.
 - On the 20th consecutive failed attempt, the **webhook will be disabled**.
 
 This mechanism ensures that non-responsive endpoints do not continue to receive retry attempts indefinitely, maintaining system efficiency and preventing unnecessary load on both the sender and receiver.
 
-You can re-enable a disabled webhook by clicking on the **Enable webhook** button in the webhook details page.
+To re-enable a disabled webhook, open the webhook from the [**Webhooks** settings page](https://app.dub.co/webhooks), select the `⋮` icon on the top right of the page, and click on **Enable webhook**.
 
 <DeliveryIpAllowlist />
