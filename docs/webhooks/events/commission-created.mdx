@@ -46,6 +46,9 @@ Use the `userId` field to distinguish between manual commissions from automatic 
   <ParamField body="userId" type="string | null">
     ID of the user who created the commission. Set for manual commissions; null for automatic.
   </ParamField>
+  <ParamField body="metadata" type="object | null">
+    Metadata from the associated lead or sale event, or from Stripe webhook metadata.
+  </ParamField>
   <ParamField body="createdAt" type="string">
     ISO 8601 timestamp when the commission was created.
   </ParamField>
@@ -74,6 +77,9 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       <ParamField body="avatar" type="string | null">
         URL to the customer's avatar.
       </ParamField>
+      <ParamField body="stripeCustomerId" type="string | null">
+        The customer's Stripe customer ID, if linked.
+      </ParamField>
       <ParamField body="country" type="string">
         Country code.
       </ParamField>
@@ -85,6 +91,12 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       </ParamField>
       <ParamField body="createdAt" type="string">
         ISO 8601 timestamp when the customer was first seen.
+      </ParamField>
+      <ParamField body="firstSaleAt" type="string | null">
+        ISO 8601 timestamp of the customer's first sale.
+      </ParamField>
+      <ParamField body="subscriptionCanceledAt" type="string | null">
+        ISO 8601 timestamp when the customer's subscription was canceled.
       </ParamField>
     </Expandable>
 
@@ -128,6 +140,7 @@ Use the `userId` field to distinguish between manual commissions from automatic 
     "description": null,
     "quantity": 1,
     "userId": "cludszk1h0000wmd2e0ea2b0p",
+    "metadata": null,
     "createdAt": "2025-07-16T10:48:14.722Z",
     "updatedAt": "2025-07-16T10:48:14.960Z",
     "partner": {
@@ -151,10 +164,13 @@ Use the `userId` field to distinguish between manual commissions from automatic 
       "name": "David",
       "email": "david@example.com",
       "avatar": null,
+      "stripeCustomerId": null,
       "country": "US",
       "sales": 1,
       "saleAmount": 50000,
-      "createdAt": "2025-07-16T10:48:01.739Z"
+      "createdAt": "2025-07-16T10:48:01.739Z",
+      "firstSaleAt": null,
+      "subscriptionCanceledAt": null
     },
     "link": {
       "id": "cm0lcuvtz000xcutmqw4a7wi3",

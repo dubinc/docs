@@ -56,6 +56,9 @@ If you select the 3rd option, you can programmatically associate specific links 
       <ParamField body="ua" type="string | null">
         User agent string.
       </ParamField>
+      <ParamField body="trigger" type="string | null">
+        How the click was triggered (e.g. <code>link</code>, <code>qr</code>, or <code>deeplink</code>).
+      </ParamField>
       <ParamField body="referer" type="string">
         Referrer hostname or <code>(direct)</code>.
       </ParamField>
@@ -96,6 +99,7 @@ If you select the 3rd option, you can programmatically associate specific links 
       "browser": "Chrome",
       "os": "Mac OS",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "trigger": null,
       "referer": "(direct)",
       "refererUrl": "(direct)",
       "qr": false,
