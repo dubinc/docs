@@ -33,6 +33,9 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       <ParamField body="stripeCustomerId" type="string | null">
         The customer's Stripe customer ID, if linked.
       </ParamField>
+      <ParamField body="country" type="string | null">
+        The customer's country code.
+      </ParamField>
       <ParamField body="sales" type="number | null">
         Total number of sales for the customer.
       </ParamField>
@@ -88,6 +91,9 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       <ParamField body="ua" type="string | null">
         User agent string.
       </ParamField>
+      <ParamField body="trigger" type="string | null">
+        How the click was triggered (e.g. <code>link</code>, <code>qr</code>, or <code>deeplink</code>).
+      </ParamField>
       <ParamField body="referer" type="string">
         Referrer hostname or <code>(direct)</code>.
       </ParamField>
@@ -130,6 +136,7 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       "avatar": "https://example.com/john.jpeg",
       "externalId": "",
       "stripeCustomerId": null,
+      "country": null,
       "sales": 0,
       "saleAmount": 0,
       "createdAt": "2024-08-30T09:53:50.343Z",
@@ -148,6 +155,7 @@ Occurs whenever a [lead is created](/docs/api-reference/track/lead).
       "browser": "Chrome",
       "os": "Mac OS",
       "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "trigger": null,
       "referer": "(direct)",
       "refererUrl": "(direct)",
       "qr": false,

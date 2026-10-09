@@ -83,6 +83,9 @@ Occurs whenever a [bounty](/help/article/program-bounties) in your program is up
     </Expandable>
 
   </ParamField>
+  <ParamField body="socialMetricsLastSyncedAt" type="string | null">
+    ISO 8601 timestamp when social metrics were last synced for this bounty.
+  </ParamField>
   <ParamField body="performanceScope" type="string | null">
     Which performance data counts toward a <code>performance</code> bounty:{" "}
     <code>lifetime</code> (all-time data) or <code>new</code> (only data after
@@ -144,6 +147,7 @@ Occurs whenever a [bounty](/help/article/program-bounties) in your program is up
     "rewardAmount": 100000,
     "rewardDescription": null,
     "performanceCondition": null,
+    "socialMetricsLastSyncedAt": null,
     "performanceScope": null,
     "submissionRequirements": {
       "image": {},

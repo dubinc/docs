@@ -42,6 +42,9 @@ Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is 
   <ParamField body="createdAt" type="string">
     ISO 8601 timestamp when the payout was created.
   </ParamField>
+  <ParamField body="updatedAt" type="string">
+    ISO 8601 timestamp when the payout was last updated.
+  </ParamField>
   <ParamField body="initiatedAt" type="string | null">
     ISO 8601 timestamp when the payout was initiated.
   </ParamField>
@@ -50,6 +53,9 @@ Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is 
   </ParamField>
   <ParamField body="mode" type="string">
     Payout mode (e.g. <code>external</code> for external payouts).
+  </ParamField>
+  <ParamField body="traceId" type="string | null">
+    The payout trace ID, if available.
   </ParamField>
   <ParamField body="partner" type="object">
     The partner receiving the payout.
@@ -99,9 +105,11 @@ Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is 
     "periodStart": "2025-10-22T15:49:33.343Z",
     "periodEnd": "2025-10-31T18:29:59.999Z",
     "createdAt": "2025-10-22T15:50:13.661Z",
+    "updatedAt": "2025-10-22T15:50:13.661Z",
     "initiatedAt": "2025-10-22T15:50:13.661Z",
     "paidAt": null,
     "mode": "external",
+    "traceId": null,
     "partner": {
       "id": "cm6v2l38p000zubyl5fly3i7w",
       "name": "Matthew Hayden",
