@@ -8,6 +8,7 @@ import LeadsIntro from "/snippets/leads-intro.mdx";
 import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
 import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
 import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
+import ClientSideTrackingWarning from "/snippets/client-side-tracking-warning.mdx";
 import LeadDeduplication from "/snippets/lead-deduplication.mdx";
 import LeadsOutro from "/snippets/leads-outro.mdx";
 
@@ -23,16 +24,7 @@ import LeadsOutro from "/snippets/leads-outro.mdx";
 
 <ClientSideLeadTracking />
 
-<Warning>
-Client-Side Conversion Tracking Limitations:
-- **Ad blockers** – Users with ad blockers may prevent tracking scripts from loading.
-- **JavaScript disabled** – Events won’t be tracked if users have JavaScript disabled.
-- **Network issues** – Failed network requests won’t retry automatically.
-- **Privacy concerns** – Some users may block client-side tracking for privacy reasons.
-
-For more accurate conversion tracking, consider using [server-side conversion tracking](/docs/quickstart/server)
-
-</Warning>
+<ClientSideTrackingWarning />
 
 ## Lead deduplication
 

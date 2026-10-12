@@ -8,6 +8,7 @@ og:image: https://assets.dub.co/cms/gtm-integration.jpeg
 import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
 import SalesAttributes from "/snippets/sale-attributes.mdx";
 import ViewConversions from "/snippets/view-conversions.mdx";
+import ClientSideTrackingWarning from "/snippets/client-side-tracking-warning.mdx";
 
 <Tip>
   This feature is only available on [Business plans and
@@ -350,16 +351,7 @@ You can also verify that conversion events are being tracked by:
 - **Duplicate tracking**: Verify you've only implemented one tracking method (Option 1 OR Option 2, not both)
 - **Missing publishable key**: Ensure you've replaced the placeholder with your actual publishable key
 
-<Warning>
-**Client-Side Tracking Limitations**:
-- **Ad blockers** – Users with ad blockers may prevent tracking scripts from loading
-- **JavaScript disabled** – Events won't be tracked if users have JavaScript disabled  
-- **Network issues** – Failed network requests won't retry automatically
-- **Privacy concerns** – Some users may block client-side tracking for privacy reasons
-
-For more accurate conversion tracking, consider using [server-side conversion tracking](/docs/quickstart/server)
-
-</Warning>
+<ClientSideTrackingWarning />
 
 ## View conversion results
 
