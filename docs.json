@@ -822,7 +822,11 @@
     },
     {
       "source": "/docs/webhooks/event-types#payout-confirmed",
-      "destination": "/docs/webhooks/events/payout-confirmed"
+      "destination": "/docs/webhooks/events/external-payout-confirmed"
+    },
+    {
+      "source": "/docs/webhooks/events/payout-confirmed",
+      "destination": "/docs/webhooks/events/external-payout-confirmed"
     },
     {
       "source": "/docs/concepts/webhooks/verify-webhook-requests",
