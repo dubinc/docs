@@ -28,7 +28,7 @@ This is the default payout mode for new programs. All partners are paid directly
 ### Hybrid
 
 Partners with connected bank accounts are paid directly by Dub, while all other partners
-with tenant IDs configured receive payouts via the [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook event.
+with tenant IDs configured receive payouts via the [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) webhook event.
 
 This mode offers the best of both worlds:
 
@@ -38,7 +38,7 @@ This mode offers the best of both worlds:
 
 ### External only
 
-All payouts are processed through the [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook event to your platform. Dub handles commission tracking and payout calculations, but you're responsible for the actual money transfer.
+All payouts are processed through the [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) webhook event to your platform. Dub handles commission tracking and payout calculations, but you're responsible for the actual money transfer.
 
 <Frame>
   <img
@@ -60,7 +60,7 @@ The external payout flow follows these steps:
 
 <Step title="Webhook event sent">
   Once the payout is processed by Stripe, Dub sends a
-  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook event for
+  [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) webhook event for
   each external payout.
 </Step>
 
@@ -82,7 +82,7 @@ If the webhook fails after all retries, you'll need to manually process the payo
 
 <Note>
   External payout modes require an active webhook subscribed to the
-  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event. You'll be
+  [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) event. You'll be
   prompted to set one up if you haven't already.
 </Note>
 
@@ -113,7 +113,7 @@ You can set the tenant ID when:
 
 ### 2. Set up webhook receiver
 
-Create a webhook endpoint that listens for the [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event. See our [webhook setup guide](/docs/webhooks/introduction) for detailed instructions.
+Create a webhook endpoint that listens for the [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) event. See our [webhook setup guide](/docs/webhooks/introduction) for detailed instructions.
 
 Your webhook endpoint should:
 
@@ -151,7 +151,7 @@ export const POST = async (req: Request) => {
 
   const payload = JSON.parse(rawBody);
 
-  if (payload.event === "payout.confirmed") {
+  if (payload.event === "external_payout.confirmed") {
     // Process the payout
   }
 
@@ -164,20 +164,20 @@ export const POST = async (req: Request) => {
 After configuring your partners and webhook receiver, test the integration to ensure everything works correctly:
 
 1. **Confirm a payout** in your Dub dashboard for a partner with a configured `tenantId`
-2. **Check your webhook receiver** to verify it received the [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event
+2. **Check your webhook receiver** to verify it received the [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) event
 3. **Verify the payout status** in your Dub dashboard shows as "completed" after your webhook returns a 2xx response
 
 If the payout is marked as "completed", your external payout integration is working correctly. If it's marked as "failed", check the [troubleshooting section](#troubleshooting) below.
 
 ## Webhook payload
 
-The [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) webhook event contains the following information:
+The [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) webhook event contains the following information:
 
 <CodeGroup>
-```json payout-confirmed.json
+```json external-payout-confirmed.json
 {
   "id": "evt_...",
-  "event": "payout.confirmed",
+  "event": "external_payout.confirmed",
   "createdAt": "2025-10-22T15:50:13.661Z",
   "data": {
     "id": "po_1K869T6CWEH4NB78NS3QYHDJE",
@@ -263,7 +263,7 @@ Log all webhook events for debugging and reconciliation.
 
 <Accordion title="Webhook not receiving events">
   - Verify your webhook is subscribed to the
-  [`payout.confirmed`](/docs/webhooks/events/payout-confirmed) event - Check
+  [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) event - Check
   that your webhook URL is publicly accessible - Ensure your endpoint returns a
   2xx status code - Review webhook logs in your [webhook
   settings](https://app.dub.co/settings/webhooks)
@@ -285,7 +285,7 @@ Log all webhook events for debugging and reconciliation.
 
 ## Related resources
 
-- [`payout.confirmed` webhook event](/docs/webhooks/events/payout-confirmed)
+- [`external_payout.confirmed` webhook event](/docs/webhooks/events/external-payout-confirmed)
 - [Webhook setup guide](/docs/webhooks/introduction)
 - [Webhook event types](/docs/webhooks/event-types)
 - [Verifying webhook requests](/docs/webhooks/verify-webhook-requests)

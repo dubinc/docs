@@ -1,17 +1,17 @@
 ---
-title: payout.confirmed
+title: external_payout.confirmed
 icon: money-bill
 ---
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is confirmed.
+Occurs whenever an external [payout](/docs/api-reference/payouts/list) in your program is confirmed.
 
 <Note>
-  Learn more in the [External payouts guide](/docs/partners/external-payouts).
+  This event was previously named `payout.confirmed`. Update any webhook receivers that check for the old event name. Learn more in the [External payouts guide](/docs/partners/external-payouts).
 </Note>
 
-<WebhookResponseBodyParameters type="payout.confirmed">
+<WebhookResponseBodyParameters type="external_payout.confirmed">
   <ParamField body="id" type="string">
     Unique identifier for the payout.
   </ParamField>
@@ -92,7 +92,7 @@ Occurs whenever a [payout](/docs/api-reference/payouts/list) in your program is 
 ```json Response
 {
   "id": "evt_b9ywgxWqai2glUpCQjclB17kM",
-  "event": "payout.confirmed",
+  "event": "external_payout.confirmed",
   "createdAt": "2025-10-22T15:50:13.661Z",
   "data": {
     "id": "po_1K869T6CWEH4NB78NS3QYHDJE",
