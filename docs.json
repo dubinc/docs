@@ -52,7 +52,8 @@
                   "docs/integrations/hubspot",
                   "docs/integrations/segment"
                 ]
-              }
+              },
+              "docs/testing"
             ]
           },
           {

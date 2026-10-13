@@ -1,0 +1,203 @@
+---
+title: "Testing"
+"og:title": "How to test your Dub integration with a staging workspace"
+description: "Learn how to test conversion tracking, integrations, and payouts without affecting your live workspace."
+---
+
+<Tip>
+  Staging workspaces are only available on [Business plans and
+  above](https://dub.co/pricing).
+</Tip>
+
+A staging workspace lets you test links, conversion events, integrations, and partner payouts without changing your live analytics or moving real money.
+
+It is created automatically for any Business plan (or higher) workspace that has a partner program, and stays paired with your production workspace.
+
+<Frame>
+  <img
+    src="/images/testing/staging-workspace.png"
+    alt="A staging workspace with the staging banner and the Switch to staging option in the workspace menu"
+  />
+</Frame>
+
+Being in your staging workspace in the dashboard doesn't change how your integration behaves. The API key and publishable key your code uses decide which workspace receives your events.
+
+<Note>
+  Need a workspace that isn't paired with production? A sandbox workspace is an
+  independent workspace with no real money. Sandbox workspaces are not created
+  automatically – [contact us](https://dub.co/contact/support) if you need one.
+</Note>
+
+## Open your staging workspace
+
+Open the workspace menu in the top left corner and click **Switch to staging**. To go back to your production workspace, click **Exit staging** in the banner or the workspace menu.
+
+While you're in staging, an amber banner at the top of the dashboard reminds you that no real money or payouts are involved.
+
+Your staging workspace is set up with:
+
+- Name: `{Your workspace name} (Staging)`
+- Slug: `{your-workspace-slug}-staging`
+- Short link domain: `{your-workspace-slug}.staging.dub.link`
+- A copy of your partner program, including its destination URL, branding, application form, landing page, and default group settings
+
+The staging workspace is created when your workspace upgrades to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. Free and Pro workspaces, and workspaces without a partner program, don't get a staging workspace.
+
+## Limitations
+
+Staging workspaces are managed from your production workspace. In a staging workspace, you can't:
+
+- **Send real payouts** – payouts are simulated and never go through Stripe, PayPal, or Tremendous.
+- **Connect live Stripe** – you can connect a Stripe account in test mode or a [Stripe sandbox](https://docs.stripe.com/sandboxes), but live mode is rejected.
+- **Set it as your default workspace.**
+- **Change the workspace name, slug, or logo** – these sync from production, along with your plan and billing period.
+- **Manage members** – inviting teammates, invite links, pending invites, member roles, and removing members are all managed from production. Members, roles, and removals sync to staging automatically (API-only machine users are not copied).
+- **Change your plan or payment methods** – billing stays on production. Staging uses trial usage limits instead of your plan's limits, and staging usage isn't billed.
+- **Delete it on its own** – deleting your production workspace also deletes its staging workspace.
+- **Sync rewards and discounts** – they stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
+- **Receive usage emails or application reminders** – these are skipped, and your staging partner landing page is excluded from search results.
+
+## Get your staging credentials
+
+<Steps>
+<Step title="Create a staging API key">
+  While in your staging workspace, go to **Settings** > [**API Keys**](https://app.dub.co/settings/tokens) and create a new key.
+
+API keys created in staging start with `dub_test_` instead of `dub_`, so you can tell them apart from your production keys.
+
+</Step>
+
+<Step title="Copy your staging publishable key">
+  Go to your staging workspace's [Tracking settings
+  page](https://app.dub.co/settings/tracking) and copy the [publishable
+  key](/docs/api-reference/authentication#publishable-keys). You'll need it for
+  the [Dub Analytics script](/docs/sdks/client-side/introduction) and the
+  [mobile SDKs](/docs/sdks/client-side-mobile/introduction).
+</Step>
+
+<Step title="Point your test environment at staging">
+  Use the staging API key and publishable key in your test or staging environment. Events tracked with these keys only show up in your staging workspace.
+</Step>
+</Steps>
+
+<Note>
+
+Changes you make to your workspace name, logo, slug, plan, or members in production are synced to staging automatically. Everything else – links, partners, customers, conversion events, rewards, and discounts – stays separate.
+
+Your staging partner landing page shows the staging banner and is not indexed by search engines.
+
+</Note>
+
+## Testing use cases
+
+Here are the most common flows to test in your staging workspace before going live.
+
+### Track clicks, leads, and sales
+
+Set up conversion tracking with your staging keys using [server-side tracking](/docs/quickstart/server), [client-side tracking](/docs/quickstart/client), or the mobile SDKs ([Swift](/docs/sdks/client-side-mobile/installation-guides/swift) or [React Native](/docs/sdks/client-side-mobile/installation-guides/react-native)).
+
+Then, click one of your staging short links, sign up, and make a purchase. The click, lead, and sale – along with the new customer – show up in your staging workspace's analytics only.
+
+### Stripe
+
+Install the [Dub Stripe app](/docs/integrations/stripe) in Stripe test mode or a [Stripe sandbox](https://docs.stripe.com/sandboxes), and connect it to your staging workspace.
+
+Complete a test payment with one of Stripe's [test cards](https://docs.stripe.com/testing#cards). The payment shows up as a sale in your staging workspace.
+
+<Note>
+  Live Stripe mode can't be connected to a staging workspace. Use your
+  production workspace when you're ready to track real payments.
+</Note>
+
+### Shopify
+
+Install the [Dub Shopify app](/docs/integrations/shopify) on a Shopify development store and connect it to your staging workspace. Test orders from that store are recorded as sales in staging only.
+
+### HubSpot
+
+Connect a HubSpot test account to your staging workspace with the [HubSpot integration](/docs/integrations/hubspot). Leads and closed-won deals from that account are tracked in staging only.
+
+### Partner payouts
+
+Confirm a payout from your staging partner program. Staging payouts:
+
+- Use a simulated payment method, so there's no bank charge and no money transfer
+- Show **Payouts simulated** for partners and a **Test** badge on the payout
+
+<Warning>
+  Partners still receive the payout email for staging payouts. Use test partner
+  email addresses to avoid notifying real partners.
+</Warning>
+
+### Copy rewards and discounts to live
+
+Once you're happy with a reward or discount in staging, open the partner group in your staging workspace and click **Copy to live**. Then, pick a group in your production program that doesn't already have that type of reward or discount.
+
+Copying a Stripe discount also creates the matching coupon on your production workspace's connected Stripe account.
+
+## Go live
+
+When you're done testing:
+
+1. Click **Exit staging** to go back to your production workspace.
+2. Replace your staging API key and publishable key with your production keys.
+3. Connect your live Stripe account (and any other integrations) to your production workspace.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Server-side tracking"
+    icon="server"
+    href="/docs/quickstart/server"
+  >
+    Track conversion events from your backend
+  </Card>
+  <Card
+    title="Client-side tracking"
+    icon="browser"
+    href="/docs/quickstart/client"
+  >
+    Track conversion events from the browser
+  </Card>
+  <Card
+    title="Swift"
+    icon="swift"
+    iconType="brands"
+    href="/docs/sdks/client-side-mobile/installation-guides/swift"
+  >
+    Track deep links and conversions in your iOS app
+  </Card>
+  <Card
+    title="React Native"
+    icon="react"
+    iconType="brands"
+    href="/docs/sdks/client-side-mobile/installation-guides/react-native"
+  >
+    Track deep links and conversions in your React Native app
+  </Card>
+  <Card
+    title="Stripe"
+    icon="stripe"
+    iconType="brands"
+    href="/docs/integrations/stripe"
+  >
+    Track sales from Stripe payments
+  </Card>
+  <Card
+    title="Shopify"
+    icon="shopify"
+    iconType="brands"
+    href="/docs/integrations/shopify"
+  >
+    Track sales from Shopify orders
+  </Card>
+  <Card
+    title="HubSpot"
+    icon="hubspot"
+    iconType="brands"
+    href="/docs/integrations/hubspot"
+  >
+    Track leads and sales from HubSpot
+  </Card>
+</CardGroup>
