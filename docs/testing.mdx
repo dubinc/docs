@@ -1,0 +1,140 @@
+---
+title: "Testing your integration"
+description: "Learn how to test your conversion tracking, integrations and partner payouts in a staging or sandbox workspace before you go live."
+---
+
+<Tip>
+  Staging workspaces are only available on [Business plans and
+  above](https://dub.co/pricing).
+</Tip>
+
+Before you send real traffic to Dub, you can test your full setup in a separate workspace: conversion tracking, your Stripe, Shopify or HubSpot integration, and partner payouts. Test data stays out of your production analytics, and no real money moves.
+
+Dub has two kinds of test workspaces:
+
+|                       | Staging workspace                                         | Sandbox workspace                     |
+| --------------------- | --------------------------------------------------------- | ------------------------------------- |
+| How you get one       | Created for you when your workspace has a partner program | [Contact us](https://dub.co/contact/support) |
+| Linked to production  | Yes, members and settings sync from production            | No, it is a standalone workspace      |
+| Real money or payouts | No                                                        | No                                    |
+| Live Stripe mode      | Not allowed                                               | Not allowed                           |
+
+For most teams, the staging workspace is the right place to test.
+
+## Staging workspaces
+
+Dub creates a staging workspace for you when your production workspace is on a Business plan or above and has a partner program. It is named `<Your workspace> (Staging)` and its slug is `<your-slug>-staging`.
+
+### Switching to staging
+
+Open the workspace dropdown at the top left and click **Switch to staging**.
+
+A banner at the top of the page shows that you are in a staging workspace. To go back to your production workspace, click **Exit staging**.
+
+### What syncs from production
+
+These settings sync from your production workspace, and you can only change them there:
+
+- Members and their roles
+- Workspace name, slug and logo
+- Plan
+
+When Dub creates the staging workspace, it also creates a staging copy of your program with the same name, logo, website, description, payout settings, application form, landing page and branding. This copy is made once. Later program changes in production do not sync to staging.
+
+### What stays separate
+
+Your staging workspace has its own data. Nothing below is copied from production, and nothing you do in staging changes production:
+
+- Links, domains and analytics
+- Customers, leads and sales
+- Partners, rewards and discounts
+- Commissions and payouts
+- API keys and webhooks
+
+When you are happy with a reward or discount in staging, click **Copy to live** to copy it to a group in your production program.
+
+### Limits
+
+Staging workspaces use these limits:
+
+| Resource          | Limit  |
+| ----------------- | ------ |
+| Links             | 100    |
+| Tracked events    | 5,000  |
+| Partners          | 50     |
+| Payouts           | $500   |
+| Domains           | 5      |
+| Tags              | 5      |
+| Folders           | 5      |
+| Partner groups    | 5      |
+
+## Testing conversion tracking
+
+Follow the [server-side](/docs/quickstart/server), [client-side](/docs/quickstart/client) or mobile ([Swift](/docs/sdks/client-side-mobile/installation-guides/swift), [React Native](/docs/sdks/client-side-mobile/installation-guides/react-native)) tracking guide as usual, but use keys from your staging workspace in your development or staging environment:
+
+<Steps>
+<Step title="Create a staging API key">
+  In your staging workspace, go to **Settings** > **API Keys** and create a new key. Staging keys start with `dub_test_` so you can tell them apart from production keys (`dub_`). The API base URL is the same: `https://api.dub.co`.
+
+```bash .env.local
+DUB_API_KEY=dub_test_xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+</Step>
+<Step title="Set up client-side tracking">
+  If you use client-side or mobile tracking, copy the publishable key from your staging workspace's [Tracking settings](https://app.dub.co/settings/tracking), and add your test hostnames (for example `localhost` or your staging domain) to the allowed hostnames.
+</Step>
+<Step title="Create a test link">
+  Create a link with [conversion tracking enabled](/docs/quickstart/server#step-1-enable-conversion-tracking-for-your-links). Staging links use your staging domain, `<your-slug>.staging.dub.link`.
+</Step>
+<Step title="Run through your funnel">
+  Click the link, sign up and make a test purchase. Your clicks, leads and sales show up in your staging workspace's analytics, not in production.
+</Step>
+</Steps>
+
+## Testing your integrations
+
+### Stripe
+
+Install the [Dub Stripe app](/docs/integrations/stripe) in a [Stripe sandbox](https://docs.stripe.com/sandboxes) and connect it to your staging workspace. Then use Stripe's [test cards](https://docs.stripe.com/testing) to make test payments.
+
+<Note>
+  A Stripe account can only be connected to one Dub workspace. Stripe test mode
+  uses the same account as live mode, so if your production workspace is already
+  connected to your Stripe account, use a Stripe sandbox for staging.
+</Note>
+
+Live Stripe mode cannot be connected to staging or sandbox workspaces.
+
+### Shopify
+
+Create a Shopify development store, install the [Dub Shopify app](/docs/integrations/shopify) on it and connect it to your staging workspace. A Shopify store can only be connected to one Dub workspace, so use a different store than your production one.
+
+### HubSpot
+
+In your staging workspace, install the [HubSpot integration](/docs/integrations/hubspot) and connect it to a HubSpot test account, so your test contacts and deals stay out of your live CRM.
+
+## Testing partner payouts
+
+Payouts in staging and sandbox workspaces are simulated. No real money is sent:
+
+- Dub pays your payouts with a test bank account (ending in 1234) instead of your real payment method.
+- A few seconds after you confirm a payout, Dub marks it as paid and sends the payout emails to your partners.
+- Partners see a **Test** badge on these payouts in their partner dashboard.
+- In programs that pay through Dub, partners who have not connected a payout method can still receive simulated payouts, so you can test with any partner.
+
+If your program uses [external payouts](/docs/partners/external-payouts), the [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) webhook is also sent from staging and sandbox workspaces, so you can test your payout handler end to end.
+
+## Sandbox workspaces
+
+A sandbox workspace is a standalone test workspace that is not linked to a production workspace. It works like a staging workspace: no real money, no live Stripe mode and simulated payouts. Unlike a staging workspace, you manage its members and settings in the sandbox workspace itself.
+
+To get a sandbox workspace, [contact us](https://dub.co/contact/support).
+
+## Going live
+
+When your tests pass, move your setup to your production workspace:
+
+1. Replace your `dub_test_` API key and staging publishable key with keys from your production workspace.
+2. Connect your live Stripe account, Shopify store or HubSpot account to your production workspace.
+3. Copy your rewards and discounts to your production program with **Copy to live**.
