@@ -279,38 +279,50 @@ You can request access to specific scopes when redirecting users to the Dub OAut
 
 Dub supports the following scopes for OAuth 2.0:
 
-| Scope                        | Description                                                         |
-| ---------------------------- | ------------------------------------------------------------------- |
-| `links.read`                 | Read access to links.                                               |
-| `links.write`                | Read and write access to links.                                     |
-| `tags.read`                  | Read access to tags.                                                |
-| `tags.write`                 | Read and write access to tags.                                      |
-| `folders.read`               | Read access to folders.                                             |
-| `folders.write`              | Read and write access to folders.                                   |
-| `domains.read`               | Read access to domains.                                             |
-| `domains.write`              | Read and write access to domains.                                   |
-| `analytics.read`             | Read access to analytics and events.                                |
-| `webhooks.read`              | Read access to webhooks.                                            |
-| `webhooks.write`             | Read and write access to webhooks.                                  |
-| `partners.read`              | Read access to partners.                                            |
-| `partners.write`             | Read and write access to partners.                                  |
-| `groups.read`                | Read access to partner groups.                                      |
-| `groups.write`               | Read and write access to partner groups.                            |
-| `program_applications.read`  | Read access to program applications.                                |
-| `program_applications.write` | Read and write access to program applications.                      |
-| `customers.read`             | Read access to customers.                                           |
-| `customers.write`            | Read and write access to customers.                                 |
-| `discount_codes.read`        | Read access to discount codes.                                      |
-| `discount_codes.write`       | Read and write access to discount codes.                            |
-| `commissions.read`           | Read access to commissions.                                         |
-| `commissions.write`          | Read and write access to commissions.                               |
-| `bounties.read`              | Read access to bounties.                                            |
-| `bounties.write`             | Read and write access to bounties.                                  |
-| `payouts.read`               | Read access to payouts.                                             |
-| `user.read`                  | Read access to user information. This scope is included by default. |
+#### Dub Partners
+
+| Scope                        | Description                                                                                         |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| `partners.read`              | Read access to [partners](/docs/api-reference/partners/list).                                       |
+| `partners.write`             | Read and write access to [partners](/docs/api-reference/partners/list).                             |
+| `groups.read`                | Read access to partner groups.                                                                      |
+| `groups.write`               | Read and write access to partner groups.                                                            |
+| `program_applications.read`  | Read access to [program applications](/docs/api-reference/program-applications/list).               |
+| `program_applications.write` | Read and write access to [program applications](/docs/api-reference/program-applications/list).     |
+| `analytics.read`             | Read access to [analytics](/docs/api-reference/analytics/retrieve) and [events](/docs/api-reference/events/list). |
+| `customers.read`             | Read access to [customers](/docs/api-reference/customers/list).                                     |
+| `customers.write`            | Read and write access to [customers](/docs/api-reference/customers/list).                           |
+| `bounties.read`              | Read access to [bounty submissions](/docs/api-reference/bounties/list).                             |
+| `bounties.write`             | Read and write access to [bounty submissions](/docs/api-reference/bounties/list).                   |
+| `commissions.read`           | Read access to [commissions](/docs/api-reference/commissions/list).                                 |
+| `commissions.write`          | Read and write access to [commissions](/docs/api-reference/commissions/list).                       |
+| `payouts.read`               | Read access to [payouts](/docs/api-reference/payouts/list).                                         |
+| `discount_codes.read`        | Read access to [discount codes](/docs/api-reference/discount-codes/list).                           |
+| `discount_codes.write`       | Read and write access to [discount codes](/docs/api-reference/discount-codes/list).                 |
+
+#### Dub Links
+
+| Scope            | Description                                                                |
+| ---------------- | -------------------------------------------------------------------------- |
+| `links.read`     | Read access to [links](/docs/api-reference/links/list).                    |
+| `links.write`    | Read and write access to [links](/docs/api-reference/links/list).          |
+| `domains.read`   | Read access to [domains](/docs/api-reference/domains/create).              |
+| `domains.write`  | Read and write access to [domains](/docs/api-reference/domains/create).    |
+| `folders.read`   | Read access to [folders](/docs/api-reference/folders/list).                |
+| `folders.write`  | Read and write access to [folders](/docs/api-reference/folders/list).      |
+| `tags.read`      | Read access to [tags](/docs/api-reference/tags/list).                      |
+| `tags.write`     | Read and write access to [tags](/docs/api-reference/tags/list).            |
+
+#### General
+
+| Scope            | Description                                                                |
+| ---------------- | -------------------------------------------------------------------------- |
+| `webhooks.read`  | Read access to [webhooks](/docs/webhooks/introduction).                    |
+| `webhooks.write` | Read and write access to [webhooks](/docs/webhooks/introduction).          |
+| `user.read`      | Read access to user information. This scope is included by default.        |
 
 <Note>
-  OAuth apps installed before October 13, 2026 keep access to partner program resources (partners, program applications, customers, discount codes, commissions, bounties, and payouts) without requesting these scopes. New installations must request the scopes explicitly.
+  OAuth apps installed before October 13, 2026 keep access to Dub Partners resources (partners, program applications, customers, discount codes, commissions, bounties, and payouts) without requesting these scopes. New installations must request the scopes explicitly.
 </Note>
 
 ### Examples
