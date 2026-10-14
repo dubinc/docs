@@ -16,12 +16,11 @@ Dub workspaces run in one of three environments:
 
 ### Eligibility
 
-Staging workspaces are available on [Business plans and above](https://dub.co/pricing), and only when the workspace has a partner program. 
+Staging workspaces are available on [Business plans and above](https://dub.co/pricing), and only when the workspace has a partner program.
 
-Dub creates a `staging workspace` when you upgrade to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. 
+Dub creates a `staging workspace` when you upgrade to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans.
 
 Free and Pro workspaces, and workspaces without a partner program aren't eligible.
-
 
 ## Switch to your staging workspace
 
@@ -52,7 +51,7 @@ Your staging workspace is set up with:
 
 ## What syncs
 
-Production and staging stay paired, but only workspace settings and members are copied across. *Test data stays in staging*.
+Production and staging stay paired, but only workspace settings and members are copied across. _Test data stays in staging_.
 
 | Data                           | In your staging workspace                                                                                                 |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -67,26 +66,31 @@ Production and staging stay paired, but only workspace settings and members are 
 | Discounts                      | Separate until you [copy them to live](#copy-rewards-and-discounts-to-live).                                              |
 
 <Tip>
-API keys, publishable keys, webhooks, and integration connections are also separate.
+  API keys, publishable keys, webhooks, and integration connections are also
+  separate.
 </Tip>
 
 ## Limitations and restrictions
 
 ### Payments and integrations
+
 - Payouts are simulated and never go through Stripe, PayPal, or Tremendous.
 - You can connect a Stripe account in `test mode` or a [Stripe sandbox](https://docs.stripe.com/sandboxes). Live mode is rejected.
 
 ### Workspace administration
+
 - You can't set `staging` as your default workspace.
-- Your workspace name, slug, and logo [sync from production](#what-stays-in-sync).
+- Your workspace name, slug, and logo [sync from production](#what-syncs).
 - Invitations, invite links, pending invites, roles, and removals are managed in production only.
 - Deleting your production workspace also deletes its staging workspace.
 
 ### Billing and usage
+
 - You can only change your plan or payment methods on `Production`.
 - Staging uses trial usage limits instead of your plan's limits, and staging usage isn't billed.
 
 ### Data synchronization and notifications
+
 - Rewards and discounts stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
 - No usage or application reminders are sent from staging activity.
 - Your staging program landing page shows the staging banner and is excluded from search results.
@@ -177,7 +181,8 @@ Then, pick a group in your production program that doesn't already have that typ
 </Frame>
 
 <Tip>
-  Copying a Stripe discount also creates the matching coupon on your production workspace's connected Stripe account.
+  Copying a Stripe discount also creates the matching coupon on your production
+  workspace's connected Stripe account.
 </Tip>
 
 ## Go live
