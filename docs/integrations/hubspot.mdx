@@ -288,13 +288,87 @@ Since HubSpot doesn't let you add a hidden field to the scheduling form, you sho
   </Step>
 </Steps>
 
+## Option 3: Using the HubSpot API
+
+If you create contacts from your own backend (e.g. when a user signs up for your app), you can use the [HubSpot Contacts API](https://developers.hubspot.com/docs/api-reference/latest/crm/objects/contacts/guide) to create the contact with the `dub_id` click ID attached.
+
+When HubSpot reports the new contact, Dub reads its **Dub Click ID** and links the contact to the Dub link they came from, just like a contact created through a [HubSpot form](#option-1-using-hubspot-forms).
+
+<Steps>
+  <Step title="Get a HubSpot access token">
+    To call the HubSpot API, you need an access token with the `crm.objects.contacts.write` scope.
+
+    If you don't have one yet, create an app in your HubSpot account that uses [static auth](https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/overview#static-auth), add the `crm.objects.contacts.write` scope, and copy the access token from your app settings.
+
+    <Warning>
+      Keep this token on your server. Never expose it in client-side code.
+    </Warning>
+
+  </Step>
+
+  <Step title="Create the contact with the Dub Click ID">
+    On your server, read the `dub_id` cookie from the request and pass it as the `dub_id` property when you create the contact.
+
+    <CodeGroup>
+    ```ts Node.js
+    import { cookies } from "next/headers";
+
+    const cookieStore = await cookies();
+    const clickId = cookieStore.get("dub_id")?.value;
+
+    const response = await fetch(
+      "https://api.hubapi.com/crm/objects/2026-09/contacts",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          properties: {
+            email: "john@example.com",
+            firstname: "John",
+            lastname: "Doe",
+            dub_id: clickId,
+          },
+        }),
+      },
+    );
+
+    const contact = await response.json();
+    ```
+
+    ```bash cURL
+    curl --request POST \
+      --url "https://api.hubapi.com/crm/objects/2026-09/contacts" \
+      --header "Authorization: Bearer YOUR_HUBSPOT_ACCESS_TOKEN" \
+      --header "Content-Type: application/json" \
+      --data '{
+        "properties": {
+          "email": "john@example.com",
+          "firstname": "John",
+          "lastname": "Doe",
+          "dub_id": "YOUR_DUB_CLICK_ID"
+        }
+      }'
+    ```
+    </CodeGroup>
+
+    Keep these in mind when creating the contact:
+
+    - **Include `dub_id` in the create request.** Dub reads the Dub Click ID when HubSpot notifies it that the contact was created, so the click ID needs to be on the contact from the start.
+    - **Always include `email`.** Dub uses the contact's email to match later deals for that contact back to the same customer, including the closed-won sale.
+
+  </Step>
+</Steps>
+
 ## Tracking conversion events
 
 Dub's HubSpot integration automatically sets up webhooks to track contact, deal, and lifecycle stage changes, providing complete visibility into your sales funnel.
 
 ### When a contact is created
 
-When a new contact is created in HubSpot with a **Dub Click ID** (e.g. via a [HubSpot form](#option-1-using-hubspot-forms)), Dub records a [deferred lead](/docs/conversions/leads/deferred) that links the contact to the Dub link they came from. The integration also fills in the contact's **Dub Link** and **Dub Partner Email** properties.
+When a new contact is created in HubSpot with a **Dub Click ID** (e.g. via a [HubSpot form](#option-1-using-hubspot-forms) or the [HubSpot API](#option-3-using-the-hubspot-api)), Dub records a [deferred lead](/docs/conversions/leads/deferred) that links the contact to the Dub link they came from. The integration also fills in the contact's **Dub Link** and **Dub Partner Email** properties.
 
 ### When the lead trigger fires (lead event)
 
