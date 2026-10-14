@@ -1,48 +1,58 @@
 ---
-title: "Testing"
+title: "Testing your integration"
 "og:title": "How to test your Dub integration with a staging workspace"
 description: "Learn how to test conversion tracking, integrations, and payouts without affecting your live workspace."
 ---
 
-A staging workspace lets you test links, conversion events, integrations, and partner payouts without changing your live analytics or moving real money.
+A staging workspace lets you test links, conversion events, integrations, and partner payouts without changing your live analytics or using real money.
 
 ## Staging, sandbox, and production
 
 Dub workspaces run in one of three environments:
 
-- **Staging.** Automatically paired with your production workspace. Use it to test a partner program.
-- **Sandbox.** An independent workspace, not paired with production. Sandbox workspaces are not created automatically. [Contact us](https://dub.co/contact/support) if you need one.
-- **Production.** Processes real events and potentially real payouts.
+- **Staging:** Automatically paired with your production workspace. Use it to test a partner program.
+- **Sandbox:** An independent workspace, not paired with production. Sandbox workspaces are not created automatically. [Contact us](https://dub.co/contact/support) if you require one.
+- **Production:** Processes real events and payouts.
 
-### Who gets a staging workspace
+### Eligibility
 
-Staging workspaces are available on [Business plans and above](https://dub.co/pricing), and only when the workspace has a partner program. Dub creates one when you upgrade to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. Free and Pro workspaces, and workspaces without a partner program, don't get a staging workspace.
+Staging workspaces are available on [Business plans and above](https://dub.co/pricing), and only when the workspace has a partner program. 
+
+Dub creates a `staging workspace` when you upgrade to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. 
+
+Free and Pro workspaces, and workspaces without a partner program aren't eligible.
+
+
+## Switch to your staging workspace
+
+Open your workspace menu in the top left corner and click **Switch to staging**. To go back to your production workspace, click **Exit staging** in the banner or the workspace menu.
 
 <Frame>
   <img
-    src="/images/testing/staging-workspace.png"
-    alt="A staging workspace with the amber banner and Exit staging in the workspace menu"
+    src="/images/workspace/workspace-staging-switch.png"
+    alt="Workspace dropdown menu with Switch to staging option highlighted"
   />
 </Frame>
 
-## Open your staging workspace
+While you're in staging, a banner at the top of the dashboard reminds you that no real money or payouts are involved.
 
-Open the workspace menu in the top left corner and click **Switch to staging**. To go back to your production workspace, click **Exit staging** in the banner or the workspace menu.
-
-If **Switch to staging** is missing, check [who gets a staging workspace](#who-gets-a-staging-workspace).
-
-While you're in staging, an amber banner at the top of the dashboard reminds you that no real money or payouts are involved.
+<Frame>
+  <img
+    src="/images/workspace/workspace-staging-banner.png"
+    alt="Staging banner indicating that no real money or payouts are involved"
+  />
+</Frame>
 
 Your staging workspace is set up with:
 
-- Name: `{Your workspace name} (Staging)`
-- Slug: `{your-workspace-slug}-staging`
-- Short link domain: `{your-workspace-slug}.staging.dub.link`
+- **Name:**`{Your workspace name} (Staging)`
+- **Slug:**`{your-workspace-slug}-staging`
+- **Short link domain:**`{your-workspace-slug}.staging.dub.link`
 - A copy of your partner program, including its destination URL, branding, application form, landing page, and default group settings
 
-## What stays in sync
+## What syncs
 
-Production and staging stay paired, but only workspace settings and members are copied across. Test data stays in staging.
+Production and staging stay paired, but only workspace settings and members are copied across. *Test data stays in staging*.
 
 | Data                           | In your staging workspace                                                                                                 |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -56,34 +66,30 @@ Production and staging stay paired, but only workspace settings and members are 
 | Rewards                        | Separate until you [copy them to live](#copy-rewards-and-discounts-to-live).                                              |
 | Discounts                      | Separate until you [copy them to live](#copy-rewards-and-discounts-to-live).                                              |
 
-API keys, publishable keys, webhooks, and integration connections are also separate. Create them in the staging workspace when you test.
+<Tip>
+API keys, publishable keys, webhooks, and integration connections are also separate.
+</Tip>
 
-## Limitations
-
-These actions are unavailable in staging:
+## Limitations and restrictions
 
 ### Payments and integrations
-
-- Send real payouts. Payouts are simulated and never go through Stripe, PayPal, or Tremendous.
-- Connect live Stripe. You can connect a Stripe account in test mode or a [Stripe sandbox](https://docs.stripe.com/sandboxes). Live mode is rejected.
+- Payouts are simulated and never go through Stripe, PayPal, or Tremendous.
+- You can connect a Stripe account in `test mode` or a [Stripe sandbox](https://docs.stripe.com/sandboxes). Live mode is rejected.
 
 ### Workspace administration
-
-- Set staging as your default workspace.
-- Edit the workspace name, slug, or logo. Those fields [sync from production](#what-stays-in-sync).
-- Manage members. Invitations, invite links, pending invites, roles, and removals are managed in production.
-- Delete staging on its own. Deleting your production workspace also deletes its staging workspace.
+- You can't set `staging` as your default workspace.
+- Your workspace name, slug, and logo [sync from production](#what-stays-in-sync).
+- Invitations, invite links, pending invites, roles, and removals are managed in production only.
+- Deleting your production workspace also deletes its staging workspace.
 
 ### Billing and usage
-
-- Change your plan or payment methods. Billing stays on production.
+- You can only change your plan or payment methods on `Production`.
 - Staging uses trial usage limits instead of your plan's limits, and staging usage isn't billed.
 
 ### Data synchronization and notifications
-
-- Keep rewards and discounts in sync. They stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
-- Receive usage emails or application reminders. These are skipped.
-- Your staging partner landing page shows the staging banner and is excluded from search results.
+- Rewards and discounts stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
+- No usage or application reminders are sent from staging activity.
+- Your staging program landing page shows the staging banner and is excluded from search results.
 
 ## Get your staging credentials
 
@@ -152,9 +158,27 @@ Programs that use [external or hybrid payouts](/docs/partners/external-payouts) 
 
 ### Copy rewards and discounts to live
 
-Once you're happy with a reward or discount in staging, open the partner group in your staging workspace and click **Copy to live**. Then, pick a group in your production program that doesn't already have that type of reward or discount.
+Once you're happy with a reward or discount in staging, open the partner group in your staging workspace and click **Copy to live**.
 
-Copying a Stripe discount also creates the matching coupon on your production workspace's connected Stripe account.
+<Frame>
+  <img
+    src="/images/workspace/workspace-staging-copy-to-live.png"
+    alt="Copy to live button in a staging partner group"
+  />
+</Frame>
+
+Then, pick a group in your production program that doesn't already have that type of reward or discount.
+
+<Frame>
+  <img
+    src="/images/workspace/workspace-staging-copy-to-live-group.png"
+    alt="Copy to live button in a staging partner group"
+  />
+</Frame>
+
+<Tip>
+  Copying a Stripe discount also creates the matching coupon on your production workspace's connected Stripe account.
+</Tip>
 
 ## Go live
 
@@ -169,7 +193,14 @@ When testing looks right, move your application onto production credentials and 
 
 <Steps>
 <Step title="Return to your production workspace">
-  Click **Exit staging** in the banner or the workspace menu.
+  Click **Exit staging** in the banner or the workspace menu or from your workspace dropdown menu.
+
+  <Frame>
+  <img
+    src="/images/workspace/workspace-staging-exit.png"
+    alt="Workspace dropdown menu with Exit staging option highlighted"
+  />
+</Frame>
 </Step>
 
 <Step title="Verify your production API key">

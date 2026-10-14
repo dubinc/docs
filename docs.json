@@ -53,7 +53,7 @@
                   "docs/integrations/segment"
                 ]
               },
-              "docs/testing"
+              "docs/testing-your-integration"
             ]
           },
           {
@@ -697,6 +697,10 @@
     }
   },
   "redirects": [
+    {
+      "source": "/docs/testing",
+      "destination": "/docs/testing-your-integration"
+    },
     {
       "source": "/docs/introduction",
       "destination": "/docs"
