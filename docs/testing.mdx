@@ -4,14 +4,19 @@ title: "Testing"
 description: "Learn how to test conversion tracking, integrations, and payouts without affecting your live workspace."
 ---
 
-<Tip>
-  Staging workspaces are only available on [Business plans and
-  above](https://dub.co/pricing).
-</Tip>
-
 A staging workspace lets you test links, conversion events, integrations, and partner payouts without changing your live analytics or moving real money.
 
-It is created automatically for any Business plan (or higher) workspace that has a partner program, and stays paired with your production workspace.
+## Staging, sandbox, and production
+
+Dub workspaces run in one of three environments:
+
+- **Staging.** Automatically paired with your production workspace. Use it to test a partner program.
+- **Sandbox.** An independent workspace, not paired with production. Sandbox workspaces are not created automatically. [Contact us](https://dub.co/contact/support) if you need one.
+- **Production.** Processes real events and potentially real payouts.
+
+### Who gets a staging workspace
+
+Staging workspaces are available on [Business plans and above](https://dub.co/pricing), and only when the workspace has a partner program. Dub creates one when you upgrade to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. Free and Pro workspaces, and workspaces without a partner program, don't get a staging workspace.
 
 <Frame>
   <img
@@ -20,17 +25,11 @@ It is created automatically for any Business plan (or higher) workspace that has
   />
 </Frame>
 
-Being in your staging workspace in the dashboard doesn't change how your integration behaves. The API key and publishable key your code uses decide which workspace receives your events.
-
-<Note>
-  Need a workspace that isn't paired with production? A sandbox workspace is an
-  independent workspace with no real money. Sandbox workspaces are not created
-  automatically – [contact us](https://dub.co/contact/support) if you need one.
-</Note>
-
 ## Open your staging workspace
 
 Open the workspace menu in the top left corner and click **Switch to staging**. To go back to your production workspace, click **Exit staging** in the banner or the workspace menu.
+
+If **Switch to staging** is missing, check [who gets a staging workspace](#who-gets-a-staging-workspace).
 
 While you're in staging, an amber banner at the top of the dashboard reminds you that no real money or payouts are involved.
 
@@ -41,21 +40,48 @@ Your staging workspace is set up with:
 - Short link domain: `{your-workspace-slug}.staging.dub.link`
 - A copy of your partner program, including its destination URL, branding, application form, landing page, and default group settings
 
-The staging workspace is created when your workspace upgrades to a Business plan (or higher) with a partner program, or when you create a partner program on one of those plans. Free and Pro workspaces, and workspaces without a partner program, don't get a staging workspace.
+## What stays in sync
+
+Production and staging stay paired, but only workspace settings and members are copied across. Test data stays in staging.
+
+| Data                           | In your staging workspace                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Workspace name, slug, and logo | Synced from production. The staging name is `{Your workspace name} (Staging)` and the slug ends in `-staging`.            |
+| Plan and billing period        | Synced from production. Billing stays on the production workspace.                                                        |
+| Members and roles              | Invitations, role changes, and removals are managed in production and synced here. API-only machine users are not copied. |
+| Links                          | Separate from production.                                                                                                 |
+| Partners                       | Separate from production.                                                                                                 |
+| Customers                      | Separate from production.                                                                                                 |
+| Conversion events              | Separate from production.                                                                                                 |
+| Rewards                        | Separate until you [copy them to live](#copy-rewards-and-discounts-to-live).                                              |
+| Discounts                      | Separate until you [copy them to live](#copy-rewards-and-discounts-to-live).                                              |
+
+API keys, publishable keys, webhooks, and integration connections are also separate. Create them in the staging workspace when you test.
 
 ## Limitations
 
-Staging workspaces are managed from your production workspace. In a staging workspace, you can't:
+### Payments and integrations
 
-- **Send real payouts** – payouts are simulated and never go through Stripe, PayPal, or Tremendous.
-- **Connect live Stripe** – you can connect a Stripe account in test mode or a [Stripe sandbox](https://docs.stripe.com/sandboxes), but live mode is rejected.
-- **Set it as your default workspace.**
-- **Change the workspace name, slug, or logo** – these sync from production, along with your plan and billing period.
-- **Manage members** – inviting teammates, invite links, pending invites, member roles, and removing members are all managed from production. Members, roles, and removals sync to staging automatically (API-only machine users are not copied).
-- **Change your plan or payment methods** – billing stays on production. Staging uses trial usage limits instead of your plan's limits, and staging usage isn't billed.
-- **Delete it on its own** – deleting your production workspace also deletes its staging workspace.
-- **Sync rewards and discounts** – they stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
-- **Receive usage emails or application reminders** – these are skipped, and your staging partner landing page is excluded from search results.
+- Send real payouts. Payouts are simulated and never go through Stripe, PayPal, or Tremendous.
+- Connect live Stripe. You can connect a Stripe account in test mode or a [Stripe sandbox](https://docs.stripe.com/sandboxes). Live mode is rejected.
+
+### Workspace administration
+
+- Set staging as your default workspace.
+- Edit the workspace name, slug, or logo. Those fields [sync from production](#what-stays-in-sync).
+- Manage members. Invitations, invite links, pending invites, roles, and removals are managed in production.
+- Delete staging on its own. Deleting your production workspace also deletes its staging workspace.
+
+### Billing and usage
+
+- Change your plan or payment methods. Billing stays on production.
+- Staging uses trial usage limits instead of your plan's limits, and staging usage isn't billed.
+
+### Data synchronization and notifications
+
+- Keep rewards and discounts in sync. They stay in staging until you [copy them to live](#copy-rewards-and-discounts-to-live).
+- Receive usage emails or application reminders. These are skipped.
+- Your staging partner landing page shows the staging banner and is excluded from search results.
 
 ## Get your staging credentials
 
@@ -63,30 +89,21 @@ Staging workspaces are managed from your production workspace. In a staging work
 <Step title="Create a staging API key">
   While in your staging workspace, go to **Settings** > [**API Keys**](https://app.dub.co/settings/tokens) and create a new key.
 
-API keys created in staging start with `dub_test_` instead of `dub_`, so you can tell them apart from your production keys.
+API keys created in staging start with `dub_test_`. Production API keys start with `dub_`. Use that prefix to tell them apart before you deploy. Sandbox API keys use the same `dub_test_` prefix.
 
 </Step>
 
 <Step title="Copy your staging publishable key">
-  Go to your staging workspace's [Tracking settings
-  page](https://app.dub.co/settings/tracking) and copy the [publishable
-  key](/docs/api-reference/authentication#publishable-keys). You'll need it for
-  the [Dub Analytics script](/docs/sdks/client-side/introduction) and the
-  [mobile SDKs](/docs/sdks/client-side-mobile/introduction).
+  Publishable keys use a separate format. They start with `dub_pk_` in staging and in production. The prefix is the same in both workspaces, so keep each key in its own environment variable.
+
+Go to your staging workspace's [Tracking settings page](https://app.dub.co/settings/tracking) and copy the [publishable key](/docs/api-reference/authentication#publishable-keys). You'll need it for the [Dub Analytics script](/docs/sdks/client-side/introduction) and the [mobile SDKs](/docs/sdks/client-side-mobile/introduction).
+
 </Step>
 
 <Step title="Point your test environment at staging">
   Use the staging API key and publishable key in your test or staging environment. Events tracked with these keys only show up in your staging workspace.
 </Step>
 </Steps>
-
-<Note>
-
-Changes you make to your workspace name, logo, slug, plan, or members in production are synced to staging automatically. Everything else – links, partners, customers, conversion events, rewards, and discounts – stays separate.
-
-Your staging partner landing page shows the staging banner and is not indexed by search engines.
-
-</Note>
 
 ## Testing use cases
 
@@ -124,6 +141,8 @@ Confirm a payout from your staging partner program. Staging payouts:
 - Use a simulated payment method, so there's no bank charge and no money transfer
 - Show **Payouts simulated** for partners and a **Test** badge on the payout
 
+Programs that use [external or hybrid payouts](/docs/partners/external-payouts) also send [`external_payout.confirmed`](/docs/webhooks/events/external-payout-confirmed) from staging. Create a webhook for that event in your staging workspace and point it at a test handler. The payload matches production, so use an endpoint that records the payout without transferring funds. A 2xx response marks the payout completed. Until your handler responds, the payout stays processing.
+
 <Warning>
   Partners still receive the payout email for staging payouts. Use test partner
   email addresses to avoid notifying real partners.
@@ -137,11 +156,44 @@ Copying a Stripe discount also creates the matching coupon on your production wo
 
 ## Go live
 
-When you're done testing:
+When testing looks right, move your application onto production credentials and confirm a real event lands in production.
 
-1. Click **Exit staging** to go back to your production workspace.
-2. Replace your staging API key and publishable key with your production keys.
-3. Connect your live Stripe account (and any other integrations) to your production workspace.
+<Warning>
+  **Do not use staging credentials in production.** A `dub_test_` API key, or
+  the publishable key copied from staging, sends events to your staging
+  workspace. Those events stay out of production analytics, commissions, and
+  payouts.
+</Warning>
+
+<Steps>
+<Step title="Return to your production workspace">
+  Click **Exit staging** in the banner or the workspace menu.
+</Step>
+
+<Step title="Verify your production API key">
+  In your production workspace, go to **Settings** > [**API
+  Keys**](https://app.dub.co/settings/tokens) and copy a production key. It
+  starts with `dub_`. Replace every `dub_test_` key in your server environment
+  with that key.
+</Step>
+
+<Step title="Verify your production publishable key">
+  On your production workspace's [Tracking settings
+  page](https://app.dub.co/settings/tracking), copy the publishable key and
+  replace the staging `dub_pk_` value in your client and mobile apps. Both keys
+  share the `dub_pk_` prefix, so confirm the value came from production.
+</Step>
+
+<Step title="Verify live integration connections">
+  Connect your live Stripe account, and any Shopify or HubSpot account you use
+  in production, to your production workspace. Leave Stripe test mode and
+  development stores on staging.
+</Step>
+
+<Step title="Send a real test conversion">
+  Click a production short link and complete a signup or purchase with your production keys. Confirm the click, lead, or sale appears in your production workspace's analytics before you treat the integration as live.
+</Step>
+</Steps>
 
 ## Next steps
 
