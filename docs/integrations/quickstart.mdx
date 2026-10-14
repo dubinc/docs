@@ -279,18 +279,39 @@ You can request access to specific scopes when redirecting users to the Dub OAut
 
 Dub supports the following scopes for OAuth 2.0:
 
-| Scope            | Description                                                         |
-| ---------------- | ------------------------------------------------------------------- |
-| `links.read`     | Read access to links.                                               |
-| `links.write`    | Write access to links.                                              |
-| `tags.read`      | Read access to tags.                                                |
-| `tags.write`     | Write access to tags.                                               |
-| `analytics.read` | Read access to analytics.                                           |
-| `domains.read`   | Read access to domains.                                             |
-| `domains.write`  | Write access to domains.                                            |
-| `folders.read`   | Read access to folders.                                             |
-| `folders.write`  | Write access to folders.                                            |
-| `user.read`      | Read access to user information. This scope is included by default. |
+| Scope                        | Description                                                         |
+| ---------------------------- | ------------------------------------------------------------------- |
+| `links.read`                 | Read access to links.                                               |
+| `links.write`                | Read and write access to links.                                     |
+| `tags.read`                  | Read access to tags.                                                |
+| `tags.write`                 | Read and write access to tags.                                      |
+| `folders.read`               | Read access to folders.                                             |
+| `folders.write`              | Read and write access to folders.                                   |
+| `domains.read`               | Read access to domains.                                             |
+| `domains.write`              | Read and write access to domains.                                   |
+| `analytics.read`             | Read access to analytics and events.                                |
+| `webhooks.read`              | Read access to webhooks.                                            |
+| `webhooks.write`             | Read and write access to webhooks.                                  |
+| `partners.read`              | Read access to partners.                                            |
+| `partners.write`             | Read and write access to partners.                                  |
+| `groups.read`                | Read access to partner groups.                                      |
+| `groups.write`               | Read and write access to partner groups.                            |
+| `program_applications.read`  | Read access to program applications.                                |
+| `program_applications.write` | Read and write access to program applications.                      |
+| `customers.read`             | Read access to customers.                                           |
+| `customers.write`            | Read and write access to customers.                                 |
+| `discount_codes.read`        | Read access to discount codes.                                      |
+| `discount_codes.write`       | Read and write access to discount codes.                            |
+| `commissions.read`           | Read access to commissions.                                         |
+| `commissions.write`          | Read and write access to commissions.                               |
+| `bounties.read`              | Read access to bounties.                                            |
+| `bounties.write`             | Read and write access to bounties.                                  |
+| `payouts.read`               | Read access to payouts.                                             |
+| `user.read`                  | Read access to user information. This scope is included by default. |
+
+<Note>
+  OAuth apps installed before October 13, 2026 keep access to partner program resources (partners, program applications, customers, discount codes, commissions, bounties, and payouts) without requesting these scopes. New installations must request the scopes explicitly.
+</Note>
 
 ### Examples
 
