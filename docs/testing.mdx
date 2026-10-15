@@ -105,7 +105,7 @@ API keys created in staging start with `dub_test_`. Production API keys start wi
 </Step>
 
 <Step title="Copy your staging publishable key">
-  Publishable keys use a separate format. They start with `dub_pk_` in staging and in production. The prefix is the same in both workspaces, so keep each key in its own environment variable.
+  Publishable keys created in staging start with `dub_pk_test_`. Production publishable keys start with `dub_pk_`. Sandbox publishable keys use the same `dub_pk_test_` prefix.
 
 Go to your staging workspace's [Tracking settings page](https://app.dub.co/settings/tracking) and copy the [publishable key](/docs/api-reference/authentication#publishable-keys). You'll need it for the [Dub Analytics script](/docs/sdks/client-side/introduction) and the [mobile SDKs](/docs/sdks/client-side-mobile/introduction).
 
@@ -190,7 +190,7 @@ When testing looks right, move your application onto production credentials and 
 
 <Warning>
   **Do not use staging credentials in production.** A `dub_test_` API key, or
-  the publishable key copied from staging, sends events to your staging
+  a `dub_pk_test_` publishable key, sends events to your staging
   workspace. Those events stay out of production analytics, commissions, and
   payouts.
 </Warning>
@@ -217,8 +217,8 @@ When testing looks right, move your application onto production credentials and 
 <Step title="Verify your production publishable key">
   On your production workspace's [Tracking settings
   page](https://app.dub.co/settings/tracking), copy the publishable key and
-  replace the staging `dub_pk_` value in your client and mobile apps. Both keys
-  share the `dub_pk_` prefix, so confirm the value came from production.
+  replace every `dub_pk_test_` key in your client and mobile apps with that key.
+  It starts with `dub_pk_`.
 </Step>
 
 <Step title="Verify live integration connections">
