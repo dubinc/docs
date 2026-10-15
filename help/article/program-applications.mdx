@@ -66,6 +66,38 @@ In the example above, the applicant must be from Canada, United States, or Mexic
 | Condition | Select from `is` or `is not`   |
 | Country   | Select any number of countries |
 
+### Application screening
+
+Application screening lets you automatically reject applications that match criteria you describe. In the **Application screening** field, describe the types of applicants you don't want in your program in plain language. You can use up to 2,000 characters.
+
+<Frame>
+  <img
+    src="/images/dub-partners/application-settings-screening.png"
+    alt="Application settings screening"
+  />
+</Frame>
+
+Here are some examples of screening criteria:
+
+| Goal                         | Example criteria                                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Block spam                   | Reject spam applications with empty, generic, or copy-pasted answers.                                  |
+| Block coupon and deal sites  | Reject partners whose main channel is a coupon, voucher, cashback, or deal site.                       |
+| Block paid ads               | Reject partners who plan to promote us through paid search or bidding on our brand keywords.          |
+| Require relevant audiences   | Reject partners whose content isn't related to software development, design, or productivity.         |
+
+If the application clearly matches your criteria, it's automatically rejected with the reason "**Not the right fit**", and the applicant is notified. If the application doesn't match your criteria, it will remain pending for manual review.
+
+Screening runs on new applications only, so existing pending applications won't be affected when you add or update your criteria. If you have [auto-approve](#auto-approve) enabled, applications are screened first, and only approved if they don't match your criteria.
+
+To turn off application screening, clear the field and save your settings.
+
+<Note>
+  Applications are only rejected when there's a confident match. If there isn't
+  enough information to make a decision, the application stays pending for
+  manual review. Screening never approves applications on its own.
+</Note>
+
 ### Marketplace settings
 
 If your program is listed in the [Dub program marketplace](https://dub.co/help/article/program-marketplace), click the **Marketplace** toggle to access the marketplace settings. Here you can set the description that's shown to partners, and categories to help find your program more easily.
