@@ -119,20 +119,171 @@ Once the integration is installed, Dub will automatically listen to the followin
 
 Depending on your setup, there are a few ways you can track sales with the Dub Stripe integration.
 
-- [Option 1: Using Stripe Payment Links](#option-1-using-stripe-payment-links)
-- [Option 2: Using Stripe Checkout (recommended)](#option-2-using-stripe-checkout-recommended)
-- [Option 3: Using Stripe Customers](#option-3-using-stripe-customers)
-- [Option 4: Using Stripe Coupons and Promotion Codes](#option-4-using-stripe-discounts-and-promotion-codes)
+- [Option 1: Using Stripe Checkout (recommended)](#option-1-using-stripe-checkout-recommended)
+- [Option 2: Using Stripe Customers](#option-2-using-stripe-customers)
+- [Option 3: Using Stripe Coupons and Promotion Codes](#option-3-using-stripe-coupons-and-promotion-codes)
+- [Option 4: Using Stripe Payment Links](#option-4-using-stripe-payment-links)
 
-### Option 1: Using Stripe Payment Links
+### Option 1: Using Stripe Checkout (recommended)
 
-<Tip>
-  For this option to work, you need to [install the Dub Stripe
-  integration](#installing-the-dub-stripe-integration) and [enable conversion
-  tracking for your
-  links](/docs/quickstart/server#step-1-enable-conversion-tracking-for-your-links)
-  first.
-</Tip>
+If you have a custom checkout flow that uses Stripe's `checkout.sessions.create` API, you'd want to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user's unique ID in your database (which we tracked in the [lead conversion tracking step](/docs/quickstart/server#tracking-lead-events)).
+
+This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
+
+<Accordion title="How does this work?">
+
+Remember in the [lead conversion tracking guide](/docs/quickstart/server#tracking-lead-events), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
+
+```javascript Node.js
+await dub.track.lead({
+  clickId,
+  eventName: "Sign Up",
+  customerExternalId: user.id, // the unique user ID of the customer in your database
+  customerName: user.name,
+  customerEmail: user.email,
+  customerAvatar: user.image,
+});
+```
+
+Under the hood, Dub records the user as a customer and associates them with the click event that they came from.
+
+Then, when the user makes a purchase, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
+</Accordion>
+
+First, you'll need to complete the following prerequisites:
+
+1. [Install the Dub Stripe integration](#installing-the-dub-stripe-integration)
+2. [Install the Dub Analytics script](/docs/sdks/client-side/introduction)
+3. [Install the Dub server-side SDK](/docs/sdks/overview#server-side-sdks)
+
+Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
+
+```javascript Node.js
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const priceId = "price_xxxxxxxxx";
+
+const stripeSession = await stripe.checkout.sessions.create({
+  customer_email: user.email,
+  success_url: "https://app.domain.com/success",
+  line_items: [{ price: priceId, quantity: 1 }],
+  mode: "subscription",
+  client_reference_id: user.teamId,
+  metadata: {
+    dubCustomerExternalId: user.id, // the unique user ID of the customer in your database
+  },
+});
+```
+
+This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
+
+<Warning>
+  If you're using [guest checkout](https://docs.stripe.com/payments/checkout/guest-customers) (e.g. with `mode: "payment"`), the `customer` field in the `checkout.session.completed` webhook event will be `null`, and sales won't be tracked on Dub. 
+  
+  To fix this, set `customer_creation` to `always` when [creating your checkout session](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-customer_creation):
+
+```javascript Node.js
+const stripeSession = await stripe.checkout.sessions.create({
+  // ... other options
+  customer_creation: "always", // ensures a Stripe customer is created
+});
+```
+
+</Warning>
+
+### Option 2: Using Stripe Customers
+
+Alternatively, if you don't use Stripe's [checkout session creation flow](#option-1-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
+
+First, you'll need to complete the following prerequisites:
+
+1. [Install the Dub Stripe integration](#installing-the-dub-stripe-integration)
+2. [Enable conversion tracking for your links](/docs/quickstart/server#step-1-enable-conversion-tracking-for-your-links)
+3. [Install the Dub Analytics script](/docs/sdks/client-side/introduction)
+
+Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
+
+```javascript Node.js
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const dub_id = req.headers.get("dub_id");
+
+await stripe.customers.create({
+  email: user.email,
+  name: user.name,
+  metadata: {
+    dubCustomerExternalId: user.id,
+    dubClickId: dub_id,
+  },
+});
+```
+
+Alternatively, you can also pass the `dubCustomerExternalId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
+
+```javascript Node.js
+import { stripe } from "@/lib/stripe";
+
+const user = {
+  id: "user_123",
+  email: "user@example.com",
+  teamId: "team_xxxxxxxxx",
+};
+
+const dub_id = req.headers.get("dub_id");
+
+await stripe.customers.update(user.id, {
+  metadata: {
+    dubCustomerExternalId: user.id,
+    dubClickId: dub_id,
+  },
+});
+```
+
+This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
+
+<Note>
+  When using Stripe Customers, lead and sale events are tracked but [lead
+  rewards](/help/article/partner-rewards#configuring-reward-types) will not be
+  generated. [Sale
+  rewards](/help/article/partner-rewards#configuring-reward-types) (both
+  recurring and one-time rewards) will still be generated as usual.
+</Note>
+
+### Option 3: Using Stripe Coupons and Promotion Codes
+
+If you're using [Stripe Coupons and Promotion Codes](https://docs.stripe.com/billing/subscriptions/coupons), you can start tracking sale conversions simply by [installing the Stripe integration](#installing-the-dub-stripe-integration) in your Dub workspace.
+
+Then, [follow these steps](/help/article/dual-sided-incentives#option-2-using-stripe-promo-codes-no-code-required) to generate discount codes for your partners on Dub, and you are all set!
+
+<Frame>
+  <img
+    src="/images/dub-partners/new-discount-reward.png"
+    alt="Program discounts tab"
+  />
+</Frame>
+
+<Note>
+  While Stripe promo-code-based discounts is much easier to set up (no code
+  required), you sacrifice attribution accuracy since you won't have any
+  insights into the customer's geolocation, device info, referrer details, and
+  UTM data. Our Stripe integration will try to derive the customer's location
+  based on their Stripe billing address, but it can sometimes be inaccurate.
+</Note>
+
+### Option 4: Using Stripe Payment Links
 
 <Note>
   When using Stripe Payment Links, lead and sale events are tracked but lead
@@ -207,7 +358,7 @@ export default PricingPage;
 </Accordion>
 <Accordion title="What if I'm using Stripe's Checkout Sessions API?">
 
-If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-2-using-stripe-checkout-recommended) instead.
+If you're using Stripe's [Checkout Sessions API](https://docs.stripe.com/api/checkout/sessions/object) for a recurring subscription service, you might want to check out our [Stripe Checkout option](#option-1-using-stripe-checkout-recommended) instead.
 
 If your setup doesn't involve a lead/signup event and goes straight to the Stripe checkout flow (e.g. for one-time purchases), you can simply pass the Dub click ID (prefixed with `dub_id_`) as the [`client_reference_id` parameter](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-client_reference_id) to enable conversion tracking with Dub.
 
@@ -283,165 +434,6 @@ const session = await stripe.checkout.sessions.create({
 
 </Accordion>
 </AccordionGroup>
-
-### Option 2: Using Stripe Checkout (recommended)
-
-If you have a custom checkout flow that uses Stripe's `checkout.sessions.create` API, you'd want to associate the [Stripe customer object](https://docs.stripe.com/api/customers/object) with the user's unique ID in your database (which we tracked in the [lead conversion tracking step](/docs/quickstart/server#tracking-lead-events)).
-
-This will allow Dub to automatically listen for purchase events from Stripe and associate them with the original click event (and by extension, the link that the user came from).
-
-<Accordion title="How does this work?">
-
-Remember in the [lead conversion tracking guide](/docs/quickstart/server#tracking-lead-events), we passed the user's unique user ID along with the click event ID in the `dub.track.lead` call?
-
-```javascript Node.js
-await dub.track.lead({
-  clickId,
-  eventName: "Sign Up",
-  customerExternalId: user.id, // the unique user ID of the customer in your database
-  customerName: user.name,
-  customerEmail: user.email,
-  customerAvatar: user.image,
-});
-```
-
-Under the hood, Dub records the user as a customer and associates them with the click event that they came from.
-
-Then, when the user makes a purchase, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
-
-</Accordion>
-
-First, you'll need to complete the following prerequisites:
-
-1. [Install the Dub Stripe integration](#installing-the-dub-stripe-integration)
-2. [Install the Dub Analytics script](/docs/sdks/client-side/introduction)
-3. [Install the Dub server-side SDK](/docs/sdks/overview#server-side-sdks)
-
-Then, when you [create a checkout session](https://docs.stripe.com/api/checkout/sessions/create), pass your customer's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
-
-```javascript Node.js
-import { stripe } from "@/lib/stripe";
-
-const user = {
-  id: "user_123",
-  email: "user@example.com",
-  teamId: "team_xxxxxxxxx",
-};
-
-const priceId = "price_xxxxxxxxx";
-
-const stripeSession = await stripe.checkout.sessions.create({
-  customer_email: user.email,
-  success_url: "https://app.domain.com/success",
-  line_items: [{ price: priceId, quantity: 1 }],
-  mode: "subscription",
-  client_reference_id: user.teamId,
-  metadata: {
-    dubCustomerExternalId: user.id, // the unique user ID of the customer in your database
-  },
-});
-```
-
-This way, when the customer completes their checkout session, Dub will automatically associate the checkout session details (invoice amount, currency, etc.) with the customer – and by extension, the original click event.
-
-<Warning>
-  If you're using [guest checkout](https://docs.stripe.com/payments/checkout/guest-customers) (e.g. with `mode: "payment"`), the `customer` field in the `checkout.session.completed` webhook event will be `null`, and sales won't be tracked on Dub. 
-  
-  To fix this, set `customer_creation` to `always` when [creating your checkout session](https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-customer_creation):
-
-```javascript Node.js
-const stripeSession = await stripe.checkout.sessions.create({
-  // ... other options
-  customer_creation: "always", // ensures a Stripe customer is created
-});
-```
-
-</Warning>
-
-### Option 3: Using Stripe Customers
-
-Alternatively, if you don't use Stripe's [checkout session creation flow](#option-2-using-stripe-checkout-recommended), you can also pass the user ID and the click event ID (`dub_id`) in the [Stripe customer creation flow](https://docs.stripe.com/api/customers/create).
-
-First, you'll need to complete the following prerequisites:
-
-1. [Install the Dub Stripe integration](#installing-the-dub-stripe-integration)
-2. [Enable conversion tracking for your links](/docs/quickstart/server#step-1-enable-conversion-tracking-for-your-links)
-3. [Install the Dub Analytics script](/docs/sdks/client-side/introduction)
-
-Then, when you [create a Stripe customer](https://docs.stripe.com/api/customers/create), pass the user's unique user ID in your database as the `dubCustomerExternalId` value in the `metadata` field.
-
-```javascript Node.js
-import { stripe } from "@/lib/stripe";
-
-const user = {
-  id: "user_123",
-  email: "user@example.com",
-  teamId: "team_xxxxxxxxx",
-};
-
-const dub_id = req.headers.get("dub_id");
-
-await stripe.customers.create({
-  email: user.email,
-  name: user.name,
-  metadata: {
-    dubCustomerExternalId: user.id,
-    dubClickId: dub_id,
-  },
-});
-```
-
-Alternatively, you can also pass the `dubCustomerExternalId` and `dubClickId` values in the `metadata` field of the [Stripe customer update flow](https://docs.stripe.com/api/customers/update):
-
-```javascript Node.js
-import { stripe } from "@/lib/stripe";
-
-const user = {
-  id: "user_123",
-  email: "user@example.com",
-  teamId: "team_xxxxxxxxx",
-};
-
-const dub_id = req.headers.get("dub_id");
-
-await stripe.customers.update(user.id, {
-  metadata: {
-    dubCustomerExternalId: user.id,
-    dubClickId: dub_id,
-  },
-});
-```
-
-This way, when the customer makes a purchase, Dub will automatically associate the purchase details (invoice amount, currency, etc.) with the original click event.
-
-<Note>
-  When using Stripe Customers, lead and sale events are tracked but [lead
-  rewards](/help/article/partner-rewards#configuring-reward-types) will not be
-  generated. [Sale
-  rewards](/help/article/partner-rewards#configuring-reward-types) (both
-  recurring and one-time rewards) will still be generated as usual.
-</Note>
-
-### Option 4: Using Stripe Coupons and Promotion Codes
-
-If you're using [Stripe Coupons and Promotion Codes](https://docs.stripe.com/billing/subscriptions/coupons), you can start tracking sale conversions simply by [installing the Stripe integration](#installing-the-dub-stripe-integration) in your Dub workspace.
-
-Then, [follow these steps](/help/article/dual-sided-incentives#option-2-using-stripe-promo-codes-no-code-required) to generate discount codes for your partners on Dub, and you are all set!
-
-<Frame>
-  <img
-    src="/images/dub-partners/new-discount-reward.png"
-    alt="Program discounts tab"
-  />
-</Frame>
-
-<Note>
-  While Stripe promo-code-based discounts is much easier to set up (no code
-  required), you sacrifice attribution accuracy since you won't have any
-  insights into the customer's geolocation, device info, referrer details, and
-  UTM data. Our Stripe integration will try to derive the customer's location
-  based on their Stripe billing address, but it can sometimes be inaccurate.
-</Note>
 
 ## Tracking free trials
 
