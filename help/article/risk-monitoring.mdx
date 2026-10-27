@@ -26,29 +26,21 @@ Each row is a single event type for a given partner and can contain multiple eve
 
 Here are the event types you might see flagged and detected in your program.
 
-### Duplicate account detected
+### Network-level ban
 
-This partner was flagged by our system for having 2 or more Dub accounts. This can be flagged for partners connecting the same payout method, identity, or other personal information provided. Please review to prevent abuse of program restrictions, caps, or bonuses.
+This partner was banned from one-or-more programs on Dub. Our risk team has reviewed this decision and confirmed the fraudulent behavior or terms of service violation.
 
-If the partner is legitimate and has multiple accounts, it's recommended they [merge their accounts](/help/article/merging-partner-accounts#merging-your-partner-accounts) to prevent any future issues. If the accounts are not merged, this can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards.
+This is the strongest indicator that a partner is fraudulent. Network-level bans are manually verified by the Dub team, not flagged automatically by AI, so each one reflects a confirmed case of fraud.
 
-### Matching customer email
-
-This partner's email address matches with a customer's email address in your system. This can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards.
-
-### Suspicious customer email domain
-
-This partner has referred a customer with an email address that uses a suspicious domain, such as a disposable or temporary email provider. This can be a sign of fraudulent activity, as these types of email addresses are often used to create fake accounts or to hide the identity of the referrer.
-
-### Banned referral source
-
-This partner has traffic coming from a referral source that you've banned in your [risk rules](#risk-rules). This can be a violation of your program's terms if you don't allow traffic from certain sources, and can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions.
+**Recommended action:** Ban these partners from your program.
 
 ### Paid traffic
 
 This partner has traffic coming from paid sources like Google Ads, Facebook Ads, etc. and can be a violation of your program's terms. It can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions.
 
-We recommend getting clarification from the partner before banning them from your program. To make this easier, you can click the **Request details** button to auto-generate a message to the partner.
+The most common concern is partners bidding on your branded keywords, which competes with your own ads and claims commissions on customers who were already searching for you.
+
+**Recommended action:** If your program doesn't allow paid ads, you can ban the partner outright. Otherwise, ask the partner for details showing that they're not running paid ads on your branded keywords before deciding whether to ban them or resolve the event. To make this easier, you can click the **Request details** button to auto-generate a message to the partner.
 
 <Frame>
   <img
@@ -66,9 +58,51 @@ Click **Send** when you're ready to send the message, and then wait for the part
   />
 </Frame>
 
-### Network-level ban
+### Duplicate account detected
 
-This partner was banned from one-or-more programs on Dub. Our risk team has reviewed this decision and confirmed the fraudulent behavior or terms of service violation.
+This partner was flagged by our system for having 2 or more Dub accounts. This can be flagged for partners connecting the same payout method, identity, or other personal information provided. Please review to prevent abuse of program restrictions, caps, or bonuses.
+
+A common pattern is a partner who was previously rejected or banned from your program creating a new account to rejoin it.
+
+That said, partners can also create duplicate accounts by mistake. When this happens, we send them a warning email asking them to [merge their accounts](/help/article/merging-partner-accounts#merging-your-partner-accounts) to prevent any future issues. If the accounts are not merged, this can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards.
+
+**Recommended action:** Review these events case by case. Check whether any of the associated accounts were previously rejected or banned from your program. If so, the partner is likely trying to get around that decision, and you should ban them.
+
+### Matching customer email
+
+This partner's email address matches with the email address of one or more customers they referred. This can happen in a few ways, and each one should be handled differently:
+
+#### Email address tricks
+
+The partner is referring fake customers using variations of a single email address, such as `dot.em.a.i.l@domain.com`. Many email providers (e.g. Gmail) ignore periods in the address, so `j.o.h.n@gmail.com` and `john@gmail.com` deliver to the same inbox, letting one person sign up as many different "customers".
+
+**Recommended action:** Ban these partners right away.
+
+#### Multiple customers with the same email domain
+
+The partner referred multiple customers who share the same email domain. These can be genuine referrals, for example several people from the same company signing up through the partner's link.
+
+The main red flag is if the email domain doesn't resolve to a real website. This can indicate a "fake company" that the partner is using to generate fraudulent referrals.
+
+**Recommended action:** Review these case by case. Visit the email domain to confirm it belongs to a real company before resolving the event.
+
+#### Self-referral
+
+The partner referred themselves, using their own email address as a customer. This usually happens by accident, such as when a partner tests their own link or signs up for your product through it.
+
+**Recommended action:** There's no need to ban the partner. Instead, cancel the related commissions directly in the risk event review panel by marking them as fraud (see [associated commissions](#associated-commissions)), then resolve the event.
+
+### Suspicious customer email domain
+
+This partner has referred a customer with an email address that uses a suspicious domain, such as a disposable or temporary email provider. This can be a sign of fraudulent activity, as these types of email addresses are often used to create fake accounts or to hide the identity of the referrer.
+
+**Recommended action:** Review the referred customers before deciding. A single customer using a disposable email could be a genuine, privacy-conscious user, so check whether they've made real purchases (e.g. via [Stripe Radar](https://stripe.com/radar)). If the partner has referred several customers with disposable or temporary emails, they are likely fake accounts and you should ban the partner.
+
+### Banned referral source
+
+This partner has traffic coming from a referral source that you've banned in your [risk rules](#risk-rules). This can be a violation of your program's terms if you don't allow traffic from certain sources, and can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions.
+
+**Recommended action:** Confirm the traffic source with the partner via the [messaging center](/help/article/messaging-partners). If the partner wasn't aware of the restriction, ask them to remove their links from that source and resolve the event. If they're knowingly promoting through a source your program doesn't allow, ban them.
 
 ## Reviewing risk events
 
