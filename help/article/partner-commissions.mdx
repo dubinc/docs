@@ -306,14 +306,16 @@ During the commission creation flow, you can choose between the following option
 1. **Create new events**: Create a new sale event entirely.
 2. **Import from Stripe**: Create commissions from the customer's existing Stripe invoice payment events
 
+When importing from Stripe, Dub fetches the customer's paid invoices. Use the checkboxes to choose which invoices to import, or use the checkbox at the top of the table to select or deselect all of them.
+
 <Frame>
   <img
-    src="https://assets.dub.co/cms/import-invoices-from-stripe-01.png"
-    alt="Importing invoices from Stripe"
+    src="/images/dub-partners/import-invoices-from-stripe.png"
+    alt="Selecting paid invoices to import from Stripe"
   />
 </Frame>
 
-Then, once you click **Create commission**, this will import the customer's paid invoices and record them as sale events + partner commissions to their [customer page](help/article/customer-insights).
+Then, once you click **Create commission**, this will import the selected invoices and record them as sale events + partner commissions to their [customer page](help/article/customer-insights).
 
 ## Creating a clawback
 
