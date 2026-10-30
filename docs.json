@@ -525,6 +525,13 @@
                     "pages": ["docs/api-reference/payouts/list"]
                   },
                   {
+                    "group": "Messages",
+                    "pages": [
+                      "docs/api-reference/messages/list",
+                      "docs/api-reference/messages/create"
+                    ]
+                  },
+                  {
                     "group": "Discount codes",
                     "pages": [
                       "docs/api-reference/discount-codes/list",
@@ -623,7 +630,8 @@
                   "docs/webhooks/events/bounty-created",
                   "docs/webhooks/events/bounty-updated",
                   "docs/webhooks/events/discount-code-created",
-                  "docs/webhooks/events/discount-code-deleted"
+                  "docs/webhooks/events/discount-code-deleted",
+                  "docs/webhooks/events/message-received"
                 ]
               },
               {
