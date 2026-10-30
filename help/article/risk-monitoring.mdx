@@ -26,6 +26,8 @@ Each row is a single event type for a given partner and can contain multiple eve
 
 Here are the event types you might see flagged and detected in your program.
 
+For most event types, we also show a **Recommended** course of action in the [review panel](#reviewing-risk-events), along with a button to take that action, such as asking the partner for more details or marking commissions as fraud. Click **Learn more** to see why we recommend it and what to look out for.
+
 ### Duplicate account detected
 
 This partner was flagged by our system for having 2 or more Dub accounts. This can be flagged for partners connecting the same payout method, identity, or other personal information provided. Please review to prevent abuse of program restrictions, caps, or bonuses.
@@ -69,6 +71,8 @@ Click **Send** when you're ready to send the message, and then wait for the part
 ### Network-level ban
 
 This partner was banned from one-or-more programs on Dub. Our risk team has reviewed this decision and confirmed the fraudulent behavior or terms of service violation.
+
+You can also choose to [automatically ban these partners](#automatic-actions) from your program.
 
 ## Reviewing risk events
 
@@ -269,6 +273,18 @@ If you want to flag traffic from a specific URL, enable this setting and then ad
 </Frame>
 
 When adding URLs, you can also use `*` wildcards to match any part of a domain. These a great when monitoring for a specific page and not all traffic from the specific URL.
+
+### Automatic actions
+
+Some risk rules can take action for you, so you don't have to review each event yourself. When one of these rules is enabled, an additional setting appears below it, which is turned off by default.
+
+- **Network-level ban:** Enable **Automatically ban partners from program** to ban a partner from your program as soon as they're banned at the network level.
+- **Matching customer email:** Enable **Automatically cancel commissions from self-referrals** to cancel commissions when the customer's email exactly matches the partner's email, instead of holding them for review.
+
+<Note>
+  Automatic bans only apply to network-level bans that happen after you enable
+  the setting, and don't apply to partners with a pending application.
+</Note>
 
 ### Disabling risk settings
 
