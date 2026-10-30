@@ -466,6 +466,7 @@
                       "docs/api-reference/partners/list",
                       "docs/api-reference/partners/ban",
                       "docs/api-reference/partners/deactivate",
+                      "docs/api-reference/partners/attribute-referring-partner",
                       "docs/api-reference/partners/create-link",
                       "docs/api-reference/partners/upsert-link",
                       "docs/api-reference/partners/retrieve-links"
