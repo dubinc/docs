@@ -525,6 +525,13 @@
                     "pages": ["docs/api-reference/payouts/list"]
                   },
                   {
+                    "group": "Messages",
+                    "pages": [
+                      "docs/api-reference/messages/list",
+                      "docs/api-reference/messages/create"
+                    ]
+                  },
+                  {
                     "group": "Discount codes",
                     "pages": [
                       "docs/api-reference/discount-codes/list",
