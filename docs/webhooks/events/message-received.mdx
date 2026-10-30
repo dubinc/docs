@@ -1,0 +1,116 @@
+---
+title: message.received
+icon: message
+---
+
+import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
+
+Occurs whenever a partner sends a message to your program.
+
+<Tip>
+  This event only fires for messages that partners send. Messages that your
+  program sends, from the dashboard or with the [Send a message
+  API](/docs/api-reference/messages/create), do not trigger it.
+</Tip>
+
+The `data` object is the same message object that the [List messages API](/docs/api-reference/messages/list) returns.
+
+<WebhookResponseBodyParameters type="message.received">
+  <ParamField body="id" type="string">
+    Unique identifier for the message.
+  </ParamField>
+  <ParamField body="text" type="string">
+    The text of the message.
+  </ParamField>
+  <ParamField body="readInApp" type="string | null">
+    ISO 8601 timestamp when the recipient read the message in the app. Null if
+    unread.
+  </ParamField>
+  <ParamField body="readInEmail" type="string | null">
+    ISO 8601 timestamp when the recipient read the message in an email
+    notification. Null if unread.
+  </ParamField>
+  <ParamField body="createdAt" type="string">
+    ISO 8601 timestamp when the message was sent.
+  </ParamField>
+  <ParamField body="updatedAt" type="string">
+    ISO 8601 timestamp when the message was last updated.
+  </ParamField>
+  <ParamField body="attachments" type="object[]">
+    Files attached to the message.
+
+    <Expandable title="attachment object">
+      <ParamField body="name" type="string">
+        File name.
+      </ParamField>
+      <ParamField body="size" type="number">
+        File size in bytes.
+      </ParamField>
+      <ParamField body="type" type="string">
+        MIME type of the file (e.g. <code>image/png</code>).
+      </ParamField>
+      <ParamField body="url" type="string">
+        A download link that expires after 1 hour.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="sourceType" type="string">
+    Who sent the message. Always <code>partner</code> for this event.
+  </ParamField>
+  <ParamField body="partner" type="object">
+    The partner in the conversation.
+
+    <Expandable title="partner object">
+      <ParamField body="id" type="string">
+        Unique identifier for the partner.
+      </ParamField>
+      <ParamField body="name" type="string">
+        Partner name.
+      </ParamField>
+      <ParamField body="email" type="string | null">
+        Partner email address. Null for partners from the network who have not
+        joined your program.
+      </ParamField>
+      <ParamField body="image" type="string | null">
+        URL to the partner's avatar.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+</WebhookResponseBodyParameters>
+
+<ResponseExample>
+
+```json Response
+{
+  "id": "evt_KleiO4HBwZFbO1vZLWIPZ2AtX",
+  "event": "message.received",
+  "createdAt": "2026-10-29T10:12:45.468Z",
+  "data": {
+    "id": "msg_1K9C1VZ6MRDF4E1D0Q2DE8CTB",
+    "text": "Hey! Do you have any guidelines for promoting Dub on YouTube?",
+    "readInApp": null,
+    "readInEmail": null,
+    "createdAt": "2026-10-29T10:12:45.000Z",
+    "updatedAt": "2026-10-29T10:12:45.000Z",
+    "attachments": [
+      {
+        "name": "youtube-channel-stats.png",
+        "size": 248193,
+        "type": "image/png",
+        "url": "https://dubassets.com/messages/prog_1K0QHV7MP3PR05CJSCF5VN93X/xA9kT2pLq0/youtube-channel-stats.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Signature=..."
+      }
+    ],
+    "sourceType": "partner",
+    "partner": {
+      "id": "pn_1K9BZE1K285BSTX4W6MPKXJFZ",
+      "name": "Steven Tey",
+      "email": "steven@dub.co",
+      "image": null
+    }
+  }
+}
+```
+
+</ResponseExample>
