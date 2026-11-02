@@ -492,7 +492,7 @@ For **checkout sessions**, Dub calculates the sale amount by subtracting the tax
 saleAmount = amount_total - total_details.amount_tax;
 ```
 
-For **invoices**, Dub uses the `total_excluding_tax` field when available:
+For **invoices**, Dub removes the tax share from the amount paid:
 
 ```javascript
 // Sale amount calculation for invoices
