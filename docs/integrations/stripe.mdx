@@ -496,8 +496,10 @@ For **invoices**, Dub uses the `total_excluding_tax` field when available:
 
 ```javascript
 // Sale amount calculation for invoices
-saleAmount = total_excluding_tax ?? amount_paid;
+saleAmount = amount_paid × total_excluding_tax / total;
 ```
+
+A fully paid invoice records exactly `total_excluding_tax`. A partly paid invoice (for example, when a credit balance is applied) records the paid amount without its tax share.
 
 This ensures that the sale amounts recorded in Dub reflect the actual revenue before taxes, providing more accurate metrics for:
 
@@ -539,6 +541,8 @@ If you're using [Stripe's Adaptive Pricing](https://docs.stripe.com/payments/che
 }
 ```
 
+`currency_conversion.amount_total` includes tax, so Dub removes the session's tax share first: `currency_conversion.amount_total × (amount_total − total_details.amount_tax) / amount_total`.
+
 If you're not using Stripe Adaptive Pricing, Dub will record the sale amount in the default currency of your Dub workspace. This means that if you pass a different currency, it will be automatically converted to USD for reporting consistency – using the latest foreign exchange rates.
 
 ```json checkout.session.completed
@@ -572,7 +576,7 @@ For each line item, Dub:
 
 1. Resolves the Stripe product ID for that line item.
 2. Matches it against any [product-specific reward modifiers](/help/article/sale-rewards#product-spotlight) configured for the partner's group.
-3. Calculates the commission for that line item using the matching reward rate (falling back to the default reward if no modifier matches).
+3. Calculates the commission for that line item using the matching reward rate (falling back to the default reward if no modifier matches). The commission uses that line's share of the recorded sale amount (after discounts, [tax exclusion](#tax-handling) and [currency conversion](#currency-conversion-support)), not the raw Stripe line amount. Line items without a product keep their share of the sale but earn no product commission.
 
 The final commission recorded for the invoice is the sum of the per-line-item commissions.
 
