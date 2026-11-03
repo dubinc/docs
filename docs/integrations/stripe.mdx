@@ -27,6 +27,7 @@ Here are the events that Dub listens to:
 - One-time payments
 - [Free trials](#tracking-free-trials)
 - Refunds (for [voiding partner commissions](/help/article/partner-commissions#commission-statuses))
+- Disputes (for [holding partner commissions](#handling-disputes) until the dispute closes)
 - Cancellations/churn
 - Usage expansion
 
@@ -114,6 +115,8 @@ Once the integration is installed, Dub will automatically listen to the followin
 - `checkout.session.completed`: When a customer completes a checkout session
 - `invoice.paid`: When an invoice is paid (for tracking recurring subscriptions)
 - `charge.refunded`: When a charge is refunded (for [voiding partner commissions](/help/article/partner-commissions#commission-statuses))
+- `charge.dispute.created`: When a charge is disputed (for [holding partner commissions](#handling-disputes))
+- `charge.dispute.closed`: When a dispute is closed (for refunding or releasing the held commission)
 
 ## Tracking sales with the Dub Stripe integration
 
@@ -479,6 +482,33 @@ If your signup flow creates a trial subscription or a $0 invoice, Stripe may cla
 <Note>
   Changes will only take effect for future discount codes. Existing promotion
   codes keep the restriction they were created with.
+</Note>
+
+## Handling disputes
+
+When a customer disputes a charge in Stripe, Dub puts the partner commission for that sale [on hold](/help/article/partner-commissions#commission-statuses). An on-hold commission cannot be added to a payout, so the partner is not paid while the dispute is open. If the commission is already in a pending payout, Dub removes it from that payout.
+
+<Note>
+  Holding commissions for open disputes is only available on [Advanced plans and above](https://dub.co/pricing).
+</Note>
+
+When the dispute closes, Dub updates the commission based on the outcome:
+
+| Dispute outcome | Commission status |
+| --- | --- |
+| `lost` | `Refunded` |
+| `won` | `Pending` |
+| `warning_closed` (an inquiry that closed without a chargeback) | `Pending` |
+
+A lost dispute refunds the commission on every plan, the same as a Stripe refund.
+
+A won dispute keeps the commission on hold in these cases:
+
+- The commission was already on hold before the dispute opened (for example, a manual hold).
+- A pending [risk event](/help/article/risk-monitoring) also covers the commission.
+
+<Note>
+  Dub does not change a commission after its payout starts processing or is paid. To recover a paid commission after a lost dispute, [create a clawback](/help/article/partner-commissions#creating-a-clawback).
 </Note>
 
 ## Tax handling
