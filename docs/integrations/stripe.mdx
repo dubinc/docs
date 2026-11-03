@@ -115,7 +115,7 @@ Once the integration is installed, Dub will automatically listen to the followin
 - `invoice.paid`: When an invoice is paid (for tracking recurring subscriptions)
 - `charge.refunded`: When a charge is refunded (for [voiding partner commissions](/help/article/partner-commissions#commission-statuses))
 - `charge.dispute.created`: When a customer disputes a charge (for putting the partner commission [on hold](/help/article/partner-commissions#commission-statuses) on the Advanced plan and above)
-- `charge.dispute.closed`: When a dispute is closed (the commission is marked refunded if the dispute is lost, or released from hold if it's won)
+- `charge.dispute.closed`: When a dispute is closed (the commission is marked refunded if the dispute is lost, or released from hold if it's won, unless it was already on hold before the dispute or a pending risk event still covers it). If the commission was already paid when the dispute is lost, it isn't changed. [Create a clawback](/help/article/partner-commissions#creating-a-clawback) to recover it.
 
 ## Tracking sales with the Dub Stripe integration
 
