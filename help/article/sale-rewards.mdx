@@ -29,7 +29,12 @@ Each sale event creates a [commission](/help/article/partner-commissions) for th
 
 The commission amount is determined by that reward, plus any [conditions](#sale-reward-conditions) that match the sale.
 
-If a sale is later refunded or disputed, Dub automatically creates a [clawback](/help/article/partner-commissions#creating-a-clawback) for the associated commission. See [handling refunds](/docs/conversions/sales/refunds).
+If a sale is later refunded or disputed in Stripe, Dub updates the associated commission automatically:
+
+- **Refunded**: the commission is marked `Refunded` and removed from any pending payout. See [handling refunds](/docs/conversions/sales/refunds).
+- **Disputed**: the commission is put `On Hold` while the dispute is open, so it can't be paid out (available on the [Advanced plan and above](https://dub.co/pricing)). If you lose the dispute, the commission is marked `Refunded`. If you win it, or the inquiry closes without a chargeback, the commission goes back to `Pending`. It stays on hold if it was already on hold before the dispute or a pending [risk event](/help/article/risk-monitoring) still covers it.
+
+Commissions that have already been paid aren't changed. To recover those, [create a clawback](/help/article/partner-commissions#creating-a-clawback).
 
 ## Creating a sale reward
 
@@ -118,14 +123,16 @@ Conditions let you pay a different amount when a sale meets certain criteria. Cl
 
 ### Sale attributes
 
-| Attribute      | Description                                                                                                           |
-| -------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Product ID** | The product ID the sale is for. Use `Shown as` to modify how the reward shows to your partners.                       |
-| **Amount**     | The sale amount in USD.                                                                                               |
-| **Type**       | `new` for the customer's first sale, `recurring` for every sale after that.                                           |
-| **Metadata**   | Any custom field attached to the sale via the `metadata`, or pulled from Stripe checkout session or invoice metadata. |
+| Attribute          | Description                                                                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Product ID**     | The product ID the sale is for. Use `Shown as` to modify how the reward shows to your partners.                                                                     |
+| **Amount**         | The sale amount in USD.                                                                                                                                             |
+| **Type**           | `new` for the customer's first sale, `recurring` for every sale after that.                                                                                         |
+| **Billing period** | How often the purchased plan bills: `weekly`, `monthly`, `quarterly`, `yearly`, or `one-time`. Only available with the [Stripe integration](/docs/integrations/stripe). |
+| **Metadata**       | Any custom field attached to the sale via the `metadata`, or pulled from Stripe checkout session or invoice metadata.                                               |
 
 Learn more about [metadata conditions](/help/article/partner-rewards#metadata-conditions).
+
 
 ## Sale reward examples
 
@@ -264,9 +271,29 @@ Tailor your reward amount by partner performance. In this example, we offer a 50
   rules](/help/article/partner-groups#group-move-rules).
 </Tip>
 
-### Annual vs. monthly billing
+### Yearly vs. monthly billing
 
-Tailor your reward amount based on a [metadata condition](/help/article/partner-rewards#metadata-conditions). In this example, we're passing a `billingCycle` field on each sale (via the `metadata` prop on [`/track/sale`](/docs/api-reference/track/sale)) and rewarding partners more for driving annual plans over monthly plans:
+Pay a different rate depending on how often the customer's plan bills. If you use the [Stripe integration](/docs/integrations/stripe), choose `Sale` → `Billing period` as the condition. Dub fills in the billing period from Stripe for you.
+
+In this example, partners earn 35% on monthly plans and 25% on all other sales, including yearly plans, for 24 months:
+
+<Frame>
+  <img
+    src="/images/dub-partners/reward-builder-billing-period-sale.png"
+    alt="Reward builder with a Sale Billing period is monthly condition"
+  />
+</Frame>
+
+| Condition                                 | Reward                                    | Description                       |
+| ----------------------------------------- | ----------------------------------------- | --------------------------------- |
+| If `Sale` `Billing period` `is` `monthly` | Then pay a `Percentage` of `35%` per sale | Reward for monthly plans          |
+| Base reward                               | Pay a `Percentage` of `25%` per sale      | Reward for yearly and other sales |
+
+If a Stripe invoice has line items on different billing periods (for example, a yearly plan plus a monthly add-on), Dub works out the commission for each line item separately. [See the full example](/docs/integrations/stripe#multiple-line-items-per-invoice).
+
+#### Using metadata instead
+
+If you track sales with [`/track/sale`](/docs/api-reference/track/sale), the `Billing period` condition isn't available. Use a [metadata condition](/help/article/partner-rewards#metadata-conditions) instead. In this example, we're passing a `billingCycle` field on each sale (via the `metadata` prop) and rewarding partners more for driving annual plans over monthly plans:
 
 | Condition                               | Reward                                    | Description                       |
 | --------------------------------------- | ----------------------------------------- | --------------------------------- |
