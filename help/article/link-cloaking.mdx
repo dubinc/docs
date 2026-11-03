@@ -119,7 +119,7 @@ For example, if your Dub short domain is `dub.sh`, you would need to add the fol
 Content-Security-Policy: frame-ancestors 'self' dub.sh
 ```
 
-If your site also sends an `X-Frame-Options` header, remove it. Modern browsers ignore `X-Frame-Options` when `frame-ancestors` is set, but older browsers may still block the frame.
+If your site already sends an `X-Frame-Options` header, you can keep it. Modern browsers ignore `X-Frame-Options` when `frame-ancestors` is set, so your cloaked links will still work. Older browsers that don't support `frame-ancestors` will keep using `X-Frame-Options`, which protects your site from clickjacking there, but means cloaking won't work in those browsers.
 
 ### Allowlisting multiple domains
 
