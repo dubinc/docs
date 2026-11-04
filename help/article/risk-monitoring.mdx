@@ -42,6 +42,19 @@ This partner's email address matches with a customer's email address in your sys
 
 This partner has referred a customer with an email address that uses a suspicious domain, such as a disposable or temporary email provider. This can be a sign of fraudulent activity, as these types of email addresses are often used to create fake accounts or to hide the identity of the referrer.
 
+### Shared payment card
+
+Two or more customers referred by this partner paid with the same card. This often means one person is creating fake accounts to earn commissions.
+
+When this event is flagged, the unpaid commissions for every customer sharing the card are put on hold, including earlier leads and sales, not just the commission that triggered the event.
+
+If these are real customers who share a card, such as a family or a team, you can [resolve the event](#resolve-risk-event). Otherwise, we recommend marking the held commissions as fraud.
+
+<Note>
+  This event can only be detected for payments tracked through the [Stripe
+  integration](/docs/integrations/stripe).
+</Note>
+
 ### Banned referral source
 
 This partner has traffic coming from a referral source that you've banned in your [risk rules](#risk-rules). This can be a violation of your program's terms if you don't allow traffic from certain sources, and can also be a sign of fraudulent activity if the partner is running unauthorized ads to generate commissions.
