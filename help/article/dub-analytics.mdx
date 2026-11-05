@@ -206,6 +206,29 @@ This is available for both [Dub Partners](https://dub.co/partners) & [Dub Links]
 
 Check out [an example here](https://app.dub.co/share/dash_6NSA6vNm017MZwfzt8SubNSZ?interval=30d&country=-IN%2CVN).
 
+### Partial matching for event names ("CONTAINS")
+
+The **Event name** filter also supports **contains** and **does not contain** matching, so you can filter [lead and sale events](/help/article/dub-conversions) by part of their name instead of selecting each one individually.
+
+When you type a search into the Event name filter, select the `Contains "<search>"` option at the top of the list to match every event name that includes that text. Once the filter is applied, you can switch between **is**, **is not**, **contains**, and **does not contain** from the filter's operator menu. In contains mode, click the filter value to enter multiple comma-separated values.
+
+Examples:
+
+- Filtering for all events that contain "deposit" (e.g. "Deposit - USDC", "Deposit - ETH")
+- Filtering out all events that contain "test"
+
+Matching is case-insensitive.
+
+<Tip>
+  If you're using the [Analytics API](/docs/api-reference/analytics/retrieve) or [Events API](/docs/api-reference/events/list), you can pass the same filters to the `eventName` parameter:
+
+- `~value` – event name contains `value` (e.g. `~deposit` or `~deposit,withdraw`)
+- `-~value` – event name does not contain `value` (e.g. `-~test`)
+
+You can pass up to 255 comma-separated values.
+
+</Tip>
+
 ## Exporting your analytics data
 
 You can also [export your analytics data](/help/article/how-to-export-analytics) or [events stream data](/help/article/real-time-events-stream#filtering-and-exporting-events) to a CSV file at any time. This can be useful if you want to analyze the data in a business intelligence (BI) tool, share it with your team, or import it into a spreadsheet.
