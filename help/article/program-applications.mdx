@@ -28,6 +28,8 @@ On your applications table, you'll be able to view key information, including:
 - Their provided location
 - Their website and social media profiles
 
+Use the column button at the end of the table header to show or hide columns, such as the applicant's group, X/Twitter, Instagram, or TikTok.
+
 <Frame>
   <img
     src="/images/dub-partners/applicant-table.png"
@@ -36,6 +38,17 @@ On your applications table, you'll be able to view key information, including:
 </Frame>
 
 Click on any of the rows to view their profile and application form.
+
+### Application tabs
+
+Applications are organized into 4 tabs at the top of the table. Your search, filters, and sorting are kept when you switch between them.
+
+| Tab        | Description                                                                                                                                          |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pending    | Applications waiting for your review. You can [approve](#approving-applicants) or [reject](#rejecting-applicants) them individually or in bulk.      |
+| Approved   | Applications you've approved. These partners are now enrolled in your program.                                                                       |
+| Rejected   | Applications you've rejected. You can [approve a previously rejected partner](#approving-a-previously-rejected-partner) at any time.                 |
+| Unverified | Applications submitted by partners who haven't signed up for a Dub partner account yet. See [unverified applications](#unverified-applications) below. |
 
 ## Application settings
 
@@ -79,12 +92,12 @@ Application screening lets you automatically reject applications that match crit
 
 Here are some examples of screening criteria:
 
-| Goal                         | Example criteria                                                                                       |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Block spam                   | Reject spam applications with empty, generic, or copy-pasted answers.                                  |
-| Block coupon and deal sites  | Reject partners whose main channel is a coupon, voucher, cashback, or deal site.                       |
-| Block paid ads               | Reject partners who plan to promote us through paid search or bidding on our brand keywords.          |
-| Require relevant audiences   | Reject partners whose content isn't related to software development, design, or productivity.         |
+| Goal                        | Example criteria                                                                              |
+| --------------------------- | --------------------------------------------------------------------------------------------- |
+| Block spam                  | Reject spam applications with empty, generic, or copy-pasted answers.                         |
+| Block coupon and deal sites | Reject partners whose main channel is a coupon, voucher, cashback, or deal site.              |
+| Block paid ads              | Reject partners who plan to promote us through paid search or bidding on our brand keywords.  |
+| Require relevant audiences  | Reject partners whose content isn't related to software development, design, or productivity. |
 
 If the application clearly matches your criteria, it's automatically rejected with the reason "**Not the right fit**", and the applicant is notified. If the application doesn't match your criteria, it will remain pending for manual review.
 
@@ -286,7 +299,9 @@ When you update the auto-approve options, you can apply the new setting to every
 </Frame>
 
 <Warning>
-  We don't recommend setting all your groups to auto-approve. Auto-approved partners skip your review, so fraudulent or low-quality applicants can join and earn commissions.
+  We don't recommend setting all your groups to auto-approve. Auto-approved
+  partners skip your review, so fraudulent or low-quality applicants can join
+  and earn commissions.
 </Warning>
 
 With **auto-approve enabled**, any new pending applications will be automatically approved for your program with no review period. Any existing pending applications will still need manual approval before being accepted, as will any applications with a [risk flag](#applicant-risk-flags), which are never auto-approved.
@@ -349,4 +364,16 @@ Once inside the application, click **Approve**. The partner will immediately be 
     alt="Application dropdown"
   />
 </Frame>
-##
+
+## Unverified applications
+
+When someone applies to your program using an email address that doesn't have a Dub partner account yet, their application is shown in the **Unverified** tab. You can view their application details, but you can't approve or reject the application until they sign up for a partner account using the same email address.
+
+Once the applicant signs up, their application moves to the **Pending** tab and goes through your [application settings](#application-settings) like any other new application.
+
+From the **Unverified** tab, you can take the following actions on a single application, or select multiple applications to act on them in bulk:
+
+| Action             | Description                                                                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Send reminder      | Email the applicant a reminder to sign up on Dub and complete their application. Each applicant can only be reminded once every 24 hours. |
+| Permanently delete | Delete the application and its application history. This action can't be undone.                                                          |
