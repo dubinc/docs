@@ -119,22 +119,22 @@ Here's how you can use the identity variant:
 <script
   src="https://www.dubcdn.com/analytics/script.identity.js"
   data-domains='{"refer": "go.example.com"}'
-  data-identity-paths='["/signup", "/checkout/*"]'
+  data-track-identity-paths='["/signup", "/checkout/*"]'
 ></script>
 ```
 
 ```typescript React/Next.js
-// the DubAnalytics component automatically detects the `trackIdentity` prop
+// the DubAnalytics component automatically detects the `trackIdentityPaths` prop
 // and applies the identity script variant for you
 <DubAnalytics
   domainsConfig={{ refer: "go.example.com" }}
-  trackIdentity={{ paths: ["/signup", "/checkout/*"] }}
+  trackIdentityPaths={["/signup", "/checkout/*"]}
 />
 ```
 
 </CodeGroup>
 
-To identify conditionally instead, set `paths` to an empty list and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself. Where the law requires consent for device fingerprinting, call it only after the visitor gives consent.
+To identify conditionally instead, set the paths to an empty list (`trackIdentityPaths={[]}` or `data-track-identity-paths='[]'`) and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself. Where the law requires consent for device fingerprinting, call it only after the visitor gives consent.
 
 ### Combined Variant
 
