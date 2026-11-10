@@ -4,7 +4,7 @@ sidebarTitle: "Authentication"
 description: "Learn how to create and use partner API keys to authenticate with Dub's Partner API."
 ---
 
-Requests to the Partner API are authenticated with a partner API key, which is tied to your partner profile and gives access to your data across all the programs you're enrolled in.
+Requests to the Partner API are authenticated with a partner API key, which is tied to your partner profile and gives access to your data across all the programs you're enrolled in, except Dub's network program.
 
 Partner API keys follow the format:
 
@@ -53,10 +53,10 @@ A partner profile can have up to 5 API keys at a time. Every owner of the partne
 
 Each key is limited to the scopes you select when you create or edit it. You must select at least one.
 
-| Scope              | Access                                     | Endpoints                                                          |
-| :----------------- | :----------------------------------------- | :----------------------------------------------------------------- |
-| `commissions.read` | Read your commissions across all programs. | [`GET /commissions`](/docs/partner-api-reference/commissions/list) |
-| `payouts.read`     | Read your payouts across all programs.     | [`GET /payouts`](/docs/partner-api-reference/payouts/list)         |
+| Scope              | Access                 | Endpoints                                                          |
+| :----------------- | :--------------------- | :----------------------------------------------------------------- |
+| `commissions.read` | Read your commissions. | [`GET /commissions`](/docs/partner-api-reference/commissions/list) |
+| `payouts.read`     | Read your payouts.     | [`GET /payouts`](/docs/partner-api-reference/payouts/list)         |
 
 A request with a key that's missing a required scope returns a `403` error that names the scopes it needs.
 
