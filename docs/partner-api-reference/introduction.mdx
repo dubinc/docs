@@ -4,7 +4,7 @@ description: "Learn how to use Dub's Partner API to access your commissions and 
 og:title: Dub Partner API – Introduction
 ---
 
-The Dub Partner API lets partners access their own data programmatically, across all the programs they're enrolled in.
+The Dub Partner API lets partners access their own data programmatically, across all the programs they're enrolled in, except Dub's network program.
 
 You can use the API to:
 
@@ -72,7 +72,7 @@ Errors return a machine readable code, a human readable message, a link to the d
 | `bad_request`           | 400    | The `Authorization` header doesn't start with `Bearer `, or the `Dub-Version` header isn't a valid version.                                                                              |
 | `unauthorized`          | 401    | The API key is missing, invalid, or expired.                                                                                                                                             |
 | `forbidden`             | 403    | The API key is missing a required [scope](/docs/partner-api-reference/authentication#scopes), or the partner account doesn't have beta access.                                           |
-| `not_found`             | 404    | The `programId` you passed is a program you aren't enrolled in.                                                                                                                          |
+| `not_found`             | 404    | The `programId` you passed is Dub's network program or a program you aren't enrolled in.                                                                                                 |
 | `unprocessable_entity`  | 422    | A query parameter is invalid, `startingAfter` and `endingBefore` were both sent, or a pagination ID doesn't exist, belongs to another partner, or is outside the `programId` you passed. |
 | `rate_limit_exceeded`   | 429    | You've exceeded a [rate limit](/docs/partner-api-reference/rate-limits).                                                                                                                 |
 | `internal_server_error` | 500    | Something went wrong on our end. Contact support with the request ID if the problem persists.                                                                                            |
