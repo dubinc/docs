@@ -596,7 +596,10 @@
             "groups": [
               {
                 "group": "DUB PARTNER API",
-                "pages": ["docs/partner-api-reference/introduction"]
+                "pages": [
+                  "docs/partner-api-reference/introduction",
+                  "docs/partner-api-reference/authentication"
+                ]
               }
             ]
           }

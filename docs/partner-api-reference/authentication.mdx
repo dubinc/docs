@@ -1,0 +1,74 @@
+---
+title: "Partner API Authentication"
+sidebarTitle: "Authentication"
+description: "Learn how to create and use partner API keys to authenticate with Dub's Partner API."
+---
+
+Requests to the Partner API are authenticated with a partner API key, which is tied to your partner profile and gives access to your data across all the programs you're enrolled in.
+
+Partner API keys follow the format:
+
+```bash .env
+DUB_PARTNER_API_KEY=dpt_xxxxxxxx
+```
+
+<Warning>
+  Partner API keys are secret. Store them in your server-side code, such as in
+  an environment variable, and never expose them on a website.
+</Warning>
+
+Partner API keys only work with the Partner API. [Workspace API keys](/docs/api-reference/authentication#api-keys) (`dub_`) are rejected by the Partner API, and partner API keys can't be used with the Dub API.
+
+## Create an API key
+
+<Steps>
+  <Step title="Go to API Keys">
+    In the partner dashboard, go to [**Profile** > **API Keys**](https://partners.dub.co/profile/api-keys).
+
+    Only partner profile [owners](/help/article/managing-partner-teams) can create API keys.
+
+  </Step>
+  <Step title="Create the key">
+    Give the key a name, select its [scopes](#scopes), and choose when it expires.
+
+    Keys can be set to never expire, or to expire after 7, 30, 60, or 90 days, or 1 year.
+
+  </Step>
+  <Step title="Copy the key">
+    Copy your key and store it in a safe place. You won't be able to see it again.
+  </Step>
+  <Step title="Use the key">
+    Send your key as a Bearer token in the `Authorization` header of your requests:
+
+    ```
+    Authorization: Bearer dpt_xxxxxxxx
+    ```
+
+  </Step>
+</Steps>
+
+A partner profile can have up to 5 API keys at a time. Every owner of the partner profile receives an email when a new key is created.
+
+## Scopes
+
+Each key is limited to the scopes you select when you create or edit it. You must select at least one.
+
+| Scope              | Access                                     | Endpoints                                                          |
+| :----------------- | :----------------------------------------- | :----------------------------------------------------------------- |
+| `commissions.read` | Read your commissions across all programs. | [`GET /commissions`](/docs/partner-api-reference/commissions/list) |
+| `payouts.read`     | Read your payouts across all programs.     | [`GET /payouts`](/docs/partner-api-reference/payouts/list)         |
+
+A request with a key that's missing a required scope returns a `403` error that names the scopes it needs.
+
+<Tip>
+  Give each key only the scopes it needs to reduce the impact if the key is ever
+  exposed.
+</Tip>
+
+## Manage your API keys
+
+Owners can edit a key's name, scopes, and expiration, or delete it, from the [API Keys page](https://partners.dub.co/profile/api-keys). Other members of the partner profile can view the list of keys.
+
+A key stops working as soon as it's deleted or expires. Requests with an expired key return a `401` error.
+
+Keys are also deleted automatically when the person who created them is removed from the partner profile, is no longer an owner, or deletes their Dub account.
