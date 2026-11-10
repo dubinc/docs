@@ -83,7 +83,7 @@ List endpoints return results in pages, using these query parameters:
 
 | Parameter       | Description                                                               |
 | :-------------- | :------------------------------------------------------------------------ |
-| `limit`         | The number of results per page, between 1 and 100. Defaults to 50.        |
+| `pageSize`      | The number of results per page, between 1 and 100. Defaults to 50.        |
 | `startingAfter` | The ID of the last item on the current page. Returns the page after it.   |
 | `endingBefore`  | The ID of the first item on the current page. Returns the page before it. |
 
@@ -106,7 +106,7 @@ To page forward, send the `id` of the last item in `data` as `startingAfter`, an
 
 ```bash cURL
 curl --request GET \
-  --url 'https://api.dub.co/p/commissions?limit=25&startingAfter=cm_1KQ7YX7Z3H5T0A2B4C6D8E9F0G' \
+  --url 'https://api.dub.co/p/commissions?pageSize=25&startingAfter=cm_1KQ7YX7Z3H5T0A2B4C6D8E9F0G' \
   --header 'Authorization: Bearer dpt_xxxxxx'
 ```
 
