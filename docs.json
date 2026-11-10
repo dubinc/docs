@@ -601,6 +601,19 @@
                   "docs/partner-api-reference/authentication",
                   "docs/partner-api-reference/rate-limits"
                 ]
+              },
+              {
+                "group": "ENDPOINTS",
+                "pages": [
+                  {
+                    "group": "Commissions",
+                    "pages": ["docs/partner-api-reference/commissions/list"]
+                  },
+                  {
+                    "group": "Payouts",
+                    "pages": ["docs/partner-api-reference/payouts/list"]
+                  }
+                ]
               }
             ]
           }
@@ -681,7 +694,7 @@
     "href": "https://dub.co/home"
   },
   "api": {
-    "openapi": "https://api.dub.co"
+    "openapi": ["https://api.dub.co", "https://api.dub.co/p"]
   },
   "navbar": {
     "links": [
