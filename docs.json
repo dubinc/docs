@@ -598,7 +598,8 @@
                 "group": "DUB PARTNER API",
                 "pages": [
                   "docs/partner-api-reference/introduction",
-                  "docs/partner-api-reference/authentication"
+                  "docs/partner-api-reference/authentication",
+                  "docs/partner-api-reference/rate-limits"
                 ]
               }
             ]
