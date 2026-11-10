@@ -67,15 +67,15 @@ Errors return a machine readable code, a human readable message, a link to the d
 }
 ```
 
-| Code                    | Status | Returned when                                                                                                                                         |
-| :---------------------- | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bad_request`           | 400    | The `Authorization` header doesn't start with `Bearer `, or the `Dub-Version` header isn't a valid version.                                           |
-| `unauthorized`          | 401    | The API key is missing, invalid, or expired.                                                                                                          |
-| `forbidden`             | 403    | The API key is missing a required [scope](/docs/partner-api-reference/authentication#scopes), or the partner account doesn't have beta access.        |
-| `not_found`             | 404    | The `programId` you passed is a program you aren't enrolled in.                                                                                       |
-| `unprocessable_entity`  | 422    | A query parameter is invalid, `startingAfter` and `endingBefore` were both sent, or a pagination ID doesn't exist or doesn't match the query filters. |
-| `rate_limit_exceeded`   | 429    | You've exceeded a [rate limit](/docs/partner-api-reference/rate-limits).                                                                              |
-| `internal_server_error` | 500    | Something went wrong on our end. Contact support with the request ID if the problem persists.                                                         |
+| Code                    | Status | Returned when                                                                                                                                                                            |
+| :---------------------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bad_request`           | 400    | The `Authorization` header doesn't start with `Bearer `, or the `Dub-Version` header isn't a valid version.                                                                              |
+| `unauthorized`          | 401    | The API key is missing, invalid, or expired.                                                                                                                                             |
+| `forbidden`             | 403    | The API key is missing a required [scope](/docs/partner-api-reference/authentication#scopes), or the partner account doesn't have beta access.                                           |
+| `not_found`             | 404    | The `programId` you passed is a program you aren't enrolled in.                                                                                                                          |
+| `unprocessable_entity`  | 422    | A query parameter is invalid, `startingAfter` and `endingBefore` were both sent, or a pagination ID doesn't exist, belongs to another partner, or is outside the `programId` you passed. |
+| `rate_limit_exceeded`   | 429    | You've exceeded a [rate limit](/docs/partner-api-reference/rate-limits).                                                                                                                 |
+| `internal_server_error` | 500    | Something went wrong on our end. Contact support with the request ID if the problem persists.                                                                                            |
 
 ## Pagination
 
@@ -110,8 +110,10 @@ curl --request GET \
   --header 'Authorization: Bearer dpt_xxxxxx'
 ```
 
+If an item stops matching your filters while you're paging, for example because its status changed, you can still use its ID to get the next page.
+
 <Warning>
-  Send either `startingAfter` or `endingBefore`, not both. Keep your other query
-  parameters the same between pages, because an ID that doesn't match the
-  current filters returns a `422` error.
+  Send either `startingAfter` or `endingBefore`, not both. An ID that doesn't
+  exist, belongs to another partner, or is outside the `programId` you passed
+  returns a `422` error.
 </Warning>
