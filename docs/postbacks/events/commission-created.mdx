@@ -14,8 +14,9 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
   <ParamField body="type" type="string">
     Commission type (e.g. <code>sale</code>).
   </ParamField>
-  <ParamField body="amount" type="number">
-    Sale/order amount in cents.
+  <ParamField body="amount" type="number | null">
+    Sale/order amount in cents. <code>0</code> when the commission isn't for a
+    sale, and <code>null</code> when the program hides revenue from you.
   </ParamField>
   <ParamField body="earnings" type="number">
     Commission earnings in cents.
@@ -61,6 +62,12 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
       <ParamField body="id" type="string">
         Unique identifier for the customer.
       </ParamField>
+      <ParamField body="name" type="string | null">
+        The customer's name. <code>null</code> unless the program shares customer data.
+      </ParamField>
+      <ParamField body="clickId" type="string | null">
+        The ID of the click that led to the customer.
+      </ParamField>
       <ParamField body="country" type="string">
         Country code.
       </ParamField>
@@ -103,6 +110,8 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
     },
     "customer": {
       "id": "cus_1K09DJDEACR47NPYC93RM43WF",
+      "name": null,
+      "clickId": "nLvob3FdmsYuI1BI",
       "country": "US",
       "createdAt": "2025-07-16T10:48:01.739Z",
       "firstSaleAt": "2025-07-18T10:48:01.739Z",
