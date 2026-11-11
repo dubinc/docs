@@ -134,7 +134,9 @@ Here's how you can use the identity variant:
 
 </CodeGroup>
 
-If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you.
+If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you, unless you set `scriptProps.src`.
+
+We recommend loading the script through a [reverse proxy](/docs/sdks/client-side/features/reverse-proxy-support), so ad-blockers don't stop identification.
 
 To identify conditionally instead, set the paths to an empty list (`trackIdentityPaths={[]}` or `data-track-identity-paths='[]'`) and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself. Where the law requires consent for device fingerprinting, call it only after the visitor gives consent.
 
