@@ -333,19 +333,20 @@ Choose your client below. Replace `dub_xxxxxx` with your API key.
     {
       "$schema": "https://opencode.ai/config.json",
       "mcp": {
-        "dub": {
-          "type": "local",
-          "command": [
-            "npx",
-            "-y",
-            "mcp-remote@0.1.25",
-            "https://mcp.dub.sh/mcp/dub-partners",
-            "--header",
-            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-          ],
-          "enabled": true,
-          "environment": {
-            "MCP_DUB_TOKEN": "dub_xxxxxx"
+        "servers": {
+          "dub": {
+            "type": "local",
+            "command": [
+              "npx",
+              "-y",
+              "mcp-remote@0.1.25",
+              "https://mcp.dub.sh/mcp/dub-partners",
+              "--header",
+              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+            ],
+            "environment": {
+              "MCP_DUB_TOKEN": "dub_xxxxxx"
+            }
           }
         }
       }
