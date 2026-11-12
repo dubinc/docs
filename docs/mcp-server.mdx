@@ -401,93 +401,95 @@ The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent na
 
 The server has 31 tools. The **Access** column shows what each tool does to your data: **read** only looks it up, **write** creates or changes it, and **destructive** deletes it. Your AI client may ask you to confirm before it runs a write or destructive tool.
 
+<div className="mcp-tools">
 <AccordionGroup>
   <Accordion title="Partners — 5 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_partners</code> | read | Lists the partners in your program, with filters and sorting by performance |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_create_partner</code> | write | Creates a partner and enrolls them in your program; returns the existing enrollment if the email is already enrolled |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_deactivate_partner</code> | write | Deactivates a partner and disables their links; their commissions and payouts stay intact |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_ban_partner</code> | write | Bans a partner, disables their links, and cancels their commissions |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_attribute_referring_partner</code> | write | Attributes a partner to the partner who referred them; both must be approved in your program |
+    | `dub_list_partners` | read | Lists the partners in your program, with filters and sorting by performance |
+    | `dub_create_partner` | write | Creates a partner and enrolls them in your program; returns the existing enrollment if the email is already enrolled |
+    | `dub_deactivate_partner` | write | Deactivates a partner and disables their links; their commissions and payouts stay intact |
+    | `dub_ban_partner` | write | Bans a partner, disables their links, and cancels their commissions |
+    | `dub_attribute_referring_partner` | write | Attributes a partner to the partner who referred them; both must be approved in your program |
   </Accordion>
 
   <Accordion title="Partner links — 2 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_create_partner_link</code> | write | Creates a link for a partner enrolled in your program |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_upsert_partner_link</code> | write | Returns the partner's link for a URL, updating it if anything changed, or creates one |
+    | `dub_create_partner_link` | write | Creates a link for a partner enrolled in your program |
+    | `dub_upsert_partner_link` | write | Returns the partner's link for a URL, updating it if anything changed, or creates one |
   </Accordion>
 
   <Accordion title="Program applications — 3 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_program_applications</code> | read | Lists applications to your program, filtered by pending, approved, or rejected |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_approve_program_application</code> | write | Approves an application, enrolls the partner in a group, and emails them |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_reject_program_application</code> | write | Rejects an application and emails the partner |
+    | `dub_list_program_applications` | read | Lists applications to your program, filtered by pending, approved, or rejected |
+    | `dub_approve_program_application` | write | Approves an application, enrolls the partner in a group, and emails them |
+    | `dub_reject_program_application` | write | Rejects an application and emails the partner |
   </Accordion>
 
   <Accordion title="Analytics and events — 2 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_retrieve_analytics</code> | read | Clicks, leads, and sales for a partner, a [partner group](/help/article/partner-groups), a link, or your workspace, as totals, a timeseries, or top lists |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_events</code> | read | Lists individual click, lead, and sale events |
+    | `dub_retrieve_analytics` | read | Clicks, leads, and sales for a partner, a [partner group](/help/article/partner-groups), a link, or your workspace, as totals, a timeseries, or top lists |
+    | `dub_list_events` | read | Lists individual click, lead, and sale events |
   </Accordion>
 
   <Accordion title="Customers — 4 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_get_customers</code> | read | Lists the customers in your workspace |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_get_customer</code> | read | Retrieves a customer by ID, or by external ID with an `ext_` prefix |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_update_customer</code> | write | Updates a customer |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_delete_customer</code> | destructive | Deletes a customer |
+    | `dub_get_customers` | read | Lists the customers in your workspace |
+    | `dub_get_customer` | read | Retrieves a customer by ID, or by external ID with an `ext_` prefix |
+    | `dub_update_customer` | write | Updates a customer |
+    | `dub_delete_customer` | destructive | Deletes a customer |
   </Accordion>
 
   <Accordion title="Tracking — 3 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_track_lead</code> | write | Tracks a lead for a short link |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_track_sale</code> | write | Tracks a sale for a short link |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_track_open</code> | write | Tracks an app open from a Dub deep link on iOS or Android |
+    | `dub_track_lead` | write | Tracks a lead for a short link |
+    | `dub_track_sale` | write | Tracks a sale for a short link |
+    | `dub_track_open` | write | Tracks an app open from a Dub deep link on iOS or Android |
   </Accordion>
 
   <Accordion title="Commissions — 3 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_commissions</code> | read | Lists the commissions in your program |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_create_commission</code> | write | Creates custom, lead, or sale commissions for a partner; a negative custom `amount` creates a clawback |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_update_commission</code> | write | Changes a commission's amount or status, for example after a refund or for fraud |
+    | `dub_list_commissions` | read | Lists the commissions in your program |
+    | `dub_create_commission` | write | Creates custom, lead, or sale commissions for a partner; a negative custom `amount` creates a clawback |
+    | `dub_update_commission` | write | Changes a commission's amount or status, for example after a refund or for fraud |
   </Accordion>
 
   <Accordion title="Bounties — 3 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_bounty_submissions</code> | read | Lists the submissions for a bounty |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_approve_bounty_submission</code> | write | Approves a submission, optionally with a custom reward amount |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_reject_bounty_submission</code> | write | Rejects a submission with a reason and an optional note |
+    | `dub_list_bounty_submissions` | read | Lists the submissions for a bounty |
+    | `dub_approve_bounty_submission` | write | Approves a submission, optionally with a custom reward amount |
+    | `dub_reject_bounty_submission` | write | Rejects a submission with a reason and an optional note |
   </Accordion>
 
   <Accordion title="Discount codes — 3 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_discount_codes</code> | read | Lists discount codes, filtered by partner, discount, or code |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_create_discount_code</code> | write | Creates a discount code for a partner whose group has a discount |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_delete_discount_code</code> | destructive | Deletes a discount code and disables it in your discount provider |
+    | `dub_list_discount_codes` | read | Lists discount codes, filtered by partner, discount, or code |
+    | `dub_create_discount_code` | write | Creates a discount code for a partner whose group has a discount |
+    | `dub_delete_discount_code` | destructive | Deletes a discount code and disables it in your discount provider |
   </Accordion>
 
   <Accordion title="Payouts — 1 tool">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_payouts</code> | read | Lists the payouts for your program |
+    | `dub_list_payouts` | read | Lists the payouts for your program |
   </Accordion>
 
   <Accordion title="Messages — 2 tools">
     | Tool | Access | What it does |
     | --- | --- | --- |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_list_messages</code> | read | Lists messages between your program and its partners, newest first |
-    | <code style={{ whiteSpace: "nowrap" }}>dub_create_message</code> | write | Sends a message to a partner, up to 10 a minute to the same partner |
+    | `dub_list_messages` | read | Lists messages between your program and its partners, newest first |
+    | `dub_create_message` | write | Sends a message to a partner, up to 10 a minute to the same partner |
   </Accordion>
 </AccordionGroup>
+</div>
 
 ## Example prompts
 
