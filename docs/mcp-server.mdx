@@ -191,11 +191,18 @@ Who can revoke a connection depends on your workspace role:
 
 ## Local MCP Server
 
-If your MCP client doesn't support connecting directly to a remote HTTP endpoint, use [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) to run a local process that proxies requests to Dub's hosted server. You can integrate it into any supported MCP client using `npx`. You'll need a [Dub API key](/docs/api-reference/authentication#api-keys).
+Use the local server only if your MCP client can't connect to a remote HTTP endpoint. Most current clients can, so try the [remote server](#remote-mcp-server-recommended) first.
 
-Choose your client below to get started. Remember to replace `dub_xxxxxx` with your actual API key.
+The local server runs [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) through `npx`. It starts a process on your machine that forwards your client's requests to Dub's hosted server. You'll need [Node.js](https://nodejs.org) installed and a [Dub API key](/docs/api-reference/authentication#api-keys).
 
-### Stdio Transport (Default)
+Choose your client below. Replace `dub_xxxxxx` with your API key.
+
+<Note>
+  Keep the header argument as `Mcp-Dub-Token:${MCP_DUB_TOKEN}`, with no space
+  after the colon. `mcp-remote` fills in the key from the `MCP_DUB_TOKEN`
+  environment variable, and some clients (Cursor, Codex, and Claude Desktop on
+  Windows) break arguments that contain spaces.
+</Note>
 
 <Tabs>
   <Tab title="Claude Code">
@@ -388,14 +395,11 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
   </Tab>
 </Tabs>
 
-### Environment variables
-
-- `MCP_DUB_TOKEN`: Your Dub API key (used by `mcp-remote` and referenced in client configs as `${MCP_DUB_TOKEN}`)
-
-<Info>
-  Store your API key in the `env` block or an environment variable rather than
-  hardcoding it in shared config files when possible.
-</Info>
+<Warning>
+  Your API key is stored in plain text in your client's config file. Don't
+  commit that file to a repository or share it. If a key leaks, [delete
+  it](/docs/api-reference/authentication#api-keys) and create a new one.
+</Warning>
 
 ## MCP Server tools
 
