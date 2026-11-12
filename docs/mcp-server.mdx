@@ -122,22 +122,6 @@ When you connect, your client opens a browser window to log in to Dub and approv
 
   </Tab>
 
-  <Tab title="Windsurf">
-
-    In Windsurf's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
-
-    ```json
-    {
-      "mcpServers": {
-        "dub": {
-          "serverUrl": "https://mcp.dub.sh/mcp/dub-partners"
-        }
-      }
-    }
-    ```
-
-  </Tab>
-
   <Tab title="Warp">
     In Warp's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
 
@@ -166,7 +150,7 @@ _If your client runs somewhere a browser login isn't possible_ (a server, CI, or
   </Tab>
 
   <Tab title="JSON config">
-    For clients configured with JSON (Cursor, Windsurf, and others), add a `Mcp-Dub-Token` header:
+    For clients configured with JSON (Cursor and others), add a `Mcp-Dub-Token` header:
 
     ```json
     {
@@ -368,30 +352,6 @@ Choose your client below. Replace `dub_xxxxxx` with your API key.
     }
     ```
 
-  </Tab>
-
-  <Tab title="Windsurf">
-    In Windsurf's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
-
-    ```json
-    {
-      "mcpServers": {
-        "dub": {
-          "command": "npx",
-          "args": [
-            "-y",
-            "mcp-remote@0.1.25",
-            "https://mcp.dub.sh/mcp/dub-partners",
-            "--header",
-            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-          ],
-          "env": {
-            "MCP_DUB_TOKEN": "dub_xxxxxx"
-          }
-        }
-      }
-    }
-    ```
   </Tab>
 
   <Tab title="Warp">
