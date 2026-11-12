@@ -402,11 +402,11 @@ Choose your client below. Replace `dub_xxxxxx` with your API key.
 
 The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
 
-The server has 31 tools. The **Access** column shows what each tool does to your data: **read** only looks it up, **write** creates or changes it, and **destructive** deletes it. Your AI client may ask you to confirm before it runs a write or destructive tool.
+The **Access** column shows what each tool does to your data: **read** only looks it up, **write** creates or changes it, and **destructive** deletes it. Your AI client may ask you to confirm before it runs a write or destructive tool.
 
 <div className="mcp-tools">
 <AccordionGroup>
-  <Accordion title="Partners — 5 tools">
+  <Accordion title="Partners">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_partners` | read | Lists the partners in your program, with filters and sorting by performance |
@@ -416,14 +416,14 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_attribute_referring_partner` | write | Attributes a partner to the partner who referred them; both must be approved in your program |
   </Accordion>
 
-  <Accordion title="Partner links — 2 tools">
+  <Accordion title="Partner links">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_create_partner_link` | write | Creates a link for a partner enrolled in your program |
     | `dub_upsert_partner_link` | write | Returns the partner's link for a URL, updating it if anything changed, or creates one |
   </Accordion>
 
-  <Accordion title="Program applications — 3 tools">
+  <Accordion title="Program applications">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_program_applications` | read | Lists applications to your program, filtered by pending, approved, or rejected |
@@ -431,14 +431,14 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_reject_program_application` | write | Rejects an application and emails the partner |
   </Accordion>
 
-  <Accordion title="Analytics and events — 2 tools">
+  <Accordion title="Analytics and events">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_retrieve_analytics` | read | Clicks, leads, and sales for a partner, a [partner group](/help/article/partner-groups), a link, or your workspace, as totals, a timeseries, or top lists |
     | `dub_list_events` | read | Lists individual click, lead, and sale events |
   </Accordion>
 
-  <Accordion title="Customers — 4 tools">
+  <Accordion title="Customers">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_get_customers` | read | Lists the customers in your workspace |
@@ -447,7 +447,7 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_delete_customer` | destructive | Deletes a customer |
   </Accordion>
 
-  <Accordion title="Tracking — 3 tools">
+  <Accordion title="Tracking">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_track_lead` | write | Tracks a lead for a short link |
@@ -455,7 +455,7 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_track_open` | write | Tracks an app open from a Dub deep link on iOS or Android |
   </Accordion>
 
-  <Accordion title="Commissions — 3 tools">
+  <Accordion title="Commissions">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_commissions` | read | Lists the commissions in your program |
@@ -463,7 +463,7 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_update_commission` | write | Changes a commission's amount or status, for example after a refund or for fraud |
   </Accordion>
 
-  <Accordion title="Bounties — 3 tools">
+  <Accordion title="Bounties">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_bounty_submissions` | read | Lists the submissions for a bounty |
@@ -471,7 +471,7 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_reject_bounty_submission` | write | Rejects a submission with a reason and an optional note |
   </Accordion>
 
-  <Accordion title="Discount codes — 3 tools">
+  <Accordion title="Discount codes">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_discount_codes` | read | Lists discount codes, filtered by partner, discount, or code |
@@ -479,13 +479,13 @@ The server has 31 tools. The **Access** column shows what each tool does to your
     | `dub_delete_discount_code` | destructive | Deletes a discount code and disables it in your discount provider |
   </Accordion>
 
-  <Accordion title="Payouts — 1 tool">
+  <Accordion title="Payouts">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_payouts` | read | Lists the payouts for your program |
   </Accordion>
 
-  <Accordion title="Messages — 2 tools">
+  <Accordion title="Messages">
     | Tool | Access | What it does |
     | --- | --- | --- |
     | `dub_list_messages` | read | Lists messages between your program and its partners, newest first |
