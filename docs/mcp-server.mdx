@@ -103,6 +103,25 @@ When you connect, your client opens a browser window to log in to Dub and approv
 
   </Tab>
 
+  <Tab title="OpenCode">
+    Add to your `opencode.json` config:
+
+    ```json
+    {
+      "$schema": "https://opencode.ai/config.json",
+      "mcp": {
+        "servers": {
+          "dub": {
+            "type": "remote",
+            "url": "https://mcp.dub.sh/mcp/dub-partners"
+          }
+        }
+      }
+    }
+    ```
+
+  </Tab>
+
   <Tab title="Windsurf">
 
     In Windsurf's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
