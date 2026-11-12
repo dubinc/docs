@@ -8,3 +8,7 @@
   min-width: 0;
   white-space: nowrap;
 }
+
+.mcp-prompts .prompt {
+  flex-wrap: nowrap;
+}
