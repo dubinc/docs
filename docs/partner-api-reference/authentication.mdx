@@ -53,10 +53,11 @@ A partner profile can have up to 5 API keys at a time. Every owner of the partne
 
 Each key is limited to the scopes you select when you create or edit it. You must select at least one.
 
-| Scope              | Access                 | Endpoints                                                          |
-| :----------------- | :--------------------- | :----------------------------------------------------------------- |
-| `commissions.read` | Read your commissions. | [`GET /commissions`](/docs/partner-api-reference/commissions/list) |
-| `payouts.read`     | Read your payouts.     | [`GET /payouts`](/docs/partner-api-reference/payouts/list)         |
+| Scope              | Access                           | Endpoints                                                          |
+| :----------------- | :------------------------------- | :----------------------------------------------------------------- |
+| `commissions.read` | Read your commissions.           | [`GET /commissions`](/docs/partner-api-reference/commissions/list) |
+| `payouts.read`     | Read your payouts.               | [`GET /payouts`](/docs/partner-api-reference/payouts/list)         |
+| `customers.read`   | Read the customers you referred. | [`GET /customers`](/docs/partner-api-reference/customers/list)     |
 
 A request with a key that's missing a required scope returns a `403` error that names the scopes it needs.
 

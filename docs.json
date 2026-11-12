@@ -612,6 +612,10 @@
                   {
                     "group": "Payouts",
                     "pages": ["docs/partner-api-reference/payouts/list"]
+                  },
+                  {
+                    "group": "Customers",
+                    "pages": ["docs/partner-api-reference/customers/list"]
                   }
                 ]
               }
