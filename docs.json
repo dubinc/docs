@@ -596,7 +596,28 @@
             "groups": [
               {
                 "group": "DUB PARTNER API",
-                "pages": ["docs/partner-api-reference/introduction"]
+                "pages": [
+                  "docs/partner-api-reference/introduction",
+                  "docs/partner-api-reference/authentication",
+                  "docs/partner-api-reference/rate-limits"
+                ]
+              },
+              {
+                "group": "ENDPOINTS",
+                "pages": [
+                  {
+                    "group": "Commissions",
+                    "pages": ["docs/partner-api-reference/commissions/list"]
+                  },
+                  {
+                    "group": "Payouts",
+                    "pages": ["docs/partner-api-reference/payouts/list"]
+                  },
+                  {
+                    "group": "Customers",
+                    "pages": ["docs/partner-api-reference/customers/list"]
+                  }
+                ]
               }
             ]
           }
@@ -677,7 +698,7 @@
     "href": "https://dub.co/home"
   },
   "api": {
-    "openapi": "https://api.dub.co"
+    "openapi": ["https://api.dub.co", "https://api.dub.co/p"]
   },
   "navbar": {
     "links": [

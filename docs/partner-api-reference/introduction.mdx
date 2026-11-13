@@ -1,7 +1,120 @@
 ---
 title: Introduction
-description: "Learn how to use Dub's Partner API to programmatically manage your partner account."
-og:title: Dub Partner API – Introduction
+description: "Learn how to use Dub's Partner API to access your commissions, payouts and referred customers across every program you're enrolled in."
+og:title: Dub Partner API – Introduction
 ---
 
-<Note>Coming soon.</Note>
+The Dub Partner API lets partners access their own data programmatically, across all the programs they're enrolled in. Commissions from Dub's network program aren't included.
+
+You can use the API to:
+
+- [List your commissions](/docs/partner-api-reference/commissions/list)
+- [List your payouts](/docs/partner-api-reference/payouts/list)
+- [List your referred customers](/docs/partner-api-reference/customers/list)
+
+<Note>
+  The Partner API is in beta. API keys are only available to partner accounts
+  with beta access, and requests from other accounts return a `403`.
+</Note>
+
+If you run a partner program and want to manage it programmatically, use the [Dub API](/docs/api-reference/introduction) instead.
+
+## Base URL
+
+The Partner API is built on REST principles and is served over HTTPS. The Base URL for all endpoints is:
+
+```bash Terminal
+https://api.dub.co/p
+```
+
+## Authentication
+
+Authenticate by sending your [partner API key](/docs/partner-api-reference/authentication) as a Bearer token in the `Authorization` header:
+
+```bash cURL
+curl --request GET \
+  --url https://api.dub.co/p/commissions \
+  --header 'Authorization: Bearer dpt_xxxxxx'
+```
+
+## Versioning
+
+You can select an API version per request with the `Dub-Version` header:
+
+```bash Terminal
+Dub-Version: mozart
+```
+
+`mozart` is currently the only version. When a request doesn't include the header, Dub uses the version stored on the API key, then the default version.
+
+Every response returns the version that was used in its `Dub-Version` header. A `Dub-Version` value that isn't a valid version returns a `400` error.
+
+## Request IDs
+
+Every response includes a `Dub-Request-Id` header with a unique ID for the request, such as `req_1KQ7YX7Z3H5T0A2B4C6D8E9F0G`. The same ID is returned as `request_id` in error responses. Include it when you contact support about a specific request.
+
+## Error handling
+
+Errors return a machine readable code, a human readable message, a link to the docs, and the request ID:
+
+```json
+{
+  "error": {
+    "code": "forbidden",
+    "message": "Missing required scopes: payouts.read.",
+    "doc_url": "https://dub.co/docs/api-reference/errors#forbidden",
+    "request_id": "req_1KQ7YX7Z3H5T0A2B4C6D8E9F0G"
+  }
+}
+```
+
+| Code                    | Status | Returned when                                                                                                                                                                                             |
+| :---------------------- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bad_request`           | 400    | The `Authorization` header doesn't start with `Bearer `, the `Dub-Version` header isn't a valid version, or `sortBy=saleAmount` is sent without a `programId` for a program that shares revenue with you. |
+| `unauthorized`          | 401    | The API key is missing, invalid, or expired.                                                                                                                                                              |
+| `forbidden`             | 403    | The API key is missing a required [scope](/docs/partner-api-reference/authentication#scopes), the partner account doesn't have beta access, or a large program doesn't list its customers to you yet.     |
+| `not_found`             | 404    | The `programId` you passed is a program you aren't enrolled in, or Dub's network program on `GET /commissions`.                                                                                           |
+| `unprocessable_entity`  | 422    | A query parameter is invalid, `startingAfter` and `endingBefore` were both sent, or a pagination ID doesn't exist, belongs to another partner, or is outside the `programId` you passed.                  |
+| `rate_limit_exceeded`   | 429    | You've exceeded a [rate limit](/docs/partner-api-reference/rate-limits).                                                                                                                                  |
+| `internal_server_error` | 500    | Something went wrong on our end. Contact support with the request ID if the problem persists.                                                                                                             |
+
+## Pagination
+
+List endpoints return results in pages, using these query parameters:
+
+| Parameter       | Description                                                               |
+| :-------------- | :------------------------------------------------------------------------ |
+| `pageSize`      | The number of results per page, between 1 and 100. Defaults to 50.        |
+| `startingAfter` | The ID of the last item on the current page. Returns the page after it.   |
+| `endingBefore`  | The ID of the first item on the current page. Returns the page before it. |
+
+Responses have this shape:
+
+```json
+{
+  "data": [
+    {
+      "id": "cm_1KQ7YX7Z3H5T0A2B4C6D8E9F0G"
+    }
+  ],
+  "hasMore": true
+}
+```
+
+`data` holds the items for the page, trimmed to `id` in this example, and stays in the requested sort order in both directions. `hasMore` is `true` when there are more items in the direction you're paging.
+
+To page forward, send the `id` of the last item in `data` as `startingAfter`, and stop when `hasMore` is `false`. To page backward, send the `id` of the first item in `data` as `endingBefore`:
+
+```bash cURL
+curl --request GET \
+  --url 'https://api.dub.co/p/commissions?pageSize=25&startingAfter=cm_1KQ7YX7Z3H5T0A2B4C6D8E9F0G' \
+  --header 'Authorization: Bearer dpt_xxxxxx'
+```
+
+If an item stops matching your filters while you're paging, for example because its status changed, you can still use its ID to get the next page.
+
+<Warning>
+  Send either `startingAfter` or `endingBefore`, not both. An ID that doesn't
+  exist, belongs to another partner, or is outside the `programId` you passed
+  returns a `422` error.
+</Warning>

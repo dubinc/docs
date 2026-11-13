@@ -1,0 +1,32 @@
+---
+title: "Partner API rate limits"
+sidebarTitle: "Rate limits"
+"og:title": "What are Dub's Partner API rate limits?"
+description: "Learn about Dub's Partner API rate limits."
+---
+
+Rate limits apply per partner profile, so all of your [API keys](/docs/partner-api-reference/authentication) share the same limits:
+
+| Request type                    | Rate limit              |
+| :------------------------------ | :---------------------- |
+| Read (`GET`, `HEAD`, `OPTIONS`) | 600 requests per minute |
+| Write (all other methods)       | 60 requests per minute  |
+
+All current Partner API endpoints are read endpoints.
+
+You'll receive a `429 Too Many Requests` response with the `rate_limit_exceeded` error code if you exceed a rate limit.
+
+## Rate limit headers
+
+Authenticated responses include the following headers:
+
+| Header Name             | Description                                                                      |
+| :---------------------- | :------------------------------------------------------------------------------- |
+| `X-RateLimit-Limit`     | The maximum number of requests you can make per minute.                          |
+| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window.               |
+| `X-RateLimit-Reset`     | The time at which the current rate limit window resets, in UTC epoch seconds.    |
+| `Retry-After`           | The number of seconds to wait before retrying. Only included on `429` responses. |
+
+## API key lookups
+
+Dub also limits how often keys that aren't cached can be looked up, to 60 requests per minute per IP address. This protects against invalid keys being tried repeatedly, and it returns the same `429` response and headers.

@@ -1,0 +1,16 @@
+---
+openapi: https://api.dub.co/p GET /customers
+sidebarTitle: "List customers"
+---
+
+<Note>
+  This endpoint requires an API key with the `customers.read`
+  [scope](/docs/partner-api-reference/authentication#scopes).
+</Note>
+
+For each program:
+
+- If the program doesn't share customer data with you, `name` is `null`, `email` is masked, and `search` doesn't match its customers.
+- If the program doesn't share revenue with you, `saleAmount` is `null`. Sorting by `saleAmount` requires a `programId` for a program that shares revenue with you.
+
+Some large programs only list customers after you've earned $5,000 in commissions from them. Until then, their customers aren't returned, and a `programId` for one of these programs returns a `403` error.
