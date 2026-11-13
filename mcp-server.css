@@ -1,0 +1,14 @@
+.mcp-tools td:first-child code {
+  white-space: nowrap;
+}
+
+.mcp-tools th:nth-child(2),
+.mcp-tools td:nth-child(2) {
+  width: 1%;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.mcp-prompts .prompt {
+  flex-wrap: nowrap;
+}

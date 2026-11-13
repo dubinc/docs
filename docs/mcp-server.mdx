@@ -70,6 +70,17 @@ When you connect, your client opens a browser window to log in to Dub and approv
 
   </Tab>
 
+  <Tab title="Codex">
+    Add the server, then sign in to Dub in the browser window that opens:
+
+    ```bash
+    codex mcp add dub-partners --url https://mcp.dub.sh/mcp/dub-partners
+    ```
+
+    If you close the window before you sign in, run `codex mcp login dub-partners`.
+
+  </Tab>
+
   <Tab title="Cursor">
     Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
 
@@ -103,19 +114,24 @@ When you connect, your client opens a browser window to log in to Dub and approv
 
   </Tab>
 
-  <Tab title="Windsurf">
-
-    In Windsurf's Settings, navigate to **Agents** > **MCP servers**, and click **+ Add** to add a new server.
+  <Tab title="OpenCode">
+    Add to your `opencode.json` config:
 
     ```json
     {
-      "mcpServers": {
-        "dub": {
-          "serverUrl": "https://mcp.dub.sh/mcp/dub-partners"
+      "$schema": "https://opencode.ai/config.json",
+      "mcp": {
+        "servers": {
+          "dub": {
+            "type": "remote",
+            "url": "https://mcp.dub.sh/mcp/dub-partners"
+          }
         }
       }
     }
     ```
+
+    OpenCode asks you to sign in to Dub the first time it uses the server. To sign in right away, run `opencode mcp auth dub`.
 
   </Tab>
 
@@ -133,9 +149,9 @@ When you connect, your client opens a browser window to log in to Dub and approv
   </Tab>
 </Tabs>
 
----
+### Use an API key instead of OAuth
 
-_If your client runs somewhere a browser login isn't possible_ (a server, CI, or a headless agent), pass a [Dub API key](/docs/api-reference/authentication#api-keys) in the `Mcp-Dub-Token` header instead of using OAuth.
+If your client runs somewhere a browser login isn't possible (a server, CI, or a headless agent), pass a [Dub API key](/docs/api-reference/authentication#api-keys) in the `Mcp-Dub-Token` header instead of using OAuth.
 
 <Tabs>
   <Tab title="Claude Code">
@@ -147,7 +163,7 @@ _If your client runs somewhere a browser login isn't possible_ (a server, CI, or
   </Tab>
 
   <Tab title="JSON config">
-    For clients configured with JSON (Cursor, Windsurf, and others), add a `Mcp-Dub-Token` header:
+    For clients configured with JSON (Cursor and others), add a `Mcp-Dub-Token` header:
 
     ```json
     {
@@ -165,13 +181,44 @@ _If your client runs somewhere a browser login isn't possible_ (a server, CI, or
   </Tab>
 </Tabs>
 
+### Managing connections
+
+Each time someone in your workspace connects an MCP client using OAuth, Dub creates a connection for that user and client. You can review and revoke these connections from the Dub MCP integration page in your [workspace integration settings](https://app.dub.co/settings/integrations).
+
+The **Connections** card lists every OAuth connection to the Dub MCP server, including:
+
+- **User** – the workspace member who authorized the connection
+- **Client** – the MCP client that was connected (e.g. Claude, ChatGPT, Cursor)
+- **Dates** – when the connection was created
+- **Scopes** – the permissions granted to the client
+
+To remove a connection, click **Revoke** next to it. The client immediately loses access to your workspace and has to go through the OAuth flow again to reconnect.
+
+Who can revoke a connection depends on your workspace role:
+
+- **Owners** can revoke any connection in the workspace
+- **Members** can only revoke their own connections
+
+<Note>
+  The Connections card only lists OAuth connections. If a client authenticates
+  with the `Mcp-Dub-Token` header, revoke its access by deleting the [API
+  key](/docs/api-reference/authentication#api-keys) instead.
+</Note>
+
 ## Local MCP Server
 
-If your MCP client doesn't support connecting directly to a remote HTTP endpoint, use [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) to run a local process that proxies requests to Dub's hosted server. You can integrate it into any supported MCP client using `npx`. You'll need a [Dub API key](/docs/api-reference/authentication#api-keys).
+Use the local server only if your MCP client can't connect to a remote HTTP endpoint. Most current clients can, so try the [remote server](#remote-mcp-server-recommended) first.
 
-Choose your client below to get started. Remember to replace `dub_xxxxxx` with your actual API key.
+The local server runs [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) through `npx`. It starts a process on your machine that forwards your client's requests to Dub's hosted server. You'll need [Node.js](https://nodejs.org) installed and a [Dub API key](/docs/api-reference/authentication#api-keys).
 
-### Stdio Transport (Default)
+Choose your client below. Replace `dub_xxxxxx` with your API key.
+
+<Note>
+  Keep the header argument as `Mcp-Dub-Token:${MCP_DUB_TOKEN}`, with no space
+  after the colon. `mcp-remote` fills in the key from the `MCP_DUB_TOKEN`
+  environment variable, and some clients (Cursor, Codex, and Claude Desktop on
+  Windows) break arguments that contain spaces.
+</Note>
 
 <Tabs>
   <Tab title="Claude Code">
@@ -182,12 +229,14 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
       --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
     ```
   </Tab>
-
-<Tab title="Codex">
-  ```bash codex mcp add dub-partners \ --env MCP_DUB_TOKEN=dub_xxxxxx \ -- npx
-  -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \ --header
-  "Mcp-Dub-Token:\${MCP_DUB_TOKEN}" ```
-</Tab>
+  <Tab title="Codex">
+    ```bash
+    codex mcp add dub-partners \
+      --env MCP_DUB_TOKEN=dub_xxxxxx \
+      -- npx -y mcp-remote@0.1.25 https://mcp.dub.sh/mcp/dub-partners \
+      --header "Mcp-Dub-Token:\${MCP_DUB_TOKEN}"
+    ```
+  </Tab>
 
   <Tab title="Cursor">
     Open the command palette and choose **Cursor Settings** → **MCP** → **Add new global MCP server**.
@@ -267,6 +316,8 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
   </Tab>
 
   <Tab title="Gemini CLI">
+    Add to your `~/.gemini/settings.json`:
+
     ```json
     {
       "mcpServers": {
@@ -295,47 +346,26 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
     {
       "$schema": "https://opencode.ai/config.json",
       "mcp": {
-        "dub": {
-          "type": "local",
-          "command": [
-            "npx",
-            "-y",
-            "mcp-remote@0.1.25",
-            "https://mcp.dub.sh/mcp/dub-partners",
-            "--header",
-            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-          ],
-          "enabled": true,
-          "environment": {
-            "MCP_DUB_TOKEN": "dub_xxxxxx"
+        "servers": {
+          "dub": {
+            "type": "local",
+            "command": [
+              "npx",
+              "-y",
+              "mcp-remote@0.1.25",
+              "https://mcp.dub.sh/mcp/dub-partners",
+              "--header",
+              "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
+            ],
+            "environment": {
+              "MCP_DUB_TOKEN": "dub_xxxxxx"
+            }
           }
         }
       }
     }
     ```
 
-  </Tab>
-
-  <Tab title="Windsurf">
-    ```json
-    {
-      "mcpServers": {
-        "dub": {
-          "command": "npx",
-          "args": [
-            "-y",
-            "mcp-remote@0.1.25",
-            "https://mcp.dub.sh/mcp/dub-partners",
-            "--header",
-            "Mcp-Dub-Token:${MCP_DUB_TOKEN}"
-          ],
-          "env": {
-            "MCP_DUB_TOKEN": "dub_xxxxxx"
-          }
-        }
-      }
-    }
-    ```
   </Tab>
 
   <Tab title="Warp">
@@ -362,33 +392,151 @@ Choose your client below to get started. Remember to replace `dub_xxxxxx` with y
   </Tab>
 </Tabs>
 
-### Environment variables
-
-- `MCP_DUB_TOKEN`: Your Dub API key (used by `mcp-remote` and referenced in client configs as `${MCP_DUB_TOKEN}`)
-
-<Info>
-  Store your API key in the `env` block or an environment variable rather than
-  hardcoding it in shared config files when possible.
-</Info>
+<Warning>
+  Your API key is stored in plain text in your client's config file. Don't
+  commit that file to a repository or share it. If a key leaks, [delete
+  it](/docs/api-reference/authentication#api-keys) and create a new one.
+</Warning>
 
 ## MCP Server tools
 
 The Dub [MCP server](https://mcp.dub.sh/mcp/dub-partners) gives your AI agent native access to the full Dub platform through a single integration. You can manage your partner program, review applications, update commissions, and track attribution using natural language.
 
-- **Partners** — Create or update partners, list all partners, deactivate, or ban partners from your program
-- **Partner links** — Create and upsert links for enrolled partners
-- **Program applications** — List, approve, and reject pending program applications
-- **Analytics** — Retrieve analytics and list events for any partner, [partner groups](/help/article/partner-groups), or their specific links
-- **Customers** — List, retrieve, update, and delete customers
-- **Tracking** — Track lead, sale, and deep link open events
-- **Bounties** — List, approve, and reject bounty submissions
-- **Commissions** — List and update commissions (e.g. for refunds or fraud)
-- **Payouts** — List payouts for your partner program
-- **Messages** – List messages with your partners and send messages to them
+The **Access** column shows what each tool does to your data: **read** only looks it up, **write** creates or changes it, and **destructive** deletes it. Your AI client may ask you to confirm before it runs a write or destructive tool.
 
-Here are some real examples of what your agent can do with these tools:
+<div className="mcp-tools">
+<AccordionGroup>
+  <Accordion title="Partners">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_partners` | read | Lists the partners in your program, with filters and sorting by performance |
+    | `dub_create_partner` | write | Creates a partner and enrolls them in your program; returns the existing enrollment if the email is already enrolled |
+    | `dub_deactivate_partner` | write | Deactivates a partner and disables their links; their commissions and payouts stay intact |
+    | `dub_ban_partner` | write | Bans a partner, disables their links, and cancels their commissions |
+    | `dub_attribute_referring_partner` | write | Attributes a partner to the partner who referred them; both must be approved in your program |
+  </Accordion>
 
-- Triage pending program applications and approve or reject them in bulk
-- Adjust commissions after a refund or flag suspicious activity
-- Pull attribution analytics for a top partner or [partner group](/help/article/partner-groups)
-- Create partner links and track lead or sale conversion events
+  <Accordion title="Partner links">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_create_partner_link` | write | Creates a link for a partner enrolled in your program |
+    | `dub_upsert_partner_link` | write | Returns the partner's link for a URL, updating it if anything changed, or creates one |
+  </Accordion>
+
+  <Accordion title="Program applications">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_program_applications` | read | Lists applications to your program, filtered by pending, approved, or rejected |
+    | `dub_approve_program_application` | write | Approves an application, enrolls the partner in a group, and emails them |
+    | `dub_reject_program_application` | write | Rejects an application and emails the partner |
+  </Accordion>
+
+  <Accordion title="Analytics and events">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_retrieve_analytics` | read | Clicks, leads, and sales for a partner, a [partner group](/help/article/partner-groups), a link, or your workspace, as totals, a timeseries, or top lists |
+    | `dub_list_events` | read | Lists individual click, lead, and sale events |
+  </Accordion>
+
+  <Accordion title="Customers">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_get_customers` | read | Lists the customers in your workspace |
+    | `dub_get_customer` | read | Retrieves a customer by ID, or by external ID with an `ext_` prefix |
+    | `dub_update_customer` | write | Updates a customer |
+    | `dub_delete_customer` | destructive | Deletes a customer |
+  </Accordion>
+
+  <Accordion title="Tracking">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_track_lead` | write | Tracks a lead for a short link |
+    | `dub_track_sale` | write | Tracks a sale for a short link |
+    | `dub_track_open` | write | Tracks an app open from a Dub deep link on iOS or Android |
+  </Accordion>
+
+  <Accordion title="Commissions">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_commissions` | read | Lists the commissions in your program |
+    | `dub_create_commission` | write | Creates custom, lead, or sale commissions for a partner; a negative custom `amount` creates a clawback |
+    | `dub_update_commission` | write | Changes a commission's amount or status, for example after a refund or for fraud |
+  </Accordion>
+
+  <Accordion title="Bounties">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_bounty_submissions` | read | Lists the submissions for a bounty |
+    | `dub_approve_bounty_submission` | write | Approves a submission, optionally with a custom reward amount |
+    | `dub_reject_bounty_submission` | write | Rejects a submission with a reason and an optional note |
+  </Accordion>
+
+  <Accordion title="Discount codes">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_discount_codes` | read | Lists discount codes, filtered by partner, discount, or code |
+    | `dub_create_discount_code` | write | Creates a discount code for a partner whose group has a discount |
+    | `dub_delete_discount_code` | destructive | Deletes a discount code and disables it in your discount provider |
+  </Accordion>
+
+  <Accordion title="Payouts">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_payouts` | read | Lists the payouts for your program |
+  </Accordion>
+
+  <Accordion title="Messages">
+    | Tool | Access | What it does |
+    | --- | --- | --- |
+    | `dub_list_messages` | read | Lists messages between your program and its partners, newest first |
+    | `dub_create_message` | write | Sends a message to a partner, up to 10 a minute to the same partner |
+  </Accordion>
+</AccordionGroup>
+</div>
+
+## Example prompts
+
+Try these prompts once the Dub MCP server is connected.
+
+<div className="mcp-prompts">
+
+### Partners
+
+<Prompt icon="sparkles" description="Add jane@example.com to my program as a partner.">
+  Add jane@example.com to my program as a partner.
+</Prompt>
+<Prompt icon="sparkles" description="Show me the clicks, leads, and sales for jane@example.com in the last 30 days.">
+  Show me the clicks, leads, and sales for jane@example.com in the last 30 days.
+</Prompt>
+<Prompt icon="sparkles" description="Who are my top 5 partners by total sales?">
+  Who are my top 5 partners by total sales?
+</Prompt>
+<Prompt icon="sparkles" description="Ban the partner with the email spam@example.com for fraud.">
+  Ban the partner with the email spam@example.com for fraud.
+</Prompt>
+<Prompt icon="sparkles" description="Show me my pending program applications and approve the one from alex@example.com.">
+  Show me my pending program applications and approve the one from alex@example.com.
+</Prompt>
+
+### Links
+
+<Prompt icon="sparkles" description="Create a link for jane@example.com that points to https://example.com/pricing.">
+  Create a link for jane@example.com that points to https://example.com/pricing.
+</Prompt>
+<Prompt icon="sparkles" description="Create a link to https://example.com/black-friday for each of my top 10 partners.">
+  Create a link to https://example.com/black-friday for each of my top 10 partners.
+</Prompt>
+<Prompt icon="sparkles" description="Which of jane@example.com's links drove the most sales this quarter?">
+  Which of jane@example.com's links drove the most sales this quarter?
+</Prompt>
+
+### Commissions
+
+<Prompt icon="sparkles" description="Mark the commissions for invoice inv_123 as refunded.">
+  Mark the commissions for invoice inv_123 as refunded.
+</Prompt>
+<Prompt icon="sparkles" description="Mark all pending commissions for bob@example.com as fraud.">
+  Mark all pending commissions for bob@example.com as fraud.
+</Prompt>
+
+</div>

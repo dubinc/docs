@@ -1,11 +1,11 @@
 ---
 title: Reverse-proxy support
-description: Track clicks on the client-side using a reverse proxy
+description: Load the Dub Analytics script and send tracking requests through a reverse proxy
 ---
 
-## Tracking clicks via a reverse proxy
+## Setting up a reverse proxy
 
-To avoid ad-blockers from blocking your click-tracking requests, we recommend setting up a reverse proxy.
+To avoid ad-blockers from blocking the Dub Analytics script and its tracking requests, we recommend setting up a reverse proxy.
 
 Depending on which backend framework you're using, there are a few different ways to do this:
 
@@ -17,8 +17,12 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/_proxy/dub/track/:path",
-        destination: "https://api.dub.co/track/:path",
+        source: "/_proxy/dub/track/:path*",
+        destination: "https://api.dub.co/track/:path*",
+      },
+      {
+        source: "/_proxy/dub/:path*",
+        destination: "https://www.dubcdn.com/analytics/:path*",
       },
     ];
   },
@@ -30,8 +34,12 @@ module.exports = {
 {
   "rewrites": [
     {
-      "source": "/_proxy/dub/track/:path",
-      "destination": "https://api.dub.co/track/:path"
+      "source": "/_proxy/dub/track/:path*",
+      "destination": "https://api.dub.co/track/:path*"
+    },
+    {
+      "source": "/_proxy/dub/:path*",
+      "destination": "https://www.dubcdn.com/analytics/:path*"
     }
   ]
 }
@@ -39,14 +47,24 @@ module.exports = {
 
 </CodeGroup>
 
-Once you've set up your reverse proxy, don't forget to update the `apiHost` parameter in the `<Analytics />` component to point to your proxy URL.
+<Note>
+  Rewrites are matched in order, so keep the `track` rule before the catch-all.
+  The catch-all also serves the files the script loads itself, like the
+  [identity
+  variant's](/docs/sdks/client-side/variants#identity-variant-script-identity-js)
+  agent.
+</Note>
+
+## Pointing the script at your proxy
+
+Once you've set up your reverse proxy, load the script from your proxy and set the API host to your proxy URL.
 
 <CodeGroup>
 
 ```javascript HTML
 // include this script tag in your HTML Head tag
 <script
-  src="https://www.dubcdn.com/analytics/script.js"
+  src="/_proxy/dub/script.js" // pointing to your reverse proxy
   data-api-host="/_proxy/dub"
   data-domains='{"refer": "go.example.com"}'
   defer
@@ -61,6 +79,9 @@ export default function App() {
     <Layout>
       <DubAnalytics
         apiHost="/_proxy/dub" // the URL of your reverse proxy
+        scriptProps={{
+          src: "/_proxy/dub/script.js", // pointing to your reverse proxy
+        }}
         domainsConfig={{
           refer: "go.example.com", // the custom domain you're using on Dub for your short links
         }}
@@ -73,69 +94,4 @@ export default function App() {
 
 </CodeGroup>
 
-## Loading the script via a reverse proxy
-
-To avoid ad-blockers from blocking the Dub Analytics script, it is recommended to use a reverse proxy.
-
-Depending on which backend framework you're using, there are a few different ways to do this:
-
-<CodeGroup>
-
-```javascript Next.js
-// next.config.js
-module.exports = {
-  async rewrites() {
-    return [
-      {
-        source: "/_proxy/dub/script.js",
-        destination: "https://www.dubcdn.com/analytics/script.js",
-      },
-    ];
-  },
-};
-```
-
-```json Vercel
-// vercel.json
-{
-  "rewrites": [
-    {
-      "source": "/_proxy/dub/script.js",
-      "destination": "https://www.dubcdn.com/analytics/script.js"
-    }
-  ]
-}
-```
-
-</CodeGroup>
-
-Once you've set up your reverse proxy, don't forget to update the `scriptProps.src` parameter in the `<Analytics />` component to point to your proxy URL.
-
-<CodeGroup>
-
-```javascript HTML
-// include this script tag in your HTML Head tag
-<script
-  src="/_proxy/dub/script.js" // pointing to your reverse proxy
-  defer
-></script>
-```
-
-```typescript React/Next.js
-import { Analytics as DubAnalytics } from "@dub/analytics/react";
-
-export default function App() {
-  return (
-    <Layout>
-      <DubAnalytics
-        scriptProps={{
-          src: "/_proxy/dub/script.js", // pointing to your reverse proxy
-        }}
-      />
-      {/* Your app code here */}
-    </Layout>
-  );
-}
-```
-
-</CodeGroup>
+Setting `scriptProps.src` stops the `DubAnalytics` component from picking the [script variant](/docs/sdks/client-side/variants) for you, so point it at the variant you use, for example `/_proxy/dub/script.conversion-tracking.identity.js`.
