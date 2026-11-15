@@ -102,10 +102,11 @@ Here's how you can use the outbound domains variant:
 ### Identity Variant (`script.identity.js`)
 
 <Note>
-  Identity tracking is only active for workspaces where Dub has turned it on.
+  Identity tracking is currently only available for select Dub workspaces.
+  [Reach out](https://dub.co/contact/support) if you'd like access.
 </Note>
 
-The identity variant of the script identifies the visitor's device on the paths you configure, and links it to their partner click for partner risk monitoring.
+The identity variant of the script identifies the visitor's device on the paths you configure, and links it to their partner click for partner [risk monitoring](/help/article/risk-monitoring).
 
 It only runs for partner clicks tracked on the client, with the `?via=` query parameter or the one you set with `data-query-param` (`queryParam` in React), so you also need to set the `refer` domain. It runs once per click, on the first page load and on client-side navigation to a matching path. A path matches exactly, and a trailing `/*` also matches everything under the path (for example, `/checkout/*`).
 
