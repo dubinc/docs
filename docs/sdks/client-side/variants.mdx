@@ -141,6 +141,24 @@ We recommend loading the script through a [reverse proxy](/docs/sdks/client-side
 
 To identify conditionally instead, set the paths to an empty list (`trackIdentityPaths={[]}` or `data-track-identity-paths='[]'`) and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself. Where the law requires consent for device fingerprinting, call it only after the visitor gives consent.
 
+Identification takes a few seconds. If a button on the page sends the visitor to another site right away, like "Sign in with Google", the visitor can leave before it finishes. Wait for `trackIdentity()` before the redirect, with a time limit so sign-in never waits long:
+
+```typescript React/Next.js
+const { trackIdentity } = useAnalytics();
+
+async function signInWithGoogle() {
+  // wait up to 5 seconds for identification
+  await Promise.race([
+    trackIdentity(),
+    new Promise((resolve) => setTimeout(resolve, 5000)),
+  ]);
+
+  signIn("google");
+}
+```
+
+With the script tag, call `dubAnalytics.trackIdentity()` the same way. It returns right away when there is nothing to identify, so other visitors don't wait.
+
 ### Combined Variant
 
 You can also mix and match variants. For example, you can use the `site-visit` and `outbound-domains` variants together with this script: [`script.site-visit.outbound-domains.js`](https://www.dubcdn.com/analytics/script.site-visit.outbound-domains.js).
