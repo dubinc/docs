@@ -22,6 +22,83 @@ They are different from tracked leads since they are not created automatically b
 
 They start as a "submitted lead" record, and only become an attributed lead or sale in Dub when you update their status. This makes submitted leads useful for sales-assisted workflows where partners introduce prospects before a tracked signup or purchase happens.
 
+## Setting up the submitted lead form
+
+Partners submit leads through a form in their partner dashboard. You control which [partner groups](/help/article/partner-groups) can use the form and which fields it asks for.
+
+To edit the form, go to the **Submitted Leads** page in your Partner Program navigation and click the form settings button in the top right.
+
+This opens the **Edit submitted lead form** panel, which has two sections: **Group access** and **Form fields**.
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-submitted-lead-form-sheet.png"
+    alt="Edit submitted lead form panel"
+  />
+</Frame>
+
+Enabling a group is not enough on its own. Partners in that group only see the form once the group also has a reward set up for submitted leads. Learn how to [create rewards for submitted leads](#creating-rewards-for-submitted-leads).
+
+<Note>
+  Editing the form requires a workspace role that can manage partner groups.
+</Note>
+
+### Choosing which groups can submit leads
+
+Under **Group access**, turn the form on or off for each partner group. Only partners in an enabled group can submit leads.
+
+To turn it on for every group at once, switch on **Enable the form for all groups**.
+
+All enabled groups share the same form, so any change to the fields applies to every group.
+
+### Adding form fields
+
+Every form starts with three fields: **Name**, **Email**, and **Company**. These are always required and can't be changed or removed.
+
+To collect more information, click **Add field**. A new field appears at the bottom of the list.
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-submitted-lead-form-add-field.png"
+    alt="Add a field to the submitted lead form"
+  />
+</Frame>
+
+Choose an **Input type**, then enter a **Field label**.
+
+<Frame>
+  <img
+    src="/images/dub-partners/edit-submitted-lead-form-select-field.png"
+    alt="Select an input type for the field"
+  />
+</Frame>
+
+| Input type          | What partners enter                            | Example                |
+| ------------------- | ---------------------------------------------- | ---------------------- |
+| **Text field**      | A single line of text                          | Job title              |
+| **Text area**       | Longer, multi-line text                        | Notes about the lead   |
+| **Date selection**  | A date                                         | Expected close date    |
+| **URL**             | A link                                         | Company website        |
+| **Dropdown**        | One option from a dropdown list                | Company size           |
+| **Country**         | A country                                      | Company headquarters   |
+| **Multiple choice** | One option, or several, from a list of choices | Products of interest   |
+| **Number**          | A number                                       | Number of seats needed |
+
+Every field also has a **Required** toggle. Turn it on if partners must fill in the field before they can submit the lead.
+
+<Warning>
+  Changing a field's input type keeps its label and **Required** setting, but
+  clears the other settings, such as options and limits.
+</Warning>
+
+### Reordering and removing fields
+
+Drag a field by its handle to change where it appears in the form. Custom fields always appear after **Name**, **Email**, and **Company**.
+
+To remove a field, hover over it and click the trash icon.
+
+When you're done, click **Save**. Partners in the enabled groups see the updated form the next time they submit a lead.
+
 ## Creating rewards for submitted leads
 
 To create or update lead rewards, go to your program's [partner groups](/help/article/partner-groups), open the group you want to configure, and edit its rewards. This is where you create:
