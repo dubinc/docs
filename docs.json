@@ -473,6 +473,13 @@
                     ]
                   },
                   {
+                    "group": "Partner tags",
+                    "pages": [
+                      "docs/api-reference/partner-tags/add-partners",
+                      "docs/api-reference/partner-tags/remove-partners"
+                    ]
+                  },
+                  {
                     "group": "Program applications",
                     "pages": [
                       "docs/api-reference/program-applications/list",

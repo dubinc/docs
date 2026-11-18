@@ -1,0 +1,16 @@
+---
+openapi: delete /partner-tags/{partnerTagId}/partners
+sidebarTitle: "Remove a tag from partners"
+---
+
+<Tip>
+  Identify partners by `partnerIds` or by `tenantIds` (your own internal IDs),
+  but not both. Each call accepts 1 to 100 partners. The response's `count` is
+  the number of partners the tag was removed from, so partners that don't have
+  the tag are not counted.
+</Tip>
+
+<Warning>
+  If any partner isn't enrolled in your program, the request fails with a `400`
+  and the tag isn't removed from any partner.
+</Warning>

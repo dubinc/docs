@@ -1,0 +1,16 @@
+---
+openapi: post /partner-tags/{partnerTagId}/partners
+sidebarTitle: "Add a tag to partners"
+---
+
+<Tip>
+  Identify partners by `partnerIds` or by `tenantIds` (your own internal IDs),
+  but not both. Each call accepts 1 to 100 partners. The response's `count` is
+  the number of partners that were tagged, so partners that already have the
+  tag are not counted.
+</Tip>
+
+<Warning>
+  If any partner isn't enrolled in your program, the request fails with a `400`
+  and no partners are tagged.
+</Warning>
