@@ -616,6 +616,13 @@
                   {
                     "group": "Customers",
                     "pages": ["docs/partner-api-reference/customers/list"]
+                  },
+                  {
+                    "group": "Programs",
+                    "pages": [
+                      "docs/partner-api-reference/programs/list",
+                      "docs/partner-api-reference/programs/list-network"
+                    ]
                   }
                 ]
               }
