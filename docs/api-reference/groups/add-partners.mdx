@@ -1,0 +1,23 @@
+---
+openapi: post /groups/{groupId}/partners
+sidebarTitle: "Add partners to a group"
+---
+
+<Tip>
+  Identify partners by `partnerIds` or by `tenantIds` (your own internal IDs),
+  but not both. Each call accepts 1 to 100 partners. Moved partners get the
+  group's rewards and discount. Partners already in the group are skipped and
+  not counted in the response's `count`.
+</Tip>
+
+Set `disableGroupMove` to `true` to stop the group's [move
+rules](/help/article/partner-groups#group-move-rules) from moving these partners to another
+group, or `false` to let move rules apply again. Leave it out to keep each
+partner's current setting. When `disableGroupMove` is set, partners already in
+the group are updated and counted. Sending `disableGroupMove` requires an
+[Advanced plan](https://dub.co/pricing) or above.
+
+<Warning>
+  If any partner isn't enrolled in your program, the request fails with a `400`
+  and no partners are moved.
+</Warning>

@@ -480,6 +480,10 @@
                     ]
                   },
                   {
+                    "group": "Partner groups",
+                    "pages": ["docs/api-reference/groups/add-partners"]
+                  },
+                  {
                     "group": "Program applications",
                     "pages": [
                       "docs/api-reference/program-applications/list",
