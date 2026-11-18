@@ -464,7 +464,6 @@
                     "pages": [
                       "docs/api-reference/partners/create",
                       "docs/api-reference/partners/list",
-                      "docs/api-reference/partners/list-network",
                       "docs/api-reference/partners/ban",
                       "docs/api-reference/partners/deactivate",
                       "docs/api-reference/partners/attribute-referring-partner",
