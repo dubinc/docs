@@ -1,0 +1,13 @@
+---
+openapi: https://api.dub.co/p GET /programs/network
+sidebarTitle: "List network programs"
+---
+
+<Note>
+  This endpoint requires an API key with the `programs.read`
+  [scope](/docs/partner-api-reference/authentication#scopes).
+</Note>
+
+Lists the programs in the Dub partner network, including ones you aren't enrolled in. To apply to a program, open its `marketplaceUrl`. `eligible` shows whether you meet the program's application requirements, based on your profile's country and email.
+
+To list only the programs you aren't enrolled in, pass `status=null`.

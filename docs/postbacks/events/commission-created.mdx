@@ -5,20 +5,27 @@ icon: money-bill
 
 import { WebhookResponseBodyParameters } from "/snippets/webhook-response-body-parameters.mdx";
 
-Event triggered when a [new commission is created](/docs/api-reference/commissions/list) for you.
+Event triggered when a [new commission is created](/docs/partner-api-reference/commissions/list) for you.
 
 <WebhookResponseBodyParameters type="commission.created">
   <ParamField body="id" type="string">
     Unique identifier for the commission.
   </ParamField>
   <ParamField body="type" type="string">
-    Commission type (e.g. <code>sale</code>).
-  </ParamField>
-  <ParamField body="amount" type="number">
-    Sale/order amount in cents.
+    Commission type: <code>click</code>, <code>lead</code>, <code>sale</code>,
+    <code>referral</code>, or <code>custom</code>.
   </ParamField>
   <ParamField body="earnings" type="number">
     Commission earnings in cents.
+  </ParamField>
+  <ParamField body="saleAmount" type="number | null">
+    Sale amount in cents. <code>null</code> when the commission isn't for a
+    sale, or when the program hides revenue from you.
+  </ParamField>
+  <ParamField body="amount" type="number | null" deprecated>
+    Use <code>saleAmount</code> instead. Sale amount in cents, <code>0</code>
+    when the commission isn't for a sale, and <code>null</code> when the program
+    hides revenue from you.
   </ParamField>
   <ParamField body="currency" type="string">
     Currency code (e.g. <code>usd</code>).
@@ -35,33 +42,63 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
   <ParamField body="createdAt" type="string">
     ISO 8601 timestamp when the commission was created.
   </ParamField>
-  <ParamField body="link" type="object">
+  <ParamField body="updatedAt" type="string">
+    ISO 8601 timestamp when the commission was last updated.
+  </ParamField>
+  <ParamField body="payout" type="object | null">
+    The payout that includes this commission. <code>null</code> until the
+    commission is on a payout.
+
+    <Expandable title="payout object">
+      <ParamField body="id" type="string">
+        Unique identifier for the payout.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="link" type="object | null">
     The referral link the commission is associated with.
 
     <Expandable title="link object">
       <ParamField body="id" type="string">
         Unique identifier for the link.
       </ParamField>
-      <ParamField body="shortLink" type="string">
-        The short link URL.
+      <ParamField body="key" type="string">
+        Unique key of the short link.
       </ParamField>
       <ParamField body="domain" type="string">
         Domain of the short link.
       </ParamField>
-      <ParamField body="key" type="string">
-        Unique key of the short link.
+      <ParamField body="shortLink" type="string">
+        The short link URL.
+      </ParamField>
+      <ParamField body="url" type="string">
+        Destination URL of the short link.
+      </ParamField>
+      <ParamField body="partnerLinkTitle" type="string | null">
+        Your private title for the short link.
       </ParamField>
     </Expandable>
 
   </ParamField>
-  <ParamField body="customer" type="object">
-    The customer associated with the conversion.
+  <ParamField body="customer" type="object | null">
+    The customer associated with the conversion. <code>null</code> on referral
+    commissions, which have <code>referredPartner</code> instead.
 
     <Expandable title="customer object">
       <ParamField body="id" type="string">
         Unique identifier for the customer.
       </ParamField>
-      <ParamField body="country" type="string">
+      <ParamField body="name" type="string | null">
+        The customer's name. <code>null</code> unless the program shares customer data.
+      </ParamField>
+      <ParamField body="email" type="string | null">
+        The customer's email. Masked (e.g. <code>j****n@e****m</code>) unless the program shares customer data.
+      </ParamField>
+      <ParamField body="clickId" type="string | null">
+        The ID of the click that led to the customer.
+      </ParamField>
+      <ParamField body="country" type="string | null">
         Country code.
       </ParamField>
       <ParamField body="createdAt" type="string">
@@ -72,6 +109,42 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
       </ParamField>
       <ParamField body="subscriptionCanceledAt" type="string | null">
         ISO 8601 timestamp when the subscription was canceled, if any.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="referredPartner" type="object | null">
+    The partner whose activity earned this referral commission. <code>null</code>
+    on other commission types.
+
+    <Expandable title="referredPartner object">
+      <ParamField body="id" type="string">
+        Unique identifier for the referred partner.
+      </ParamField>
+      <ParamField body="email" type="string | null">
+        The referred partner's email. Masked unless the program shares customer data.
+      </ParamField>
+      <ParamField body="country" type="string | null">
+        Country code.
+      </ParamField>
+    </Expandable>
+
+  </ParamField>
+  <ParamField body="program" type="object">
+    The program the commission belongs to.
+
+    <Expandable title="program object">
+      <ParamField body="id" type="string">
+        Unique identifier for the program.
+      </ParamField>
+      <ParamField body="name" type="string">
+        Name of the program.
+      </ParamField>
+      <ParamField body="slug" type="string">
+        Slug of the program.
+      </ParamField>
+      <ParamField body="logo" type="string | null">
+        Logo URL of the program.
       </ParamField>
     </Expandable>
 
@@ -88,25 +161,40 @@ Event triggered when a [new commission is created](/docs/api-reference/commissio
   "data": {
     "id": "cm_1K09DJTBCRT24P6BRD515CK29",
     "type": "sale",
-    "amount": 50000,
     "earnings": 10000,
+    "saleAmount": 50000,
+    "amount": 50000,
     "currency": "usd",
     "status": "pending",
     "description": null,
     "quantity": 1,
     "createdAt": "2025-07-16T10:48:14.722Z",
+    "updatedAt": "2025-07-16T10:48:14.722Z",
+    "payout": null,
     "link": {
       "id": "cm0lcuvtz000xcutmqw4a7wi3",
-      "shortLink": "https://dub.sh/track-test",
+      "key": "track-test",
       "domain": "dub.sh",
-      "key": "track-test"
+      "shortLink": "https://dub.sh/track-test",
+      "url": "https://dub.co",
+      "partnerLinkTitle": null
     },
     "customer": {
       "id": "cus_1K09DJDEACR47NPYC93RM43WF",
+      "name": null,
+      "email": "j****n@e****m",
+      "clickId": "nLvob3FdmsYuI1BI",
       "country": "US",
       "createdAt": "2025-07-16T10:48:01.739Z",
       "firstSaleAt": "2025-07-18T10:48:01.739Z",
       "subscriptionCanceledAt": null
+    },
+    "referredPartner": null,
+    "program": {
+      "id": "prog_CYCu7IMAapjkRpTnr8F1azjN",
+      "name": "Acme",
+      "slug": "acme",
+      "logo": "https://assets.dub.co/logo.png"
     }
   }
 }

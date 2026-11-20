@@ -1,0 +1,14 @@
+---
+openapi: https://api.dub.co/p GET /programs
+sidebarTitle: "List programs"
+---
+
+<Note>
+  This endpoint requires an API key with the `programs.read`
+  [scope](/docs/partner-api-reference/authentication#scopes). Dub's network
+  program isn't included.
+</Note>
+
+Use a program's `id` as the `programId` filter on [`GET /commissions`](/docs/partner-api-reference/commissions/list), [`GET /payouts`](/docs/partner-api-reference/payouts/list), and [`GET /customers`](/docs/partner-api-reference/customers/list).
+
+If a program hides revenue from you, its `totalSaleAmount` is `null`.
