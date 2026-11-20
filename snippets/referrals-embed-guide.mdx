@@ -379,3 +379,106 @@ const iframeParams = new URLSearchParams({
 ```
 
 </CodeGroup>
+
+## Optional: Add a confirmation step
+
+By default, generating an embed token in Step 1 automatically enrolls the user in your partner program. If you want users to explicitly opt in first (for example, with a "Join program" confirmation modal), only generate the embed token after the user confirms.
+
+To do this, keep track of whether the user has confirmed in your own application (for example, a `joinedPartnerProgram` field on your user record), and only call `dub.embedTokens.referrals` for users who have confirmed:
+
+```ts app/api/embed-token/route.ts
+import { Dub } from "dub";
+
+const dub = new Dub();
+
+// Check whether the user has already joined the program
+export async function GET() {
+  const user = await getCurrentUser(); // your app's auth logic
+
+  if (!user.joinedPartnerProgram) {
+    return Response.json({ joined: false });
+  }
+
+  const { publicToken } = await dub.embedTokens.referrals({
+    tenantId: user.id,
+    partner: {
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      tenantId: user.id,
+    },
+  });
+
+  return Response.json({ joined: true, publicToken });
+}
+
+// Called when the user confirms they want to join the program
+export async function POST() {
+  const user = await getCurrentUser();
+
+  await markUserAsJoined(user.id); // persist the confirmation in your database
+
+  const { publicToken } = await dub.embedTokens.referrals({
+    tenantId: user.id,
+    partner: {
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      tenantId: user.id,
+    },
+  });
+
+  return Response.json({ joined: true, publicToken });
+}
+```
+
+Then, on the client, show a confirmation modal to users who haven't joined yet, and only render the embed once you have a `publicToken`:
+
+```tsx
+import { useState, useEffect } from "react";
+import { DubEmbed } from "@dub/embed-react";
+
+export default function Referrals() {
+  const [loading, setLoading] = useState(true);
+  const [publicToken, setPublicToken] = useState("");
+
+  useEffect(() => {
+    fetch("/api/embed-token")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.joined) setPublicToken(data.publicToken);
+        setLoading(false);
+      });
+  }, []);
+
+  const joinProgram = async () => {
+    const response = await fetch("/api/embed-token", { method: "POST" });
+    const data = await response.json();
+    setPublicToken(data.publicToken);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!publicToken) {
+    return (
+      <div role="dialog">
+        <h2>Join our partner program</h2>
+        <p>Earn rewards for every customer you refer to Acme.</p>
+        <button onClick={joinProgram}>Confirm and join the program</button>
+      </div>
+    );
+  }
+
+  return <DubEmbed data="referrals" token={publicToken} />;
+}
+```
+
+<Note>
+  Users who already have an enrollment in your program (for example, partners
+  you invited or imported) are matched by `tenantId` or `email` when you
+  generate a token. If you want to skip the confirmation step for them, you can
+  look them up with the [List partners](/docs/api-reference/partners/list)
+  endpoint before showing the modal.
+</Note>
