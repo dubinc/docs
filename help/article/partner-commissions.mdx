@@ -61,6 +61,8 @@ If needed, you can also update the status for a given commission accordingly:
 - `Canceled`: If a commission event was canceled/voided (e.g. in cases of self-referrals where commissions are not eligible for payout), you can mark them as "Canceled" via the dashboard or the [API](/docs/api-reference/endpoint/update-a-commission). **This action cannot be undone.**
 - `Duplicate`: If a commission event was found to be a duplicate, you can mark them as "Duplicate" via the dashboard or the [API](/docs/api-reference/endpoint/update-a-commission). **This action cannot be undone.**
 
+When a `Pending` or `Processed` commission is changed to `Canceled`, `Refunded`, `Fraud`, or `Duplicate`, the partner is notified by email. This applies whether the change comes from a single edit, a [bulk edit](#bulk-editing), a full refund in Stripe, or a lost dispute. Partial refunds don't send an email, and neither do other status changes to commissions that were `On Hold`.
+
 [Learn more about changing commissions statuses](/help/article/partner-commissions#commission-status).
 
 ## Single commission view
@@ -123,6 +125,8 @@ If you change a commission's status to `Canceled` or `Fraud`, you're also able t
 ### Earnings amount
 
 You can only edit the earnings amount for [custom commissions](#one-time-commissions) that haven't been paid yet. If the earnings amount is changed, it will also appear in the activity log on the [commissions page](/help/article/partner-commissions#single-commission-view).
+
+When the earnings of a `Pending` or `Processed` commission change, the partner receives an email showing the old and new earnings. This also applies when a change to the sale amount recalculates the earnings.
 
 <Frame>
   <img
