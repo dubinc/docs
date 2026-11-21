@@ -16,6 +16,12 @@ A few use cases include:
 - You are running an ad on a platform like Google/Reddit that requires you to use your main site domain for the URL (no short links allowed) – so instead of using a short link, you can use a query parameter to track clicks.
 - You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks [using a `trackClick()` function](#manually-tracking-clicks-with-the-trackclick-function) inside your application code.
 
+## Preventing click ID spoofing
+
+Client-side click tracking also helps prevent click ID spoofing, where someone fabricates or reuses a click ID to claim credit for conversions they didn't drive. With client-side click tracking, the Dub Analytics script records each click itself, and Dub only accepts those clicks from the hostnames on your workspace's **Allowed Hostnames** list.
+
+That's why every [Dub Analytics installation guide](/docs/sdks/client-side/introduction) includes client-side click tracking as a required step. Follow the quickstart below to set it up.
+
 ## Quickstart
 
 Here's how you can enable client-side click-tracking with the Dub Analytics script:

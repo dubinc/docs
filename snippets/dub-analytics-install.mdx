@@ -48,9 +48,13 @@
 
   </Step>
 
-  <Step title="Optional: Set up client-side click tracking">
+  <Step title="Set up client-side click tracking">
 
-    If you're using [Dub Partners](https://dub.co/partners) for affiliate management,  you will also need to set up the `domainsConfig.refer` property to enable [client-side click-tracking](/docs/sdks/client-side/features/click-tracking).
+    Set the `domainsConfig.refer` property to the custom domain you use for your short links on Dub. This enables [client-side click-tracking](/docs/sdks/client-side/features/click-tracking).
+
+    <Warning>
+      Don't skip this step. Client-side click tracking helps prevent click ID spoofing, where someone fabricates or reuses a click ID to claim credit for conversions they didn't drive. With client-side click tracking, the Dub Analytics script records each click itself, and Dub only accepts those clicks from the hostnames on your workspace's **Allowed Hostnames** list.
+    </Warning>
 
     ```jsx app/layout.tsx
     import { Analytics as DubAnalytics } from '@dub/analytics/react';
@@ -71,7 +75,7 @@
     }
     ```
 
-    Read the [client-side click-tracking guide](/docs/sdks/client-side/features/click-tracking) for more information.
+    Read the [client-side click-tracking guide](/docs/sdks/client-side/features/click-tracking) for the full setup, including how to add your site's domain to the **Allowed Hostnames** list.
 
   </Step>
 </Steps>
