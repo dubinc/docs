@@ -47,7 +47,11 @@ This guide will walk you through the process of integrating Dub Analytics with G
     </Frame>
 
 
-    If you're using [Dub Partners](https://dub.co/partners) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/docs/sdks/client-side/features/click-tracking).
+    Then, set up [client-side click-tracking](/docs/sdks/client-side/features/click-tracking) by setting the `data-domains` property to the custom domain you use for your short links on Dub.
+
+    <Warning>
+      Don't skip this step. Client-side click tracking helps prevent click ID spoofing, where someone fabricates or reuses a click ID to claim credit for conversions they didn't drive. With client-side click tracking, the Dub Analytics script records each click itself, and Dub only accepts those clicks from the hostnames on your workspace's **Allowed Hostnames** list.
+    </Warning>
 
     ```js
     <script>
