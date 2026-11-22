@@ -397,6 +397,7 @@
                   "docs/api-reference/introduction",
                   "docs/api-reference/authentication",
                   "docs/api-reference/rate-limits",
+                  "docs/api-reference/errors",
                   "docs/mcp-server"
                 ]
               },
