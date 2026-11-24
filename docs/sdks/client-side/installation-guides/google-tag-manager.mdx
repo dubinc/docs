@@ -6,7 +6,7 @@ og:image: https://assets.dub.co/cms/gtm-integration.jpeg
 
 import DubAnalyticsParams from "/snippets/dub-analytics-params.mdx";
 import DubClientInstallVerify from "/snippets/dub-client-install-verify.mdx";
-import ClientSideClickTrackingAddendum from "/snippets/client-side-click-tracking-addendum.mdx";
+import ClickIdSpoofingPreventionTip from "/snippets/click-id-spoofing-prevention-tip.mdx";
 
 This guide will walk you through the process of integrating Dub Analytics with Google Tag Manager (GTM).
 
@@ -47,7 +47,9 @@ This guide will walk you through the process of integrating Dub Analytics with G
     </Frame>
 
 
-    If you're using [Dub Partners](https://dub.co/partners) for affiliate management, you will also need to set up the `data-domains` property to enable [client-side click-tracking](/docs/sdks/client-side/features/click-tracking).
+    Then, set up [client-side click-tracking](/docs/sdks/client-side/features/click-tracking) by setting the `data-domains` property to the custom domain you use for your short links on Dub.
+
+    <ClickIdSpoofingPreventionTip />
 
     ```js
     <script>
