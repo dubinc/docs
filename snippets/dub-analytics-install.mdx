@@ -1,3 +1,5 @@
+import ClickIdSpoofingPreventionTip from "/snippets/click-id-spoofing-prevention-tip.mdx";
+
 <Steps titleSize="h3">
   <Step title="Install package">
     Using the package manager of your choice, add the `@dub/analytics` to your project.
@@ -52,9 +54,7 @@
 
     Set the `domainsConfig.refer` property to the custom domain you use for your short links on Dub. This enables [client-side click-tracking](/docs/sdks/client-side/features/click-tracking).
 
-    <Warning>
-      Don't skip this step. Client-side click tracking helps prevent click ID spoofing, where someone fabricates or reuses a click ID to claim credit for conversions they didn't drive. With client-side click tracking, the Dub Analytics script records each click itself, and Dub only accepts those clicks from the hostnames on your workspace's **Allowed Hostnames** list.
-    </Warning>
+    <ClickIdSpoofingPreventionTip />
 
     ```jsx app/layout.tsx
     import { Analytics as DubAnalytics } from '@dub/analytics/react';
