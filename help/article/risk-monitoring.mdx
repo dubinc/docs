@@ -36,7 +36,33 @@ If the partner is legitimate and has multiple accounts, it's recommended they [m
 
 ### Matching customer email
 
-This partner's email address matches with a customer's email address in your system. This can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards.
+This partner referred a customer whose email is similar to one you've already seen, or shares an email domain with the partner. This can be a sign that one person is signing up more than once, or that the partner is referring their own company.
+
+A customer is flagged when any of these are true:
+
+- Their email is a variant of an earlier customer's email in your program, such as the same inbox with a `+tag` added.
+- Their email domain is the same as the partner's email domain.
+- Their email domain is the same as another customer this partner referred.
+
+Domain matches skip free email providers, such as Gmail or Outlook.
+
+<Note>
+  A customer whose email is the partner's own email is flagged as a
+  [self-referral](#self-referral) instead.
+</Note>
+
+### Self-referral
+
+This partner looks like they referred themselves to earn commissions or rewards. A customer is flagged in two cases:
+
+- **Email match:** The customer's email is the partner's own email. Addresses that reach the same inbox count as a match, so `+tag` variants are treated as the same email, and so are dot variants on Gmail.
+- **IP address match:** The customer clicked the partner's link from an IP address that one of the partner's users signed in to Dub from in the last 90 days.
+
+The review panel shows which of the two matched for each customer.
+
+An IP address match can also come from a shared network, such as an office or a university, so check the customer before you mark the commissions as fraud.
+
+You can choose to [automatically cancel commissions](#automatic-actions) from self-referrals that match by email.
 
 ### Suspicious customer email domain
 
@@ -296,7 +322,7 @@ When adding URLs, you can also use `*` wildcards to match any part of a domain. 
 Some risk rules can take action for you, so you don't have to review each event yourself. When one of these rules is enabled, an additional setting appears below it, which is turned off by default.
 
 - **Network-level ban:** Enable **Automatically ban partners from program** to ban a partner from your program as soon as they're banned from the Dub Partner Network. If the partner has a pending application to your program, they're rejected instead, with the reason "Not the right fit".
-- **Matching customer email:** Enable **Automatically cancel commissions from self-referrals** to cancel commissions when the customer's email exactly matches the partner's email, instead of holding them for review.
+- **Self-referral:** Enable **Automatically cancel commissions from self-referrals** to cancel commissions when the customer's email matches the partner's email, instead of holding them for review. Matches by IP address are always held for review.
 
 <Note>
   Automatic bans only apply to network-level bans that happen after you enable
