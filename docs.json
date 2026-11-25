@@ -375,7 +375,7 @@
                 "pages": [
                   "help/article/how-to-change-default-workspace",
                   "help/article/how-to-change-default-product",
-                  "help/article/managing-active-sessions",
+                  "help/article/account-security",
                   "help/article/how-to-delete-account"
                 ]
               }
@@ -721,6 +721,10 @@
     {
       "source": "/help/article/fraud-detection",
       "destination": "/help/article/risk-monitoring"
+    },
+    {
+      "source": "/help/article/managing-active-sessions",
+      "destination": "/help/article/account-security"
     },
     {
       "source": "/docs/examples",
