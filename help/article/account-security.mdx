@@ -1,13 +1,13 @@
 ---
 title: "Managing your account security"
-description: "Learn how to manage your sign-in methods, set up two-factor authentication, and review the browsers signed in to your Dub account"
+description: "Learn how to manage your sign-in methods, set up multi-factor authentication, and review the browsers signed in to your Dub account"
 sidebarTitle: "Account security"
 ---
 
 The **Security** tab in your account settings is where you control how you sign in to Dub and where your account is signed in. From there, you can:
 
 - [Manage your sign-in methods](#sign-in-methods), such as your password, Google, and GitHub.
-- [Set up two-factor authentication](#two-factor-authentication) to require a code from an authenticator app when you sign in.
+- [Set up multi-factor authentication](#multi-factor-authentication) to require a code from an authenticator app when you sign in.
 - [Review your active sessions](#active-sessions) and sign out of browsers you no longer use.
 
 To open it, navigate to your [account settings](https://app.dub.co/account/settings) on Dub and select the **Security** tab in the sidebar.
@@ -37,8 +37,8 @@ To add Google or GitHub as a sign-in method, click **Connect** next to it and si
 The Google or GitHub account needs to use the same email address as your Dub account, and that email needs to be verified with the provider. An account that's already connected to another Dub user can't be connected.
 
 <Note>
-  If your organization requires [SAML
-  SSO](/help/article/okta-saml), you can't connect Google or GitHub.
+  If your organization requires [SAML SSO](/help/article/okta-saml), you can't
+  connect Google or GitHub.
 </Note>
 
 ### Disconnecting Google or GitHub
@@ -67,36 +67,38 @@ Use the **Password** card, below your sign-in methods:
 - **If you already have a password**, enter your current password and a new password, then click **Update Password**.
 
 <Warning>
-  When you change your password, you're signed out on all your other devices. The browser you're using stays signed in. If you set or reset your password from an emailed link, you're signed out on all devices, including this one.
+  When you change your password, you're signed out on all your other devices.
+  The browser you're using stays signed in. If you set or reset your password
+  from an emailed link, you're signed out on all devices, including this one.
 </Warning>
 
-## Two-factor authentication
+## Multi-factor authentication
 
-Two-factor authentication (2FA) adds a second step when you sign in to Dub. After you sign in as usual, Dub asks for a 6-digit code from an authenticator app on your phone, so someone who only has your password or access to your email can't get into your account.
+Multi-factor authentication (MFA) adds a second step when you sign in to Dub. After you sign in as usual, Dub asks for a 6-digit code from an authenticator app on your phone, so someone who only has your password or access to your email can't get into your account.
 
 You'll need an authenticator app, such as 1Password, Google Authenticator, or Authy.
 
-### Enabling 2FA
+### Enabling MFA
 
-1. In the **Two Factor Authentication** card, click **Enable 2FA**.
+1. In the **Two Factor Authentication** card, click **Enable MFA**.
 
 <Frame>
   <img
-    src="/images/account-security-section-2fa-off.png"
-    alt="Two Factor Authentication card with the Enable 2FA button"
+    src="/images/account-security-section-MFA-off.png"
+    alt="Two Factor Authentication card with the Enable MFA button"
   />
 </Frame>
 
 2. If your account has a password, enter your current password and click **Continue**.
 3. Scan the QR code with your authenticator app. If you can't scan it, enter the key shown below the QR code instead.
-4. Enter the 6-digit code from your authenticator app and click **Enable 2FA**.
+4. Enter the 6-digit code from your authenticator app and click **Enable MFA**.
 5. Save your backup codes, then click **Done**.
 
 The card now shows an **Active** badge.
 
 <Frame>
   <img
-    src="/images/account-security-section-2fa-on.png"
+    src="/images/account-security-section-MFA-on.png"
     alt="Two Factor Authentication card showing the Active badge"
   />
 </Frame>
@@ -106,11 +108,11 @@ The card now shows an **Active** badge.
   **Print** to save them somewhere safe before you close the window.
 </Warning>
 
-When you enable 2FA, you're signed out on all your other devices. The browser you're using stays signed in.
+When you enable MFA, you're signed out on all your other devices. The browser you're using stays signed in.
 
-### Signing in with 2FA
+### Signing in with MFA
 
-Once 2FA is enabled, Dub asks for a code every time you sign in with your password, a login link, Google, or GitHub.
+Once MFA is enabled, Dub asks for a code every time you sign in with your password, a login link, Google, or GitHub.
 
 1. Sign in as you normally would.
 2. Enter the 6-digit code from your authenticator app.
@@ -127,32 +129,32 @@ If you've used most of your backup codes, or you think someone else has seen the
 
 Your old backup codes stop working as soon as the new ones are generated.
 
-### Disabling 2FA
+### Disabling MFA
 
-1. In the **Two Factor Authentication** card, click **Disable 2FA**.
+1. In the **Two Factor Authentication** card, click **Disable MFA**.
 2. If your account has a password, enter your current password. Then click **Continue**.
 
 The card shows an **Off** badge, and you'll no longer be asked for a code when you sign in.
 
 ### What if I lose access to my authenticator app?
 
-Sign in with one of your backup codes, then disable 2FA and enable it again to connect your new device.
+Sign in with one of your backup codes, then disable MFA and enable it again to connect your new device.
 
-If you don't have your backup codes either, [contact our support team](https://dub.co/contact/support). After confirming it's you, we can reset 2FA on your account. A reset turns off 2FA and signs you out on every device, and you can enable 2FA again from the **Security** tab.
+If you don't have your backup codes either, [contact our support team](https://dub.co/contact/support). After confirming it's you, we can reset MFA on your account. A reset turns off MFA and signs you out on every device, and you can enable MFA again from the **Security** tab.
 
-### Checking which teammates have 2FA enabled
+### Checking which teammates have MFA enabled
 
-The **Members** page in your workspace settings has an **Enabled 2FA** column, which shows whether each teammate has turned on 2FA for their Dub account.
+The **Members** page in your workspace settings has an **Enabled MFA** column, which shows whether each teammate has turned on MFA for their Dub account.
 
 <Frame>
   <img
-    src="/images/account-security-2fa-members.png"
-    alt="Enabled 2FA column on the Members page in workspace settings"
+    src="/images/account-security-MFA-members.png"
+    alt="Enabled MFA column on the Members page in workspace settings"
   />
 </Frame>
 
 <Tip>
-  2FA is set per account, not per workspace. Each teammate needs to enable it
+  MFA is set per account, not per workspace. Each teammate needs to enable it
   from their own account settings.
 </Tip>
 
