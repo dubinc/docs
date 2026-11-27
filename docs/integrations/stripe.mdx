@@ -119,7 +119,7 @@ Once the integration is installed, Dub will automatically listen to the followin
 - `charge.dispute.closed`: When a dispute is closed (for refunding or releasing the held commission)
 
 <Note>
-  If you also send sales with [`POST /track/sale`](/docs/api-reference/track/sale), Dub skips a sale with `paymentProcessor: "stripe"` when the Stripe integration recorded the same `invoiceId` in the last 7 days. This keeps the same invoice from being counted twice.
+  If you also send sales with [`POST /track/sale`](/docs/api-reference/track/sale), Dub skips a sale when the Stripe integration recorded the same `invoiceId` in the last 7 days, for any `paymentProcessor`. This keeps the same invoice from being counted twice.
 </Note>
 
 ## Tracking sales with the Dub Stripe integration
