@@ -36,7 +36,13 @@ If the partner is legitimate and has multiple accounts, it's recommended they [m
 
 ### Matching customer email
 
-This partner's email address matches with a customer's email address in your system. This can be a sign of self-referral, which is when a partner refers themselves to earn commissions or rewards.
+This partner referred a customer whose email address closely resembles another email address in your program. This can be a sign of duplicate sign-ups or of a partner referring people they're closely connected to.
+
+### Self-referral
+
+This partner appears to have referred themselves to earn commissions or rewards. This is flagged when a customer's email matches the partner's email, or when the customer clicked from an IP address the partner's users have signed in from.
+
+You can also choose to [automatically cancel commissions](#automatic-actions) from self-referrals.
 
 ### Suspicious customer email domain
 
@@ -296,7 +302,7 @@ When adding URLs, you can also use `*` wildcards to match any part of a domain. 
 Some risk rules can take action for you, so you don't have to review each event yourself. When one of these rules is enabled, an additional setting appears below it, which is turned off by default.
 
 - **Network-level ban:** Enable **Automatically ban partners from program** to ban a partner from your program as soon as they're banned from the Dub Partner Network. If the partner has a pending application to your program, they're rejected instead, with the reason "Not the right fit".
-- **Matching customer email:** Enable **Automatically cancel commissions from self-referrals** to cancel commissions when the customer's email exactly matches the partner's email, instead of holding them for review.
+- **Self-referral:** Enable **Automatically cancel commissions from self-referrals** to cancel commissions when the customer's email matches the partner's email, instead of holding them for review. Matches by IP address are always held for review.
 
 <Note>
   Automatic bans only apply to network-level bans that happen after you enable

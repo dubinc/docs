@@ -183,16 +183,23 @@ If your client runs somewhere a browser login isn't possible (a server, CI, or a
 
 ### Managing connections
 
-Each time someone in your workspace connects an MCP client using OAuth, Dub creates a connection for that user and client. You can review and revoke these connections from the Dub MCP integration page in your [workspace integration settings](https://app.dub.co/settings/integrations).
+Each MCP client that a member connects to your workspace using OAuth gets its own connection. You can review and revoke these connections from the Dub MCP integration page in your [workspace integration settings](https://app.dub.co/settings/integrations).
 
-The **Connections** card lists every OAuth connection to the Dub MCP server, including:
+<Frame>
+  <img
+    src="/images/mcp-server-connections.png"
+    alt="The Connections table on the Dub MCP integration page, listing each member's connected MCP client with its access level, last used time, and a Revoke button"
+  />
+</Frame>
 
-- **User** – the workspace member who authorized the connection
-- **Client** – the MCP client that was connected (e.g. Claude, ChatGPT, Cursor)
-- **Dates** – when the connection was created
-- **Scopes** – the permissions granted to the client
+The **Connections** table has one row per connection, showing:
 
-To remove a connection, click **Revoke** next to it. The client immediately loses access to your workspace and has to go through the OAuth flow again to reconnect.
+- **Member** – the workspace member who authorized the connection, and the date they connected
+- **Client** – the MCP client that was connected (e.g. Claude, Cursor, ChatGPT). Clients that Dub doesn't recognize appear as **Unknown client**
+- **Access** – the permissions granted to the client, either **Read & write** or **Read only**. Hover over the label to see the exact scopes the client was granted
+- **Last used** – when the client last made a request to your workspace, or **Never used** if it hasn't made one yet
+
+To remove a connection, click **Revoke** on its row. This signs that client out: it immediately loses access to your workspace and has to go through the OAuth flow again to reconnect. Other connections, including the same member's other clients, are not affected.
 
 Who can revoke a connection depends on your workspace role:
 
@@ -200,7 +207,7 @@ Who can revoke a connection depends on your workspace role:
 - **Members** can only revoke their own connections
 
 <Note>
-  The Connections card only lists OAuth connections. If a client authenticates
+  The Connections table only lists OAuth connections. If a client authenticates
   with the `Mcp-Dub-Token` header, revoke its access by deleting the [API
   key](/docs/api-reference/authentication#api-keys) instead.
 </Note>

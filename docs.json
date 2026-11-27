@@ -375,6 +375,7 @@
                 "pages": [
                   "help/article/how-to-change-default-workspace",
                   "help/article/how-to-change-default-product",
+                  "help/article/account-security",
                   "help/article/how-to-delete-account"
                 ]
               }
@@ -464,9 +465,16 @@
                     "pages": [
                       "docs/api-reference/partners/create",
                       "docs/api-reference/partners/list",
+                      "docs/api-reference/partners/update-group",
+                      "docs/api-reference/partners/update-tags",
                       "docs/api-reference/partners/ban",
                       "docs/api-reference/partners/deactivate",
-                      "docs/api-reference/partners/attribute-referring-partner",
+                      "docs/api-reference/partners/attribute-referring-partner"
+                    ]
+                  },
+                  {
+                    "group": "Partner links",
+                    "pages": [
                       "docs/api-reference/partners/create-link",
                       "docs/api-reference/partners/upsert-link",
                       "docs/api-reference/partners/retrieve-links"
@@ -713,6 +721,10 @@
     {
       "source": "/help/article/fraud-detection",
       "destination": "/help/article/risk-monitoring"
+    },
+    {
+      "source": "/help/article/managing-active-sessions",
+      "destination": "/help/article/account-security"
     },
     {
       "source": "/docs/examples",

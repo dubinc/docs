@@ -1,6 +1,6 @@
 ---
 title: "Configuring referral links for your partner groups"
-description: "Learn how set default referral links, additional links, and UTM parameters for each partner group in your Dub partner program"
+description: "Learn how set default referral links, additional links, UTM parameters, and link previews for each partner group in your Dub partner program"
 sidebarTitle: "Partner referral link settings"
 ---
 
@@ -59,12 +59,14 @@ You can also let your partners create their own links beyond the defaults:
 For your additional partner links, you can specify the following:
 
 - **Link limit**: the maximum number of links partners can create
-- **Link domains**: the domains that your partner's links must match (either any page on that domain, or the homepage only)
+- **Link formats**: the destination URLs that your partner's links must match. Each link format is one of two types:
+  - **Any URL** (recommended): allows links to any page on the domain you enter.
+  - **Single URL**: restricts links to one specific page only.
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/adding-link-domain.png"
-    alt="Adding link domain"
+    src="/images/dub-partners/adding-link-domain.png"
+    alt="Add link format modal"
   />
 </Frame>
 
@@ -75,12 +77,12 @@ For your additional partner links, you can specify the following:
 
 ## Link settings
 
-Define the link structure and UTM parameters for all partners in the group.
+Define the link structure, UTM parameters, and link preview for all partners in the group.
 
 <Frame>
   <img
-    src="https://assets.dub.co/cms/link-settings.png"
-    alt="Adding link domain"
+    src="/images/dub-partners/link-settings.png"
+    alt="Link settings for a partner group, with link structure, UTM parameters, and link preview"
   />
 </Frame>
 
@@ -124,7 +126,9 @@ A clean, branded short link that’s easy to remember and perfect for sharing in
 
 Appends the partner name as a query string on your destination URL. Ideal for users who are [migrating from Rewardful](/help/article/migrating-from-rewardful) and want to maintain backwards compatibility for existing partner links.
 
-Query parameter links do not carry UTM parameters. Because the partner key is already appended as a query string on your destination URL, group UTM settings are not applied with this link structure. Use [**Short Links**](/help/article/partner-link-settings#option-1-short-links) if you want default UTM tags on partner referral links.
+Query parameter links do not carry UTM parameters. Because the partner key is already appended as a query string on your destination URL, group UTM settings are not applied with this link structure. Use [**Short Links**](/help/article/partner-link-settings#short-link) if you want default UTM tags on partner referral links.
+
+The same applies to [link previews](#link-preview): the **Link preview** section is hidden when **Query Parameter** is selected.
 
 ### UTM parameters
 
@@ -139,7 +143,7 @@ You can set a value for any of the following parameters:, Source, Medium, Campai
 When you update a group's [UTM template](/help/article/how-to-create-utm-templates), all partner links in the
 group are refreshed and overwritten with the new UTM tags.
 
-These settings only apply when the group uses the [**Short Links** structure](/help/article/partner-link-settings#option-1-short-links). They are not applied when [**Query Parameter**](/help/article/partner-link-settings#option-2-query-parameter) is selected.
+These settings only apply when the group uses the [**Short Links** structure](/help/article/partner-link-settings#short-link). They are not applied when [**Query Parameter**](/help/article/partner-link-settings#query-parameter) is selected.
 
 #### Dynamic values
 
@@ -159,6 +163,47 @@ The following dynamic values are supported:
 To use a dynamic value, type it into any of the UTM fields above. As you type `{{` in a field, Dub will suggest the available dynamic values so you can pick one without typing it out in full.
 
 Dynamic values can also be combined with static text in the same field. For example, if you input `partner-{{PARTNER_NAME}}` as the UTM source, the link would track as `acme.com/partern-link?utm_source=partner-steven`.
+
+### Link preview
+
+Set one [custom link preview](/help/article/custom-link-previews) for every partner link in the group. The preview is the image, title, and description that show up when a partner shares their link on social media.
+
+To set a group link preview:
+
+1. In the **Link preview** section, turn on **Enable custom link previews**.
+
+<Frame>
+  <img
+    src="/images/dub-partners/link-settings-link-preview-empty.png"
+    alt="Link preview section with Enable custom link previews turned on"
+  />
+</Frame>
+
+2. Upload an **Image**. The recommended size is 1200 x 630 pixels, and the file can be up to 2MB.
+3. Enter a **Title** (max 120 characters).
+4. Optionally, enter a **Description** (max 240 characters).
+5. Click **Save changes**, then confirm in the prompt.
+
+<Frame>
+  <img
+    src="/images/dub-partners/link-settings-link-preview-filled.png"
+    alt="Link preview section with an image, title, and description filled in"
+  />
+</Frame>
+
+**Link preview behavior**
+
+- **When you save a group link preview**, it's applied to every partner link in the group, and to any links created for the group's partners later.
+- **When a partner link already has its own preview**, the group preview replaces it.
+- **When you turn the group link preview off**, the previews that came from the group are removed from its partner links.
+
+<Warning>
+  Saving a group link preview overwrites any link-level preview on the partner
+  links in that group. The link-level previews can't be restored by turning the
+  group preview off.
+</Warning>
+
+Like UTM parameters, the group link preview only applies when the group uses the [**Short Links** structure](/help/article/partner-link-settings#short-link).
 
 ## Changing your referral link domain
 
@@ -187,7 +232,7 @@ As mentioned earlier, a partner's link settings are tied to the [partner group](
 
 ### Moving partners to a group
 
-When a partner is moved to a new group, their links automatically update to match the new group’s defaults and UTM parameters.
+When a partner is moved to a new group, their links automatically update to match the new group’s defaults, UTM parameters, and link preview. If the new group has no link preview, the previous group's preview is removed from their links.
 
 <Info>
   **Why would you move partners?**

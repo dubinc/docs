@@ -132,7 +132,13 @@ Once selected, the following actions appear at the top of the table:
 | Deactivate   | Disable all active links for the selected partners. Their commissions and payouts stay intact                     |
 | Ban          | Disable all active links and cancel all pending payouts for the selected partners                                 |
 
-**Archive**, **Deactivate**, and **Ban** are in the `⋮` menu next to **Update tags**. This menu is only shown when you're viewing approved partners. These actions also require every selected partner to be `approved` or `archived`.
+**Archive**, **Deactivate**, and **Ban** are in the `⋮` menu next to **Update tags**. This menu is shown on every status tab except banned and archived. Each action is available only when every selected partner has an allowed status:
+
+| Action     | Allowed partner statuses              |
+| ---------- | ------------------------------------- |
+| Archive    | `approved`                            |
+| Deactivate | `approved`, `archived`                |
+| Ban        | `approved`, `archived`, `deactivated` |
 
 <Frame>
   <img

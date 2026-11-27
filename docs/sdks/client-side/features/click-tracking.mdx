@@ -3,6 +3,7 @@ title: Client-side click tracking
 description: Track clicks on the client-side using query parameters
 ---
 
+import ClickIdSpoofingPreventionTip from "/snippets/click-id-spoofing-prevention-tip.mdx";
 import DubAnalyticsParams from "/snippets/dub-analytics-params-react.mdx";
 import VerifyTrackClick from "/snippets/verify-track-click.mdx";
 import FetchPartnerDiscountData from "/snippets/fetch-partner-discount-data.mdx";
@@ -15,6 +16,10 @@ A few use cases include:
 - You are migrating from an existing affiliate management platform (e.g. [Rewardful](/help/article/migrating-from-rewardful)) that uses query parameters to track conversions.
 - You are running an ad on a platform like Google/Reddit that requires you to use your main site domain for the URL (no short links allowed) – so instead of using a short link, you can use a query parameter to track clicks.
 - You have dynamically generated referral pages (e.g. [Tesla](https://www.tesla.com/referral/peeroke520149)) and want to track clicks [using a `trackClick()` function](#manually-tracking-clicks-with-the-trackclick-function) inside your application code.
+
+<ClickIdSpoofingPreventionTip />
+
+Follow the quickstart below to set it up.
 
 ## Quickstart
 
