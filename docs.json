@@ -195,7 +195,8 @@
                 "pages": [
                   "help/article/program-bounties",
                   "help/article/email-campaigns",
-                  "help/article/messaging-partners"
+                  "help/article/messaging-partners",
+                  "help/article/submitted-leads"
                 ]
               },
               {
@@ -430,16 +431,17 @@
                           "docs/sdks/client-side/installation-guides/shopify"
                         ]
                       },
+                      "docs/sdks/client-side/variants",
                       {
                         "group": "Features",
                         "pages": [
                           "docs/sdks/client-side/features/click-tracking",
                           "docs/sdks/client-side/features/conversion-tracking",
                           "docs/sdks/client-side/features/cross-domain-tracking",
-                          "docs/sdks/client-side/features/reverse-proxy-support"
+                          "docs/sdks/client-side/features/reverse-proxy-support",
+                          "docs/sdks/client-side/features/identity-tracking"
                         ]
-                      },
-                      "docs/sdks/client-side/variants"
+                      }
                     ]
                   },
                   {

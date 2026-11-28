@@ -1,9 +1,6 @@
 ---
 title: Reverse-proxy support
-description: Load the Dub Analytics script and send tracking requests through a reverse proxy
 ---
-
-## Setting up a reverse proxy
 
 To avoid ad-blockers from blocking the Dub Analytics script and its tracking requests, we recommend setting up a reverse proxy.
 
@@ -16,10 +13,12 @@ Depending on which backend framework you're using, there are a few different way
 module.exports = {
   async rewrites() {
     return [
+      // for client-side tracking requests
       {
         source: "/_proxy/dub/track/:path*",
         destination: "https://api.dub.co/track/:path*",
       },
+      // for the script files
       {
         source: "/_proxy/dub/:path*",
         destination: "https://www.dubcdn.com/analytics/:path*",
@@ -33,10 +32,12 @@ module.exports = {
 // vercel.json
 {
   "rewrites": [
+    // for client-side tracking requests
     {
       "source": "/_proxy/dub/track/:path*",
       "destination": "https://api.dub.co/track/:path*"
     },
+    // for the script files
     {
       "source": "/_proxy/dub/:path*",
       "destination": "https://www.dubcdn.com/analytics/:path*"
