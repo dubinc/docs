@@ -53,7 +53,7 @@ Here's how you can set up identity tracking with the Dub Analytics script:
 
 </CodeGroup>
 
-If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you, unless you set `scriptProps.src`.
+If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](/docs/sdks/client-side/variants#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you, unless you set `scriptProps.src`.
 
 <Tip>
   We recommend loading the script through a [reverse

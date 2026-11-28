@@ -32,12 +32,10 @@ module.exports = {
 // vercel.json
 {
   "rewrites": [
-    // for client-side tracking requests
     {
       "source": "/_proxy/dub/track/:path*",
       "destination": "https://api.dub.co/track/:path*"
     },
-    // for the script files
     {
       "source": "/_proxy/dub/:path*",
       "destination": "https://www.dubcdn.com/analytics/:path*"
