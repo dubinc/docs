@@ -22,7 +22,7 @@ The [identity variant](/docs/sdks/client-side/variants#identity-variant-script-i
 
 ## How identity tracking works
 
-Identity tracking only runs for partner clicks, when the click ID in the `dub_partner_data` cookie matches the `dub_id` cookie. Other clicks, like ad clicks, are skipped.
+Identity tracking only runs for partner clicks, when the click ID in the `dub_partner_data` cookie matches the `dub_id` cookie. Other clicks that come from non-partner links are skipped.
 
 It runs once per click, on the first page load and on client-side navigation to a matching path. A path matches exactly, and a trailing `/*` also matches everything under the path (for example, `/checkout/*`).
 
