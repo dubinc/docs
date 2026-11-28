@@ -1,0 +1,84 @@
+---
+title: Identity tracking for partner risk monitoring
+sidebarTitle: Identity tracking
+tag: "Beta"
+---
+
+<Note>
+  Identity tracking is currently only available for select [Dub
+  Enterprise](https://dub.co/enterprise) customers. [Reach
+  out](https://dub.co/contact/sales) if you'd like access.
+</Note>
+
+The Dub Analytics script also supports [identity tracking](/docs/sdks/client-side/features/identity-tracking) for partner [risk monitoring](/help/article/risk-monitoring).
+
+The [identity variant](/docs/sdks/client-side/variants#identity-variant-script-identity-js) of the script identifies the visitor's device on the paths you configure, and links it to the corresponding partner click, to help you monitor your partner-driven traffic for fraud and abuse.
+
+## Prerequisites
+
+1. You've [set up a partner program](/help/article/setting-up-your-program) on Dub.
+2. You've enabled [client-side click tracking](/docs/sdks/client-side/features/click-tracking) on your site.
+3. You've enabled [risk monitoring](/help/article/risk-monitoring) in your partner program.
+
+## How identity tracking works
+
+Identity tracking only runs for partner clicks, when the click ID in the `dub_partner_data` cookie matches the `dub_id` cookie. Other clicks that come from non-partner links are skipped.
+
+It runs once per click, on the first page load and on client-side navigation to a matching path. A path matches exactly, and a trailing `/*` also matches everything under the path (for example, `/checkout/*`).
+
+After identifying, the script appends the device's visitor ID to the `dub_id` cookie (`<clickId>_<visitorId>`). Lead and sale tracking send the full value, so pass the cookie as is when you track conversions from your server too. If identification fails, `dub_id` keeps its original value and conversions are still attributed to the partner.
+
+## Setting up identity tracking
+
+Here's how you can set up identity tracking with the Dub Analytics script:
+
+<CodeGroup>
+
+```html HTML
+<script
+  src="https://www.dubcdn.com/analytics/script.identity.js"
+  data-domains='{"refer": "go.example.com"}'
+  data-track-identity-paths='["/signup", "/checkout/*"]'
+></script>
+```
+
+```typescript React/Next.js
+// the DubAnalytics component automatically detects the `trackIdentityPaths` prop
+// and applies the identity script variant for you
+<DubAnalytics
+  domainsConfig={{ refer: "go.example.com" }}
+  trackIdentityPaths={["/signup", "/checkout/*"]}
+/>
+```
+
+</CodeGroup>
+
+If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](/docs/sdks/client-side/variants#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you, unless you set `scriptProps.src`.
+
+<Tip>
+  We recommend loading the script through a [reverse
+  proxy](/docs/sdks/client-side/features/reverse-proxy-support), so ad-blockers
+  don't stop identification.
+</Tip>
+
+## Identifying visitors conditionally
+
+If you want to conditionally identify visitors instead, set the paths to an empty list (`trackIdentityPaths={[]}` or `data-track-identity-paths='[]'`) and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself.
+
+Identification takes a few seconds. If a button on the page sends the visitor to another site right away, like "Sign in with Google", the visitor can leave before it finishes. Wait for `trackIdentity()` before the redirect, with a time limit so sign-in never waits long:
+
+```typescript React/Next.js
+const { trackIdentity } = useAnalytics();
+
+async function signInWithGoogle() {
+  // wait up to 5 seconds for identification
+  await Promise.race([
+    trackIdentity(),
+    new Promise((resolve) => setTimeout(resolve, 5000)),
+  ]);
+
+  signIn("google");
+}
+```
+
+With the script tag, call `dubAnalytics.trackIdentity()` the same way. It returns right away when there is nothing to identify, so other visitors don't wait.

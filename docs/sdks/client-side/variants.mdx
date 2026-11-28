@@ -31,7 +31,7 @@ The base variant of the script is the most lightweight variant of the script. It
 
 - Detecting the `dub_id` query parameter and storing it as a first-party cookie.
 - Tracking [client-side click events for referral programs](/docs/sdks/client-side/features/click-tracking).
-- Setting [custom cookie window](/docs/sdks/client-side/introduction#custom-cookie-window) and [attribution models](/docs/sdks/client-side/introduction#param-data-attribution-model)
+- Setting [custom cookie window](/docs/sdks/client-side/introduction#param-expires-in-days) and [attribution models](/docs/sdks/client-side/introduction#param-data-attribution-model)
 
 Here's how you can use the base variant:
 
@@ -101,16 +101,7 @@ Here's how you can use the outbound domains variant:
 
 ### Identity Variant (`script.identity.js`)
 
-<Note>
-  Identity tracking is currently only available for select Dub workspaces.
-  [Reach out](https://dub.co/contact/support) if you'd like access.
-</Note>
-
-The identity variant of the script identifies the visitor's device on the paths you configure, and links it to their partner click for partner [risk monitoring](/help/article/risk-monitoring).
-
-It only runs for partner clicks tracked on the client, with the `?via=` query parameter or the one you set with `data-query-param` (`queryParam` in React), so you also need to set the `refer` domain. It runs once per click, on the first page load and on client-side navigation to a matching path. A path matches exactly, and a trailing `/*` also matches everything under the path (for example, `/checkout/*`).
-
-After identifying, the script appends the device's visitor ID to the `dub_id` cookie (`<clickId>_<visitorId>`). Lead and sale tracking send the full value, so pass the cookie as is when you track conversions from your server too.
+The identity variant of the script is a variant of the script that supports [identity tracking](/docs/sdks/client-side/features/identity-tracking) for partner [risk monitoring](/help/article/risk-monitoring).
 
 Here's how you can use the identity variant:
 
@@ -135,11 +126,7 @@ Here's how you can use the identity variant:
 
 </CodeGroup>
 
-If you also track conversions on the client, don't replace your conversion tracking script with `script.identity.js`, or `trackLead` and `trackSale` stop working. Use the [combined variant](#combined-variant) `script.conversion-tracking.identity.js` with your existing `data-publishable-key`, plus any other variants you use. The `DubAnalytics` component picks the combined variant for you, unless you set `scriptProps.src`.
-
-We recommend loading the script through a [reverse proxy](/docs/sdks/client-side/features/reverse-proxy-support), so ad-blockers don't stop identification.
-
-To identify conditionally instead, set the paths to an empty list (`trackIdentityPaths={[]}` or `data-track-identity-paths='[]'`) and call `dubAnalytics.trackIdentity()` (or `trackIdentity` from `useAnalytics()`) yourself. Where the law requires consent for device fingerprinting, call it only after the visitor gives consent.
+Learn more about setting up identity tracking [here](/docs/sdks/client-side/features/identity-tracking).
 
 ### Combined Variant
 

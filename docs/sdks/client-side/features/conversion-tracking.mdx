@@ -1,42 +1,20 @@
 ---
 title: Client-side conversion tracking
-sidebarTitle: Conversion tracking
-description: Learn how to use the Dub Analytics script to track conversion events on the client-side
 ---
 
+import ClientSideTrackingWarning from "/snippets/client-side-tracking-warning.mdx";
 import EnableConversionTracking from "/snippets/enable-conversion-tracking.mdx";
 import ClientSideTrackingInstall from "/snippets/client-side-tracking-install.mdx";
 import ClientSideLeadTracking from "/snippets/client-side-lead-tracking.mdx";
 import ClientSideSaleTracking from "/snippets/client-side-sale-tracking.mdx";
 
-Dub Analytics is a client-side script for [tracking conversion events](/docs/concepts/attribution) with Dub.
+Another feature of the Dub Analytics script is the ability to [track conversion events on the client-side](/docs/quickstart/client).
 
-By default, the script handles the detection of the `dub_id` query parameter and storing it as a first-party cookie:
+This is useful for cases where you don't have access to your server-side code, such as when you're using a third-party service like [Google Tag Manager](/docs/integrations/google-tag-manager).
 
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-click-event.png"
-    alt="A diagram showing how click events are tracked in the conversion funnel"
-  />
-</Frame>
+In this guide, we'll learn how to set up client-side conversion tracking with the Dub Analytics script.
 
-Then, when a conversion event occurs (e.g. a user signs up for an account), you can check for the `dub_id` cookie and attribute the conversion to the original click by [tracking a lead event](/docs/quickstart/server#tracking-lead-events).
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-lead-event.png"
-    alt="A diagram showing how lead events are tracked in the conversion funnel"
-  />
-</Frame>
-
-Finally, when the user completes a purchase (e.g. subscribing to a plan, purchasing a product, etc.), you can [track a sale event](/docs/quickstart/server#tracking-sale-events). Under the hood, Dub will automatically attribute the sale to the original link click.
-
-<Frame>
-  <img
-    src="https://assets.dub.co/help/conversion-sale-event.png"
-    alt="A diagram showing how sale events are tracked in the conversion funnel"
-  />
-</Frame>
+<ClientSideTrackingWarning />
 
 ## Quickstart
 
